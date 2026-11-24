@@ -10,6 +10,7 @@ import (
 
 	"github.com/vasic-digital/job_seeker/internal/ext"
 	"github.com/vasic-digital/job_seeker/internal/ext/ats/parsersim"
+	"github.com/vasic-digital/job_seeker/internal/ext/ats/profile"
 	"github.com/vasic-digital/job_seeker/internal/ext/channel/mailto"
 	"github.com/vasic-digital/job_seeker/internal/ext/channel/openurl"
 	"github.com/vasic-digital/job_seeker/internal/ext/eligibility"
@@ -25,6 +26,9 @@ type Set struct {
 	Readers     *ext.Registry[ext.StandardReader]
 	Channels    *ext.Registry[ext.ApplicationChannel]
 	Simulators  *ext.Registry[ext.ParserSimulator]
+	ATS         *ext.Registry[ext.ATSProfile]
+	// Profiles are the loaded rules/ats files in id order (nil until LoadATS).
+	Profiles []*profile.Profile
 }
 
 // New registers all first-party plugins and freezes the registries. A duplicate or incomplete registration
@@ -36,6 +40,7 @@ func New() (*Set, error) {
 		Readers:     ext.NewRegistry[ext.StandardReader]("standard_reader"),
 		Channels:    ext.NewRegistry[ext.ApplicationChannel]("channel"),
 		Simulators:  ext.NewRegistry[ext.ParserSimulator]("parser_simulator"),
+		ATS:         ext.NewRegistry[ext.ATSProfile]("ats_profile"),
 	}
 	s.Channels.Vet = ext.ChannelVet
 	var errs []error
@@ -67,7 +72,7 @@ func New() (*Set, error) {
 
 // All lists the registries in a fixed order.
 func (s *Set) All() []ext.Discoverable {
-	return []ext.Discoverable{s.Eligibility, s.Score, s.Readers, s.Channels, s.Simulators}
+	return []ext.Discoverable{s.Eligibility, s.Score, s.Readers, s.Channels, s.Simulators, s.ATS}
 }
 
 // Catalog describes what policy and settings may name. A port is a gate port (needs an active plugin) only
@@ -84,6 +89,9 @@ func (s *Set) Catalog() ext.Catalog {
 			c.Plugins[string(d.Kind())+"/"+i.ID] = true
 		}
 	}
+	for _, id := range s.ATS.IDs() {
+		c.ATS[id] = true
+	}
 	if len(s.Eligibility.IDs()) > 0 {
 		c.GatePorts = append(c.GatePorts, "eligibility")
 	}
@@ -92,6 +100,28 @@ func (s *Set) Catalog() ext.Catalog {
 		c.Providers[p.Name()] = true
 	}
 	return c
+}
+
+// LoadATS registers the per-ATS data profiles from <rulesDir>/ats (JSK-T237) and freezes that registry. Without
+// this call the ATS registry stays empty and no scope may name an ATS. An invalid profile is an error.
+func (s *Set) LoadATS(rulesDir string) error {
+	dir := filepath.Join(rulesDir, "ats")
+	if _, err := os.Stat(dir); os.IsNotExist(err) {
+		s.ATS.Freeze() // no profile directory: the registry stays empty and no scope can name an ATS
+		return nil
+	}
+	ps, err := profile.LoadDir(dir)
+	if err != nil {
+		return err
+	}
+	for _, p := range ps {
+		if err := s.ATS.Register(p); err != nil {
+			return fmt.Errorf("builtin: %w", err)
+		}
+	}
+	s.ATS.Freeze()
+	s.Profiles = ps
+	return nil
 }
 
 // Listing is the discovery document served by GET /api/ext and `jsctl ext list`: ids, versions, specs and

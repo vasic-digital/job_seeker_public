@@ -54,20 +54,20 @@ no marker is printed as `see <file>` or `UNDETERMINED`; none is guessed. Reading
 No copyleft-strong (GPL/AGPL) licence was detected among them. The one MPL-2.0 file-level-copyleft
 module, if listed above, is used unmodified.
 
-## Git submodules (`.gitmodules`)
+## Own-org dependencies (`helix-deps.yaml`, resolved by `scripts/resolve_deps.sh`; not git submodules)
 
 | Path | Upstream | Licence |
 |---|---|---|
-| `submodules/containers` | `vasic-digital/containers` | first-party (same Owner); no LICENSE file was found in the checkout inspected - UNDETERMINED, to be settled by the Owner |
-| `submodules/challenges` | `vasic-digital/challenges` | first-party (same Owner); no LICENSE file found - UNDETERMINED |
-| `submodules/security` | `vasic-digital/security` | first-party (same Owner); no LICENSE file found - UNDETERMINED |
-| `submodules/qa` | `vasic-digital/HelixQA` | Apache-2.0 (LICENSE file present, text read) |
+| `containers` | `vasic-digital/containers` | first-party (same Owner); no LICENSE file was found in the checkout inspected - UNDETERMINED, to be settled by the Owner |
+| `challenges` | `vasic-digital/challenges` | first-party (same Owner); no LICENSE file found - UNDETERMINED |
+| `security` | `vasic-digital/security` | first-party (same Owner); no LICENSE file found - UNDETERMINED |
+| `qa` | `vasic-digital/HelixQA` | Apache-2.0 (LICENSE file present, text read) |
 
-The submodules were not initialised in the worktree this file was produced from; their licence files
+The dependencies were not checked out in the worktree this file was produced from; their licence files
 were read from the sibling checkouts on the author's machine, which may sit at a different pin.
 `tools/containers` and `tools/challenges` are separate Go modules that depend on the first two; their
-transitive Go dependencies were NOT enumerated here (the submodules they `replace` were absent) and are
-UNDETERMINED until `scripts/gen_third_party_notices.py` is run inside each with the submodules initialised.
+transitive Go dependencies were NOT enumerated here (the dependencies they `replace` were absent) and are
+UNDETERMINED until `scripts/gen_third_party_notices.py` is run inside each with the dependencies resolved.
 
 ## Other third-party software
 

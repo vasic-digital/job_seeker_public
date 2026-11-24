@@ -18,6 +18,7 @@ import (
 
 	"github.com/vasic-digital/job_seeker/internal/audit"
 	"github.com/vasic-digital/job_seeker/internal/crypto"
+	"github.com/vasic-digital/job_seeker/internal/ext"
 	"github.com/vasic-digital/job_seeker/internal/match"
 	"github.com/vasic-digital/job_seeker/internal/store"
 	"github.com/vasic-digital/job_seeker/internal/templates"
@@ -498,6 +499,9 @@ type ApproveInput struct {
 type Approval struct {
 	State     string // dry_run_recorded or live_approved
 	WouldSend []byte // the would_send payload (dry-run only; never sent anywhere)
+	// Token is the channel-facing approval record (JSK-T229, FR-098, SC-033). It is minted here and nowhere else, for a
+	// live approval only; it is the zero (invalid) value for a dry-run or a refused approval.
+	Token ext.Approved
 }
 
 func (s *Service) stepUpFresh(t time.Time) bool {
@@ -581,6 +585,8 @@ func (s *Service) Approve(ctx context.Context, in ApproveInput) (Approval, error
 		res = Approval{State: to}
 		if !in.Live {
 			res.WouldSend = payload
+		} else if res.Token, err = mintToken(a, p, in.Actor); err != nil {
+			return err // fail closed: no token means no approval; the whole transaction rolls back
 		}
 		return nil
 	})

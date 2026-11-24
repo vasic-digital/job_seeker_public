@@ -12,6 +12,7 @@ import (
 	"github.com/vasic-digital/job_seeker/internal/audit"
 	"github.com/vasic-digital/job_seeker/internal/fsm"
 	"github.com/vasic-digital/job_seeker/internal/limiter"
+	"github.com/vasic-digital/job_seeker/internal/position"
 )
 
 // Retention holds the C9 defaults; zero fields select them (postings 90 d after the last state change,
@@ -69,6 +70,9 @@ func (r *Runner) Prune(ctx context.Context, actor string, rt Retention) (PruneRe
 		}
 		n2, _ := r2.RowsAffected()
 		res.Expired, res.Postings = int(n1), int(n2)
+		if _, _, err := position.PruneOrphans(ctx, tx); err != nil {
+			return err
+		}
 		if _, err := tx.ExecContext(ctx, `INSERT INTO tombstone(kind, count, ts) VALUES ('retention_prune', ?, ?)`, res.Postings+res.Expired, limiter.Format(now)); err != nil {
 			return err
 		}
@@ -115,6 +119,9 @@ func (r *Runner) PurgeSource(ctx context.Context, provider, actor string) (Prune
 		}
 		n, _ := d.RowsAffected()
 		res.Postings = int(n)
+		if _, _, err := position.PruneOrphans(ctx, tx); err != nil {
+			return err
+		}
 		if _, err := tx.ExecContext(ctx, `INSERT INTO tombstone(kind, count, ts) VALUES ('purge_source', ?, ?)`, res.Postings, limiter.Format(r.now())); err != nil {
 			return err
 		}

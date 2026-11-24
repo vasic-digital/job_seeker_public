@@ -1,0 +1,4 @@
+M1 dir always ltr: failing tests=3
+M2 ignore persisted language: failing tests=1
+M3 accept unshipped selection: failing tests=1
+M4 drop wanted notice: failing tests=1

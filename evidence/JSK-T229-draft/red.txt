@@ -1,0 +1,8 @@
+# github.com/vasic-digital/job_seeker/internal/draft [github.com/vasic-digital/job_seeker/internal/draft.test]
+internal/draft/token_test.go:19:10: res.Token undefined (type Approval has no field or method Token)
+internal/draft/token_test.go:26:9: res.Token undefined (type Approval has no field or method Token)
+internal/draft/token_test.go:27:68: res.Token undefined (type Approval has no field or method Token)
+internal/draft/token_test.go:36:23: res.Token undefined (type Approval has no field or method Token)
+internal/draft/token_test.go:42:23: res.Token undefined (type Approval has no field or method Token)
+FAIL	github.com/vasic-digital/job_seeker/internal/draft [build failed]
+FAIL

@@ -205,6 +205,11 @@ func Run(ctx context.Context, o Options) int {
 	if err != nil {
 		return fail(o.Err, "extensions: registration failed")
 	}
+	if cfg.RulesDir != "" {
+		if err := xs.LoadATS(cfg.RulesDir); err != nil { // per-ATS profiles are data (FR-099); an invalid one aborts start-up
+			return fail(o.Err, "extensions: ats profiles invalid")
+		}
+	}
 	handler := api.New(api.Deps{
 		Build: buildinfo.Get(), AllowedHosts: cfg.AllowedHosts, Origins: cfg.Origins,
 		Ready: []api.ReadyCheck{

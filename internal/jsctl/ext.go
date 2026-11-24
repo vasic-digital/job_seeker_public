@@ -36,6 +36,10 @@ func extCmd(args []string, e Env) (rc int, handled bool) {
 			fmt.Fprintln(e.Err, "policy check: no rules directory (set JOBSEEKER_RULES_DIR or --rules); cannot determine")
 			return 2, true
 		}
+		if err := set.LoadATS(*dir); err != nil {
+			fmt.Fprintln(e.Err, err)
+			return 1, true
+		}
 		cat := set.Catalog()
 		p, err := builtin.LoadPolicyFile(*dir, cat)
 		if err != nil {

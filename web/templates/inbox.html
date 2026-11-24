@@ -4,7 +4,7 @@
   <h2 id="due-h" class="console-h2">{{t .Lang "due.title"}}</h2>
   <table class="od-table"><caption class="od-visually-hidden">{{t .Lang "due.caption"}}</caption>
   <thead><tr><th scope="col">{{t .Lang "col.title"}}</th><th scope="col">{{t .Lang "col.company"}}</th><th scope="col">{{t .Lang "due.status"}}</th><th scope="col">{{t .Lang "col.followup"}}</th></tr></thead>
-  <tbody>{{range .Due}}<tr><th scope="row"><a href="/applications/{{.AppID}}/tracking">{{.Title}}</a></th><td>{{.Company}}</td><td>{{if .Status}}{{.Status}}{{else}}{{t $.Lang "due.none_status"}}{{end}}</td><td>{{.At}}</td></tr>{{end}}</tbody></table>
+  <tbody>{{range .Due}}<tr><th scope="row"><a href="/applications/{{.AppID}}/tracking">{{.Title}}</a></th><td>{{.Company}}</td><td>{{if .Status}}{{.Status}}{{else}}{{t $.Lang "due.none_status"}}{{end}}</td><td>{{fdate $.Lang .At}}</td></tr>{{end}}</tbody></table>
 </section>
 {{end}}
 <form method="get" action="/" class="console-filters" hx-get="/" hx-target="#postings" hx-select="#postings" hx-swap="outerHTML" hx-trigger="change, submit" hx-push-url="true">

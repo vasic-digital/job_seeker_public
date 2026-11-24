@@ -1,0 +1,9 @@
+--- PASS: TestVendoredHtmxMatchesItsPinAndPagesParse (0.01s)
+--- PASS: TestLanguageNegotiationRTLAndNoSilentFallback (0.30s)
+--- PASS: TestLanguagePersistsAndRefusesUnshipped (0.43s)
+ok  	github.com/vasic-digital/job_seeker/internal/console	0.791s
+ok  	github.com/vasic-digital/job_seeker/internal/i18n	0.088s
+ok  	github.com/vasic-digital/job_seeker/internal/console	0.997s
+ok  	github.com/vasic-digital/job_seeker/internal/app	3.038s
+shipped=1 (en) pending=14 (ru,sr,be,de,es,fr,zh,ja,ko,ar,fa,hi,tr,kk)
+RESULT PASS (shipped catalogues are complete; pending languages are NOT claimed)

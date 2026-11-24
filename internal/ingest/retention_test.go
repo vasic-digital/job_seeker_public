@@ -10,6 +10,7 @@ import (
 	"testing"
 	"time"
 
+	"github.com/vasic-digital/job_seeker/internal/position"
 	"github.com/vasic-digital/job_seeker/internal/providers"
 )
 
@@ -142,5 +143,40 @@ func TestPruneDeleteAndAuditAreOneTransaction(t *testing.T) {
 	}
 	if n := count(t, r, `SELECT count(*) FROM posting WHERE provider_job_id='old-free'`); n != 1 {
 		t.Fatal("rows were deleted without an audit row: delete and audit must commit together")
+	}
+}
+
+// JSK-T218: retention removes the Position and unreferenced employer of a pruned Listing and keeps those of linked or fresh ones.
+func TestPruneAndPurgeSourceRemoveOrphanPositionLayer(t *testing.T) {
+	r, ck, _ := seed(t)
+	r.Positions = &position.Resolver{P: position.DefaultParams()}
+	// resolve the three seeded Listings into Positions after the fact, then age two of them
+	if err := r.DB.Write(context.Background(), func(tx *sql.Tx) error {
+		for id := int64(1); id <= 3; id++ {
+			if _, err := r.Positions.Resolve(context.Background(), tx, id); err != nil {
+				return err
+			}
+		}
+		return nil
+	}); err != nil {
+		t.Fatal(err)
+	}
+	if count(t, r, `SELECT count(*) FROM position`) != 3 || count(t, r, `SELECT count(*) FROM employer`) != 3 {
+		t.Fatal("setup: expected 3 Positions and 3 employers")
+	}
+	old := limiterFormat(ck.Now().AddDate(0, 0, -91))
+	exec(t, r, `UPDATE posting SET state_changed_at=? WHERE provider_job_id IN ('old-free','old-linked')`, old)
+	exec(t, r, `INSERT INTO application(posting_id, idem_key, state, created_at, updated_at) SELECT id, 'k1', 'pending_draft', ?, ? FROM posting WHERE provider_job_id='old-linked'`, old, old)
+	if _, err := r.Prune(context.Background(), "system:retention", Retention{}); err != nil {
+		t.Fatal(err)
+	}
+	if count(t, r, `SELECT count(*) FROM posting`) != 2 || count(t, r, `SELECT count(*) FROM position`) != 2 || count(t, r, `SELECT count(*) FROM employer`) != 2 {
+		t.Fatalf("after prune: postings=%d positions=%d employers=%d", count(t, r, `SELECT count(*) FROM posting`), count(t, r, `SELECT count(*) FROM position`), count(t, r, `SELECT count(*) FROM employer`))
+	}
+	if _, err := r.PurgeSource(context.Background(), "dum", "operator"); err != nil {
+		t.Fatal(err)
+	}
+	if count(t, r, `SELECT count(*) FROM position`) != 1 || count(t, r, `SELECT count(*) FROM employer`) != 1 { // the linked Listing is exempt and keeps its own
+		t.Fatalf("after purge: positions=%d employers=%d", count(t, r, `SELECT count(*) FROM position`), count(t, r, `SELECT count(*) FROM employer`))
 	}
 }

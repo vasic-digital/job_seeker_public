@@ -1,4 +1,4 @@
-// Consumer module for the Challenges Submodule (section 11.4.169, JSK-T110). A SEPARATE module so the server's
+// Consumer module for the Challenges dependency (resolved via scripts/resolve_deps.sh -> .deps/challenges) (section 11.4.169, JSK-T110). A SEPARATE module so the server's
 // dependency graph carries none of it. Its import path sits under github.com/vasic-digital/job_seeker/, which is
 // what lets it import the application's internal/ packages and drive the REAL code (no re-implementation).
 module github.com/vasic-digital/job_seeker/tools/challenges
@@ -25,8 +25,8 @@ require (
 	modernc.org/sqlite v1.63.0 // indirect
 )
 
-replace digital.vasic.challenges => ../../submodules/challenges
+replace digital.vasic.challenges => ../../.deps/challenges
 
 replace github.com/vasic-digital/job_seeker => ../..
 
-replace digital.vasic.containers => ../../submodules/containers
+replace digital.vasic.containers => ../../.deps/containers

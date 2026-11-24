@@ -13,6 +13,10 @@ defaults:
     channel/mailto: true      # compose-only: opens the human's mail client; nothing is sent
     standard_reader/schemaorg_jobposting: true
     parser_simulator/poppler_pdf: true
+    ats_profile/greenhouse: true
+    ats_profile/lever: true
+    ats_profile/ashby: true
+    ats_profile/generic: true
   strategy:
     channel: favourites_first
   params: {}

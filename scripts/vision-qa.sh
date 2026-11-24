@@ -9,7 +9,7 @@
 #            is screenshotted and run against the SAME expectations; the vision check must FLAG it (-expect-fail
 #            records case_result=true only when the raw verdict is a fail).
 # Needs: ollama server up (scripts/vision-ollama.sh start), a helixqa-verify-vision binary (JSK_VERIFY_VISION_BIN, built
-# from submodules/qa ./cmd/helixqa-verify-vision, see docs/operator/helixqa.md), node + playwright
+# from the resolved qa dependency ./cmd/helixqa-verify-vision, see docs/operator/helixqa.md), node + playwright
 # (JSK_PLAYWRIGHT_NODE_MODULES), go, python3.
 # Output: $OUT (default evidence/JSK-T084): frames/, verdicts/, summary.tsv, SHA256SUMS.
 # Exit: 0 every leg as expected, 1 a verdict was not as expected, 2 cannot determine (missing tool/endpoint).

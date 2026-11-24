@@ -1,10 +1,10 @@
 # Running HelixQA against job_seeker (JSK-T111)
 
-`submodules/qa` is HelixQA. Its `go.mod` replaces eight sibling modules with `../<name>`, so build it from a scratch
+The HelixQA dependency (manifest name `qa`, resolved by `scripts/resolve_deps.sh`) is HelixQA. Its `go.mod` replaces eight sibling modules with `../<name>`, so build it from a scratch
 directory where they sit side by side (do not add them to this repository):
 
     mkdir -p "$S/hq" && cd "$S/hq"
-    git clone --depth 1 git@github.com:vasic-digital/HelixQA.git qa        # or copy submodules/qa without .git
+    git clone --depth 1 git@github.com:vasic-digital/HelixQA.git qa        # or use the resolved checkout without .git
     git clone --depth 1 git@github.com:vasic-digital/Challenges.git challenges
     git clone --depth 1 git@github.com:vasic-digital/Containers.git containers
     git clone --depth 1 git@github.com:vasic-digital/security.git security

@@ -1,0 +1,23 @@
+shipped=1 (en) pending=14 (ru,sr,be,de,es,fr,zh,ja,ko,ar,fa,hi,tr,kk)
+RESULT PASS (shipped catalogues are complete; pending languages are NOT claimed)
+rc=0
+shipped=1 (en) pending=14 (ru,sr,be,de,es,fr,zh,ja,ko,ar,fa,hi,tr,kk)
+UNDETERMINED: --require-all and 14 required language(s) are not shipped; not a pass
+require-all rc=2
+ok   control (complete ru) rc=0
+ok   M1 missing key rc=1
+ok   M2 untranslated key rc=1
+ok   M3 extra key rc=1
+ok   M4 placeholder verbs differ rc=1
+ok   M5 shipped without status rc=1
+ok   M6 reviewed without verdict rc=1
+ok   M7 reviewer == translator rc=1
+ok   control reviewed with distinct reviewer rc=0
+ok   M8 unparseable catalogue rc=1
+ok   M9 source missing rc=1
+ok   require-all with pending langs rc=2
+PROVE-FAILURE OK
+rc=0
+?   	github.com/vasic-digital/job_seeker/cmd/jsgold	[no test files]
+?   	github.com/vasic-digital/job_seeker/cmd/jsobserve	[no test files]
+?   	github.com/vasic-digital/job_seeker/cmd/jspdscan	[no test files]

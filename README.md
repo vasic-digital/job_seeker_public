@@ -49,7 +49,7 @@ operator confirmation per application. No automation path may bypass it.
 Go API with Gin, HTTP/3 via `quic-go`, Brotli compression, modeled on
 `ai_interviewing/platform/backend/internal/server/server.go` in the umbrella
 (HTTP/1.1 + HTTPS/h2 + HTTP/3 with Alt-Svc, Brotli). Single operator, no
-multi-user. Container workloads go through `submodules/containers` (§11.4.76). Every container launcher (`jsstack`, `gates/live_h3.sh`, `make live-h3 RUNNER=...`) accepts `--runner=NAME` to force the runner (podman, docker, nerdctl, auto; unknown or not-installed is refused, rc 2): see `docs/RUNNER.md`.
+multi-user. Container workloads go through the Containers dependency (§11.4.76). Every container launcher (`jsstack`, `gates/live_h3.sh`, `make live-h3 RUNNER=...`) accepts `--runner=NAME` to force the runner (podman, docker, nerdctl, auto; unknown or not-installed is refused, rc 2): see `docs/RUNNER.md`.
 Hosted decision layer only (umbrella override 2026-10-28).
 
 ## Governance
@@ -75,7 +75,7 @@ bash gates/live_h3.sh --runner=podman   # live HTTP/3 gate in a container (see d
 ```
 
 Container runner selection (`--runner=NAME`, `CONTAINERS_RUNNER`) is documented in [`docs/RUNNER.md`](docs/RUNNER.md).
-Submodules: `git submodule update --init` (needed by `tools/containers`, `tools/challenges`).
+Own-org dependencies (needed by `tools/containers`, `tools/challenges`) are NOT git submodules of this repository (§11.4.28(C)); they resolve from, in order, env `JSK_DEP_<NAME>`, the parent umbrella's `submodules/<name>`, then sibling directories. `bash scripts/resolve_deps.sh bootstrap` clones the four public repos side by side at the pins in `helix-deps.yaml`; `make deps` links them into `.deps/`. See `docs/decisions/0008-no-nested-gitlinks-resolver.md`.
 
 ## Running the gates
 

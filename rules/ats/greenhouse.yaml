@@ -1,0 +1,8 @@
+schema: ats_profile.v1
+id: greenhouse
+version: "1.0.0"
+applies_hosts: ["boards.greenhouse.io", "job-boards.greenhouse.io"]
+spec: "Greenhouse accepts pdf/doc/docx/txt/rtf (docs.greenhouse.io/job-board.html, docs/research/protocols/03); size and count limits are project policy (1 MiB, docs/research/protocols/03 section 111), vendor limits UNCONFIRMED"
+upload: { types: [pdf, doc, docx, txt, rtf], max_bytes: 1048576, max_files: 2, max_pages: 3 }
+checks: [link_annotations, headings, page_budget, filename_policy]
+quirks: []

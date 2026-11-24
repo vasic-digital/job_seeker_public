@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 # hardening_challenges.sh - JSK-T110 (FR-074, section 11.4.169): runs the challenge bank tools/challenges/banks/job_seeker.yaml
-# through the Challenges Submodule (submodules/challenges, a separate Go module at tools/challenges) against the REAL
-# internal/ packages. Needs the submodule checked out (git submodule update --init submodules/challenges submodules/containers).
-# Exit 0 every challenge passed, 1 a challenge failed, 2 cannot determine (submodule absent, build failed). 2 is never a pass.
+# through the Challenges dependency (resolved by scripts/resolve_deps.sh, a separate Go module at tools/challenges) against the REAL
+# internal/ packages. Needs challenges + containers resolvable (env JSK_DEP_*, parent umbrella submodules/, or siblings; bash scripts/resolve_deps.sh bootstrap).
+# Exit 0 every challenge passed, 1 a challenge failed, 2 cannot determine (dependency absent, build failed). 2 is never a pass.
 # --prove-failure (section 1.1): rebuilds the runner with `go build -overlay` against mutated copies of production
 # source and requires EVERY mutant to make the bank FAIL (exit 1); the unmutated control must pass:
 #   classifier forced to map an area for an empty candidate list      -> jsk-invent-no-area
@@ -12,7 +12,7 @@
 set -u
 here="$(cd "$(dirname "$0")/.." && pwd)"
 command -v go >/dev/null || { echo "UNDETERMINED: go missing"; exit 2; }
-[ -f "$here/submodules/challenges/go.mod" ] && [ -f "$here/submodules/containers/go.mod" ] || { echo "UNDETERMINED: submodules/challenges or submodules/containers not checked out"; exit 2; }
+bash "$here/scripts/resolve_deps.sh" link >/dev/null 2>&1; [ -f "$here/.deps/challenges/go.mod" ] && [ -f "$here/.deps/containers/go.mod" ] || { echo "UNDETERMINED: challenges or containers dependency not resolvable (bash scripts/resolve_deps.sh verify | bootstrap)"; exit 2; }
 t="$(mktemp -d)"; trap 'rm -rf -- "$t"' EXIT
 build() { # out [overlay.json]
   local o="$1"; shift

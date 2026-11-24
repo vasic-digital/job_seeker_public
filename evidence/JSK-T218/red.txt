@@ -1,0 +1,14 @@
+--- FAIL: TestExportImportCoversPositionLayerAndSealsSignature (0.77s)
+    position_test.go:69: constraint failed: FOREIGN KEY constraint failed (787)
+--- FAIL: TestPerCompanyExportKeepsReferentialIntegrity (0.67s)
+    position_test.go:100: constraint failed: FOREIGN KEY constraint failed (787)
+--- FAIL: TestDeletePostingPrunesOrphanPositionsAndEmployers (0.44s)
+    position_test.go:122: orphan Position/employer of the deleted Listing survived
+--- FAIL: TestDeleteAllEmptiesPositionLayer (0.36s)
+    position_test.go:150: employer still holds 2 rows after delete-all
+    position_test.go:150: employer_alias still holds 2 rows after delete-all
+    position_test.go:150: employer_policy still holds 1 rows after delete-all
+    position_test.go:150: position still holds 3 rows after delete-all
+FAIL
+FAIL	github.com/vasic-digital/job_seeker/internal/privacy	16.265s
+FAIL

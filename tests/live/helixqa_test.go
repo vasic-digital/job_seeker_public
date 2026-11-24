@@ -15,12 +15,12 @@ import (
 
 // JSK-T111 (the part that needs no vision model): HelixQA's `http` command runs qa/banks/job_seeker_console.yaml
 // against the REAL jobseekerd booted by this harness, over real TLS, trusting only the private CA. JSK_HELIXQA_BIN names
-// a helixqa binary built from submodules/qa (see docs/operator/helixqa.md); without it the test SKIPs (it never passes).
+// a helixqa binary built from the resolved qa dependency (see docs/operator/helixqa.md); without it the test SKIPs (it never passes).
 // The vision/autonomous leg needs HELIX_VISION_ENDPOINT and is recorded as BLOCKED by TestHelixQAVisionLegBlocked.
 func TestHelixQAHTTPBankAgainstRealDaemon(t *testing.T) {
 	bin := os.Getenv("JSK_HELIXQA_BIN")
 	if bin == "" {
-		t.Skip("SKIP topology: set JSK_HELIXQA_BIN to a helixqa binary built from submodules/qa")
+		t.Skip("SKIP topology: set JSK_HELIXQA_BIN to a helixqa binary built from the resolved qa dependency")
 	}
 	s := startHost(t, "localhost")
 	bank, _ := filepath.Abs("../../qa/banks/job_seeker_console.yaml")
@@ -67,7 +67,7 @@ func TestHelixQAVisionLegBlocked(t *testing.T) {
 func TestHelixQAHTTPBankFailsAgainstAnOpenServer(t *testing.T) {
 	bin := os.Getenv("JSK_HELIXQA_BIN")
 	if bin == "" {
-		t.Skip("SKIP topology: set JSK_HELIXQA_BIN to a helixqa binary built from submodules/qa")
+		t.Skip("SKIP topology: set JSK_HELIXQA_BIN to a helixqa binary built from the resolved qa dependency")
 	}
 	srv := httptest.NewTLSServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) { _, _ = w.Write([]byte(`{"source_commit":"x"}`)) }))
 	defer srv.Close()

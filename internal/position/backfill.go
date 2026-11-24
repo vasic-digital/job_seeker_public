@@ -57,7 +57,7 @@ func (r *Resolver) Backfill(ctx context.Context, tx *sql.Tx) (BackfillReport, er
 		items[i].root = root
 	}
 	touched := map[int64]bool{}
-	rootRep := map[int64]int64{} // Position -> its legacy root Listing, kept as representative so dup_of is unchanged
+	rootRep := map[int64]int64{}      // Position -> its legacy root Listing, kept as representative so dup_of is unchanged
 	for pass := 0; pass < 2; pass++ { // pass 0 roots, pass 1 members
 		for _, it := range items {
 			isRoot := it.root == it.id

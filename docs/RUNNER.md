@@ -1,7 +1,7 @@
 # Forcing the container runner (`--runner=NAME`)
 
 job_seeker's container tooling (`tools/containers`, driven by `jsstack` and `gates/live_h3.sh`) follows the
-ecosystem-wide contract of the Containers module, `submodules/containers/docs/RUNNER_FLAG.md`.
+ecosystem-wide contract of the Containers module, `docs/RUNNER_FLAG.md` in the containers dependency.
 
 | | |
 |---|---|
@@ -35,5 +35,5 @@ Proof (real host, no stubs): `go test ./cmd/jsstack/` in `tools/containers` and 
 (`--prove-failure` for the paired mutations). On a host with one runner installed the gate forces an installed
 runner (must answer as that runner) and an absent one (must be refused with exit 2).
 
-Containers pin: `submodules/containers` is at `2d18551c6c99` (the commit that adds this API); see
+Containers pin: the `containers` dependency (`.deps/containers`) is at `2d18551c6c99` (the commit that adds this API); see
 `docs/decisions/0007-containers-pin-forced-runner.md`.

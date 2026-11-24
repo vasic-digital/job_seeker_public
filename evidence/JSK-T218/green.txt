@@ -1,0 +1,24 @@
+=== RUN   TestDeleteAllShredsKeyRowsFilesAndFreePages
+--- PASS: TestDeleteAllShredsKeyRowsFilesAndFreePages (0.48s)
+=== RUN   TestDeletePostingRemovesSubtreeAndDraftFileKeepsOthers
+--- PASS: TestDeletePostingRemovesSubtreeAndDraftFileKeepsOthers (0.18s)
+=== RUN   TestExportImportRoundTripWholeAndPerCompany
+--- PASS: TestExportImportRoundTripWholeAndPerCompany (0.90s)
+=== RUN   TestDeletePostingConfinesDraftFilesByResolvedPath
+--- PASS: TestDeletePostingConfinesDraftFilesByResolvedPath (0.47s)
+=== RUN   TestDeleteAllClearsSessionsTokensSettingsRunsKeepsPasskeys
+--- PASS: TestDeleteAllClearsSessionsTokensSettingsRunsKeepsPasskeys (0.25s)
+=== RUN   TestExportImportCoversPositionLayerAndSealsSignature
+--- PASS: TestExportImportCoversPositionLayerAndSealsSignature (0.41s)
+=== RUN   TestPerCompanyExportKeepsReferentialIntegrity
+--- PASS: TestPerCompanyExportKeepsReferentialIntegrity (0.38s)
+=== RUN   TestDeletePostingPrunesOrphanPositionsAndEmployers
+--- PASS: TestDeletePostingPrunesOrphanPositionsAndEmployers (0.23s)
+=== RUN   TestDeleteAllEmptiesPositionLayer
+--- PASS: TestDeleteAllEmptiesPositionLayer (0.20s)
+=== RUN   TestPositionSensitiveColumnIsSealedBlob
+--- PASS: TestPositionSensitiveColumnIsSealedBlob (0.17s)
+=== RUN   TestDeletingRepresentativeHealsSurvivingPosition
+--- PASS: TestDeletingRepresentativeHealsSurvivingPosition (0.20s)
+PASS
+ok  	github.com/vasic-digital/job_seeker/internal/privacy	3.894s

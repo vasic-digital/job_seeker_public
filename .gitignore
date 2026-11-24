@@ -54,3 +54,6 @@ evidence/**/*.png.private
 .cache-career/
 # the workable-items DB is TRACKED by canon (§11.4.95); only its sidecars stay ignored
 !docs/workable_items.db
+
+# Own-org dependencies resolved by scripts/resolve_deps.sh (symlinks into the real checkouts); never tracked.
+.deps/

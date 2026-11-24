@@ -1,0 +1,4 @@
+KILLED       draft-token-url-dropped
+mutations: 1 killed of 1
+KILLED       draft-token-minted-in-dry-run
+mutations: 1 killed of 1

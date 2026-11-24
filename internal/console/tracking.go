@@ -25,7 +25,7 @@ func (c *Console) dueFollowUps(ctx context.Context) []dueView {
 	}
 	var out []dueView
 	for _, d := range ds {
-		v := dueView{AppID: d.ApplicationID, Status: d.LatestStatus, At: d.FollowUpAt.Format("2006-01-02")}
+		v := dueView{AppID: d.ApplicationID, Status: d.LatestStatus, At: d.FollowUpAt}
 		_ = c.DB.Read().QueryRowContext(ctx, `SELECT p.title, coalesce(p.company,'') FROM posting p WHERE p.id=?`, d.PostingID).Scan(&v.Title, &v.Company)
 		out = append(out, v)
 	}

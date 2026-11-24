@@ -1,0 +1,5 @@
+AUDIT-GO
+decision: GO for the one-way public snapshot repository job_seeker_public (NOT for the dev history of vasic-digital/job_seeker, which stays private and is never rewritten or exposed)
+date: 2026-11-24
+snapshot: ef648859cd30 (single commit, export of github/main @ 4e1a4cbc122c)
+evidence: docs/public-readiness/PUBLICATION-2026-11-24.md

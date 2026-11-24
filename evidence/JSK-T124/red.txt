@@ -1,0 +1,26 @@
+# reproduce-first: invoke the canonical umbrella pipeline on a 1-line catalogue sample (2026-11-24T14:56:28Z)
+$ umbrella _tools/translate-pipeline.sh --in s.json --out o.json --lang sr
+[2026-11-24T15:56:28+0100] === translate-pipeline run ===
+[2026-11-24T15:56:28+0100] in=$HOME/.cache/claude-tmp/s.json out=$HOME/.cache/claude-tmp/o.json lang=sr script=latin article=0
+[2026-11-24T15:56:28+0100] engine attempt: provider=mistral model=mistral-large-latest try=1/2
+[2026-11-24T15:56:29+0100] engine FAILED (provider=mistral try=1)
+[2026-11-24T15:56:37+0100] engine attempt: provider=mistral model=mistral-large-latest try=2/2
+[2026-11-24T15:56:37+0100] engine FAILED (provider=mistral try=2)
+[2026-11-24T15:56:53+0100] provider=mistral exhausted; trying next provider
+[2026-11-24T15:56:53+0100] engine attempt: provider=groq model=llama-3.3-70b-versatile try=1/2
+[2026-11-24T15:56:53+0100] engine FAILED (provider=groq try=1)
+[2026-11-24T15:57:01+0100] engine attempt: provider=groq model=llama-3.3-70b-versatile try=2/2
+[2026-11-24T15:57:01+0100] engine FAILED (provider=groq try=2)
+[2026-11-24T15:57:17+0100] provider=groq exhausted; trying next provider
+[2026-11-24T15:57:17+0100] TRANSLATION FAILED for $HOME/.cache/claude-tmp/s.json -> $HOME/.cache/claude-tmp/o.json (all providers exhausted)
+TRANSLATION FAILED: $HOME/.cache/claude-tmp/s.json
+rc=1
+
+$ hosts
+thinker.local: unresolvable
+amber.local: unresolvable
+$ podman images | grep helixtranslate
+0
+$ ssh -o BatchMode=yes -o ConnectTimeout=5 thinker.local true
+ssh: Could not resolve hostname thinker.local: Name or service not known
+rc=255

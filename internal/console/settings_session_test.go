@@ -51,7 +51,10 @@ type rig struct {
 
 // newRig is the REAL stack for the settings routes: real store, real auth service with the software passkey,
 // the real session guard and CSRF middleware, the real draft gate. Nothing is stubbed.
-func newRig(t *testing.T) *rig {
+func newRig(t *testing.T) *rig { return newRigCat(t, nil) }
+
+// newRigCat is newRig with a catalogue transform (tests ship a throwaway ar built from en; none is shipped in the product).
+func newRigCat(t *testing.T, mod func(*i18n.Catalogue) *i18n.Catalogue) *rig {
 	t.Helper()
 	dir := t.TempDir()
 	db, err := store.Open(context.Background(), store.Options{Path: filepath.Join(dir, "js.db"), BackupDir: dir})
@@ -76,6 +79,9 @@ func newRig(t *testing.T) *rig {
 	cat, err := i18n.Load()
 	if err != nil {
 		t.Fatal(err)
+	}
+	if mod != nil {
+		cat = mod(cat)
 	}
 	gate := draft.NewGate(db, false)
 	ds := &draft.Service{DB: db, Keys: kr, Tpl: templates.Empty(), Gate: gate, OverlayPresent: func() bool { return false }, Now: clk.now}

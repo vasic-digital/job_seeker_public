@@ -175,6 +175,14 @@ ext-mailto-subject-precedence	./internal/ext/channel/mailto	internal/ext/channel
 ext-openurl-http-accepted	./internal/ext/channel/openurl	internal/ext/channel/openurl/openurl.go	u.Scheme == "https"	u.Scheme != ""
 ext-openurl-zero-approved-accepted	./internal/ext/channel/openurl	internal/ext/channel/openurl/openurl.go	if !a.Valid() {	if false {
 ext-mailto-recipient-metachars-accepted	./internal/ext/channel/mailto	internal/ext/channel/mailto/mailto.go	|| !plainAddr(s) {	|| false {
+privacy-position-prune-off	./internal/privacy	internal/privacy/delete.go	position.PruneOrphans(ctx, tx); err != nil {	func() (int, int, error) { _ = position.PruneOrphans; return 0, 0, nil }(); err != nil {
+privacy-export-drops-position-link	./internal/privacy	internal/privacy/export.go	"position_link", "merge_candidate", "position_constraint", "position_apply_lock"}	"position_link"}
+privacy-sig-sealed-not-resealed	./internal/privacy	internal/privacy/export.go	"body_text", "sig_sealed"}	"body_text"}
+privacy-delete-all-keeps-employers	./internal/privacy	internal/privacy/delete.go	"employer_policy", "employer_alias", "employer",	
+position-prune-employer-policy-ignored	./internal/privacy	internal/position/prune.go	SELECT 1 FROM employer_policy e WHERE e.employer_id=employer.id	SELECT 1 FROM employer_policy e WHERE 1=0
+ingest-retention-no-position-prune	./internal/ingest	internal/ingest/retention.go	res.Expired, res.Postings = int(n1), int(n2)\n\t\tif _, _, err := position.PruneOrphans(ctx, tx); err != nil {	res.Expired, res.Postings = int(n1), int(n2)\n\t\tif _, _, err := func() (int, int, error) { _ = position.PruneOrphans; return 0, 0, nil }(); err != nil {
+ingest-purge-no-position-prune	./internal/ingest	internal/ingest/retention.go	res.Postings = int(n)\n\t\tif _, _, err := position.PruneOrphans(ctx, tx); err != nil {	res.Postings = int(n)\n\t\tif _, _, err := func() (int, int, error) { _ = position.PruneOrphans; return 0, 0, nil }(); err != nil {
+position-prune-no-heal	./internal/privacy	internal/position/prune.go	heal = append(heal, id)	_ = id
 position-apply-url-generic-allowed	./internal/position	internal/position/resolver.go	l.ApplyCanon != "" && jobSpecificURL(l.ApplyCanon) &&	l.ApplyCanon != "" &&
 position-backfill-rederives-representative	./internal/position	internal/position/backfill.go	r.P.Version, rootRep[pid])	r.P.Version, 0)
 # JSK-T160/T161 cover slots, send-day date, placeholder guard
@@ -230,3 +238,13 @@ ext-scan-endobj-substring	./internal/ext/ats/parsersim	internal/ext/ats/parsersi
 ext-scan-endobj-name-counts	./internal/ext/ats/parsersim	internal/ext/ats/parsersim/scan.go	before := i == 0 || isWS(b[i-1]) || b[i-1] == ']' || b[i-1] == '>' || b[i-1] == ')'	before := true
 ext-gmail-redirect-followed	./internal/ext/channel/smtpcompose	internal/ext/channel/smtpcompose/smtpcompose.go	return http.ErrUseLastResponse	return nil
 ext-scan-xref-name-exempts	./internal/ext/ats/parsersim	internal/ext/ats/parsersim/scan.go	reXRefType.Match(dict) && !bytes.Contains(dict, []byte("/ObjStm"))	bytes.Contains(dict, []byte("/XRef"))
+ext-ats-applies-suffix-match	./internal/ext/ats/profile	internal/ext/ats/profile/profile.go	if h == x {	if strings.HasSuffix(h, x) {
+ext-ats-size-unchecked	./internal/ext/ats/profile	internal/ext/ats/profile/profile.go	case a.Bytes > p.f.Upload.MaxBytes:	case false:
+ext-ats-type-unchecked	./internal/ext/ats/profile	internal/ext/ats/profile/profile.go	if !okType {	if !okType && false {
+ext-ats-unknown-check-allowed	./internal/ext/ats/profile	internal/ext/ats/profile/profile.go	if !knownChecks[c] {	if !knownChecks[c] && false {
+ext-ats-host-overlap-allowed	./internal/ext/ats/profile	internal/ext/ats/profile/profile.go	if hosts[h] {	if false {
+ext-ats-incomplete-is-yes	./internal/ext/ats/profile	internal/ext/ats/profile/profile.go	if d.Incomplete {	if false {
+ext-ats-nil-profile-is-yes	./internal/ext/ats/profile	internal/ext/ats/profile/profile.go	if p == nil {	if false {
+ext-ats-port-in-host-allowed	./internal/ext/ats/profile	internal/ext/ats/profile/profile.go	if !reHost.MatchString(h) || net.ParseIP(h) != nil {	if net.ParseIP(h) != nil {
+draft-token-url-dropped	./internal/draft	internal/draft/token.go	a.DraftHash, a.DraftHash, url)	a.DraftHash, a.DraftHash, "")
+draft-token-minted-in-dry-run	./internal/draft	internal/draft/service.go	if !in.Live {\n\t\t\tres.WouldSend = payload	if false {\n\t\t\tres.WouldSend = payload

@@ -40,7 +40,8 @@ func TestEveryRegisteredChannelRefusesZeroApprovedAndNeverSends(t *testing.T) {
 // SC-033 (part 2): the production callers of the Approved constructor are exactly the approval service (none yet).
 func TestNewApprovedCallersAreOnlyTheAllowList(t *testing.T) {
 	allowed := map[string]bool{
-		"internal/ext/ports.go": true, // the definition
+		"internal/ext/ports.go":   true, // the definition
+		"internal/draft/token.go": true, // the approval service: Approve mints the token for a live approval
 	}
 	root := "../../.."
 	var bad []string

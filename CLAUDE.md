@@ -83,6 +83,6 @@ override does; it weakens no other clause.
   may submit without it.
 - **Stack decision:** Go API (Gin, HTTP/3 via quic-go, Brotli), modeled on the
   umbrella's `ai_interviewing/platform/backend/internal/server/server.go`;
-  containers only through `submodules/containers` (§11.4.76).
+  containers only through the Containers dependency (§11.4.76; resolved by `scripts/resolve_deps.sh`, no nested gitlinks).
 - **PR-driven.** Work lands through a task branch, a pull request and an
   independent review; never force-push (§11.4.113).

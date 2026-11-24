@@ -1,0 +1,8 @@
+engine shim: $HOME/Projects/vasic/_tools/helixtranslate-container.sh
+host thinker.local UNRESOLVABLE
+host amber.local UNRESOLVABLE
+local helixtranslate image ABSENT
+[2026-11-24T15:59:42+0100] provider=groq exhausted; trying next provider
+[2026-11-24T15:59:42+0100] TRANSLATION FAILED for $HOME/.cache/claude-tmp/tmp.SPcQmKiqAM/in.json -> $HOME/.cache/claude-tmp/tmp.SPcQmKiqAM/out.json (all providers exhausted)
+TRANSLATION FAILED: $HOME/.cache/claude-tmp/tmp.SPcQmKiqAM/in.json
+UNDETERMINED: canonical pipeline did not translate (rc=1); catalogues stay pending, nothing is hand- or model-translated outside it

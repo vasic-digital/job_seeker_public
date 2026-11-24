@@ -12,6 +12,7 @@ import (
 	"github.com/vasic-digital/job_seeker/internal/audit"
 	"github.com/vasic-digital/job_seeker/internal/crypto"
 	"github.com/vasic-digital/job_seeker/internal/limiter"
+	"github.com/vasic-digital/job_seeker/internal/position"
 	"github.com/vasic-digital/job_seeker/internal/store"
 )
 
@@ -126,6 +127,9 @@ func (d *Deleter) DeletePosting(ctx context.Context, postingID int64, actor stri
 			return err
 		}
 		res.Postings = 1
+		if _, _, err := position.PruneOrphans(ctx, tx); err != nil { // invariant 8: no Position without a Listing, no unreferenced employer
+			return err
+		}
 		if _, err := tx.ExecContext(ctx, `INSERT INTO tombstone(kind,count,ts) VALUES ('delete_record',1,?)`, limiter.Format(nowUTC())); err != nil {
 			return err
 		}
@@ -196,6 +200,9 @@ func (d *Deleter) DeleteAll(ctx context.Context, actor, confirm string) (Result,
 		_ = tx.QueryRowContext(ctx, `SELECT count(*) FROM posting`).Scan(&res.Postings)
 		_ = tx.QueryRowContext(ctx, `SELECT count(*) FROM application`).Scan(&res.Applications)
 		for _, t := range []string{"tracking", "submission", "approval", "draft", "application", "score", "mapping", "posting", "jobops_job",
+			// the Position layer (JSK-T218): position cascades to position_link and position_apply_lock; employers are customised
+			// operator data (policies, human aliases) but describe the deleted postings' employers, so delete-all removes them too
+			"merge_candidate", "position_constraint", "position_apply_lock", "position_link", "position", "employer_policy", "employer_alias", "employer",
 			// credentials and state bound to the destroyed key or to the data just deleted. enc_sentinel in
 			// setting is sealed under the old data key: left behind, the next first-run setup (new key) fails it.
 			// provider_call cascades from run. Passkeys are kept unless DropPasskeys (see Deleter).

@@ -1,0 +1,8 @@
+KILLED       ext-ats-applies-suffix-match
+KILLED       ext-ats-size-unchecked
+KILLED       ext-ats-type-unchecked
+KILLED       ext-ats-unknown-check-allowed
+KILLED       ext-ats-host-overlap-allowed
+KILLED       ext-ats-incomplete-is-yes
+KILLED       ext-ats-nil-profile-is-yes
+KILLED       ext-ats-port-in-host-allowed

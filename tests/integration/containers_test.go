@@ -15,8 +15,8 @@ import (
 // daemon image (jsstack up) builds an image and writes to the container storage root, so it is a separate, explicitly
 // requested leg (JSK_BOOT_STACK=1), not part of the default run.
 func TestContainersRuntimeProbe(t *testing.T) {
-	if _, err := os.Stat("../../submodules/containers/go.mod"); err != nil {
-		t.Skip("UNDETERMINED: submodules/containers is not checked out (git submodule update --init submodules/containers)")
+	if _, err := os.Stat("../../.deps/containers/go.mod"); err != nil {
+		t.Skip("UNDETERMINED: containers dependency not resolved (make deps, or bash scripts/resolve_deps.sh bootstrap)")
 	}
 	bin := filepath.Join(t.TempDir(), "jsstack")
 	ctx, cancel := context.WithTimeout(context.Background(), 4*time.Minute)

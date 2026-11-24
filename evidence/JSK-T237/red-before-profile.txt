@@ -1,0 +1,5 @@
+# github.com/vasic-digital/job_seeker/internal/ext/ats/profile [github.com/vasic-digital/job_seeker/internal/ext/ats/profile.test]
+internal/ext/ats/profile/profile_test.go:14:28: undefined: Profile
+internal/ext/ats/profile/profile_test.go:16:13: undefined: LoadDir
+internal/ext/ats/profile/profile_test.go:23:17: undefined: Profile
+internal/ext/ats/profile/profile_test.go:69:10: undefined: Resolve

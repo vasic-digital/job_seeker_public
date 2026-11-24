@@ -31,13 +31,18 @@ const magic = "JSKEXPORT1\n"
 // sealed lists the encrypted columns by table (data-model.md); export decrypts them, import re-seals them
 // under the TARGET database key, so the archive depends on the export passphrase and nothing else.
 var sealed = map[string][]string{
-	"posting": {"body_text"}, "score": {"components_json", "gates_json", "explain_json"}, "application": {"provider_ref"},
+	"posting": {"body_text", "sig_sealed"}, "score": {"components_json", "gates_json", "explain_json"}, "application": {"provider_ref"},
 	"draft": {"path_ref"}, "approval": {"reason"}, "submission": {"payload"}, "tracking": {"note"},
 }
 
 // tables in dependency order. audit_log is exported for the operator's record and NEVER imported (a copied
 // chain would not extend the target's chain).
-var tables = []string{"posting", "mapping", "score", "application", "draft", "approval", "submission", "tracking"}
+// The Position layer (JSK-T218, FR-094) is exported and imported with the ids preserved; foreign keys are deferred during import, so order is for readability.
+var tables = []string{"employer", "employer_alias", "employer_policy", "position", "posting", "mapping", "score", "application", "draft", "approval", "submission", "tracking",
+	"position_link", "merge_candidate", "position_constraint", "position_apply_lock"}
+
+// noIDKey names the primary key of the Position-layer tables that have no id column.
+var noIDKey = map[string]string{"employer_policy": "employer_id", "position_apply_lock": "position_id"}
 
 type bin struct {
 	B64 string `json:"$b64"`
@@ -135,18 +140,103 @@ func Export(ctx context.Context, db *store.DB, kr *crypto.Keyring, o ExportOptio
 		args = []any{o.Company}
 	}
 	appSub := "application_id IN (SELECT id FROM application WHERE posting_id IN (SELECT id FROM posting WHERE " + pw + "))"
+	idSet := func(q string) (map[int64]bool, error) {
+		m := map[int64]bool{}
+		rs, err := rd.QueryContext(ctx, q, args...)
+		if err != nil {
+			return nil, err
+		}
+		defer rs.Close()
+		for rs.Next() {
+			var id sql.NullInt64
+			if err := rs.Scan(&id); err != nil {
+				return nil, err
+			}
+			if id.Valid {
+				m[id.Int64] = true
+			}
+		}
+		return m, rs.Err()
+	}
+	inPostings, err := idSet("SELECT id FROM posting WHERE " + pw)
+	if err != nil {
+		return nil, err
+	}
+	inPositions, err := idSet("SELECT position_id FROM posting WHERE " + pw)
+	if err != nil {
+		return nil, err
+	}
+	inEmployers, err := idSet("SELECT employer_id FROM posting WHERE " + pw)
+	if err != nil {
+		return nil, err
+	}
+	// a per-company subset must stay referentially closed: references that leave the subset are nulled
+	nullOutside := func(r map[string]any, col string, set map[int64]bool) {
+		if v, ok := r[col].(int64); ok && o.Company != "" && !set[v] {
+			r[col] = nil
+		}
+	}
 	total := 0
 	for _, t := range tables {
 		var q string
+		qargs := args
+		subset := "SELECT id FROM posting WHERE " + pw
+		posSub := "SELECT position_id FROM posting WHERE position_id IS NOT NULL AND " + pw
+		empSub := "SELECT employer_id FROM posting WHERE employer_id IS NOT NULL AND " + pw
+		rep := func(n int) []any { // pw appears n times in a query: repeat its argument list
+			var a []any
+			for i := 0; i < n; i++ {
+				a = append(a, args...)
+			}
+			return a
+		}
 		switch t {
 		case "posting":
 			q = "SELECT * FROM posting WHERE " + pw
 		case "mapping", "score", "application":
 			q = "SELECT * FROM " + t + " WHERE " + fmt.Sprintf(where[t], pw)
+		case "employer":
+			q = "SELECT * FROM employer WHERE 1=1"
+			if o.Company != "" {
+				q = "SELECT * FROM employer WHERE id IN (" + empSub + ")"
+			}
+		case "employer_alias", "employer_policy":
+			q = "SELECT * FROM " + t + " WHERE 1=1"
+			if o.Company != "" {
+				q = "SELECT * FROM " + t + " WHERE employer_id IN (" + empSub + ")"
+			}
+		case "position":
+			q = "SELECT * FROM position WHERE 1=1"
+			if o.Company != "" {
+				q = "SELECT * FROM position WHERE id IN (" + posSub + ")"
+			}
+		case "position_link":
+			q = "SELECT * FROM position_link WHERE 1=1"
+			if o.Company != "" {
+				q = "SELECT * FROM position_link WHERE listing_id IN (" + subset + ") AND position_id IN (" + posSub + ")"
+				qargs = rep(2)
+			}
+		case "merge_candidate", "position_constraint":
+			q = "SELECT * FROM " + t + " WHERE 1=1"
+			if o.Company != "" {
+				q = "SELECT * FROM " + t + " WHERE a_listing IN (" + subset + ") AND b_listing IN (" + subset + ")"
+				qargs = rep(2)
+			}
+		case "position_apply_lock":
+			q = "SELECT * FROM position_apply_lock WHERE 1=1"
+			if o.Company != "" {
+				q = "SELECT * FROM position_apply_lock WHERE listing_id IN (" + subset + ")"
+			}
 		default:
 			q = "SELECT * FROM " + t + " WHERE " + appSub
 		}
-		rows, err := rd.QueryContext(ctx, q+" ORDER BY id", args...)
+		order := " ORDER BY id"
+		if t == "employer_policy" {
+			order = " ORDER BY employer_id"
+		} else if t == "position_apply_lock" {
+			order = " ORDER BY position_id"
+		}
+		rows, err := rd.QueryContext(ctx, q+order, qargs...)
 		if err != nil {
 			return nil, err
 		}
@@ -157,6 +247,13 @@ func Export(ctx context.Context, db *store.DB, kr *crypto.Keyring, o ExportOptio
 		}
 		for _, r := range rs {
 			id, _ := r["id"].(int64)
+			switch t {
+			case "position":
+				nullOutside(r, "representative_listing_id", inPostings)
+				nullOutside(r, "apply_override_listing", inPostings)
+				nullOutside(r, "merged_into", inPositions)
+				nullOutside(r, "employer_id", inEmployers)
+			}
 			for _, c := range sealed[t] {
 				if b, ok := r[c].([]byte); ok && len(b) > 0 {
 					pt, err := kr.Open(t, c, id, b)
@@ -346,13 +443,20 @@ func Import(ctx context.Context, db *store.DB, kr *crypto.Keyring, archive, pass
 					qs = append(qs, "?")
 					vals = append(vals, decodeValue(raw))
 				}
-				ix := indexOf(names, "id")
-				if ix < 0 {
-					return fmt.Errorf("%w: a %s row has no id", ErrBadArchive, t)
-				}
-				idf, ok := vals[ix].(int64)
-				if !ok {
-					return fmt.Errorf("%w: a %s row has a non-integer id", ErrBadArchive, t)
+				var idf int64
+				if keyCol := noIDKey[t]; keyCol == "" {
+					ix := indexOf(names, "id")
+					if ix < 0 {
+						return fmt.Errorf("%w: a %s row has no id", ErrBadArchive, t)
+					}
+					var ok bool
+					if idf, ok = vals[ix].(int64); !ok {
+						return fmt.Errorf("%w: a %s row has a non-integer id", ErrBadArchive, t)
+					}
+				} else if ix := indexOf(names, keyCol); ix < 0 {
+					return fmt.Errorf("%w: a %s row has no %s", ErrBadArchive, t, keyCol)
+				} else if _, ok := vals[ix].(int64); !ok {
+					return fmt.Errorf("%w: a %s row has a non-integer %s", ErrBadArchive, t, keyCol)
 				}
 				for i, k := range names {
 					switch {

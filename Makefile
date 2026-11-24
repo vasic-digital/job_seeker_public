@@ -8,7 +8,7 @@ LDFLAGS  := -s -w -X $(MODULE)/internal/buildinfo.version=$(VERSION) \
             -X $(MODULE)/internal/buildinfo.commit=$(COMMIT) \
             -X $(MODULE)/internal/buildinfo.dirty=$(DIRTY)
 
-.PHONY: hardening mutation challenges vuln sbom soak atomicity txcheck build build-gate fmt vet test race gates test-all full live-h3
+.PHONY: deps hardening mutation challenges vuln sbom soak atomicity txcheck build build-gate fmt vet test race gates test-all full live-h3
 
 build:
 	mkdir -p bin
@@ -80,7 +80,11 @@ mutation:
 	bash gates/hardening_vuln.sh
 	bash gates/hardening_sbom.sh
 
-# JSK-T110 challenge bank through the Challenges Submodule (needs: git submodule update --init submodules/challenges submodules/containers)
+# Resolve the own-org dependencies (env JSK_DEP_<NAME> / parent umbrella submodules/ / sibling dir) into .deps/
+deps:
+	bash scripts/resolve_deps.sh link
+
+# JSK-T110 challenge bank through the Challenges Submodule (needs challenges + containers resolvable: make deps)
 challenges:
 	JSK_EVIDENCE_DIR=$(CURDIR)/evidence/JSK-T110 bash gates/hardening_challenges.sh
 

@@ -28,3 +28,4 @@ pdf_no_struct_tree	PDF is not tagged (no structure tree)	ats/pdf_links
 pdf_link_label_mismatch	visible link label differs from the link target	ats/pdf_links
 pdf_unreadable	PDF could not be parsed by the extraction tools	parsersim
 pdf_scan_incomplete	the PDF could not be scanned completely (encrypted, undecodable filter or oversize inflate)	parsersim
+ats_finding_warn	an ATS profile check produced an advisory finding	ats

@@ -83,7 +83,8 @@ func New(d Deps) (*Console, error) {
 		return nil, errors.New("console: vendored htmx differs from its pinned SHA-256")
 	}
 	c.htmxSRI = "sha256-" + base64.StdEncoding.EncodeToString(sum[:])
-	funcs := template.FuncMap{"t": func(lang, key string, args ...any) string { return d.Cat.Msg(lang, key, args...) }}
+	funcs := template.FuncMap{"fdate": func(lang string, t time.Time) string { return i18n.Date(lang, t) },
+		"t": func(lang, key string, args ...any) string { return d.Cat.Msg(lang, key, args...) }}
 	for _, n := range pageNames {
 		t, err := template.New(n).Funcs(funcs).ParseFS(web.FS, "templates/layout.html", "templates/"+n+".html")
 		if err != nil {
@@ -107,9 +108,11 @@ type navItem struct {
 var navAll = []navItem{{"/", "nav.inbox", false}, {"/queue", "nav.queue", false}, {"/applications", "nav.applications", false}, {"/settings", "nav.settings", false}, {"/audit", "nav.audit", false}}
 
 type page struct {
-	Lang, TitleKey, CSRF, HtmxSRI, Error, Notice string
-	Authed, PasskeyJS                            bool
-	Nav                                          []navItem
+	Lang, Dir, TitleKey, CSRF, HtmxSRI, Error, Notice string
+	LangOpts                                          []langOpt
+	LangWanted                                        string // a preferred language that is not shipped yet (shown, never silently replaced)
+	Authed, PasskeyJS                                 bool
+	Nav                                               []navItem
 	// page-specific
 	Rows                any
 	Filter              filter
@@ -148,7 +151,7 @@ type page struct {
 type dueView struct {
 	AppID                  int64
 	Title, Company, Status string
-	At                     string
+	At                     time.Time
 }
 
 type queueDetail struct {
@@ -162,7 +165,10 @@ type queueDetail struct {
 type filter struct{ State, Lang, Provider, Band string }
 
 func (c *Console) newPage(g *gin.Context, titleKey, nav string) *page {
-	p := &page{Lang: i18n.Source, TitleKey: titleKey, HtmxSRI: c.htmxSRI}
+	p := &page{TitleKey: titleKey, HtmxSRI: c.htmxSRI}
+	p.Lang, p.LangWanted = c.pickLang(g)
+	p.Dir = i18n.Dir(p.Lang)
+	p.LangOpts = c.langOpts(p.Lang)
 	if s := api.SessionFrom(g.Request); s != nil {
 		p.Authed, p.CSRF = true, s.CSRF
 		for _, n := range navAll {
@@ -229,6 +235,7 @@ func (c *Console) Register(e *gin.Engine) {
 	e.POST("/settings/kill-switch", c.setKill)
 	e.POST("/settings/live-mode", c.setLive)
 	e.POST("/settings/caps", c.setCaps)
+	e.POST("/settings/language", c.setLanguage)
 	e.GET("/audit", c.auditPage)
 	e.GET("/audit.jsonl", c.auditJSONL)
 }
@@ -825,4 +832,68 @@ func (c *Console) auditJSONL(g *gin.Context) {
 			"evidence": ev, "prev_hash": prev, "this_hash": this, "ts": ts})
 		_, _ = g.Writer.Write(append(line, '\n'))
 	}
+}
+
+// ---- language (FR-068..FR-070, JSK-T158)
+
+const settingUILang = "ui.lang"
+
+type langOpt struct {
+	Code, Name        string
+	Shipped, Selected bool
+}
+
+func (c *Console) shippedSet() map[string]bool {
+	m := map[string]bool{}
+	for _, l := range c.Cat.Shipped() {
+		m[l] = true
+	}
+	return m
+}
+
+// pickLang: the operator's persisted choice if it is shipped, else Accept-Language negotiation. A preferred language that
+// is not shipped yet comes back as wanted so the page says so; it is never silently replaced.
+func (c *Console) pickLang(g *gin.Context) (lang, wanted string) {
+	if c.DB != nil {
+		var v string
+		if c.DB.Read().QueryRowContext(g.Request.Context(), `SELECT value FROM setting WHERE key=?`, settingUILang).Scan(&v) == nil && c.shippedSet()[v] {
+			return v, ""
+		}
+	}
+	return i18n.Negotiate(g.GetHeader("Accept-Language"), c.Cat.Shipped())
+}
+
+func (c *Console) langOpts(cur string) []langOpt {
+	sh := c.shippedSet()
+	var out []langOpt
+	for _, l := range i18n.Required {
+		out = append(out, langOpt{l, i18n.Name(l), sh[l], l == cur})
+	}
+	return out
+}
+
+// setLanguage persists the operator's interface language. An unshipped or unknown language is refused visibly.
+func (c *Console) setLanguage(g *gin.Context) {
+	l := g.PostForm("lang")
+	known := false
+	for _, r := range i18n.Required {
+		known = known || r == l
+	}
+	if !known {
+		c.settingsErr(g, http.StatusBadRequest, "validation")
+		return
+	}
+	if !c.shippedSet()[l] {
+		c.settingsErr(g, http.StatusConflict, "lang_unavailable")
+		return
+	}
+	err := c.DB.Write(g.Request.Context(), func(tx *sql.Tx) error {
+		_, err := tx.ExecContext(g.Request.Context(), `INSERT INTO setting(key,value) VALUES(?,?) ON CONFLICT(key) DO UPDATE SET value=excluded.value`, settingUILang, l)
+		return err
+	})
+	if err != nil {
+		c.settingsErr(g, http.StatusInternalServerError, "internal")
+		return
+	}
+	g.Redirect(http.StatusSeeOther, "/settings")
 }

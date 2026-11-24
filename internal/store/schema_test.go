@@ -149,7 +149,7 @@ func TestAuditLogIsAppendOnlyAndSurvivesSubjectDeletion(t *testing.T) {
 
 func TestSensitiveColumnsAreBlobs(t *testing.T) {
 	d := migrated(t)
-	want := map[string][]string{"posting": {"body_text"}, "score": {"components_json", "gates_json", "explain_json"}, "application": {"provider_ref"},
+	want := map[string][]string{"posting": {"body_text", "sig_sealed"}, "score": {"components_json", "gates_json", "explain_json"}, "application": {"provider_ref"},
 		"draft": {"path_ref"}, "approval": {"reason"}, "submission": {"payload"}, "tracking": {"note"}}
 	for tbl, cols := range want {
 		for _, c := range cols {

@@ -27,6 +27,9 @@ func Load() (*Catalogue, error) {
 	}
 	c := &Catalogue{langs: map[string]map[string]string{}}
 	for _, e := range ents {
+		if strings.HasPrefix(e.Name(), "_") || !strings.HasSuffix(e.Name(), ".json") {
+			continue // _status.json and _invariant.json are metadata, not languages
+		}
 		b, err := files.ReadFile("messages/" + e.Name())
 		if err != nil {
 			return nil, err

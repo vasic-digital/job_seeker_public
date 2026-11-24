@@ -1,0 +1,8 @@
+schema: ats_profile.v1
+id: lever
+version: "1.0.0"
+applies_hosts: ["jobs.lever.co"]
+spec: "project policy only: vendor upload limits UNCONFIRMED"
+upload: { types: [pdf, docx], max_bytes: 1048576, max_files: 2, max_pages: 3 }
+checks: [link_annotations, headings, page_budget, filename_policy]
+quirks: []

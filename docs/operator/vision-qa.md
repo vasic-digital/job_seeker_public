@@ -1,6 +1,6 @@
 # Vision QA with a LOCAL vision model (JSK-T084 / JSK-T111, umbrella 11.4.278)
 
-HelixQA's vision analyzer (`helixqa-verify-vision`, built from `submodules/qa ./cmd/helixqa-verify-vision`) sends a screenshot to an
+HelixQA's vision analyzer (`helixqa-verify-vision`, built from `qa ./cmd/helixqa-verify-vision`) sends a screenshot to an
 OpenAI-compatible `/v1/chat/completions` endpoint and does STRICT fact matching on the model's reply (every `-expect` token must
 appear, any `-forbid` token fails it). It sends no credential, so the endpoint must be keyless. This setup supplies one that runs on
 the development host: no frame leaves the machine.
