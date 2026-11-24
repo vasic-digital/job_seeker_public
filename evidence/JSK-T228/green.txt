@@ -1,0 +1,8 @@
+--- PASS: TestRemoteModeConformance (0.00s)
+--- PASS: TestRemoteModeYesOnUnknownMutantIsCaught (0.00s)
+--- PASS: TestOtherRulesConformance (0.00s)
+    eligibility_test.go:162: parity: 38400 (rule,row) comparisons, 4096 plugin-No (all matched a legacy gate), 21984 Unknown (stricter than legacy, never a pass)
+--- PASS: TestParityWithLegacyGates (0.60s)
+--- PASS: TestShadowReportsDivergence (0.01s)
+--- PASS: TestDefaultFactorsMatchScoreYAML (0.00s)
+ok  	github.com/vasic-digital/job_seeker/internal/ext/eligibility	0.616s

@@ -1,0 +1,5 @@
+=== RUN   TestChaosKillNineAndHostileBodies
+--- PASS: TestChaosKillNineAndHostileBodies (17.54s)
+PASS
+ok  	github.com/vasic-digital/job_seeker/tests/live	17.553s
+rc=0

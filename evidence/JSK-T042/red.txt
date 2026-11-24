@@ -1,0 +1,6 @@
+# github.com/vasic-digital/job_seeker/internal/ingest
+# [github.com/vasic-digital/job_seeker/internal/ingest]
+vet: internal/ingest/ingest_test.go:80:58: undefined: Runner
+# github.com/vasic-digital/job_seeker/internal/scheduler
+# [github.com/vasic-digital/job_seeker/internal/scheduler]
+vet: internal/scheduler/scheduler_test.go:23:8: undefined: Scheduler

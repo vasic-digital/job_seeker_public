@@ -1,0 +1,3 @@
+postings: 115
+providers.DetectLang: accepted at conf>=0.8: 7/115; codes map[en:115]
+match.AcceptLanguage:  accepted at conf>=0.8: 115/115; codes map[en:115]

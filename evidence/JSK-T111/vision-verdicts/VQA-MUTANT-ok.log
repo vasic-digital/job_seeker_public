@@ -1,0 +1,1 @@
+PASS: VQA-MUTANT-ok matched=0/2 hallucinated=false expect_fail=true raw_pass=false response="The visible text on the screenshot is:\n\nOK"

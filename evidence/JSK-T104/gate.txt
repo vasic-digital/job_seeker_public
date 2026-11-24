@@ -1,0 +1,2 @@
+OK: internal/llm tiebreak suite green
+PROVE-FAILURE OK: control passes; 6 mutations all rejected

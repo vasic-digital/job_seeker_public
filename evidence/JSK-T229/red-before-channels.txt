@@ -1,0 +1,4 @@
+# github.com/vasic-digital/job_seeker/internal/ext/channel/openurl [github.com/vasic-digital/job_seeker/internal/ext/channel/openurl.test]
+internal/ext/channel/openurl/openurl_test.go:12:16: undefined: Channel
+internal/ext/channel/openurl/openurl_test.go:19:12: undefined: Channel
+internal/ext/channel/openurl/openurl_test.go:25:17: undefined: Channel

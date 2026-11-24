@@ -1,0 +1,10 @@
+--- PASS: TestWordBoundaryTable (0.00s)
+--- PASS: TestSubstringMutantWouldFail (0.00s)
+--- PASS: TestComponentShareAndReasons (0.00s)
+--- PASS: TestDeterministicReasonOrder (0.00s)
+--- PASS: TestInfoRegistersAsScoreFeature (0.00s)
+--- PASS: TestLoadSynonymsStrict (0.00s)
+--- PASS: TestAttachFeedsSkillsAndBumpsVersion (0.00s)
+--- PASS: TestRulesetSHACoversSynonyms (0.01s)
+--- PASS: TestKeywordPointsAreCapped (0.00s)
+ok  	github.com/vasic-digital/job_seeker/internal/ext/match/keyword	0.023s

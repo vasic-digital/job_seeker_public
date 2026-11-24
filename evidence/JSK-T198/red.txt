@@ -1,0 +1,1 @@
+RED (tests first): vet: internal/providers/lever_test.go:28:12: undefined: NewLever

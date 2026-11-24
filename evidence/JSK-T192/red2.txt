@@ -1,0 +1,4 @@
+--- FAIL: TestBackfillKeepsLegacyRepresentativeEvenWhenRootExpired (0.09s)
+    backfill_test.go:101: backfill changed the legacy dup_of values
+FAIL
+FAIL	github.com/vasic-digital/job_seeker/internal/position	0.106s

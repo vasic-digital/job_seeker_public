@@ -1,0 +1,6 @@
+== MUTATION session guard not mounted in the real server
+--- FAIL: TestProbeCorpus (6.40s)
+    probe_test.go:84: token create: 403 {"error":{"code":"step_up_required","message":"error.step_up_required","request_id":"r_80bf5ec35edb1f02193b"}}
+FAIL
+FAIL	github.com/vasic-digital/job_seeker/tests/live	6.403s
+FAIL

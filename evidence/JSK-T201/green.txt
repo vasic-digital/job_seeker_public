@@ -1,0 +1,9 @@
+--- PASS: TestHNParserMatchesLabelledGold (0.03s)
+--- PASS: TestHNCursorProtocolDiscoveryThenPages (0.04s)
+--- PASS: TestHNRefusesWrongThreadAndMalformed (0.09s)
+--- PASS: TestHNInjectionCorpus (0.49s)
+--- PASS: TestHNAttribution (0.00s)
+--- PASS: TestHNHeaderShapeGuards (0.00s)
+--- PASS: TestHNCursorBoundMakesNoRequest (0.00s)
+--- PASS: FuzzHNOne (0.00s)
+ok  	github.com/vasic-digital/job_seeker/internal/providers	1.674s

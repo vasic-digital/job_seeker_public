@@ -1,0 +1,8 @@
+ok  	github.com/vasic-digital/job_seeker/internal/app	(cached)
+ok  	github.com/vasic-digital/job_seeker/internal/config	(cached)
+ok  	github.com/vasic-digital/job_seeker/cmd/jobseekerd	0.026s
+?   	github.com/vasic-digital/job_seeker/cmd/jsctl	[no test files]
+?   	github.com/vasic-digital/job_seeker/cmd/jsgate-serve	[no test files]
+?   	github.com/vasic-digital/job_seeker/cmd/jsgold	[no test files]
+?   	github.com/vasic-digital/job_seeker/cmd/jsobserve	[no test files]
+?   	github.com/vasic-digital/job_seeker/cmd/jspdscan	[no test files]

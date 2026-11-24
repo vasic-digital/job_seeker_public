@@ -1,0 +1,14 @@
+# JSK-T118 recorded baseline: best of 3 on the 16-CPU dev host, 2026-11-24. The disk is ~100% full and shared, so p99 of store/audit/ingest is fsync-bound: audit p99 ranged 0.29-1.35 ms across back-to-back runs and its baseline is the high end. package	benchmark	unit	baseline
+internal/match	BenchmarkClassify	ns/op	110000
+internal/match	BenchmarkClassify	p99-ns	700000
+internal/match	BenchmarkScorePosting	ns/op	6200
+internal/match	BenchmarkScorePosting	p99-ns	22000
+internal/store	BenchmarkWriteInsert	ns/op	520000
+internal/store	BenchmarkWriteInsert	p50-ns	122000
+internal/store	BenchmarkWriteInsert	p99-ns	7900000
+internal/audit	BenchmarkAppend	ns/op	223000
+internal/audit	BenchmarkAppend	p50-ns	100000
+internal/audit	BenchmarkAppend	p99-ns	1400000
+internal/ingest	BenchmarkUpsertReplay	ns/op	7900000
+internal/ingest	BenchmarkUpsertReplay	p50-ns	5900000
+internal/ingest	BenchmarkUpsertReplay	p99-ns	56700000

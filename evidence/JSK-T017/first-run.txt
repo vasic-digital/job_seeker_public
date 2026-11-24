@@ -1,0 +1,7 @@
+--- FAIL: TestConstraintsRefuseBadRows (0.03s)
+    schema_test.go:89: INSERT INTO mapping(posting_id,is_current,status,method,ruleset_sha,mapped_at) VALUES(1,1,'ambiguous','rules','r4','t'): constraint failed: UNIQUE constraint failed: mapping.posting_id (2067)
+--- FAIL: TestNoOverlayValueRepresentableInDefaultsOrChecks (0.03s)
+    schema_test.go:190: mapping: string literal "" is outside the closed vocabulary (could carry an overlay value)
+FAIL
+FAIL	github.com/vasic-digital/job_seeker/internal/store	0.492s
+FAIL

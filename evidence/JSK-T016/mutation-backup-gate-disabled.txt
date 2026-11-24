@@ -1,0 +1,5 @@
+--- FAIL: TestMigrationRefusedWhenBackupFails (0.03s)
+--- FAIL: TestNoBackupDirConfiguredRefusesPendingMigrationOfExistingDB (0.03s)
+FAIL
+FAIL	github.com/vasic-digital/job_seeker/internal/store	0.257s
+FAIL

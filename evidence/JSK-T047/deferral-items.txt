@@ -1,0 +1,4 @@
+JSK-013..015 created with workable-items add (see docs/workable_items.db)
+JSK-013|Queued|Deferred provider: jobspipe (ToS review before adapter)
+JSK-014|Queued|Deferred provider: Sprout AI (ToS review before adapter)
+JSK-015|Queued|Deferred provider: SmartApplier (ToS review before adapter)

@@ -1,0 +1,12 @@
+  ok   clean repo; low-entropy EUR alone is not a hit (rc 0)
+  ok   high-entropy salary figure in a tracked file (rc 1)
+  ok   low-entropy value WITH its key name (rc 1)
+  ok   blocked company name (case-insensitive) (rc 1)
+  ok   tracked PDF outside the allow-list (rc 1)
+  ok   tracked PDF inside an allowed prefix (rc 0)
+  ok   tracked posting body (rc 1)
+  ok   tracked path under a private dir (rc 1)
+  ok   needle only in an extra path (image layer / DB copy / log) (rc 1)
+  ok   no overlay -> UNDETERMINED (rc 2)
+PROVE-FAILURE OK: every needle control behaves
+prove rc=0

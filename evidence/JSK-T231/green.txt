@@ -1,0 +1,12 @@
+--- PASS: TestBuildRoundTrips (0.00s)
+--- PASS: TestBuildRefusesHeaderInjection (0.00s)
+--- PASS: TestMailerCreatesExactlyOneDraftAndNothingElse (0.02s)
+--- PASS: TestMailerErrorsNeverLeakTokenOrBody (0.03s)
+--- PASS: TestMissingTokenMakesNoRequest (0.00s)
+--- PASS: TestMailerHasNoSendMethod (0.00s)
+--- PASS: TestChannelRefusesWithoutApprovalWithoutTouchingTheNetwork (0.00s)
+--- PASS: TestChannelNeedsDeliverabilityYes (0.00s)
+--- PASS: TestChannelCreatesDraftForApprovedMailtoAndHumanSends (0.00s)
+--- PASS: TestAdmissionAndCaps (0.00s)
+--- PASS: TestTransportErrorsDoNotCarryURLs (0.00s)
+ok  	github.com/vasic-digital/job_seeker/internal/ext/channel/smtpcompose	0.074s

@@ -1,0 +1,5 @@
+model: qwen2.5vl:3b (ollama id fb90415cde1e, 3.2 GB on disk, Qwen2.5-VL 3B, quantised by the ollama library)
+server: user-level ollama 0.33.3 on 127.0.0.1:11500, models in $VISION_OLLAMA_MODELS (default under /mnt/DATA1TB) (system ollama on 11434 untouched)
+host: RTX 3060 12 GB (972 MiB used before, 5746 MiB used with the model loaded: about 4.8 GB VRAM), 30 GiB RAM (18 GiB available during the run)
+whole session (live boot + 6 frames, 6 model calls, one cold model load): 4m23s
+the 7b (qwen2.5vl:7b, 6 GB) pull was started and STOPPED at 15% (link ~1.5 MB/s); not needed since 3b passed every check

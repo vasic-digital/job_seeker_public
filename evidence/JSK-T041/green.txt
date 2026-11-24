@@ -1,0 +1,7 @@
+--- PASS: TestMinIntervalRefusalCarriesNextAllowedAt (0.03s)
+--- PASS: TestDailyCapRemotive4PerDay (0.03s)
+--- PASS: TestRestartCannotExceedLimits (0.04s)
+--- PASS: TestConcurrentReservationsNeverExceedCap (0.04s)
+--- PASS: TestProviderBackoffTimeIsHonouredAndRefusalRecordsNothing (0.03s)
+--- PASS: TestUnknownProviderIsAnError (0.03s)
+ok  	github.com/vasic-digital/job_seeker/internal/limiter	0.197s

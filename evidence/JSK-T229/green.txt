@@ -1,0 +1,11 @@
+--- PASS: TestEveryRegisteredChannelRefusesZeroApprovedAndNeverSends (0.00s)
+--- PASS: TestNewApprovedCallersAreOnlyTheAllowList (0.01s)
+ok  	github.com/vasic-digital/job_seeker/internal/ext/channel	0.012s
+--- PASS: TestParse (0.00s)
+--- PASS: TestPrepareIsComposeOnlyAndUsesFixedSubject (0.00s)
+--- PASS: TestSupportsAndAdmission (0.00s)
+--- PASS: TestPrepareLinkNeverContainsRecipientMetacharacters (0.00s)
+ok  	github.com/vasic-digital/job_seeker/internal/ext/channel/mailto	0.009s
+--- PASS: TestNothingWithoutApproval (0.00s)
+--- PASS: TestSupportsAndAdmission (0.00s)
+ok  	github.com/vasic-digital/job_seeker/internal/ext/channel/openurl	0.007s

@@ -1,0 +1,8 @@
+# github.com/vasic-digital/job_seeker/internal/api [github.com/vasic-digital/job_seeker/internal/api.test]
+internal/api/ext_routes_test.go:15:2: undefined: RegisterExt
+--- FAIL: TestPolicyCheckShippedRulesPass (0.00s)
+    ext_test.go:22: rc=2 out= err=usage: jsctl <command>
+          version
+          migrate                          apply pending migrations (verified backup first)
+          backup                           write a verified snapshot into the backup directory
+          verify-audit [--anchor]          walk the audit hash chain and cross-check anchors (--anchor appends one first)

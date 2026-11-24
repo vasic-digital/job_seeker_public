@@ -1,0 +1,17 @@
+# feature x test-type x evidence-state ledger (JSK-T007, FR-074, section 11.4.169).
+# state: PLANNED (task named, no evidence yet) | PRESENT (evidence path resolves) | SKIP (reason_class + reason).
+# reason_class for SKIP is closed: topology | hardware | credential. Absence of effort is never a reason.
+feature	test_type	state	evidence_or_task	reason_class	reason
+001-job-seeker-mvp	unit	PRESENT	internal/config/datadir_test.go		
+001-job-seeker-mvp	integration	PLANNED	JSK-T108		
+001-job-seeker-mvp	e2e	PRESENT	evidence/JSK-T083/journey.log		
+001-job-seeker-mvp	full-automation	PLANNED	JSK-T109		
+001-job-seeker-mvp	challenges	PRESENT	evidence/JSK-T110/challenges_result.json		
+001-job-seeker-mvp	helixqa	PLANNED	JSK-T111		
+001-job-seeker-mvp	ddos-load	PRESENT	evidence/JSK-T112/flood_rss.json		
+001-job-seeker-mvp	security	PRESENT	evidence/JSK-T113/needle_scan.json		
+001-job-seeker-mvp	stress-chaos	PLANNED	JSK-T114		
+001-job-seeker-mvp	concurrency-atomicity	PRESENT	evidence/JSK-T115/run.txt		
+001-job-seeker-mvp	race-deadlock	PRESENT	evidence/JSK-T116/race.txt		
+001-job-seeker-mvp	memory	PRESENT	evidence/JSK-T117/soak_summary.json		
+001-job-seeker-mvp	benchmark	PRESENT	evidence/JSK-T118/bench_gate.txt		

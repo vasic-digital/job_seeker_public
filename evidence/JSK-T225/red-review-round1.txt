@@ -1,0 +1,10 @@
+github.com/vasic-digital/job_seeker/internal/ext.TestEvaluateSurvivesPanickingInfoAndNilRule(0x1e803511ad88)
+	<repo>/internal/ext/verdict_range_test.go:23 +0x106
+testing.tRunner(0x1e803511ad88, 0x67c2b0)
+	$HOME/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.11.linux-amd64/src/testing/testing.go:2036 +0xea
+created by testing.(*T).Run in goroutine 1
+	$HOME/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.11.linux-amd64/src/testing/testing.go:2101 +0x4c5
+FAIL	github.com/vasic-digital/job_seeker/internal/ext	0.010s
+FAIL
+
+# paths normalised for publication ($HOME, <repo>, <umbrella> placeholders)

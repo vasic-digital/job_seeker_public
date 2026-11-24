@@ -1,0 +1,15 @@
+# JSK-T053 language detector measurement, 2026-11-24T10:49:10Z
+## real postings (115, all labelled en by two independent agent labellers)
+postings: 115
+providers.DetectLang: accepted at conf>=0.8: 7/115; codes map[en:115]
+match.AcceptLanguage:  accepted at conf>=0.8: 115/115; codes map[en:115]
+
+## SUPPLEMENTARY - NOT postings: real site prose paragraphs >=200 chars from the umbrella _content_<lang>/ (no RU/SR/DE postings exist; see T048)
+lang-prose <umbrella>/_content_ru expected=ru paragraphs=432 accepted-correct=373 accepted-WRONG=12 und(below 0.8)=47 wrong-as=map[en:12]
+lang-prose <umbrella>/_content_sr expected=sr paragraphs=406 accepted-correct=327 accepted-WRONG=12 und(below 0.8)=67 wrong-as=map[en:12]
+lang-prose <umbrella>/_content_de expected=de paragraphs=427 accepted-correct=368 accepted-WRONG=12 und(below 0.8)=47 wrong-as=map[en:12]
+lang-prose <umbrella>/_content expected=en paragraphs=406 accepted-correct=364 accepted-WRONG=0 und(below 0.8)=42 wrong-as=map[]
+
+Reading: providers.DetectLang accepts 7/115 real EN postings at the FR-021 >=0.8 rule (RED: stores und for 108). match.AcceptLanguage accepts 115/115 correct. The 12 'WRONG as en' paragraphs per non-EN dir are the same count each time and were NOT individually inspected (UNCONFIRMED: presumed untranslated English paragraphs). RU/SR/DE on real POSTINGS: UNMEASURED, operator-supplied cell stays open. DE has no posting corpus and no prose false-negative claim beyond the table.
+
+# paths normalised for publication ($HOME, <repo>, <umbrella> placeholders)

@@ -1,0 +1,14 @@
+--- FAIL: TestPostingChangedIsDetectedWithoutRawSHA (0.35s)
+    --- FAIL: TestPostingChangedIsDetectedWithoutRawSHA/apply_url (0.09s)
+        guards_test.go:202: err <nil> want ErrApprovalHashMismatch
+    --- FAIL: TestPostingChangedIsDetectedWithoutRawSHA/company (0.09s)
+        guards_test.go:202: err <nil> want ErrApprovalHashMismatch
+    --- FAIL: TestPostingChangedIsDetectedWithoutRawSHA/salary (0.09s)
+        guards_test.go:202: err <nil> want ErrApprovalHashMismatch
+    --- FAIL: TestPostingChangedIsDetectedWithoutRawSHA/title (0.08s)
+        guards_test.go:202: err <nil> want ErrApprovalHashMismatch
+--- FAIL: TestPostingBodyChangeIsDetectedWithoutRawSHA (0.07s)
+    guards_test.go:220: err <nil>
+FAIL
+FAIL	github.com/vasic-digital/job_seeker/internal/draft	0.437s
+FAIL

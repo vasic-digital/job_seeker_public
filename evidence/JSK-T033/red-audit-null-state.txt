@@ -1,0 +1,3 @@
+--- FAIL: TestVerifyWalksNonTransitionEntries (0.06s)
+    audit_test.go:338: a NULL-state entry broke the walk: UNVERIFIED: chain walk FAILED (0 entries); anchor cross-check NOT POSSIBLE (no anchor); cannot read audit_log: sql: Scan error on column index 4, name "to_state": converting NULL to string is unsupported
+FAIL

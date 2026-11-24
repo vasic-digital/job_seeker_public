@@ -1,0 +1,7 @@
+--- FAIL: TestBucketRejectsNonPositiveRate (0.00s)
+--- FAIL: TestFloodingCannotResetVictimBucket (0.00s)
+--- FAIL: TestBucketSweepFreesRefilledEntries (0.00s)
+--- FAIL: TestFloodingCannotResetVictimBackoff (0.00s)
+FAIL
+FAIL	github.com/vasic-digital/job_seeker/internal/ratelimit	0.028s
+FAIL

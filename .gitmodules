@@ -1,0 +1,12 @@
+[submodule "submodules/containers"]
+	path = submodules/containers
+	url = https://github.com/vasic-digital/containers.git
+[submodule "submodules/challenges"]
+	path = submodules/challenges
+	url = https://github.com/vasic-digital/challenges.git
+[submodule "submodules/qa"]
+	path = submodules/qa
+	url = https://github.com/vasic-digital/HelixQA.git
+[submodule "submodules/security"]
+	path = submodules/security
+	url = https://github.com/vasic-digital/security.git

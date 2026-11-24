@@ -1,0 +1,24 @@
+# Extension policy (JSK-T233, FR-099, docs/research/protocols/22). DATA: which plugins are on, strategy choices,
+# per-scope overrides. Weights and tokens stay in the other rules files; no private value lives here.
+# A key that names no registered plugin fails the load. A deployment with no enabled gate cannot approve anything.
+schema: policy.v1
+defaults:
+  enabled:
+    eligibility/remote_mode: true
+    eligibility/excluded_region: true
+    eligibility/blocked_company: true
+    eligibility/salary_floor: true
+    score_feature/keyword_tokens: true
+    channel/provider_url: true
+    channel/mailto: true      # compose-only: opens the human's mail client; nothing is sent
+    standard_reader/schemaorg_jobposting: true
+    parser_simulator/poppler_pdf: true
+  strategy:
+    channel: favourites_first
+  params: {}
+locked:            # hard gates: only the operator layer may switch these off (audited)
+  - eligibility/remote_mode
+  - eligibility/excluded_region
+  - eligibility/blocked_company
+  - eligibility/salary_floor
+scopes: {}

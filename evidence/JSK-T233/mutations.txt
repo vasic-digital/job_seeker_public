@@ -1,0 +1,5 @@
+KILLED       ext-policy-unknown-plugin-accepted
+KILLED       ext-policy-locked-off-ignored
+KILLED       ext-policy-gate-port-empty-ok
+KILLED       ext-policy-schema-unchecked
+KILLED       ext-settings-bad-value-accepted

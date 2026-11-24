@@ -1,0 +1,56 @@
+# Private overlay: the ONLY place personal data (CV values, contact data) lives.
+career_private/
+.cache-career/
+
+# Secrets (CONST-042 / §11.4.10): never tracked
+.env
+.env.*
+*.env
+!.env.example
+*.passphrase
+*.pem
+*.key
+secrets/
+
+# Build output
+bin/
+dist/
+build/
+out/
+*.test
+*.out
+coverage.*
+
+# Transient / OS / editor
+.research/
+.DS_Store
+*.swp
+Thumbs.db
+
+# job_seeker data-at-rest (FR-053, FR-077): databases, WAL/SHM, backups, key material, corpora
+*.db
+*.db-wal
+*.db-shm
+*.sqlite
+*.sqlite3
+*.sqlite-wal
+*.sqlite-shm
+*.bak
+*.backup
+*.sql.gz
+data/
+backups/
+/certs/
+*.crt
+*.cer
+*.p12
+*.pfx
+*.jks
+corpora/
+snapshots/
+evidence/private/
+evidence/**/*.pdf
+evidence/**/*.png.private
+.cache-career/
+# the workable-items DB is TRACKED by canon (§11.4.95); only its sidecars stay ignored
+!docs/workable_items.db

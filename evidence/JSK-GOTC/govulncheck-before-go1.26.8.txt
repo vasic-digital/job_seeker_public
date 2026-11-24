@@ -1,0 +1,843 @@
+=== Symbol Results ===
+
+Vulnerability #1: GO-2026-6859
+    HTTP/1 server crash due to MaxBytesReader header race in net/http
+  More info: https://pkg.go.dev/vuln/GO-2026-6859
+  Standard library
+    Found in: net/http@go1.26.8
+    Fixed in: net/http@go1.26.11
+    Example traces found:
+      #1: internal/match/gold/gold.go:170:10: gold.WriteCorpus calls bufio.Writer.Write, which eventually calls http.CanonicalHeaderKey
+      #2: internal/egress/probe.go:47:23: egress.Client.Probe calls http.Client.Do
+      #3: internal/server/server.go:139:28: server.Start calls http3.Server.Serve, which eventually calls http.HandlerFunc.ServeHTTP
+      #4: internal/server/brotli.go:146:7: server.addVary calls http.Header.Add
+      #5: internal/server/brotli.go:182:9: server.brWriter.WriteHeader calls http.Header.Del
+      #6: internal/server/brotli.go:212:20: server.brWriter.Flush calls http.Header.Get
+      #7: internal/server/brotli.go:214:18: server.brWriter.Flush calls http.Header.Set
+      #8: internal/server/brotli.go:139:31: server.addVary calls http.Header.Values
+      #9: internal/providers/providers.go:152:40: providers.get calls http.NewRequestWithContext
+      #10: internal/providers/providers.go:219:29: providers.retryAfter calls http.ParseTime
+      #11: internal/api/auth_routes.go:109:21: api.AuthRoutes.CSRFLookup calls http.Request.Cookie
+      #12: internal/server/server.go:139:28: server.Start calls http3.Server.Serve, which eventually calls http.ServeMux.ServeHTTP
+      #13: internal/app/app.go:263:29: app.Run calls http.Server.Serve
+      #14: internal/server/server.go:131:30: server.Start calls http.Server.ServeTLS
+      #15: internal/server/server.go:170:37: server.Server.Shutdown calls http.Server.Shutdown
+      #16: internal/egress/egress.go:157:25: egress.guard.RoundTrip calls http.Transport.RoundTrip
+      #17: internal/egress/probe.go:52:18: egress.Client.Probe calls http.body.Close
+      #18: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.body.Read
+      #19: internal/egress/probe.go:52:18: egress.Client.Probe calls http.bodyEOFSignal.Close
+      #20: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.bodyEOFSignal.Read
+      #21: internal/templates/templates.go:155:22: templates.HashFile calls io.Copy, which eventually calls http.bodyLocked.Read
+      #22: internal/templates/templates.go:155:22: templates.HashFile calls io.Copy, which eventually calls http.bufioFlushWriter.Write
+      #23: internal/egress/probe.go:52:18: egress.Client.Probe calls http.cancelTimerBody.Close
+      #24: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.cancelTimerBody.Read
+      #25: internal/match/gold/gold.go:170:10: gold.WriteCorpus calls bufio.Writer.Write, which calls http.checkConnErrorWriter.Write
+      #26: internal/match/gold/gold.go:170:10: gold.WriteCorpus calls bufio.Writer.Write, which calls http.chunkWriter.Write
+      #27: internal/templates/templates.go:155:22: templates.HashFile calls io.Copy, which eventually calls http.connReader.Read
+      #28: internal/auth/passkey.go:317:38: auth.Service.FinishRegistration calls webauthn.WebAuthn.FinishRegistration, which eventually calls http.expectContinueReader.Close
+      #29: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.expectContinueReader.Read
+      #30: internal/egress/probe.go:52:18: egress.Client.Probe calls http.gzipReader.Close
+      #31: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.gzipReader.Read
+      #32: internal/templates/templates.go:155:22: templates.HashFile calls io.Copy, which eventually calls http.loggingConn.Read
+      #33: internal/match/gold/gold.go:170:10: gold.WriteCorpus calls bufio.Writer.Write, which calls http.loggingConn.Write
+      #34: internal/auth/passkey.go:317:38: auth.Service.FinishRegistration calls webauthn.WebAuthn.FinishRegistration, which eventually calls http.maxBytesReader.Close
+      #35: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.maxBytesReader.Read
+      #36: internal/certs/certs.go:322:45: certs.IssueLeaf calls elliptic.P256, which eventually calls http.onceCloseListener.Close
+      #37: internal/templates/templates.go:155:22: templates.HashFile calls io.Copy, which eventually calls http.persistConn.Read
+      #38: internal/templates/templates.go:155:22: templates.HashFile calls io.Copy, which eventually calls http.persistConnWriter.ReadFrom
+      #39: internal/match/gold/gold.go:170:10: gold.WriteCorpus calls bufio.Writer.Write, which calls http.persistConnWriter.Write
+      #40: internal/auth/passkey.go:317:38: auth.Service.FinishRegistration calls webauthn.WebAuthn.FinishRegistration, which eventually calls http.readTrackingBody.Close
+      #41: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.readTrackingBody.Read
+      #42: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.readWriteCloserBody.Read
+      #43: internal/server/brotli.go:222:10: server.brWriter.Flush calls http.response.Flush
+      #44: internal/templates/templates.go:155:22: templates.HashFile calls io.Copy, which eventually calls http.response.ReadFrom
+      #45: internal/server/brotli.go:207:31: server.brWriter.Write calls http.response.Write
+      #46: internal/server/brotli.go:191:30: server.brWriter.WriteHeader calls http.response.WriteHeader
+      #47: internal/privacy/export.go:205:20: privacy.Export calls gzip.Writer.Close, which eventually calls http.response.WriteString
+      #48: internal/redact/redact.go:137:43: redact.clean calls http.transportReadFromServerError.Error
+
+Vulnerability #2: GO-2026-6809
+    Distrust compromised intermediate certificates in crypto/x509
+  More info: https://pkg.go.dev/vuln/GO-2026-6809
+  Standard library
+    Found in: crypto/x509@go1.26.8
+    Fixed in: crypto/x509@go1.26.10
+    Example traces found:
+      #1: internal/certs/certs.go:352:26: certs.IssueLeaf calls x509.Certificate.Verify
+
+Vulnerability #3: GO-2026-6617
+    HTTP/2 server crash due to HPACK encoder race in net/http
+  More info: https://pkg.go.dev/vuln/GO-2026-6617
+  Standard library
+    Found in: net/http@go1.26.8
+    Fixed in: net/http@go1.26.9
+    Example traces found:
+      #1: internal/match/gold/gold.go:170:10: gold.WriteCorpus calls bufio.Writer.Write, which eventually calls http.CanonicalHeaderKey
+      #2: internal/match/gold/gold.go:170:10: gold.WriteCorpus calls bufio.Writer.Write, which eventually calls http.CanonicalHeaderKey
+      #3: internal/egress/probe.go:47:23: egress.Client.Probe calls http.Client.Do
+      #4: internal/egress/probe.go:47:23: egress.Client.Probe calls http.Client.Do
+      #5: internal/server/server.go:139:28: server.Start calls http3.Server.Serve, which eventually calls http.HandlerFunc.ServeHTTP
+      #6: internal/server/server.go:139:28: server.Start calls http3.Server.Serve, which eventually calls http.HandlerFunc.ServeHTTP
+      #7: internal/server/brotli.go:146:7: server.addVary calls http.Header.Add
+      #8: internal/server/brotli.go:146:7: server.addVary calls http.Header.Add
+      #9: internal/server/brotli.go:182:9: server.brWriter.WriteHeader calls http.Header.Del
+      #10: internal/server/brotli.go:182:9: server.brWriter.WriteHeader calls http.Header.Del
+      #11: internal/server/brotli.go:212:20: server.brWriter.Flush calls http.Header.Get
+      #12: internal/server/brotli.go:212:20: server.brWriter.Flush calls http.Header.Get
+      #13: internal/server/brotli.go:214:18: server.brWriter.Flush calls http.Header.Set
+      #14: internal/server/brotli.go:214:18: server.brWriter.Flush calls http.Header.Set
+      #15: internal/server/brotli.go:139:31: server.addVary calls http.Header.Values
+      #16: internal/server/brotli.go:139:31: server.addVary calls http.Header.Values
+      #17: internal/providers/providers.go:152:40: providers.get calls http.NewRequestWithContext
+      #18: internal/providers/providers.go:152:40: providers.get calls http.NewRequestWithContext
+      #19: internal/providers/providers.go:219:29: providers.retryAfter calls http.ParseTime
+      #20: internal/providers/providers.go:219:29: providers.retryAfter calls http.ParseTime
+      #21: internal/api/auth_routes.go:109:21: api.AuthRoutes.CSRFLookup calls http.Request.Cookie
+      #22: internal/api/auth_routes.go:109:21: api.AuthRoutes.CSRFLookup calls http.Request.Cookie
+      #23: internal/server/server.go:139:28: server.Start calls http3.Server.Serve, which eventually calls http.ServeMux.ServeHTTP
+      #24: internal/server/server.go:139:28: server.Start calls http3.Server.Serve, which eventually calls http.ServeMux.ServeHTTP
+      #25: internal/app/app.go:263:29: app.Run calls http.Server.Serve
+      #26: internal/app/app.go:263:29: app.Run calls http.Server.Serve
+      #27: internal/server/server.go:131:30: server.Start calls http.Server.ServeTLS
+      #28: internal/server/server.go:131:30: server.Start calls http.Server.ServeTLS
+      #29: internal/server/server.go:170:37: server.Server.Shutdown calls http.Server.Shutdown
+      #30: internal/server/server.go:170:37: server.Server.Shutdown calls http.Server.Shutdown
+      #31: internal/egress/egress.go:157:25: egress.guard.RoundTrip calls http.Transport.RoundTrip
+      #32: internal/egress/egress.go:157:25: egress.guard.RoundTrip calls http.Transport.RoundTrip
+      #33: internal/egress/probe.go:52:18: egress.Client.Probe calls http.body.Close
+      #34: internal/egress/probe.go:52:18: egress.Client.Probe calls http.body.Close
+      #35: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.body.Read
+      #36: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.body.Read
+      #37: internal/egress/probe.go:52:18: egress.Client.Probe calls http.bodyEOFSignal.Close
+      #38: internal/egress/probe.go:52:18: egress.Client.Probe calls http.bodyEOFSignal.Close
+      #39: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.bodyEOFSignal.Read
+      #40: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.bodyEOFSignal.Read
+      #41: internal/templates/templates.go:155:22: templates.HashFile calls io.Copy, which eventually calls http.bodyLocked.Read
+      #42: internal/templates/templates.go:155:22: templates.HashFile calls io.Copy, which eventually calls http.bodyLocked.Read
+      #43: internal/templates/templates.go:155:22: templates.HashFile calls io.Copy, which eventually calls http.bufioFlushWriter.Write
+      #44: internal/templates/templates.go:155:22: templates.HashFile calls io.Copy, which eventually calls http.bufioFlushWriter.Write
+      #45: internal/egress/probe.go:52:18: egress.Client.Probe calls http.cancelTimerBody.Close
+      #46: internal/egress/probe.go:52:18: egress.Client.Probe calls http.cancelTimerBody.Close
+      #47: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.cancelTimerBody.Read
+      #48: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.cancelTimerBody.Read
+      #49: internal/match/gold/gold.go:170:10: gold.WriteCorpus calls bufio.Writer.Write, which calls http.checkConnErrorWriter.Write
+      #50: internal/match/gold/gold.go:170:10: gold.WriteCorpus calls bufio.Writer.Write, which calls http.checkConnErrorWriter.Write
+      #51: internal/match/gold/gold.go:170:10: gold.WriteCorpus calls bufio.Writer.Write, which calls http.chunkWriter.Write
+      #52: internal/match/gold/gold.go:170:10: gold.WriteCorpus calls bufio.Writer.Write, which calls http.chunkWriter.Write
+      #53: internal/templates/templates.go:155:22: templates.HashFile calls io.Copy, which eventually calls http.connReader.Read
+      #54: internal/templates/templates.go:155:22: templates.HashFile calls io.Copy, which eventually calls http.connReader.Read
+      #55: internal/auth/passkey.go:317:38: auth.Service.FinishRegistration calls webauthn.WebAuthn.FinishRegistration, which eventually calls http.expectContinueReader.Close
+      #56: internal/auth/passkey.go:317:38: auth.Service.FinishRegistration calls webauthn.WebAuthn.FinishRegistration, which eventually calls http.expectContinueReader.Close
+      #57: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.expectContinueReader.Read
+      #58: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.expectContinueReader.Read
+      #59: internal/egress/probe.go:52:18: egress.Client.Probe calls http.gzipReader.Close
+      #60: internal/egress/probe.go:52:18: egress.Client.Probe calls http.gzipReader.Close
+      #61: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.gzipReader.Read
+      #62: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.gzipReader.Read
+      #63: internal/redact/redact.go:137:43: redact.clean calls http.http2ConnectionError.Error
+      #64: internal/redact/redact.go:137:43: redact.clean calls http.http2ConnectionError.Error
+      #65: internal/redact/redact.go:154:17: redact.safeString calls http.http2ErrCode.String
+      #66: internal/redact/redact.go:154:17: redact.safeString calls http.http2ErrCode.String
+      #67: internal/redact/redact.go:154:17: redact.safeString calls http.http2FrameHeader.String
+      #68: internal/redact/redact.go:154:17: redact.safeString calls http.http2FrameHeader.String
+      #69: internal/redact/redact.go:154:17: redact.safeString calls http.http2FrameType.String
+      #70: internal/redact/redact.go:154:17: redact.safeString calls http.http2FrameType.String
+      #71: internal/redact/redact.go:154:17: redact.safeString calls http.http2FrameWriteRequest.String
+      #72: internal/redact/redact.go:154:17: redact.safeString calls http.http2FrameWriteRequest.String
+      #73: internal/redact/redact.go:137:43: redact.clean calls http.http2GoAwayError.Error
+      #74: internal/redact/redact.go:137:43: redact.clean calls http.http2GoAwayError.Error
+      #75: internal/redact/redact.go:154:17: redact.safeString calls http.http2Setting.String
+      #76: internal/redact/redact.go:154:17: redact.safeString calls http.http2Setting.String
+      #77: internal/redact/redact.go:154:17: redact.safeString calls http.http2SettingID.String
+      #78: internal/redact/redact.go:154:17: redact.safeString calls http.http2SettingID.String
+      #79: internal/redact/redact.go:137:43: redact.clean calls http.http2StreamError.Error
+      #80: internal/redact/redact.go:137:43: redact.clean calls http.http2StreamError.Error
+      #81: internal/match/gold/gold.go:170:10: gold.WriteCorpus calls bufio.Writer.Write, which calls http.http2bufferedWriterTimeoutWriter.Write
+      #82: internal/match/gold/gold.go:170:10: gold.WriteCorpus calls bufio.Writer.Write, which calls http.http2bufferedWriterTimeoutWriter.Write
+      #83: internal/match/gold/gold.go:170:10: gold.WriteCorpus calls bufio.Writer.Write, which calls http.http2chunkWriter.Write
+      #84: internal/match/gold/gold.go:170:10: gold.WriteCorpus calls bufio.Writer.Write, which calls http.http2chunkWriter.Write
+      #85: internal/redact/redact.go:137:43: redact.clean calls http.http2connError.Error
+      #86: internal/redact/redact.go:137:43: redact.clean calls http.http2connError.Error
+      #87: internal/redact/redact.go:137:43: redact.clean calls http.http2duplicatePseudoHeaderError.Error
+      #88: internal/redact/redact.go:137:43: redact.clean calls http.http2duplicatePseudoHeaderError.Error
+      #89: internal/egress/probe.go:52:18: egress.Client.Probe calls http.http2gzipReader.Close
+      #90: internal/egress/probe.go:52:18: egress.Client.Probe calls http.http2gzipReader.Close
+      #91: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.http2gzipReader.Read
+      #92: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.http2gzipReader.Read
+      #93: internal/redact/redact.go:137:43: redact.clean calls http.http2headerFieldNameError.Error
+      #94: internal/redact/redact.go:137:43: redact.clean calls http.http2headerFieldNameError.Error
+      #95: internal/redact/redact.go:137:43: redact.clean calls http.http2headerFieldValueError.Error
+      #96: internal/redact/redact.go:137:43: redact.clean calls http.http2headerFieldValueError.Error
+      #97: internal/redact/redact.go:137:43: redact.clean calls http.http2pseudoHeaderError.Error
+      #98: internal/redact/redact.go:137:43: redact.clean calls http.http2pseudoHeaderError.Error
+      #99: internal/auth/passkey.go:317:38: auth.Service.FinishRegistration calls webauthn.WebAuthn.FinishRegistration, which eventually calls http.http2requestBody.Close
+      #100: internal/auth/passkey.go:317:38: auth.Service.FinishRegistration calls webauthn.WebAuthn.FinishRegistration, which eventually calls http.http2requestBody.Close
+      #101: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.http2requestBody.Read
+      #102: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.http2requestBody.Read
+      #103: internal/server/brotli.go:222:10: server.brWriter.Flush calls http.http2responseWriter.Flush
+      #104: internal/server/brotli.go:222:10: server.brWriter.Flush calls http.http2responseWriter.Flush
+      #105: internal/server/brotli.go:207:31: server.brWriter.Write calls http.http2responseWriter.Write
+      #106: internal/server/brotli.go:207:31: server.brWriter.Write calls http.http2responseWriter.Write
+      #107: internal/server/brotli.go:191:30: server.brWriter.WriteHeader calls http.http2responseWriter.WriteHeader
+      #108: internal/server/brotli.go:191:30: server.brWriter.WriteHeader calls http.http2responseWriter.WriteHeader
+      #109: internal/privacy/export.go:205:20: privacy.Export calls gzip.Writer.Close, which eventually calls http.http2responseWriter.WriteString
+      #110: internal/privacy/export.go:205:20: privacy.Export calls gzip.Writer.Close, which eventually calls http.http2responseWriter.WriteString
+      #111: internal/match/gold/gold.go:170:10: gold.WriteCorpus calls bufio.Writer.Write, which calls http.http2stickyErrWriter.Write
+      #112: internal/match/gold/gold.go:170:10: gold.WriteCorpus calls bufio.Writer.Write, which calls http.http2stickyErrWriter.Write
+      #113: internal/egress/probe.go:52:18: egress.Client.Probe calls http.http2transportResponseBody.Close
+      #114: internal/egress/probe.go:52:18: egress.Client.Probe calls http.http2transportResponseBody.Close
+      #115: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.http2transportResponseBody.Read
+      #116: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.http2transportResponseBody.Read
+      #117: internal/redact/redact.go:154:17: redact.safeString calls http.http2writeData.String
+      #118: internal/redact/redact.go:154:17: redact.safeString calls http.http2writeData.String
+      #119: internal/templates/templates.go:155:22: templates.HashFile calls io.Copy, which eventually calls http.loggingConn.Read
+      #120: internal/templates/templates.go:155:22: templates.HashFile calls io.Copy, which eventually calls http.loggingConn.Read
+      #121: internal/match/gold/gold.go:170:10: gold.WriteCorpus calls bufio.Writer.Write, which calls http.loggingConn.Write
+      #122: internal/match/gold/gold.go:170:10: gold.WriteCorpus calls bufio.Writer.Write, which calls http.loggingConn.Write
+      #123: internal/auth/passkey.go:317:38: auth.Service.FinishRegistration calls webauthn.WebAuthn.FinishRegistration, which eventually calls http.maxBytesReader.Close
+      #124: internal/auth/passkey.go:317:38: auth.Service.FinishRegistration calls webauthn.WebAuthn.FinishRegistration, which eventually calls http.maxBytesReader.Close
+      #125: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.maxBytesReader.Read
+      #126: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.maxBytesReader.Read
+      #127: internal/certs/certs.go:322:45: certs.IssueLeaf calls elliptic.P256, which eventually calls http.onceCloseListener.Close
+      #128: internal/certs/certs.go:322:45: certs.IssueLeaf calls elliptic.P256, which eventually calls http.onceCloseListener.Close
+      #129: internal/templates/templates.go:155:22: templates.HashFile calls io.Copy, which eventually calls http.persistConn.Read
+      #130: internal/templates/templates.go:155:22: templates.HashFile calls io.Copy, which eventually calls http.persistConn.Read
+      #131: internal/templates/templates.go:155:22: templates.HashFile calls io.Copy, which eventually calls http.persistConnWriter.ReadFrom
+      #132: internal/templates/templates.go:155:22: templates.HashFile calls io.Copy, which eventually calls http.persistConnWriter.ReadFrom
+      #133: internal/match/gold/gold.go:170:10: gold.WriteCorpus calls bufio.Writer.Write, which calls http.persistConnWriter.Write
+      #134: internal/match/gold/gold.go:170:10: gold.WriteCorpus calls bufio.Writer.Write, which calls http.persistConnWriter.Write
+      #135: internal/auth/passkey.go:317:38: auth.Service.FinishRegistration calls webauthn.WebAuthn.FinishRegistration, which eventually calls http.readTrackingBody.Close
+      #136: internal/auth/passkey.go:317:38: auth.Service.FinishRegistration calls webauthn.WebAuthn.FinishRegistration, which eventually calls http.readTrackingBody.Close
+      #137: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.readTrackingBody.Read
+      #138: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.readTrackingBody.Read
+      #139: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.readWriteCloserBody.Read
+      #140: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.readWriteCloserBody.Read
+      #141: internal/server/brotli.go:222:10: server.brWriter.Flush calls http.response.Flush
+      #142: internal/server/brotli.go:222:10: server.brWriter.Flush calls http.response.Flush
+      #143: internal/templates/templates.go:155:22: templates.HashFile calls io.Copy, which eventually calls http.response.ReadFrom
+      #144: internal/templates/templates.go:155:22: templates.HashFile calls io.Copy, which eventually calls http.response.ReadFrom
+      #145: internal/server/brotli.go:207:31: server.brWriter.Write calls http.response.Write
+      #146: internal/server/brotli.go:207:31: server.brWriter.Write calls http.response.Write
+      #147: internal/server/brotli.go:191:30: server.brWriter.WriteHeader calls http.response.WriteHeader
+      #148: internal/server/brotli.go:191:30: server.brWriter.WriteHeader calls http.response.WriteHeader
+      #149: internal/privacy/export.go:205:20: privacy.Export calls gzip.Writer.Close, which eventually calls http.response.WriteString
+      #150: internal/privacy/export.go:205:20: privacy.Export calls gzip.Writer.Close, which eventually calls http.response.WriteString
+      #151: internal/redact/redact.go:137:43: redact.clean calls http.transportReadFromServerError.Error
+      #152: internal/redact/redact.go:137:43: redact.clean calls http.transportReadFromServerError.Error
+
+Vulnerability #4: GO-2026-6613
+    HTTP/1 server connection desynchronization after 2xx CONNECT response in
+    net/http
+  More info: https://pkg.go.dev/vuln/GO-2026-6613
+  Standard library
+    Found in: net/http@go1.26.8
+    Fixed in: net/http@go1.26.9
+    Example traces found:
+      #1: internal/match/gold/gold.go:170:10: gold.WriteCorpus calls bufio.Writer.Write, which eventually calls http.CanonicalHeaderKey
+      #2: internal/egress/probe.go:47:23: egress.Client.Probe calls http.Client.Do
+      #3: internal/server/server.go:139:28: server.Start calls http3.Server.Serve, which eventually calls http.HandlerFunc.ServeHTTP
+      #4: internal/server/brotli.go:146:7: server.addVary calls http.Header.Add
+      #5: internal/server/brotli.go:182:9: server.brWriter.WriteHeader calls http.Header.Del
+      #6: internal/server/brotli.go:212:20: server.brWriter.Flush calls http.Header.Get
+      #7: internal/server/brotli.go:214:18: server.brWriter.Flush calls http.Header.Set
+      #8: internal/server/brotli.go:139:31: server.addVary calls http.Header.Values
+      #9: internal/providers/providers.go:152:40: providers.get calls http.NewRequestWithContext
+      #10: internal/providers/providers.go:219:29: providers.retryAfter calls http.ParseTime
+      #11: internal/api/auth_routes.go:109:21: api.AuthRoutes.CSRFLookup calls http.Request.Cookie
+      #12: internal/server/server.go:139:28: server.Start calls http3.Server.Serve, which eventually calls http.ServeMux.ServeHTTP
+      #13: internal/app/app.go:263:29: app.Run calls http.Server.Serve
+      #14: internal/server/server.go:131:30: server.Start calls http.Server.ServeTLS
+      #15: internal/server/server.go:170:37: server.Server.Shutdown calls http.Server.Shutdown
+      #16: internal/egress/egress.go:157:25: egress.guard.RoundTrip calls http.Transport.RoundTrip
+      #17: internal/egress/probe.go:52:18: egress.Client.Probe calls http.body.Close
+      #18: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.body.Read
+      #19: internal/egress/probe.go:52:18: egress.Client.Probe calls http.bodyEOFSignal.Close
+      #20: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.bodyEOFSignal.Read
+      #21: internal/templates/templates.go:155:22: templates.HashFile calls io.Copy, which eventually calls http.bodyLocked.Read
+      #22: internal/templates/templates.go:155:22: templates.HashFile calls io.Copy, which eventually calls http.bufioFlushWriter.Write
+      #23: internal/egress/probe.go:52:18: egress.Client.Probe calls http.cancelTimerBody.Close
+      #24: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.cancelTimerBody.Read
+      #25: internal/match/gold/gold.go:170:10: gold.WriteCorpus calls bufio.Writer.Write, which calls http.checkConnErrorWriter.Write
+      #26: internal/match/gold/gold.go:170:10: gold.WriteCorpus calls bufio.Writer.Write, which calls http.chunkWriter.Write
+      #27: internal/templates/templates.go:155:22: templates.HashFile calls io.Copy, which eventually calls http.connReader.Read
+      #28: internal/auth/passkey.go:317:38: auth.Service.FinishRegistration calls webauthn.WebAuthn.FinishRegistration, which eventually calls http.expectContinueReader.Close
+      #29: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.expectContinueReader.Read
+      #30: internal/egress/probe.go:52:18: egress.Client.Probe calls http.gzipReader.Close
+      #31: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.gzipReader.Read
+      #32: internal/templates/templates.go:155:22: templates.HashFile calls io.Copy, which eventually calls http.loggingConn.Read
+      #33: internal/match/gold/gold.go:170:10: gold.WriteCorpus calls bufio.Writer.Write, which calls http.loggingConn.Write
+      #34: internal/auth/passkey.go:317:38: auth.Service.FinishRegistration calls webauthn.WebAuthn.FinishRegistration, which eventually calls http.maxBytesReader.Close
+      #35: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.maxBytesReader.Read
+      #36: internal/certs/certs.go:322:45: certs.IssueLeaf calls elliptic.P256, which eventually calls http.onceCloseListener.Close
+      #37: internal/templates/templates.go:155:22: templates.HashFile calls io.Copy, which eventually calls http.persistConn.Read
+      #38: internal/templates/templates.go:155:22: templates.HashFile calls io.Copy, which eventually calls http.persistConnWriter.ReadFrom
+      #39: internal/match/gold/gold.go:170:10: gold.WriteCorpus calls bufio.Writer.Write, which calls http.persistConnWriter.Write
+      #40: internal/auth/passkey.go:317:38: auth.Service.FinishRegistration calls webauthn.WebAuthn.FinishRegistration, which eventually calls http.readTrackingBody.Close
+      #41: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.readTrackingBody.Read
+      #42: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.readWriteCloserBody.Read
+      #43: internal/server/brotli.go:222:10: server.brWriter.Flush calls http.response.Flush
+      #44: internal/templates/templates.go:155:22: templates.HashFile calls io.Copy, which eventually calls http.response.ReadFrom
+      #45: internal/server/brotli.go:207:31: server.brWriter.Write calls http.response.Write
+      #46: internal/server/brotli.go:191:30: server.brWriter.WriteHeader calls http.response.WriteHeader
+      #47: internal/privacy/export.go:205:20: privacy.Export calls gzip.Writer.Close, which eventually calls http.response.WriteString
+      #48: internal/redact/redact.go:137:43: redact.clean calls http.transportReadFromServerError.Error
+
+Vulnerability #5: GO-2026-6612
+    Double flow control refund on HTTP/2 server streams in net/http
+  More info: https://pkg.go.dev/vuln/GO-2026-6612
+  Standard library
+    Found in: net/http@go1.26.8
+    Fixed in: net/http@go1.26.9
+    Example traces found:
+      #1: internal/match/gold/gold.go:170:10: gold.WriteCorpus calls bufio.Writer.Write, which eventually calls http.CanonicalHeaderKey
+      #2: internal/match/gold/gold.go:170:10: gold.WriteCorpus calls bufio.Writer.Write, which eventually calls http.CanonicalHeaderKey
+      #3: internal/egress/probe.go:47:23: egress.Client.Probe calls http.Client.Do
+      #4: internal/egress/probe.go:47:23: egress.Client.Probe calls http.Client.Do
+      #5: internal/server/server.go:139:28: server.Start calls http3.Server.Serve, which eventually calls http.HandlerFunc.ServeHTTP
+      #6: internal/server/server.go:139:28: server.Start calls http3.Server.Serve, which eventually calls http.HandlerFunc.ServeHTTP
+      #7: internal/server/brotli.go:146:7: server.addVary calls http.Header.Add
+      #8: internal/server/brotli.go:146:7: server.addVary calls http.Header.Add
+      #9: internal/server/brotli.go:182:9: server.brWriter.WriteHeader calls http.Header.Del
+      #10: internal/server/brotli.go:182:9: server.brWriter.WriteHeader calls http.Header.Del
+      #11: internal/server/brotli.go:212:20: server.brWriter.Flush calls http.Header.Get
+      #12: internal/server/brotli.go:212:20: server.brWriter.Flush calls http.Header.Get
+      #13: internal/server/brotli.go:214:18: server.brWriter.Flush calls http.Header.Set
+      #14: internal/server/brotli.go:214:18: server.brWriter.Flush calls http.Header.Set
+      #15: internal/server/brotli.go:139:31: server.addVary calls http.Header.Values
+      #16: internal/server/brotli.go:139:31: server.addVary calls http.Header.Values
+      #17: internal/providers/providers.go:152:40: providers.get calls http.NewRequestWithContext
+      #18: internal/providers/providers.go:152:40: providers.get calls http.NewRequestWithContext
+      #19: internal/providers/providers.go:219:29: providers.retryAfter calls http.ParseTime
+      #20: internal/providers/providers.go:219:29: providers.retryAfter calls http.ParseTime
+      #21: internal/api/auth_routes.go:109:21: api.AuthRoutes.CSRFLookup calls http.Request.Cookie
+      #22: internal/api/auth_routes.go:109:21: api.AuthRoutes.CSRFLookup calls http.Request.Cookie
+      #23: internal/server/server.go:139:28: server.Start calls http3.Server.Serve, which eventually calls http.ServeMux.ServeHTTP
+      #24: internal/server/server.go:139:28: server.Start calls http3.Server.Serve, which eventually calls http.ServeMux.ServeHTTP
+      #25: internal/app/app.go:263:29: app.Run calls http.Server.Serve
+      #26: internal/app/app.go:263:29: app.Run calls http.Server.Serve
+      #27: internal/server/server.go:131:30: server.Start calls http.Server.ServeTLS
+      #28: internal/server/server.go:131:30: server.Start calls http.Server.ServeTLS
+      #29: internal/server/server.go:170:37: server.Server.Shutdown calls http.Server.Shutdown
+      #30: internal/server/server.go:170:37: server.Server.Shutdown calls http.Server.Shutdown
+      #31: internal/egress/egress.go:157:25: egress.guard.RoundTrip calls http.Transport.RoundTrip
+      #32: internal/egress/egress.go:157:25: egress.guard.RoundTrip calls http.Transport.RoundTrip
+      #33: internal/egress/probe.go:52:18: egress.Client.Probe calls http.body.Close
+      #34: internal/egress/probe.go:52:18: egress.Client.Probe calls http.body.Close
+      #35: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.body.Read
+      #36: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.body.Read
+      #37: internal/egress/probe.go:52:18: egress.Client.Probe calls http.bodyEOFSignal.Close
+      #38: internal/egress/probe.go:52:18: egress.Client.Probe calls http.bodyEOFSignal.Close
+      #39: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.bodyEOFSignal.Read
+      #40: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.bodyEOFSignal.Read
+      #41: internal/templates/templates.go:155:22: templates.HashFile calls io.Copy, which eventually calls http.bodyLocked.Read
+      #42: internal/templates/templates.go:155:22: templates.HashFile calls io.Copy, which eventually calls http.bodyLocked.Read
+      #43: internal/templates/templates.go:155:22: templates.HashFile calls io.Copy, which eventually calls http.bufioFlushWriter.Write
+      #44: internal/templates/templates.go:155:22: templates.HashFile calls io.Copy, which eventually calls http.bufioFlushWriter.Write
+      #45: internal/egress/probe.go:52:18: egress.Client.Probe calls http.cancelTimerBody.Close
+      #46: internal/egress/probe.go:52:18: egress.Client.Probe calls http.cancelTimerBody.Close
+      #47: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.cancelTimerBody.Read
+      #48: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.cancelTimerBody.Read
+      #49: internal/match/gold/gold.go:170:10: gold.WriteCorpus calls bufio.Writer.Write, which calls http.checkConnErrorWriter.Write
+      #50: internal/match/gold/gold.go:170:10: gold.WriteCorpus calls bufio.Writer.Write, which calls http.checkConnErrorWriter.Write
+      #51: internal/match/gold/gold.go:170:10: gold.WriteCorpus calls bufio.Writer.Write, which calls http.chunkWriter.Write
+      #52: internal/match/gold/gold.go:170:10: gold.WriteCorpus calls bufio.Writer.Write, which calls http.chunkWriter.Write
+      #53: internal/templates/templates.go:155:22: templates.HashFile calls io.Copy, which eventually calls http.connReader.Read
+      #54: internal/templates/templates.go:155:22: templates.HashFile calls io.Copy, which eventually calls http.connReader.Read
+      #55: internal/auth/passkey.go:317:38: auth.Service.FinishRegistration calls webauthn.WebAuthn.FinishRegistration, which eventually calls http.expectContinueReader.Close
+      #56: internal/auth/passkey.go:317:38: auth.Service.FinishRegistration calls webauthn.WebAuthn.FinishRegistration, which eventually calls http.expectContinueReader.Close
+      #57: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.expectContinueReader.Read
+      #58: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.expectContinueReader.Read
+      #59: internal/egress/probe.go:52:18: egress.Client.Probe calls http.gzipReader.Close
+      #60: internal/egress/probe.go:52:18: egress.Client.Probe calls http.gzipReader.Close
+      #61: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.gzipReader.Read
+      #62: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.gzipReader.Read
+      #63: internal/redact/redact.go:137:43: redact.clean calls http.http2ConnectionError.Error
+      #64: internal/redact/redact.go:137:43: redact.clean calls http.http2ConnectionError.Error
+      #65: internal/redact/redact.go:154:17: redact.safeString calls http.http2ErrCode.String
+      #66: internal/redact/redact.go:154:17: redact.safeString calls http.http2ErrCode.String
+      #67: internal/redact/redact.go:154:17: redact.safeString calls http.http2FrameHeader.String
+      #68: internal/redact/redact.go:154:17: redact.safeString calls http.http2FrameHeader.String
+      #69: internal/redact/redact.go:154:17: redact.safeString calls http.http2FrameType.String
+      #70: internal/redact/redact.go:154:17: redact.safeString calls http.http2FrameType.String
+      #71: internal/redact/redact.go:154:17: redact.safeString calls http.http2FrameWriteRequest.String
+      #72: internal/redact/redact.go:154:17: redact.safeString calls http.http2FrameWriteRequest.String
+      #73: internal/redact/redact.go:137:43: redact.clean calls http.http2GoAwayError.Error
+      #74: internal/redact/redact.go:137:43: redact.clean calls http.http2GoAwayError.Error
+      #75: internal/redact/redact.go:154:17: redact.safeString calls http.http2Setting.String
+      #76: internal/redact/redact.go:154:17: redact.safeString calls http.http2Setting.String
+      #77: internal/redact/redact.go:154:17: redact.safeString calls http.http2SettingID.String
+      #78: internal/redact/redact.go:154:17: redact.safeString calls http.http2SettingID.String
+      #79: internal/redact/redact.go:137:43: redact.clean calls http.http2StreamError.Error
+      #80: internal/redact/redact.go:137:43: redact.clean calls http.http2StreamError.Error
+      #81: internal/match/gold/gold.go:170:10: gold.WriteCorpus calls bufio.Writer.Write, which calls http.http2bufferedWriterTimeoutWriter.Write
+      #82: internal/match/gold/gold.go:170:10: gold.WriteCorpus calls bufio.Writer.Write, which calls http.http2bufferedWriterTimeoutWriter.Write
+      #83: internal/match/gold/gold.go:170:10: gold.WriteCorpus calls bufio.Writer.Write, which calls http.http2chunkWriter.Write
+      #84: internal/match/gold/gold.go:170:10: gold.WriteCorpus calls bufio.Writer.Write, which calls http.http2chunkWriter.Write
+      #85: internal/redact/redact.go:137:43: redact.clean calls http.http2connError.Error
+      #86: internal/redact/redact.go:137:43: redact.clean calls http.http2connError.Error
+      #87: internal/redact/redact.go:137:43: redact.clean calls http.http2duplicatePseudoHeaderError.Error
+      #88: internal/redact/redact.go:137:43: redact.clean calls http.http2duplicatePseudoHeaderError.Error
+      #89: internal/egress/probe.go:52:18: egress.Client.Probe calls http.http2gzipReader.Close
+      #90: internal/egress/probe.go:52:18: egress.Client.Probe calls http.http2gzipReader.Close
+      #91: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.http2gzipReader.Read
+      #92: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.http2gzipReader.Read
+      #93: internal/redact/redact.go:137:43: redact.clean calls http.http2headerFieldNameError.Error
+      #94: internal/redact/redact.go:137:43: redact.clean calls http.http2headerFieldNameError.Error
+      #95: internal/redact/redact.go:137:43: redact.clean calls http.http2headerFieldValueError.Error
+      #96: internal/redact/redact.go:137:43: redact.clean calls http.http2headerFieldValueError.Error
+      #97: internal/redact/redact.go:137:43: redact.clean calls http.http2pseudoHeaderError.Error
+      #98: internal/redact/redact.go:137:43: redact.clean calls http.http2pseudoHeaderError.Error
+      #99: internal/auth/passkey.go:317:38: auth.Service.FinishRegistration calls webauthn.WebAuthn.FinishRegistration, which eventually calls http.http2requestBody.Close
+      #100: internal/auth/passkey.go:317:38: auth.Service.FinishRegistration calls webauthn.WebAuthn.FinishRegistration, which eventually calls http.http2requestBody.Close
+      #101: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.http2requestBody.Read
+      #102: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.http2requestBody.Read
+      #103: internal/server/brotli.go:222:10: server.brWriter.Flush calls http.http2responseWriter.Flush
+      #104: internal/server/brotli.go:222:10: server.brWriter.Flush calls http.http2responseWriter.Flush
+      #105: internal/server/brotli.go:207:31: server.brWriter.Write calls http.http2responseWriter.Write
+      #106: internal/server/brotli.go:207:31: server.brWriter.Write calls http.http2responseWriter.Write
+      #107: internal/server/brotli.go:191:30: server.brWriter.WriteHeader calls http.http2responseWriter.WriteHeader
+      #108: internal/server/brotli.go:191:30: server.brWriter.WriteHeader calls http.http2responseWriter.WriteHeader
+      #109: internal/privacy/export.go:205:20: privacy.Export calls gzip.Writer.Close, which eventually calls http.http2responseWriter.WriteString
+      #110: internal/privacy/export.go:205:20: privacy.Export calls gzip.Writer.Close, which eventually calls http.http2responseWriter.WriteString
+      #111: internal/match/gold/gold.go:170:10: gold.WriteCorpus calls bufio.Writer.Write, which calls http.http2stickyErrWriter.Write
+      #112: internal/match/gold/gold.go:170:10: gold.WriteCorpus calls bufio.Writer.Write, which calls http.http2stickyErrWriter.Write
+      #113: internal/egress/probe.go:52:18: egress.Client.Probe calls http.http2transportResponseBody.Close
+      #114: internal/egress/probe.go:52:18: egress.Client.Probe calls http.http2transportResponseBody.Close
+      #115: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.http2transportResponseBody.Read
+      #116: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.http2transportResponseBody.Read
+      #117: internal/redact/redact.go:154:17: redact.safeString calls http.http2writeData.String
+      #118: internal/redact/redact.go:154:17: redact.safeString calls http.http2writeData.String
+      #119: internal/templates/templates.go:155:22: templates.HashFile calls io.Copy, which eventually calls http.loggingConn.Read
+      #120: internal/templates/templates.go:155:22: templates.HashFile calls io.Copy, which eventually calls http.loggingConn.Read
+      #121: internal/match/gold/gold.go:170:10: gold.WriteCorpus calls bufio.Writer.Write, which calls http.loggingConn.Write
+      #122: internal/match/gold/gold.go:170:10: gold.WriteCorpus calls bufio.Writer.Write, which calls http.loggingConn.Write
+      #123: internal/auth/passkey.go:317:38: auth.Service.FinishRegistration calls webauthn.WebAuthn.FinishRegistration, which eventually calls http.maxBytesReader.Close
+      #124: internal/auth/passkey.go:317:38: auth.Service.FinishRegistration calls webauthn.WebAuthn.FinishRegistration, which eventually calls http.maxBytesReader.Close
+      #125: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.maxBytesReader.Read
+      #126: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.maxBytesReader.Read
+      #127: internal/certs/certs.go:322:45: certs.IssueLeaf calls elliptic.P256, which eventually calls http.onceCloseListener.Close
+      #128: internal/certs/certs.go:322:45: certs.IssueLeaf calls elliptic.P256, which eventually calls http.onceCloseListener.Close
+      #129: internal/templates/templates.go:155:22: templates.HashFile calls io.Copy, which eventually calls http.persistConn.Read
+      #130: internal/templates/templates.go:155:22: templates.HashFile calls io.Copy, which eventually calls http.persistConn.Read
+      #131: internal/templates/templates.go:155:22: templates.HashFile calls io.Copy, which eventually calls http.persistConnWriter.ReadFrom
+      #132: internal/templates/templates.go:155:22: templates.HashFile calls io.Copy, which eventually calls http.persistConnWriter.ReadFrom
+      #133: internal/match/gold/gold.go:170:10: gold.WriteCorpus calls bufio.Writer.Write, which calls http.persistConnWriter.Write
+      #134: internal/match/gold/gold.go:170:10: gold.WriteCorpus calls bufio.Writer.Write, which calls http.persistConnWriter.Write
+      #135: internal/auth/passkey.go:317:38: auth.Service.FinishRegistration calls webauthn.WebAuthn.FinishRegistration, which eventually calls http.readTrackingBody.Close
+      #136: internal/auth/passkey.go:317:38: auth.Service.FinishRegistration calls webauthn.WebAuthn.FinishRegistration, which eventually calls http.readTrackingBody.Close
+      #137: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.readTrackingBody.Read
+      #138: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.readTrackingBody.Read
+      #139: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.readWriteCloserBody.Read
+      #140: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.readWriteCloserBody.Read
+      #141: internal/server/brotli.go:222:10: server.brWriter.Flush calls http.response.Flush
+      #142: internal/server/brotli.go:222:10: server.brWriter.Flush calls http.response.Flush
+      #143: internal/templates/templates.go:155:22: templates.HashFile calls io.Copy, which eventually calls http.response.ReadFrom
+      #144: internal/templates/templates.go:155:22: templates.HashFile calls io.Copy, which eventually calls http.response.ReadFrom
+      #145: internal/server/brotli.go:207:31: server.brWriter.Write calls http.response.Write
+      #146: internal/server/brotli.go:207:31: server.brWriter.Write calls http.response.Write
+      #147: internal/server/brotli.go:191:30: server.brWriter.WriteHeader calls http.response.WriteHeader
+      #148: internal/server/brotli.go:191:30: server.brWriter.WriteHeader calls http.response.WriteHeader
+      #149: internal/privacy/export.go:205:20: privacy.Export calls gzip.Writer.Close, which eventually calls http.response.WriteString
+      #150: internal/privacy/export.go:205:20: privacy.Export calls gzip.Writer.Close, which eventually calls http.response.WriteString
+      #151: internal/redact/redact.go:137:43: redact.clean calls http.transportReadFromServerError.Error
+      #152: internal/redact/redact.go:137:43: redact.clean calls http.transportReadFromServerError.Error
+
+Vulnerability #6: GO-2026-6611
+    Excessive CPU consumption from repeated initial window changes in net/http
+  More info: https://pkg.go.dev/vuln/GO-2026-6611
+  Standard library
+    Found in: net/http@go1.26.8
+    Fixed in: net/http@go1.26.9
+    Example traces found:
+      #1: internal/match/gold/gold.go:170:10: gold.WriteCorpus calls bufio.Writer.Write, which eventually calls http.CanonicalHeaderKey
+      #2: internal/match/gold/gold.go:170:10: gold.WriteCorpus calls bufio.Writer.Write, which eventually calls http.CanonicalHeaderKey
+      #3: internal/egress/probe.go:47:23: egress.Client.Probe calls http.Client.Do
+      #4: internal/egress/probe.go:47:23: egress.Client.Probe calls http.Client.Do
+      #5: internal/server/server.go:139:28: server.Start calls http3.Server.Serve, which eventually calls http.HandlerFunc.ServeHTTP
+      #6: internal/server/server.go:139:28: server.Start calls http3.Server.Serve, which eventually calls http.HandlerFunc.ServeHTTP
+      #7: internal/server/brotli.go:146:7: server.addVary calls http.Header.Add
+      #8: internal/server/brotli.go:146:7: server.addVary calls http.Header.Add
+      #9: internal/server/brotli.go:182:9: server.brWriter.WriteHeader calls http.Header.Del
+      #10: internal/server/brotli.go:182:9: server.brWriter.WriteHeader calls http.Header.Del
+      #11: internal/server/brotli.go:212:20: server.brWriter.Flush calls http.Header.Get
+      #12: internal/server/brotli.go:212:20: server.brWriter.Flush calls http.Header.Get
+      #13: internal/server/brotli.go:214:18: server.brWriter.Flush calls http.Header.Set
+      #14: internal/server/brotli.go:214:18: server.brWriter.Flush calls http.Header.Set
+      #15: internal/server/brotli.go:139:31: server.addVary calls http.Header.Values
+      #16: internal/server/brotli.go:139:31: server.addVary calls http.Header.Values
+      #17: internal/providers/providers.go:152:40: providers.get calls http.NewRequestWithContext
+      #18: internal/providers/providers.go:152:40: providers.get calls http.NewRequestWithContext
+      #19: internal/providers/providers.go:219:29: providers.retryAfter calls http.ParseTime
+      #20: internal/providers/providers.go:219:29: providers.retryAfter calls http.ParseTime
+      #21: internal/api/auth_routes.go:109:21: api.AuthRoutes.CSRFLookup calls http.Request.Cookie
+      #22: internal/api/auth_routes.go:109:21: api.AuthRoutes.CSRFLookup calls http.Request.Cookie
+      #23: internal/server/server.go:139:28: server.Start calls http3.Server.Serve, which eventually calls http.ServeMux.ServeHTTP
+      #24: internal/server/server.go:139:28: server.Start calls http3.Server.Serve, which eventually calls http.ServeMux.ServeHTTP
+      #25: internal/app/app.go:263:29: app.Run calls http.Server.Serve
+      #26: internal/app/app.go:263:29: app.Run calls http.Server.Serve
+      #27: internal/server/server.go:131:30: server.Start calls http.Server.ServeTLS
+      #28: internal/server/server.go:131:30: server.Start calls http.Server.ServeTLS
+      #29: internal/server/server.go:170:37: server.Server.Shutdown calls http.Server.Shutdown
+      #30: internal/server/server.go:170:37: server.Server.Shutdown calls http.Server.Shutdown
+      #31: internal/egress/egress.go:157:25: egress.guard.RoundTrip calls http.Transport.RoundTrip
+      #32: internal/egress/egress.go:157:25: egress.guard.RoundTrip calls http.Transport.RoundTrip
+      #33: internal/egress/probe.go:52:18: egress.Client.Probe calls http.body.Close
+      #34: internal/egress/probe.go:52:18: egress.Client.Probe calls http.body.Close
+      #35: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.body.Read
+      #36: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.body.Read
+      #37: internal/egress/probe.go:52:18: egress.Client.Probe calls http.bodyEOFSignal.Close
+      #38: internal/egress/probe.go:52:18: egress.Client.Probe calls http.bodyEOFSignal.Close
+      #39: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.bodyEOFSignal.Read
+      #40: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.bodyEOFSignal.Read
+      #41: internal/templates/templates.go:155:22: templates.HashFile calls io.Copy, which eventually calls http.bodyLocked.Read
+      #42: internal/templates/templates.go:155:22: templates.HashFile calls io.Copy, which eventually calls http.bodyLocked.Read
+      #43: internal/templates/templates.go:155:22: templates.HashFile calls io.Copy, which eventually calls http.bufioFlushWriter.Write
+      #44: internal/templates/templates.go:155:22: templates.HashFile calls io.Copy, which eventually calls http.bufioFlushWriter.Write
+      #45: internal/egress/probe.go:52:18: egress.Client.Probe calls http.cancelTimerBody.Close
+      #46: internal/egress/probe.go:52:18: egress.Client.Probe calls http.cancelTimerBody.Close
+      #47: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.cancelTimerBody.Read
+      #48: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.cancelTimerBody.Read
+      #49: internal/match/gold/gold.go:170:10: gold.WriteCorpus calls bufio.Writer.Write, which calls http.checkConnErrorWriter.Write
+      #50: internal/match/gold/gold.go:170:10: gold.WriteCorpus calls bufio.Writer.Write, which calls http.checkConnErrorWriter.Write
+      #51: internal/match/gold/gold.go:170:10: gold.WriteCorpus calls bufio.Writer.Write, which calls http.chunkWriter.Write
+      #52: internal/match/gold/gold.go:170:10: gold.WriteCorpus calls bufio.Writer.Write, which calls http.chunkWriter.Write
+      #53: internal/templates/templates.go:155:22: templates.HashFile calls io.Copy, which eventually calls http.connReader.Read
+      #54: internal/templates/templates.go:155:22: templates.HashFile calls io.Copy, which eventually calls http.connReader.Read
+      #55: internal/auth/passkey.go:317:38: auth.Service.FinishRegistration calls webauthn.WebAuthn.FinishRegistration, which eventually calls http.expectContinueReader.Close
+      #56: internal/auth/passkey.go:317:38: auth.Service.FinishRegistration calls webauthn.WebAuthn.FinishRegistration, which eventually calls http.expectContinueReader.Close
+      #57: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.expectContinueReader.Read
+      #58: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.expectContinueReader.Read
+      #59: internal/egress/probe.go:52:18: egress.Client.Probe calls http.gzipReader.Close
+      #60: internal/egress/probe.go:52:18: egress.Client.Probe calls http.gzipReader.Close
+      #61: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.gzipReader.Read
+      #62: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.gzipReader.Read
+      #63: internal/redact/redact.go:137:43: redact.clean calls http.http2ConnectionError.Error
+      #64: internal/redact/redact.go:137:43: redact.clean calls http.http2ConnectionError.Error
+      #65: internal/redact/redact.go:154:17: redact.safeString calls http.http2ErrCode.String
+      #66: internal/redact/redact.go:154:17: redact.safeString calls http.http2ErrCode.String
+      #67: internal/redact/redact.go:154:17: redact.safeString calls http.http2FrameHeader.String
+      #68: internal/redact/redact.go:154:17: redact.safeString calls http.http2FrameHeader.String
+      #69: internal/redact/redact.go:154:17: redact.safeString calls http.http2FrameType.String
+      #70: internal/redact/redact.go:154:17: redact.safeString calls http.http2FrameType.String
+      #71: internal/redact/redact.go:154:17: redact.safeString calls http.http2FrameWriteRequest.String
+      #72: internal/redact/redact.go:154:17: redact.safeString calls http.http2FrameWriteRequest.String
+      #73: internal/redact/redact.go:137:43: redact.clean calls http.http2GoAwayError.Error
+      #74: internal/redact/redact.go:137:43: redact.clean calls http.http2GoAwayError.Error
+      #75: internal/redact/redact.go:154:17: redact.safeString calls http.http2Setting.String
+      #76: internal/redact/redact.go:154:17: redact.safeString calls http.http2Setting.String
+      #77: internal/redact/redact.go:154:17: redact.safeString calls http.http2SettingID.String
+      #78: internal/redact/redact.go:154:17: redact.safeString calls http.http2SettingID.String
+      #79: internal/redact/redact.go:137:43: redact.clean calls http.http2StreamError.Error
+      #80: internal/redact/redact.go:137:43: redact.clean calls http.http2StreamError.Error
+      #81: internal/match/gold/gold.go:170:10: gold.WriteCorpus calls bufio.Writer.Write, which calls http.http2bufferedWriterTimeoutWriter.Write
+      #82: internal/match/gold/gold.go:170:10: gold.WriteCorpus calls bufio.Writer.Write, which calls http.http2bufferedWriterTimeoutWriter.Write
+      #83: internal/match/gold/gold.go:170:10: gold.WriteCorpus calls bufio.Writer.Write, which calls http.http2chunkWriter.Write
+      #84: internal/match/gold/gold.go:170:10: gold.WriteCorpus calls bufio.Writer.Write, which calls http.http2chunkWriter.Write
+      #85: internal/redact/redact.go:137:43: redact.clean calls http.http2connError.Error
+      #86: internal/redact/redact.go:137:43: redact.clean calls http.http2connError.Error
+      #87: internal/redact/redact.go:137:43: redact.clean calls http.http2duplicatePseudoHeaderError.Error
+      #88: internal/redact/redact.go:137:43: redact.clean calls http.http2duplicatePseudoHeaderError.Error
+      #89: internal/egress/probe.go:52:18: egress.Client.Probe calls http.http2gzipReader.Close
+      #90: internal/egress/probe.go:52:18: egress.Client.Probe calls http.http2gzipReader.Close
+      #91: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.http2gzipReader.Read
+      #92: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.http2gzipReader.Read
+      #93: internal/redact/redact.go:137:43: redact.clean calls http.http2headerFieldNameError.Error
+      #94: internal/redact/redact.go:137:43: redact.clean calls http.http2headerFieldNameError.Error
+      #95: internal/redact/redact.go:137:43: redact.clean calls http.http2headerFieldValueError.Error
+      #96: internal/redact/redact.go:137:43: redact.clean calls http.http2headerFieldValueError.Error
+      #97: internal/redact/redact.go:137:43: redact.clean calls http.http2pseudoHeaderError.Error
+      #98: internal/redact/redact.go:137:43: redact.clean calls http.http2pseudoHeaderError.Error
+      #99: internal/auth/passkey.go:317:38: auth.Service.FinishRegistration calls webauthn.WebAuthn.FinishRegistration, which eventually calls http.http2requestBody.Close
+      #100: internal/auth/passkey.go:317:38: auth.Service.FinishRegistration calls webauthn.WebAuthn.FinishRegistration, which eventually calls http.http2requestBody.Close
+      #101: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.http2requestBody.Read
+      #102: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.http2requestBody.Read
+      #103: internal/server/brotli.go:222:10: server.brWriter.Flush calls http.http2responseWriter.Flush
+      #104: internal/server/brotli.go:222:10: server.brWriter.Flush calls http.http2responseWriter.Flush
+      #105: internal/server/brotli.go:207:31: server.brWriter.Write calls http.http2responseWriter.Write
+      #106: internal/server/brotli.go:207:31: server.brWriter.Write calls http.http2responseWriter.Write
+      #107: internal/server/brotli.go:191:30: server.brWriter.WriteHeader calls http.http2responseWriter.WriteHeader
+      #108: internal/server/brotli.go:191:30: server.brWriter.WriteHeader calls http.http2responseWriter.WriteHeader
+      #109: internal/privacy/export.go:205:20: privacy.Export calls gzip.Writer.Close, which eventually calls http.http2responseWriter.WriteString
+      #110: internal/privacy/export.go:205:20: privacy.Export calls gzip.Writer.Close, which eventually calls http.http2responseWriter.WriteString
+      #111: internal/match/gold/gold.go:170:10: gold.WriteCorpus calls bufio.Writer.Write, which calls http.http2stickyErrWriter.Write
+      #112: internal/match/gold/gold.go:170:10: gold.WriteCorpus calls bufio.Writer.Write, which calls http.http2stickyErrWriter.Write
+      #113: internal/egress/probe.go:52:18: egress.Client.Probe calls http.http2transportResponseBody.Close
+      #114: internal/egress/probe.go:52:18: egress.Client.Probe calls http.http2transportResponseBody.Close
+      #115: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.http2transportResponseBody.Read
+      #116: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.http2transportResponseBody.Read
+      #117: internal/redact/redact.go:154:17: redact.safeString calls http.http2writeData.String
+      #118: internal/redact/redact.go:154:17: redact.safeString calls http.http2writeData.String
+      #119: internal/templates/templates.go:155:22: templates.HashFile calls io.Copy, which eventually calls http.loggingConn.Read
+      #120: internal/templates/templates.go:155:22: templates.HashFile calls io.Copy, which eventually calls http.loggingConn.Read
+      #121: internal/match/gold/gold.go:170:10: gold.WriteCorpus calls bufio.Writer.Write, which calls http.loggingConn.Write
+      #122: internal/match/gold/gold.go:170:10: gold.WriteCorpus calls bufio.Writer.Write, which calls http.loggingConn.Write
+      #123: internal/auth/passkey.go:317:38: auth.Service.FinishRegistration calls webauthn.WebAuthn.FinishRegistration, which eventually calls http.maxBytesReader.Close
+      #124: internal/auth/passkey.go:317:38: auth.Service.FinishRegistration calls webauthn.WebAuthn.FinishRegistration, which eventually calls http.maxBytesReader.Close
+      #125: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.maxBytesReader.Read
+      #126: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.maxBytesReader.Read
+      #127: internal/certs/certs.go:322:45: certs.IssueLeaf calls elliptic.P256, which eventually calls http.onceCloseListener.Close
+      #128: internal/certs/certs.go:322:45: certs.IssueLeaf calls elliptic.P256, which eventually calls http.onceCloseListener.Close
+      #129: internal/templates/templates.go:155:22: templates.HashFile calls io.Copy, which eventually calls http.persistConn.Read
+      #130: internal/templates/templates.go:155:22: templates.HashFile calls io.Copy, which eventually calls http.persistConn.Read
+      #131: internal/templates/templates.go:155:22: templates.HashFile calls io.Copy, which eventually calls http.persistConnWriter.ReadFrom
+      #132: internal/templates/templates.go:155:22: templates.HashFile calls io.Copy, which eventually calls http.persistConnWriter.ReadFrom
+      #133: internal/match/gold/gold.go:170:10: gold.WriteCorpus calls bufio.Writer.Write, which calls http.persistConnWriter.Write
+      #134: internal/match/gold/gold.go:170:10: gold.WriteCorpus calls bufio.Writer.Write, which calls http.persistConnWriter.Write
+      #135: internal/auth/passkey.go:317:38: auth.Service.FinishRegistration calls webauthn.WebAuthn.FinishRegistration, which eventually calls http.readTrackingBody.Close
+      #136: internal/auth/passkey.go:317:38: auth.Service.FinishRegistration calls webauthn.WebAuthn.FinishRegistration, which eventually calls http.readTrackingBody.Close
+      #137: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.readTrackingBody.Read
+      #138: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.readTrackingBody.Read
+      #139: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.readWriteCloserBody.Read
+      #140: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.readWriteCloserBody.Read
+      #141: internal/server/brotli.go:222:10: server.brWriter.Flush calls http.response.Flush
+      #142: internal/server/brotli.go:222:10: server.brWriter.Flush calls http.response.Flush
+      #143: internal/templates/templates.go:155:22: templates.HashFile calls io.Copy, which eventually calls http.response.ReadFrom
+      #144: internal/templates/templates.go:155:22: templates.HashFile calls io.Copy, which eventually calls http.response.ReadFrom
+      #145: internal/server/brotli.go:207:31: server.brWriter.Write calls http.response.Write
+      #146: internal/server/brotli.go:207:31: server.brWriter.Write calls http.response.Write
+      #147: internal/server/brotli.go:191:30: server.brWriter.WriteHeader calls http.response.WriteHeader
+      #148: internal/server/brotli.go:191:30: server.brWriter.WriteHeader calls http.response.WriteHeader
+      #149: internal/privacy/export.go:205:20: privacy.Export calls gzip.Writer.Close, which eventually calls http.response.WriteString
+      #150: internal/privacy/export.go:205:20: privacy.Export calls gzip.Writer.Close, which eventually calls http.response.WriteString
+      #151: internal/redact/redact.go:137:43: redact.clean calls http.transportReadFromServerError.Error
+      #152: internal/redact/redact.go:137:43: redact.clean calls http.transportReadFromServerError.Error
+
+Vulnerability #7: GO-2026-6610
+    HTTP/2 transport accepts malformed framing-related headers in net/http
+  More info: https://pkg.go.dev/vuln/GO-2026-6610
+  Standard library
+    Found in: net/http@go1.26.8
+    Fixed in: net/http@go1.26.9
+    Example traces found:
+      #1: internal/egress/probe.go:47:23: egress.Client.Probe calls http.Client.Do
+      #2: internal/egress/probe.go:47:23: egress.Client.Probe calls http.Client.Do
+      #3: internal/egress/egress.go:157:25: egress.guard.RoundTrip calls http.Transport.RoundTrip
+      #4: internal/egress/egress.go:157:25: egress.guard.RoundTrip calls http.Transport.RoundTrip
+
+Vulnerability #8: GO-2026-6609
+    Lack of limit on size of parsed Range headers in net/http
+  More info: https://pkg.go.dev/vuln/GO-2026-6609
+  Standard library
+    Found in: net/http@go1.26.8
+    Fixed in: net/http@go1.26.9
+    Example traces found:
+      #1: internal/app/app.go:263:29: app.Run calls http.Server.Serve, which eventually calls http.fileHandler.ServeHTTP
+
+Vulnerability #9: GO-2026-6608
+    Memory limit bypass when parsing MIME headers in net/textproto,
+    mime/multipart
+  More info: https://pkg.go.dev/vuln/GO-2026-6608
+  Standard library
+    Found in: net/textproto@go1.26.8
+    Fixed in: net/textproto@go1.26.9
+    Example traces found:
+      #1: internal/console/console.go:304:20: console.Console.mapPosting calls gin.Context.PostForm, which eventually calls multipart.Reader.ReadForm
+      #2: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which eventually calls textproto.Reader.ReadMIMEHeader
+
+Vulnerability #10: GO-2026-6607
+    Reject malformed ECH outer extension references in crypto/tls
+  More info: https://pkg.go.dev/vuln/GO-2026-6607
+  Standard library
+    Found in: crypto/tls@go1.26.8
+    Fixed in: crypto/tls@go1.26.9
+    Example traces found:
+      #1: internal/app/app.go:263:29: app.Run calls http.Server.Serve, which eventually calls tls.Conn.HandshakeContext
+      #2: internal/templates/templates.go:155:22: templates.HashFile calls io.Copy, which eventually calls tls.Conn.Read
+      #3: internal/match/gold/gold.go:170:10: gold.WriteCorpus calls bufio.Writer.Write, which calls tls.Conn.Write
+      #4: internal/egress/egress.go:157:25: egress.guard.RoundTrip calls http.Transport.RoundTrip, which eventually calls tls.Dialer.DialContext
+      #5: internal/server/server.go:139:28: server.Start calls http3.Server.Serve, which eventually calls tls.QUICConn.Start
+
+Vulnerability #11: GO-2026-6605
+    HTTP/1 client connection desynchronization after CONNECT rejection in
+    net/http
+  More info: https://pkg.go.dev/vuln/GO-2026-6605
+  Standard library
+    Found in: net/http@go1.26.8
+    Fixed in: net/http@go1.26.9
+    Example traces found:
+      #1: internal/egress/probe.go:47:23: egress.Client.Probe calls http.Client.Do
+      #2: internal/egress/egress.go:157:25: egress.guard.RoundTrip calls http.Transport.RoundTrip
+
+Vulnerability #12: GO-2026-6603
+    HTTP/2 server memory exhaustion due to Trailer headers in net/http
+  More info: https://pkg.go.dev/vuln/GO-2026-6603
+  Standard library
+    Found in: net/http@go1.26.8
+    Fixed in: net/http@go1.26.9
+    Example traces found:
+      #1: internal/match/gold/gold.go:170:10: gold.WriteCorpus calls bufio.Writer.Write, which eventually calls http.CanonicalHeaderKey
+      #2: internal/match/gold/gold.go:170:10: gold.WriteCorpus calls bufio.Writer.Write, which eventually calls http.CanonicalHeaderKey
+      #3: internal/egress/probe.go:47:23: egress.Client.Probe calls http.Client.Do
+      #4: internal/egress/probe.go:47:23: egress.Client.Probe calls http.Client.Do
+      #5: internal/server/server.go:139:28: server.Start calls http3.Server.Serve, which eventually calls http.HandlerFunc.ServeHTTP
+      #6: internal/server/server.go:139:28: server.Start calls http3.Server.Serve, which eventually calls http.HandlerFunc.ServeHTTP
+      #7: internal/server/brotli.go:146:7: server.addVary calls http.Header.Add
+      #8: internal/server/brotli.go:146:7: server.addVary calls http.Header.Add
+      #9: internal/server/brotli.go:182:9: server.brWriter.WriteHeader calls http.Header.Del
+      #10: internal/server/brotli.go:182:9: server.brWriter.WriteHeader calls http.Header.Del
+      #11: internal/server/brotli.go:212:20: server.brWriter.Flush calls http.Header.Get
+      #12: internal/server/brotli.go:212:20: server.brWriter.Flush calls http.Header.Get
+      #13: internal/server/brotli.go:214:18: server.brWriter.Flush calls http.Header.Set
+      #14: internal/server/brotli.go:214:18: server.brWriter.Flush calls http.Header.Set
+      #15: internal/server/brotli.go:139:31: server.addVary calls http.Header.Values
+      #16: internal/server/brotli.go:139:31: server.addVary calls http.Header.Values
+      #17: internal/providers/providers.go:152:40: providers.get calls http.NewRequestWithContext
+      #18: internal/providers/providers.go:152:40: providers.get calls http.NewRequestWithContext
+      #19: internal/providers/providers.go:219:29: providers.retryAfter calls http.ParseTime
+      #20: internal/providers/providers.go:219:29: providers.retryAfter calls http.ParseTime
+      #21: internal/api/auth_routes.go:109:21: api.AuthRoutes.CSRFLookup calls http.Request.Cookie
+      #22: internal/api/auth_routes.go:109:21: api.AuthRoutes.CSRFLookup calls http.Request.Cookie
+      #23: internal/server/server.go:139:28: server.Start calls http3.Server.Serve, which eventually calls http.ServeMux.ServeHTTP
+      #24: internal/server/server.go:139:28: server.Start calls http3.Server.Serve, which eventually calls http.ServeMux.ServeHTTP
+      #25: internal/app/app.go:263:29: app.Run calls http.Server.Serve
+      #26: internal/app/app.go:263:29: app.Run calls http.Server.Serve
+      #27: internal/server/server.go:131:30: server.Start calls http.Server.ServeTLS
+      #28: internal/server/server.go:131:30: server.Start calls http.Server.ServeTLS
+      #29: internal/server/server.go:170:37: server.Server.Shutdown calls http.Server.Shutdown
+      #30: internal/server/server.go:170:37: server.Server.Shutdown calls http.Server.Shutdown
+      #31: internal/egress/egress.go:157:25: egress.guard.RoundTrip calls http.Transport.RoundTrip
+      #32: internal/egress/egress.go:157:25: egress.guard.RoundTrip calls http.Transport.RoundTrip
+      #33: internal/egress/probe.go:52:18: egress.Client.Probe calls http.body.Close
+      #34: internal/egress/probe.go:52:18: egress.Client.Probe calls http.body.Close
+      #35: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.body.Read
+      #36: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.body.Read
+      #37: internal/egress/probe.go:52:18: egress.Client.Probe calls http.bodyEOFSignal.Close
+      #38: internal/egress/probe.go:52:18: egress.Client.Probe calls http.bodyEOFSignal.Close
+      #39: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.bodyEOFSignal.Read
+      #40: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.bodyEOFSignal.Read
+      #41: internal/templates/templates.go:155:22: templates.HashFile calls io.Copy, which eventually calls http.bodyLocked.Read
+      #42: internal/templates/templates.go:155:22: templates.HashFile calls io.Copy, which eventually calls http.bodyLocked.Read
+      #43: internal/templates/templates.go:155:22: templates.HashFile calls io.Copy, which eventually calls http.bufioFlushWriter.Write
+      #44: internal/templates/templates.go:155:22: templates.HashFile calls io.Copy, which eventually calls http.bufioFlushWriter.Write
+      #45: internal/egress/probe.go:52:18: egress.Client.Probe calls http.cancelTimerBody.Close
+      #46: internal/egress/probe.go:52:18: egress.Client.Probe calls http.cancelTimerBody.Close
+      #47: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.cancelTimerBody.Read
+      #48: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.cancelTimerBody.Read
+      #49: internal/match/gold/gold.go:170:10: gold.WriteCorpus calls bufio.Writer.Write, which calls http.checkConnErrorWriter.Write
+      #50: internal/match/gold/gold.go:170:10: gold.WriteCorpus calls bufio.Writer.Write, which calls http.checkConnErrorWriter.Write
+      #51: internal/match/gold/gold.go:170:10: gold.WriteCorpus calls bufio.Writer.Write, which calls http.chunkWriter.Write
+      #52: internal/match/gold/gold.go:170:10: gold.WriteCorpus calls bufio.Writer.Write, which calls http.chunkWriter.Write
+      #53: internal/templates/templates.go:155:22: templates.HashFile calls io.Copy, which eventually calls http.connReader.Read
+      #54: internal/templates/templates.go:155:22: templates.HashFile calls io.Copy, which eventually calls http.connReader.Read
+      #55: internal/auth/passkey.go:317:38: auth.Service.FinishRegistration calls webauthn.WebAuthn.FinishRegistration, which eventually calls http.expectContinueReader.Close
+      #56: internal/auth/passkey.go:317:38: auth.Service.FinishRegistration calls webauthn.WebAuthn.FinishRegistration, which eventually calls http.expectContinueReader.Close
+      #57: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.expectContinueReader.Read
+      #58: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.expectContinueReader.Read
+      #59: internal/egress/probe.go:52:18: egress.Client.Probe calls http.gzipReader.Close
+      #60: internal/egress/probe.go:52:18: egress.Client.Probe calls http.gzipReader.Close
+      #61: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.gzipReader.Read
+      #62: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.gzipReader.Read
+      #63: internal/redact/redact.go:137:43: redact.clean calls http.http2ConnectionError.Error
+      #64: internal/redact/redact.go:137:43: redact.clean calls http.http2ConnectionError.Error
+      #65: internal/redact/redact.go:154:17: redact.safeString calls http.http2ErrCode.String
+      #66: internal/redact/redact.go:154:17: redact.safeString calls http.http2ErrCode.String
+      #67: internal/redact/redact.go:154:17: redact.safeString calls http.http2FrameHeader.String
+      #68: internal/redact/redact.go:154:17: redact.safeString calls http.http2FrameHeader.String
+      #69: internal/redact/redact.go:154:17: redact.safeString calls http.http2FrameType.String
+      #70: internal/redact/redact.go:154:17: redact.safeString calls http.http2FrameType.String
+      #71: internal/redact/redact.go:154:17: redact.safeString calls http.http2FrameWriteRequest.String
+      #72: internal/redact/redact.go:154:17: redact.safeString calls http.http2FrameWriteRequest.String
+      #73: internal/redact/redact.go:137:43: redact.clean calls http.http2GoAwayError.Error
+      #74: internal/redact/redact.go:137:43: redact.clean calls http.http2GoAwayError.Error
+      #75: internal/redact/redact.go:154:17: redact.safeString calls http.http2Setting.String
+      #76: internal/redact/redact.go:154:17: redact.safeString calls http.http2Setting.String
+      #77: internal/redact/redact.go:154:17: redact.safeString calls http.http2SettingID.String
+      #78: internal/redact/redact.go:154:17: redact.safeString calls http.http2SettingID.String
+      #79: internal/redact/redact.go:137:43: redact.clean calls http.http2StreamError.Error
+      #80: internal/redact/redact.go:137:43: redact.clean calls http.http2StreamError.Error
+      #81: internal/match/gold/gold.go:170:10: gold.WriteCorpus calls bufio.Writer.Write, which calls http.http2bufferedWriterTimeoutWriter.Write
+      #82: internal/match/gold/gold.go:170:10: gold.WriteCorpus calls bufio.Writer.Write, which calls http.http2bufferedWriterTimeoutWriter.Write
+      #83: internal/match/gold/gold.go:170:10: gold.WriteCorpus calls bufio.Writer.Write, which calls http.http2chunkWriter.Write
+      #84: internal/match/gold/gold.go:170:10: gold.WriteCorpus calls bufio.Writer.Write, which calls http.http2chunkWriter.Write
+      #85: internal/redact/redact.go:137:43: redact.clean calls http.http2connError.Error
+      #86: internal/redact/redact.go:137:43: redact.clean calls http.http2connError.Error
+      #87: internal/redact/redact.go:137:43: redact.clean calls http.http2duplicatePseudoHeaderError.Error
+      #88: internal/redact/redact.go:137:43: redact.clean calls http.http2duplicatePseudoHeaderError.Error
+      #89: internal/egress/probe.go:52:18: egress.Client.Probe calls http.http2gzipReader.Close
+      #90: internal/egress/probe.go:52:18: egress.Client.Probe calls http.http2gzipReader.Close
+      #91: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.http2gzipReader.Read
+      #92: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.http2gzipReader.Read
+      #93: internal/redact/redact.go:137:43: redact.clean calls http.http2headerFieldNameError.Error
+      #94: internal/redact/redact.go:137:43: redact.clean calls http.http2headerFieldNameError.Error
+      #95: internal/redact/redact.go:137:43: redact.clean calls http.http2headerFieldValueError.Error
+      #96: internal/redact/redact.go:137:43: redact.clean calls http.http2headerFieldValueError.Error
+      #97: internal/redact/redact.go:137:43: redact.clean calls http.http2pseudoHeaderError.Error
+      #98: internal/redact/redact.go:137:43: redact.clean calls http.http2pseudoHeaderError.Error
+      #99: internal/auth/passkey.go:317:38: auth.Service.FinishRegistration calls webauthn.WebAuthn.FinishRegistration, which eventually calls http.http2requestBody.Close
+      #100: internal/auth/passkey.go:317:38: auth.Service.FinishRegistration calls webauthn.WebAuthn.FinishRegistration, which eventually calls http.http2requestBody.Close
+      #101: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.http2requestBody.Read
+      #102: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.http2requestBody.Read
+      #103: internal/server/brotli.go:222:10: server.brWriter.Flush calls http.http2responseWriter.Flush
+      #104: internal/server/brotli.go:222:10: server.brWriter.Flush calls http.http2responseWriter.Flush
+      #105: internal/server/brotli.go:207:31: server.brWriter.Write calls http.http2responseWriter.Write
+      #106: internal/server/brotli.go:207:31: server.brWriter.Write calls http.http2responseWriter.Write
+      #107: internal/server/brotli.go:191:30: server.brWriter.WriteHeader calls http.http2responseWriter.WriteHeader
+      #108: internal/server/brotli.go:191:30: server.brWriter.WriteHeader calls http.http2responseWriter.WriteHeader
+      #109: internal/privacy/export.go:205:20: privacy.Export calls gzip.Writer.Close, which eventually calls http.http2responseWriter.WriteString
+      #110: internal/privacy/export.go:205:20: privacy.Export calls gzip.Writer.Close, which eventually calls http.http2responseWriter.WriteString
+      #111: internal/match/gold/gold.go:170:10: gold.WriteCorpus calls bufio.Writer.Write, which calls http.http2stickyErrWriter.Write
+      #112: internal/match/gold/gold.go:170:10: gold.WriteCorpus calls bufio.Writer.Write, which calls http.http2stickyErrWriter.Write
+      #113: internal/egress/probe.go:52:18: egress.Client.Probe calls http.http2transportResponseBody.Close
+      #114: internal/egress/probe.go:52:18: egress.Client.Probe calls http.http2transportResponseBody.Close
+      #115: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.http2transportResponseBody.Read
+      #116: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.http2transportResponseBody.Read
+      #117: internal/redact/redact.go:154:17: redact.safeString calls http.http2writeData.String
+      #118: internal/redact/redact.go:154:17: redact.safeString calls http.http2writeData.String
+      #119: internal/templates/templates.go:155:22: templates.HashFile calls io.Copy, which eventually calls http.loggingConn.Read
+      #120: internal/templates/templates.go:155:22: templates.HashFile calls io.Copy, which eventually calls http.loggingConn.Read
+      #121: internal/match/gold/gold.go:170:10: gold.WriteCorpus calls bufio.Writer.Write, which calls http.loggingConn.Write
+      #122: internal/match/gold/gold.go:170:10: gold.WriteCorpus calls bufio.Writer.Write, which calls http.loggingConn.Write
+      #123: internal/auth/passkey.go:317:38: auth.Service.FinishRegistration calls webauthn.WebAuthn.FinishRegistration, which eventually calls http.maxBytesReader.Close
+      #124: internal/auth/passkey.go:317:38: auth.Service.FinishRegistration calls webauthn.WebAuthn.FinishRegistration, which eventually calls http.maxBytesReader.Close
+      #125: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.maxBytesReader.Read
+      #126: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.maxBytesReader.Read
+      #127: internal/certs/certs.go:322:45: certs.IssueLeaf calls elliptic.P256, which eventually calls http.onceCloseListener.Close
+      #128: internal/certs/certs.go:322:45: certs.IssueLeaf calls elliptic.P256, which eventually calls http.onceCloseListener.Close
+      #129: internal/templates/templates.go:155:22: templates.HashFile calls io.Copy, which eventually calls http.persistConn.Read
+      #130: internal/templates/templates.go:155:22: templates.HashFile calls io.Copy, which eventually calls http.persistConn.Read
+      #131: internal/templates/templates.go:155:22: templates.HashFile calls io.Copy, which eventually calls http.persistConnWriter.ReadFrom
+      #132: internal/templates/templates.go:155:22: templates.HashFile calls io.Copy, which eventually calls http.persistConnWriter.ReadFrom
+      #133: internal/match/gold/gold.go:170:10: gold.WriteCorpus calls bufio.Writer.Write, which calls http.persistConnWriter.Write
+      #134: internal/match/gold/gold.go:170:10: gold.WriteCorpus calls bufio.Writer.Write, which calls http.persistConnWriter.Write
+      #135: internal/auth/passkey.go:317:38: auth.Service.FinishRegistration calls webauthn.WebAuthn.FinishRegistration, which eventually calls http.readTrackingBody.Close
+      #136: internal/auth/passkey.go:317:38: auth.Service.FinishRegistration calls webauthn.WebAuthn.FinishRegistration, which eventually calls http.readTrackingBody.Close
+      #137: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.readTrackingBody.Read
+      #138: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.readTrackingBody.Read
+      #139: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.readWriteCloserBody.Read
+      #140: internal/templates/templates.go:172:25: templates.Stream calls io.ReadAll, which calls http.readWriteCloserBody.Read
+      #141: internal/server/brotli.go:222:10: server.brWriter.Flush calls http.response.Flush
+      #142: internal/server/brotli.go:222:10: server.brWriter.Flush calls http.response.Flush
+      #143: internal/templates/templates.go:155:22: templates.HashFile calls io.Copy, which eventually calls http.response.ReadFrom
+      #144: internal/templates/templates.go:155:22: templates.HashFile calls io.Copy, which eventually calls http.response.ReadFrom
+      #145: internal/server/brotli.go:207:31: server.brWriter.Write calls http.response.Write
+      #146: internal/server/brotli.go:207:31: server.brWriter.Write calls http.response.Write
+      #147: internal/server/brotli.go:191:30: server.brWriter.WriteHeader calls http.response.WriteHeader
+      #148: internal/server/brotli.go:191:30: server.brWriter.WriteHeader calls http.response.WriteHeader
+      #149: internal/privacy/export.go:205:20: privacy.Export calls gzip.Writer.Close, which eventually calls http.response.WriteString
+      #150: internal/privacy/export.go:205:20: privacy.Export calls gzip.Writer.Close, which eventually calls http.response.WriteString
+      #151: internal/redact/redact.go:137:43: redact.clean calls http.transportReadFromServerError.Error
+      #152: internal/redact/redact.go:137:43: redact.clean calls http.transportReadFromServerError.Error
+
+Vulnerability #13: GO-2026-6600
+    Recognize yield as regexp preceder keyword in html/template
+  More info: https://pkg.go.dev/vuln/GO-2026-6600
+  Standard library
+    Found in: html/template@go1.26.8
+    Fixed in: html/template@go1.26.9
+    Example traces found:
+      #1: internal/console/console.go:141:41: console.Console.render calls template.Template.ExecuteTemplate
+
+Vulnerability #14: GO-2026-6599
+    Reset context tracking on consecutive template expressions in html/template
+  More info: https://pkg.go.dev/vuln/GO-2026-6599
+  Standard library
+    Found in: html/template@go1.26.8
+    Fixed in: html/template@go1.26.9
+    Example traces found:
+      #1: internal/console/console.go:141:41: console.Console.render calls template.Template.ExecuteTemplate
+
+Your code is affected by 14 vulnerabilities from the Go standard library.
+This scan also found 1 vulnerability in packages you import and 0
+vulnerabilities in modules you require, but your code doesn't appear to call
+these vulnerabilities.
+Use '-show verbose' for more details.

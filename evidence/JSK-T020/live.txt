@@ -1,0 +1,5 @@
+=== RUN   TestLiveEgressToAllowListedHost
+    live_test.go:23: live: status=200 proto=HTTP/2.0 tls_subject_verified=true
+--- PASS: TestLiveEgressToAllowListedHost (0.14s)
+PASS
+ok  	github.com/vasic-digital/job_seeker/internal/egress	0.153s

@@ -1,0 +1,3 @@
+# github.com/vasic-digital/job_seeker/internal/audit
+# [github.com/vasic-digital/job_seeker/internal/audit]
+vet: internal/audit/audit_test.go:53:10: undefined: Transition

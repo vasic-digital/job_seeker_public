@@ -1,0 +1,15 @@
+# github.com/vasic-digital/job_seeker/internal/providers [github.com/vasic-digital/job_seeker/internal/providers.test]
+internal/providers/export_test.go:10:5: undefined: HTTPSURL
+internal/providers/export_test.go:14:15: undefined: Translate
+internal/providers/export_test.go:26:12: undefined: RegisterAttribution
+internal/providers/export_test.go:40:6: undefined: RegisterAttribution
+internal/providers/export_test.go:50:65: undefined: RegisterAttribution
+# github.com/vasic-digital/job_seeker/internal/ext/source [github.com/vasic-digital/job_seeker/internal/ext/source.test]
+internal/ext/source/legacy_test.go:43:7: undefined: Wrap
+internal/ext/source/legacy_test.go:44:44: undefined: NewFetcher
+internal/ext/source/legacy_test.go:82:15: undefined: Wrap
+internal/ext/source/legacy_test.go:89:15: undefined: NewFetcher
+internal/ext/source/legacy_test.go:93:18: undefined: NewFetcher
+FAIL	github.com/vasic-digital/job_seeker/internal/ext/source [build failed]
+FAIL	github.com/vasic-digital/job_seeker/internal/providers [build failed]
+FAIL

@@ -1,0 +1,9 @@
+=== RUN   TestRotateKeepsExactlyThePolicyAndTouchesNothingElse
+--- PASS: TestRotateKeepsExactlyThePolicyAndTouchesNothingElse (0.02s)
+=== RUN   TestRestoreDrillOnARealSnapshot
+    backup_test.go:95: restore-drill: file=js.db.snapshot-v1-20261124T105635.126038870Z.bak bytes=184320 integrity_ok=true schema_version=1 postings=2 applications=1 audit_rows=0 audit=UNVERIFIED elapsed=1ms
+--- PASS: TestRestoreDrillOnARealSnapshot (0.18s)
+=== RUN   TestRotateKeyKeepsDataReadableAndOldPassFails
+--- PASS: TestRotateKeyKeepsDataReadableAndOldPassFails (0.41s)
+PASS
+ok  	github.com/vasic-digital/job_seeker/internal/privacy	0.635s

@@ -1,0 +1,12 @@
+    corpus_test.go:52: corpus files: 300
+    corpus_test.go:54: finding_block_pdf_link_not_uri                     1960
+    corpus_test.go:54: finding_warn_pdf_link_label_mismatch               240
+    corpus_test.go:54: finding_warn_pdf_no_struct_tree                    300
+    corpus_test.go:54: links_total                                        2660
+    corpus_test.go:54: reason_ats_finding_block_link_action_not_uri       260
+    corpus_test.go:54: reason_ats_finding_block_link_not_uri              1700
+    corpus_test.go:54: verdict_no                                         260
+    corpus_test.go:54: verdict_yes                                        40
+--- PASS: TestCorpusCounts (38.72s)
+PASS
+ok  	github.com/vasic-digital/job_seeker/internal/ext/render/pdflinks	38.730s

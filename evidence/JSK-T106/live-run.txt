@@ -1,0 +1,15 @@
+    live_test.go:91: syn-01 outcome=accepted reason=ok area=android conf=1.00 req="req_01a20d3ca4167bbcbdd177f3f7289f93" model="jev-1.14.0" lat=284ms http=200
+    live_test.go:91: syn-02 outcome=discarded reason=low_confidence area= conf=0.42 req="req_01a20d3ca4df74998608e5c0506a0d7c" model="jev-1.14.0" lat=271ms http=200
+    live_test.go:91: syn-03 outcome=accepted reason=ok area=go conf=1.00 req="req_01a20d3ca5e376a5b3a5ab1bb8a9beb9" model="jev-1.14.0" lat=266ms http=200
+    live_test.go:91: syn-04 outcome=accepted reason=ok area=mobile conf=1.00 req="req_01a20d3ca6f8708ba7fa7e0b206cead0" model="jev-1.14.0" lat=272ms http=200
+    live_test.go:91: syn-05 outcome=accepted reason=ok area=go conf=1.00 req="req_01a20d3ca80070d1a7279c9afa91fe89" model="jev-1.14.0" lat=189ms http=200
+    live_test.go:91: syn-06 outcome=accepted reason=ok area=ai-engineering conf=0.88 req="req_01a20d3ca8d57e9398fbbb103d859461" model="jev-1.14.0" lat=226ms http=200
+    live_test.go:91: syn-07 outcome=accepted reason=ok area=android-aosp conf=0.82 req="req_01a20d3ca9af72e6acf233afdaea6fcc" model="jev-1.14.0" lat=178ms http=200
+    live_test.go:91: syn-08 outcome=discarded reason=low_confidence area= conf=0.31 req="req_01a20d3caaa77c39b95150986db5fb1f" model="jev-1.14.0" lat=221ms http=200
+    live_test.go:91: syn-09 outcome=discarded reason=low_confidence area= conf=0.22 req="req_01a20d3cab5a7c25893d25d376910f44" model="jev-1.14.0" lat=238ms http=200
+    live_test.go:91: syn-10 outcome=accepted reason=ok area=android conf=0.92 req="req_01a20d3cac497f209514ef8f240043b8" model="jev-1.14.0" lat=211ms http=200
+    live_test.go:91: syn-inj-1 outcome=accepted reason=ok area=android conf=0.83 req="req_01a20d3cad1b79aeb8cbd3ce4dddef4f" model="jev-1.14.0" lat=203ms http=200
+    live_test.go:91: syn-inj-2 outcome=accepted reason=ok area=go conf=0.96 req="req_01a20d3cadea7670924f76c07aa35101" model="jev-1.14.0" lat=221ms http=200
+    live_test.go:121: answered=12 with request id and model id=12 of 12
+--- PASS: TestLiveTiebreakAgainstHostedJev (2.83s)
+ok  	github.com/vasic-digital/job_seeker/internal/llm	2.835s

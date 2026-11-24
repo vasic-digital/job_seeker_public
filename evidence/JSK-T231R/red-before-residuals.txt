@@ -1,0 +1,12 @@
+--- FAIL: TestEndpointMustBeHTTPS (1.94s)
+    smtpcompose_test.go:364: endpoint "http://127.0.0.1:44897/gmail/v1/users/me/drafts" was accepted
+    smtpcompose_test.go:372: the bearer token reached a plain-http server 1 time(s)
+FAIL
+FAIL	github.com/vasic-digital/job_seeker/internal/ext/channel/smtpcompose	2.082s
+--- FAIL: TestStructScanEndobjIsATokenNotASubstring (0.00s)
+    parsersim_test.go:294: name ending in endobj: the object was not scanned exactly: {Actions:[] Incomplete:true}
+    parsersim_test.go:294: underscore word: the object was not scanned exactly: {Actions:[] Incomplete:true}
+    parsersim_test.go:294: name containing endobj: the object was not scanned exactly: {Actions:[] Incomplete:true}
+FAIL
+FAIL	github.com/vasic-digital/job_seeker/internal/ext/ats/parsersim	3.620s
+FAIL

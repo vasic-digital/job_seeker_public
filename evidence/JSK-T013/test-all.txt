@@ -1,0 +1,76 @@
+bash gates/fmt_check.sh
+gofmt clean
+go vet ./...
+go test ./gates/...
+ok  	github.com/vasic-digital/job_seeker/gates/egressban	0.017s
+bash gates/run_all.sh
+== gates/verify_carriers.sh
+constitution resolved: submodules/constitution (13108 lines)
+lockstep OK (4 carriers, normalised digest a737b7489482b27d)
+== gates/verify_carriers.sh rc=0
+PROVE-FAILURE OK: drift and a missing carrier are both refused
+== gates/verify_carriers.sh --prove-failure rc=0
+== gates/verify_gitignore.sh
+ignored  .env
+ignored  prod.env
+ignored  .env.local
+ignored  data/job.db
+ignored  job.db
+ignored  job.db-wal
+ignored  job.db-shm
+ignored  job.sqlite
+ignored  backups/x.bak
+ignored  certs/ca.pem
+ignored  server.key
+ignored  tls.crt
+ignored  corpora/gold.json
+ignored  snapshots/s.json
+ignored  career_private/overlay.yaml
+ignored  .cache-career/x
+ignored  evidence/private/x
+ignored  secrets/token
+ignored  a.passphrase
+OK: all probes ignored, .env.example names-only
+== gates/verify_gitignore.sh rc=0
+PROVE-FAILURE OK: empty .gitignore is refused (rc=1)
+== gates/verify_gitignore.sh --prove-failure rc=0
+== gates/verify_hooks.sh
+PASS  control: no hook => trailerless commit accepted
+PASS  no Roadmap-Item refused
+PASS  bad item id refused
+PASS  two Roadmap-Item refused
+PASS  two tasks without reason refused
+PASS  two tasks with reason accepted
+PASS  single task accepted
+PASS  out-of-scope path without reason refused
+PASS  out-of-scope with bogus reason refused
+PASS  out-of-scope with closed-list reason accepted
+PASS  CI/CD file refused even with trailers
+PASS  fast-forward/new ref push accepted
+PASS  forced non-fast-forward push refused
+OK: all hook cases behaved
+== gates/verify_hooks.sh rc=0
+PROVE-FAILURE OK: a neutered commit-msg hook is caught (rc=1)
+== gates/verify_hooks.sh --prove-failure rc=0
+== gates/verify_ledger.sh
+OK: all 13 test types accounted for (1 PRESENT, 12 PLANNED, 0 SKIP)
+== gates/verify_ledger.sh rc=0
+PROVE-FAILURE OK: stripped type and invalid SKIP both refused
+== gates/verify_ledger.sh --prove-failure rc=0
+gates verdict rc=0
+go test ./...
+?   	github.com/vasic-digital/job_seeker/cmd/jobseekerd	[no test files]
+?   	github.com/vasic-digital/job_seeker/cmd/jsctl	[no test files]
+ok  	github.com/vasic-digital/job_seeker/gates/egressban	0.018s
+ok  	github.com/vasic-digital/job_seeker/internal/buildinfo	(cached)
+ok  	github.com/vasic-digital/job_seeker/internal/config	(cached)
+ok  	github.com/vasic-digital/job_seeker/internal/crypto	(cached)
+ok  	github.com/vasic-digital/job_seeker/internal/redact	(cached)
+CGO_ENABLED=1 go test -race ./...
+?   	github.com/vasic-digital/job_seeker/cmd/jobseekerd	[no test files]
+?   	github.com/vasic-digital/job_seeker/cmd/jsctl	[no test files]
+ok  	github.com/vasic-digital/job_seeker/gates/egressban	1.056s
+ok  	github.com/vasic-digital/job_seeker/internal/buildinfo	1.023s
+ok  	github.com/vasic-digital/job_seeker/internal/config	(cached)
+ok  	github.com/vasic-digital/job_seeker/internal/crypto	(cached)
+ok  	github.com/vasic-digital/job_seeker/internal/redact	(cached)

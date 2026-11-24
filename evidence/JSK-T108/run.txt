@@ -1,0 +1,13 @@
+=== RUN   TestContainersRuntimeProbe
+    containers_test.go:39: jsstack probe: runtime=podman version=5.7.0 compose=available
+--- PASS: TestContainersRuntimeProbe (3.70s)
+=== RUN   TestBootStackOnDemandIsOptIn
+    containers_test.go:44: NOT RUN: booting the daemon image builds an image into the container storage root; opt in with JSK_BOOT_STACK=1 (host storage is under relocation and the root filesystem is 94% used)
+--- SKIP: TestBootStackOnDemandIsOptIn (0.00s)
+=== RUN   TestIngestToDraftAwaitingApproval
+--- PASS: TestIngestToDraftAwaitingApproval (0.10s)
+=== RUN   TestRealVaultSlot
+    pipeline_to_draft_test.go:159: BLOCKED: no real career vault output on this host (set JSK_REAL_VAULT_DIR or CAREER_PRIVATE_DIR to a directory with manifest.json)
+--- SKIP: TestRealVaultSlot (0.00s)
+PASS
+ok  	github.com/vasic-digital/job_seeker/tests/integration	3.811s

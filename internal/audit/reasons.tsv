@@ -1,0 +1,62 @@
+# code	description	covered_call (the call site family that MUST emit this code; the covered-call set is data, section 11.4.268)
+mapped_by_rules	posting mapped by the rules classifier	classifier
+mapped_by_rules_llm	posting mapped after accepted tiebreak	tiebreak
+mapped_by_human	operator mapping from the review queue	queue
+ambiguous_by_rules	classifier found two close areas	classifier
+unmapped_by_rules	classifier found no area	classifier
+scored	score computed	scorer
+shortlisted_by_score	score at or above shortlist threshold	scorer
+shortlisted_by_human	operator promoted from the review band	triage
+discarded_by_score	score below discard threshold	scorer
+discarded_by_gate	hard gate failed	scorer
+dismissed_by_human	operator dismissed a scored posting from the console	triage
+expired_posting	posting expired	expiry
+draft_prepared	template draft assembled	draft
+slot_missing	template slot absent	draft
+approval_requested	draft hash frozen, awaiting approval	approval
+dry_run_recorded	dry-run approval recorded	approval
+rejected_by_human	operator rejected	approval
+approval_expired	approval waited more than 14 days	approval
+live_approved	live approval recorded	approval
+handoff_recorded	operator recorded the handoff	handoff
+tracked	tracking started	tracker
+draft_hash_changed	draft changed, approval superseded	draft
+failed_retryable	retryable failure	apply
+failed_terminal	terminal failure	apply
+withdrawn	application withdrawn	apply
+kill_switch_on	kill switch enabled	settings
+kill_switch_off	kill switch disabled	settings
+live_mode_changed	live mode toggled	settings
+data_export	export produced	privacy
+data_delete	delete executed	privacy
+retention_prune	retention pruner ran	privacy
+purge_source	source cache purged	privacy
+token_created	API token created	auth
+token_revoked	API token revoked	auth
+passkey_registered	passkey registered	auth
+passkeys_reset	operator removed every passkey and session from the CLI	jsctl
+data_restore	snapshot restored into a new directory from the CLI	jsctl
+login_ok	operator login	auth
+backup_made	backup written	backup
+anchor_written	audit anchor written	audit
+data_import	archive imported into an empty database	privacy
+key_rotated	data key re-wrapped under a new passphrase	privacy
+tracking_edited	tracking status recorded or manually edited	tracker
+follow_up_set	follow-up date set or cleared	tracker
+refused_gate_regressed	live approval refused: a hard scoring gate no longer passes	approval
+refused_gate_undetermined	live approval refused: hard gates could not be re-evaluated	approval
+refused_posting_closed	live approval refused: posting closed or expired	approval
+posting_changed	posting content changed after the draft was frozen, approval superseded	draft
+position_auto_attach	Listing attached to an existing Position by the resolver	position
+position_new	Listing started a new Position	position
+position_review_queued	Uncertain pair queued for human review	position
+position_merge_human	Operator merged two Positions	position
+position_split_human	Operator split a Listing out of its Position	position
+position_constraint_added	Human must_link or cannot_link constraint recorded	position
+position_rerun_applied	Resolver re-run applied a changed decision	position
+employer_alias_proposed	Fuzzy employer-name match proposed for review	position
+employer_alias_human	Operator confirmed an employer alias	position
+refused_templates_stale	live approval refused: template set too old, foreign overlay or not gate-stamped	approval
+refused_duplicate_company	application refused: same company already applied to or recently rejected us	draft
+override_duplicate_company	operator started an application despite a company-level duplicate, with a closed reason code	draft
+refused_cover_stale	live approval refused: cover date, company or role does not match this send, or a placeholder remains	approval

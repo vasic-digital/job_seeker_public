@@ -1,0 +1,33 @@
+--- FAIL: TestLiveApprovalCoverChecks (3.05s)
+    --- FAIL: TestLiveApprovalCoverChecks/yesterday (0.26s)
+        cover_test.go:85: err <nil> want ErrCoverStale (date_stale)
+    --- FAIL: TestLiveApprovalCoverChecks/the_frozen_build_date_of_the_umbrella_set (0.16s)
+        cover_test.go:85: err <nil> want ErrCoverStale (date_stale)
+    --- FAIL: TestLiveApprovalCoverChecks/no_date_declared (0.15s)
+        cover_test.go:85: err <nil> want ErrCoverStale (date_unknown)
+    --- FAIL: TestLiveApprovalCoverChecks/unparseable_date (0.24s)
+        cover_test.go:85: err <nil> want ErrCoverStale (date_unknown)
+    --- FAIL: TestLiveApprovalCoverChecks/wrong_company (0.17s)
+        cover_test.go:85: err <nil> want ErrCoverStale (company)
+    --- FAIL: TestLiveApprovalCoverChecks/wrong_role (0.17s)
+        cover_test.go:85: err <nil> want ErrCoverStale (role)
+    --- FAIL: TestLiveApprovalCoverChecks/placeholder_in_the_declared_company (0.67s)
+        cover_test.go:85: err <nil> want ErrCoverStale (placeholder)
+    --- FAIL: TestLiveApprovalCoverChecks/template_token_in_the_declared_role (0.77s)
+        cover_test.go:85: err <nil> want ErrCoverStale (placeholder)
+--- FAIL: TestHandoffRefusesWhenTheDayRolledOver (0.19s)
+    cover_test.go:127: err <nil> want ErrCoverStale
+--- FAIL: TestDraftHashCoversTheDraftDate (0.56s)
+    cover_test.go:150: drafts of two different days share one hash
+--- FAIL: TestPrepareRefusesUnusableSlotValues (0.79s)
+    cover_test.go:163: "{{company}}": err <nil> want ErrValidation
+    cover_test.go:166: "{{company}}": state awaiting_human_approval
+    cover_test.go:163: "[Company]": err <nil> want ErrValidation
+    cover_test.go:166: "[Company]": state awaiting_human_approval
+    cover_test.go:163: "TODO": err <nil> want ErrValidation
+    cover_test.go:166: "TODO": state awaiting_human_approval
+    cover_test.go:163: "Ac\x00me": err <nil> want ErrValidation
+    cover_test.go:166: "Ac\x00me": state awaiting_human_approval
+FAIL
+FAIL	github.com/vasic-digital/job_seeker/internal/draft	4.785s
+FAIL

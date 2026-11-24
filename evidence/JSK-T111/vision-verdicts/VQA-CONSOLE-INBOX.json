@@ -1,0 +1,24 @@
+{
+  "image": "evidence/JSK-T084/frames/console-inbox.png",
+  "prompt": "This is a screenshot of a web page. List the page title or main heading, the navigation links, and any buttons or form fields you can read. Quote the visible text exactly.",
+  "endpoint": "http://127.0.0.1:11500/v1/chat/completions",
+  "model_requested": "qwen2.5vl:3b",
+  "model_served": "qwen2.5vl:3b",
+  "expected_facts": [
+    "Inbox",
+    "Review queue",
+    "Applications",
+    "Settings"
+  ],
+  "response": "**Page Title or Main Heading:** Inbox\n\n**Navigation Links:**\n- Inbox\n- Review queue\n- Applications\n- Settings\n- Audit log\n\n**Buttons or Form Fields:**\n- APPLY FILTERS\n\n**Visible Text:**\n```\nJob Seeker\nInbox\nSIGN OUT\n\nInbox\n\nState\nLanguage\nSource\nScore band\n\nAny\nremotive\nAny\n\nAPPLY FILTERS\n\nTitle\nCompany\nState\nScore\nLanguage\nSource\n\nDISMISS CANDIDATE\nGolf Inc\ndiscarded\n–\n\nNO JS CANDIDATE ROLE\nFoxtrot Ltd\nscored\n–\n\nUNCLEAR ROLE\nEcho Co\nmapped\n–\n\nMOBILE ENGINEER\nDelta Apps\nshortlisted\n–\n\nBACKEND ENGINEER\nCirrus GmbH\nshortlisted\n–\n\nPLATFORM ENGINEER\nBorealis Labs\nshortlisted\n–\n\nSENIOR GO ENGINEER\nAcme Robotics\nshortlisted\n82\nen\nremotive\n```",
+  "matched_facts": 4,
+  "expected_count": 4,
+  "hallucinated": false,
+  "pass": true,
+  "expect_fail": false,
+  "case_result": true,
+  "latency_ms": 6056,
+  "http_status": 200,
+  "prompt_tokens": 1530,
+  "completion_tokens": 201
+}

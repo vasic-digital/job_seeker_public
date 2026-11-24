@@ -1,0 +1,2 @@
+ok  	github.com/vasic-digital/job_seeker/internal/draft	4.238s
+ok  	github.com/vasic-digital/job_seeker/internal/match	1.175s

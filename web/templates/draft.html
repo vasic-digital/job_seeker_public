@@ -1,0 +1,77 @@
+{{define "content"}}
+<section class="od-card console-card" aria-labelledby="d-h">
+  <h2 id="d-h" class="console-h2">{{.A.Title}} · {{.A.Company}}</h2>
+  <dl class="console-dl">
+    <dt>{{t .Lang "col.state"}}</dt><dd data-testid="app-state">{{.A.State}}</dd>
+    <dt>{{t .Lang "draft.language"}}</dt><dd data-testid="app-lang">{{.A.DraftLang}} ({{.A.LangRule}})</dd>
+    <dt>{{t .Lang "draft.hash"}}</dt><dd><code data-testid="draft-hash">{{.A.DraftHash}}</code></dd>
+    <dt>{{t .Lang "draft.outbound"}}</dt><dd>{{t .Lang "draft.outbound.text" .A.Host}}</dd>
+    <dt>{{t .Lang "draft.mode"}}</dt><dd>{{if .LiveMode}}{{t .Lang "mode.live"}}{{else}}{{t .Lang "mode.dry"}}{{end}}</dd>
+  </dl>
+  {{if or (eq .A.State "pending_draft") (eq .A.State "draft_prepared")}}
+  <form method="post" action="/applications/{{.A.ID}}/prepare"><input type="hidden" name="_csrf" value="{{.CSRF}}"><button class="od-btn od-btn--primary" type="submit">{{t .Lang "draft.prepare"}}</button></form>
+  {{end}}
+</section>
+{{if .Files}}
+<section class="od-card console-card" aria-labelledby="f-h">
+  <h2 id="f-h" class="console-h2">{{t .Lang "draft.files"}}</h2>
+  {{range .Files}}<div class="console-file">
+    <h3 class="console-h3">{{t $.Lang (printf "kind.%s" .Kind)}} · <code>{{.Slot}}</code></h3>
+    <p>{{t $.Lang "draft.sha"}}: <code data-testid="sha-{{.Kind}}">{{.SHA}}</code></p>
+    <object class="console-pdf" data="/applications/{{$.A.ID}}/files/{{.Kind}}" type="application/pdf" aria-label="{{t $.Lang (printf "kind.%s" .Kind)}}"><a href="/applications/{{$.A.ID}}/files/{{.Kind}}">{{t $.Lang "draft.open_pdf"}}</a></object>
+  </div>{{end}}
+</section>
+{{end}}
+{{if .NeedsLang}}
+<section class="od-card console-card" aria-labelledby="l-h">
+  <h2 id="l-h" class="console-h2">{{t .Lang "draft.lang.confirm"}}</h2>
+  <p>{{t .Lang "draft.lang.why"}}</p>
+  <form method="post" action="/applications/{{.A.ID}}/language">
+    <input type="hidden" name="_csrf" value="{{.CSRF}}">
+    <div class="od-field"><label class="od-label" for="lang">{{t .Lang "draft.language"}}</label>
+    <select class="od-input" id="lang" name="lang">{{range .Langs}}<option value="{{.}}"{{if eq . $.A.DraftLang}} selected{{end}}>{{.}}</option>{{end}}</select></div>
+    <button class="od-btn od-btn--secondary" type="submit">{{t .Lang "draft.lang.button"}}</button>
+  </form>
+</section>
+{{end}}
+{{if eq .A.State "awaiting_human_approval"}}
+<section class="od-card console-card" aria-labelledby="a-h">
+  <h2 id="a-h" class="console-h2">{{t .Lang "draft.approve"}}</h2>
+  <form method="post" action="/applications/{{.A.ID}}/approve">
+    <input type="hidden" name="_csrf" value="{{.CSRF}}">
+    <fieldset class="console-fieldset"><legend>{{t .Lang "draft.approve.mode"}}</legend>
+      <label class="od-radio"><input type="radio" name="live" value="" checked> {{t .Lang "mode.dry"}}</label>
+      <label class="od-radio"><input type="radio" name="live" value="1"> {{t .Lang "mode.live"}}</label></fieldset>
+    <div class="od-field"><label class="od-label" for="company">{{t .Lang "draft.company"}} ({{.A.Company}})</label>
+    <input class="od-input" id="company" name="company" autocomplete="off"></div>
+    <button class="od-btn od-btn--primary" type="submit" data-testid="approve">{{t .Lang "draft.approve.button"}}</button>
+  </form>
+  <p class="console-hint">{{t .Lang "draft.stepup.hint"}} <button class="od-btn od-btn--ghost" type="button" id="stepup">{{t .Lang "draft.stepup.button"}}</button> <span id="passkey-status" role="status" aria-live="polite"></span></p>
+  <form method="post" action="/applications/{{.A.ID}}/reject">
+    <input type="hidden" name="_csrf" value="{{.CSRF}}">
+    <div class="od-field"><label class="od-label" for="reason">{{t .Lang "draft.reject.reason"}}</label>
+    <textarea class="od-textarea" id="reason" name="reason" required></textarea></div>
+    <button class="od-btn od-btn--secondary" type="submit" data-testid="reject">{{t .Lang "draft.reject.button"}}</button>
+  </form>
+</section>
+{{end}}
+{{if eq .A.State "dry_run_recorded"}}
+<section class="od-card console-card" aria-labelledby="w-h">
+  <h2 id="w-h" class="console-h2">{{t .Lang "draft.wouldsend"}}</h2>
+  <p>{{t .Lang "draft.wouldsend.help"}}</p>
+  <form method="post" action="/applications/{{.A.ID}}/request-live"><input type="hidden" name="_csrf" value="{{.CSRF}}"><button class="od-btn od-btn--secondary" type="submit">{{t .Lang "draft.request_live"}}</button></form>
+</section>
+{{end}}
+{{if eq .A.State "live_approved"}}
+<section class="od-card console-card" aria-labelledby="h-h">
+  <h2 id="h-h" class="console-h2">{{t .Lang "draft.handoff"}}</h2>
+  <p>{{t .Lang "draft.handoff.help"}}</p>
+  {{if .A.ApplyURL}}<p><a class="od-btn od-btn--secondary" href="{{.A.ApplyURL}}" rel="noreferrer noopener" target="_blank">{{t .Lang "draft.handoff.open"}}</a></p>{{end}}
+  <form method="post" action="/applications/{{.A.ID}}/handoff-complete">
+    <input type="hidden" name="_csrf" value="{{.CSRF}}">
+    <div class="od-field"><label class="od-label" for="ref">{{t .Lang "draft.handoff.ref"}}</label><input class="od-input" id="ref" name="ref" required autocomplete="off"></div>
+    <button class="od-btn od-btn--primary" type="submit">{{t .Lang "draft.handoff.button"}}</button>
+  </form>
+</section>
+{{end}}
+{{end}}

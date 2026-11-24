@@ -1,0 +1,2 @@
+--- PASS: TestLocalFloodAndRSS (35.34s)
+ok  	github.com/vasic-digital/job_seeker/tests/live	35.364s

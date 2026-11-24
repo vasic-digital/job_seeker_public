@@ -1,0 +1,5 @@
+=== RUN   TestLiveRemoteOK
+    live_test.go:46: LIVE remoteok: postings=20 skipped=0 host=remoteok.com ip=104.21.29.222 tls="remoteok.com" status=200 req_id="a5f7acc41fe13267-BEG" latency_ms=1626 sha=47ecc92cae49bc15ac395ba5ca31705298dff98dfae56203327f96bd34f17035
+--- PASS: TestLiveRemoteOK (2.44s)
+PASS
+ok  	github.com/vasic-digital/job_seeker/internal/providers	2.455s

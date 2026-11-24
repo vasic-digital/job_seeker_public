@@ -1,0 +1,4 @@
+--- FAIL: TestRawPageEncryptedColumnsAreCiphertext (0.09s)
+    rawpage_test.go:83: before checkpoint (WAL present): sensitive column is PLAINTEXT in raw file(s) [js.db-wal js.db.pre-v99-20261124T095447.419910524Z.bak]
+FAIL
+FAIL	github.com/vasic-digital/job_seeker/internal/store	0.103s

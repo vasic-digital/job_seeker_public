@@ -1,0 +1,4 @@
+=== RUN   TestRotateKeyKeepsDataReadableAndOldPassFails
+--- PASS: TestRotateKeyKeepsDataReadableAndOldPassFails (0.49s)
+PASS
+ok  	github.com/vasic-digital/job_seeker/internal/privacy	0.510s

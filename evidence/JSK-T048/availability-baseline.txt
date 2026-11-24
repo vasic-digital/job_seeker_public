@@ -1,0 +1,17 @@
+T048 availability baseline (coarse keyword buckets, NOT the Phase 4 classifier; real postings fetched live 2026-11-24)
+postings per provider: {'remotive': 15, 'remoteok': 100}
+per provider x language: {('remotive', 'en'): 15, ('remoteok', 'en'): 100}
+cross-provider dup_of set: 0
+  (no keyword bucket)      95  {}
+  ai-engineering           16  {'remotive': 8, 'remoteok': 8}
+  web-frontend              7  {'remotive': 6, 'remoteok': 1}
+  mobile                    5  {'remotive': 5}
+  go                        5  {'remotive': 3, 'remoteok': 2}
+  android                   4  {'remotive': 4}
+  flutter                   3  {'remotive': 3}
+  react-native              3  {'remotive': 3}
+  desktop                   3  {'remotive': 3}
+  android-aosp              1  {'remotive': 1}
+RU/SR postings: ru=0 sr=0 (language detector over title+body)
+lang distribution: {'en': 115}
+provider_call rows: [('remoteok.com', 200, 1), ('remotive.com', 200, 1)]

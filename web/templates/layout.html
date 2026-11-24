@@ -1,0 +1,36 @@
+{{define "layout"}}<!doctype html>
+<html lang="{{.Lang}}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="htmx-config" content='{"allowEval":false,"allowScriptTags":false,"includeIndicatorStyles":false,"selfRequestsOnly":true}'>
+{{if .CSRF}}<meta name="csrf-token" content="{{.CSRF}}">{{end}}
+<title>{{t .Lang .TitleKey}} · {{t .Lang "app.name"}}</title>
+<link rel="stylesheet" href="/static/design/fonts/fonts.css">
+<link rel="stylesheet" href="/static/design/brand/vasic-digital.css">
+<link rel="stylesheet" href="/static/design/components-extended.css">
+<link rel="stylesheet" href="/static/console.css">
+</head>
+<body{{if .CSRF}} hx-headers='{"X-CSRF-Token":"{{.CSRF}}"}'{{end}}>
+<a class="od-skip-link" href="#main">{{t .Lang "nav.skip"}}</a>
+<header class="od-header">
+  <span class="od-header__brand">{{t .Lang "app.name"}}</span>
+  {{if .Authed}}
+  <nav class="od-nav" aria-label="{{t .Lang "nav.label"}}">
+    {{range .Nav}}<a href="{{.Href}}"{{if .Current}} aria-current="page"{{end}}>{{t $.Lang .Key}}</a>{{end}}
+  </nav>
+  <form method="post" action="/logout" class="js-logout"><input type="hidden" name="_csrf" value="{{.CSRF}}"><button class="od-btn od-btn--ghost" type="submit">{{t .Lang "nav.logout"}}</button></form>
+  {{end}}
+</header>
+<main id="main" tabindex="-1" class="console-main">
+{{if .Error}}<div class="od-alert od-alert--danger" role="alert"><p class="od-alert__title">{{t .Lang "error.title"}}</p><p class="od-alert__body" data-error-code="{{.Error}}">{{t .Lang (printf "error.%s" .Error)}}</p></div>{{end}}
+{{if .Notice}}<div class="od-alert od-alert--success" role="status"><p class="od-alert__body">{{t .Lang .Notice}}</p></div>{{end}}
+<h1 class="console-h1">{{t .Lang .TitleKey}}</h1>
+{{template "content" .}}
+</main>
+<script src="/static/vendor/htmx.min.js" integrity="{{.HtmxSRI}}"></script>
+<script src="/static/console.js" defer></script>
+{{if .PasskeyJS}}<script src="/static/passkey.js" defer></script>{{end}}
+</body>
+</html>{{end}}

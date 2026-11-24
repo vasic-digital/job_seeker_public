@@ -1,0 +1,90 @@
+# PROPOSAL ONLY (JSK-016, 2026-11-24). NOT ENABLED. Needs explicit operator approval.
+# Same schema as rules/company_watchlist.yaml (internal/providers/watchlist.go: strict keys version/greenhouse/lever/ashby, entries slug+name).
+# Nothing loads this file: the adapters read rules/company_watchlist.yaml only (the 'default enabled: false' of this proposal).
+# To adopt: operator copies the approved entries into rules/company_watchlist.yaml. Per-entry evidence: docs/research/providers/07-company-watchlist-proposal.md
+version: 1
+greenhouse:
+  - slug: gitlab   # P1
+    name: GitLab
+  - slug: canonical   # P1
+    name: Canonical
+  - slug: grafanalabs   # P1
+    name: Grafana Labs
+  - slug: mozilla   # P1
+    name: Mozilla
+  - slug: wikimedia   # P2
+    name: Wikimedia Foundation
+  - slug: automatticcareers   # P2
+    name: Automattic
+  - slug: chainguard   # P2
+    name: Chainguard
+  - slug: twilio   # P2
+    name: Twilio
+  - slug: elastic   # P2
+    name: Elastic
+  - slug: coinbase   # P3
+    name: Coinbase
+  - slug: tailscale   # P3
+    name: Tailscale
+  - slug: cloudflare   # P3
+    name: Cloudflare
+  - slug: netlify   # P3
+    name: Netlify
+  - slug: cockroachlabs   # P3
+    name: Cockroach Labs
+  - slug: planetscale   # P3
+    name: PlanetScale
+  - slug: bitwarden   # P3
+    name: Bitwarden
+lever: []   # no entry verified remote-EMEA-friendly (see doc)
+ashby:
+  - slug: supabase   # P1
+    name: Supabase
+  - slug: n8n   # P1
+    name: n8n
+  - slug: dash0   # P1
+    name: Dash0
+  - slug: camunda   # P1
+    name: Camunda
+  - slug: clickhouse   # P1
+    name: ClickHouse
+  - slug: elevenlabs   # P1
+    name: ElevenLabs
+  - slug: ashby   # P1
+    name: Ashby
+  - slug: sanity   # P2
+    name: Sanity
+  - slug: posthog   # P2
+    name: PostHog
+  - slug: linear   # P2
+    name: Linear
+  - slug: gitbook   # P2
+    name: GitBook
+  - slug: poolside   # P2
+    name: poolside
+  - slug: prefect   # P2
+    name: Prefect
+  - slug: checkly   # P2
+    name: Checkly
+  - slug: cohere   # P2
+    name: Cohere
+  - slug: deepl   # P2
+    name: DeepL
+  - slug: synthesia   # P2
+    name: Synthesia
+  - slug: perplexity   # P2
+    name: Perplexity
+  - slug: baseten   # P2
+    name: Baseten
+  - slug: railway   # P3
+    name: Railway
+  - slug: sentry   # P3
+    name: Sentry
+  - slug: black-forest-labs   # P3
+    name: Black Forest Labs
+  - slug: langchain   # P3
+    name: LangChain
+  - slug: vanta   # P3
+    name: Vanta
+  - slug: openai   # P3
+    name: OpenAI

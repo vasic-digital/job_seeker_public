@@ -1,0 +1,15 @@
+{
+ "clock_back_1_minute": {
+  "clock": "2026-11-24T09:59:00Z",
+  "refused": "daily_cap"
+ },
+ "clock_back_3_days": {
+  "clock": "2026-11-21T08:00:00Z",
+  "refused": "daily_cap"
+ },
+ "clock_forward_400_days": "allowed",
+ "clock_forward_past_window": "allowed",
+ "scheduler": {
+  "runs_after_backward_step_and_interval": 3
+ }
+}

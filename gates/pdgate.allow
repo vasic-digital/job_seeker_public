@@ -1,0 +1,2 @@
+# path prefixes where tracked PDFs, images and posting-like files are allowed (FR-077)
+.claude/skills/

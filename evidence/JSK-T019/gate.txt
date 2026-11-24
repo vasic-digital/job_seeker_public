@@ -1,0 +1,6 @@
+=== RUN   TestRawPageEncryptedColumnsAreCiphertext
+--- PASS: TestRawPageEncryptedColumnsAreCiphertext (0.11s)
+PASS
+ok  	github.com/vasic-digital/job_seeker/internal/store	0.122s
+OK: E columns are ciphertext in db, wal and backups; needle control hit
+PROVE-FAILURE OK: a skipped encryption step is detected by the raw-page scan

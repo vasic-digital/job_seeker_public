@@ -1,0 +1,14 @@
+{
+  "bytes": 0,
+  "host": "rest.arbeitsagentur.de",
+  "label": "fixture-input; captured once; contains public postings only",
+  "latency_ms": 1372,
+  "name": "ba_jobs",
+  "request_id": "",
+  "resolved_ip": "195.88.116.243",
+  "resp_sha256": "36a9e7f1c95b82ffb99743e0c5c4ce95d83c9a430aac59f84ef3cbfab6145068",
+  "retrieved_at": "2026-11-24T13:26:16Z",
+  "status": 403,
+  "tls_subject": "rest.arbeitsagentur.de",
+  "url": "https://rest.arbeitsagentur.de/jobboerse/jobsuche-service/pc/v4/jobs?was=Softwareentwickler\u0026angebotsart=1\u0026size=10\u0026page=1"
+}

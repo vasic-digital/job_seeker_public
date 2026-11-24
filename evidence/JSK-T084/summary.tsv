@@ -1,0 +1,6 @@
+VQA-LIVE-LOGIN	must-pass	0	live-login.png
+VQA-CONSOLE-INBOX	must-pass	0	console-inbox.png
+VQA-CONSOLE-DRAFT	must-pass	0	console-draft.png
+VQA-CONSOLE-SETTINGS	must-pass	0	console-settings.png
+VQA-MUTANT-ok	mutation-must-be-flagged	0	mutant-ok.png
+VQA-MUTANT-error	mutation-must-be-flagged	0	mutant-error.png

@@ -1,0 +1,52 @@
+# helix-deps.yaml — job_seeker
+#
+# §11.4.31 machine-readable dependency manifest. Every entry below is a real gitlink in this
+# repository (`git ls-files -s submodules/<name>`); `gates/verify_pins.sh` fails when a `ref:` differs
+# from its gitlink, so the manifest cannot drift from the tree silently.
+#
+# Added 2026-11-24 under the standing autonomous-mode directive (operator may revert, reversible via PR),
+# per docs/decisions/0003-catalogue-first-verdicts.md: containers (§11.4.76), challenges + qa/HelixQA +
+# security (§11.4.169). Pins are the exact SHAs proposed in that ADR; containers uses the umbrella's pin
+# for parity.
+#
+# Planned (NOT yet present, so NOT listed as a deps[] entry, since a pin for a submodule that does not
+# exist would be false): the third-party jobops service (DaKheera47/job-ops) as a submodule behind an
+# adapter. When it is added it gets a real entry here with its exact ref.
+
+schema_version: 1
+
+deps:
+  - name: containers
+    ssh_url: git@github.com:vasic-digital/containers.git
+    ref: "2d18551c6c99e21f4287be5b1d3c927ac3901d07"
+    path: submodules/containers
+    layout: grouped
+    why: "Canonical Containers Submodule (§11.4.76): runtime auto-detection, compose Up/Down, health, service registry. Go module digital.vasic.containers, consumed by tools/containers via a replace onto this gitlink."
+  - name: challenges
+    ssh_url: git@github.com:vasic-digital/challenges.git
+    ref: "04d5c31b97f901f0592ed856c48585f40121022f"
+    path: submodules/challenges
+    layout: grouped
+    why: "Test-execution and reporting foundation required by the §11.4.169 challenges test type; HelixQA (submodules/qa) builds on it."
+  - name: qa
+    ssh_url: git@github.com:vasic-digital/HelixQA.git
+    ref: "dc25b8abaa3856cede6d066b7d7ceb8c13d4d310"
+    path: submodules/qa
+    layout: grouped
+    why: "HelixQA: the anti-bluff QA orchestration framework required by §11.4.169 (helixqa test type) and §11.4.278."
+  - name: security
+    ssh_url: git@github.com:vasic-digital/security.git
+    ref: "0513361e2f9cdfa2c3b1da687a0d66e5eb7c8fd1"
+    path: submodules/security
+    layout: grouped
+    why: "Security scanning and hardening packages required by the §11.4.169 security test type (T105); also the SSRF guard candidate for T020."
+
+transitive_handling:
+  recursive: true
+  conflict_resolution: >-
+    operator-required. Nested dependencies declared by challenges (containers, Panoptic) and qa
+    (Challenges, Containers, DocProcessor, LLMOrchestrator, LLMProvider, LLMsVerifier, security,
+    VisionEngine) are NOT initialised in this checkout: nothing in job_seeker imports them, and qa
+    expects sibling checkouts (replace ../challenges, ../containers) that this repository satisfies
+    with submodules/challenges and submodules/containers at the pins above. They are initialised
+    by the task that first consumes them, with the pin recorded here in the same change.

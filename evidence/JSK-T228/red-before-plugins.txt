@@ -1,0 +1,4 @@
+# github.com/vasic-digital/job_seeker/internal/ext/eligibility [github.com/vasic-digital/job_seeker/internal/ext/eligibility.test]
+internal/ext/eligibility/eligibility_test.go:23:51: undefined: OverlayProfile
+internal/ext/eligibility/eligibility_test.go:42:28: undefined: RemoteMode
+internal/ext/eligibility/eligibility_test.go:51:41: undefined: RemoteMode

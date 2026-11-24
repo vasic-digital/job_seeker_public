@@ -1,0 +1,4 @@
+config: JOBSEEKER_DATA_DIR: inside_git_work_tree
+rc=1
+jobseekerd: configuration valid; server wiring not implemented yet (JSK-T021, JSK-T024)
+rc=2

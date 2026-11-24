@@ -1,0 +1,4 @@
+=== RUN   TestTempIsTmpfs0600AndRefusesDisk
+--- PASS: TestTempIsTmpfs0600AndRefusesDisk (0.00s)
+PASS
+ok  	github.com/vasic-digital/job_seeker/internal/privacy	0.006s

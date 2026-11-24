@@ -1,0 +1,4 @@
+--- PASS: TestHealthyBootPassesAndPrintsEveryInvariant (0.18s)
+--- PASS: TestSeededViolationsFailClosed (2.09s)
+PASS
+ok  	github.com/vasic-digital/job_seeker/internal/boot	3.321s

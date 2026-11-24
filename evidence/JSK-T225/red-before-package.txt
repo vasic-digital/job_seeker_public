@@ -1,0 +1,12 @@
+# github.com/vasic-digital/job_seeker/internal/ext [github.com/vasic-digital/job_seeker/internal/ext.test]
+internal/ext/registry_test.go:8:21: undefined: Info
+internal/ext/registry_test.go:10:22: undefined: Info
+internal/ext/policy_test.go:33:25: undefined: Info
+internal/ext/policy_test.go:34:27: undefined: Posting
+internal/ext/policy_test.go:34:36: undefined: Profile
+internal/ext/policy_test.go:34:56: undefined: Decision
+internal/ext/policy_test.go:38:23: undefined: Info
+internal/ext/policy_test.go:39:25: undefined: Posting
+internal/ext/policy_test.go:39:34: undefined: Profile
+internal/ext/policy_test.go:39:54: undefined: Decision
+internal/ext/registry_test.go:10:22: too many errors

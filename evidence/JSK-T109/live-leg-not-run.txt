@@ -1,0 +1,8 @@
+JSK-T109 live leg: NOT RUN on 2026-11-24, by design (not a pass, not a failure).
+Reason class: provider_quota / politeness. The jsobserve observer (pid 1590790, run-20261124) already spends the RemoteOK hourly budget from this host
+(requests at 10:28, 11:28, 12:29 UTC; project policy: one request per 60 minutes). Remotive's 4/day is spent by the same observer. A second request from this
+host inside the same hour would break the politeness policy the limiter exists to enforce, and the budget file (tests/full/live_budget.tsv) says remotive=0.
+Read-only evidence from the observer database instead (limit compliance and complete call proofs of real requests):
+  provider_call remoteok.com: 3 rows, status 200, 3/3 resolved_ip, 3/3 tls_subject, 3/3 resp_sha256 of 64 hex
+  provider_call remotive.com: 1 row, status 200, complete
+Run with JSK_FULL_LIVE=1 on a host (or an hour) where the observer is not running.

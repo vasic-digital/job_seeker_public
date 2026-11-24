@@ -1,0 +1,31 @@
+{
+ "downstream": {
+  "digest": "717e67fcb8a5d7682ce1f2a87d10a4e39d482ed1b04721931a3917e8055a3b11",
+  "injected_at": "ingest stage (ingest.Runner.Inject): no provider imitation, no network, no limiter budget",
+  "input": "real gold corpus (115 postings, private, outside the repository)",
+  "mapped_and_scored": 1,
+  "postings": 115,
+  "queued_for_review": 114,
+  "ruleset_sha": "c9fed9822df306750127432e35cc5cb54ff26d6fa6b0514ac1032c8c2cd72bfc",
+  "runs": 3,
+  "verdict": "PASS"
+ },
+ "live": {
+  "reason": "JSK_FULL_LIVE=1 not set",
+  "reason_class": "topology",
+  "verdict": "SKIP"
+ },
+ "producing": {
+  "artifact_fingerprint": {
+   "note": "the same buildinfo the daemon serves on /healthz; this test binary is unstamped, so the real-image digest leg is OPEN",
+   "source_commit": "unknown",
+   "stamped": false,
+   "version": "unstamped"
+  },
+  "at": "2026-11-24T14:08:41Z",
+  "command": "make full (go test ./tests/full -run Full)",
+  "git_head": "4da461105deb166e95fa90928903f721d2e452dd",
+  "go": "go1.26.11",
+  "worktree_dirty": false
+ }
+}

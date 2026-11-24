@@ -1,0 +1,6 @@
+MUTATION: daily cap branch disabled
+--- FAIL: TestDailyCapRemotive4PerDay (0.03s)
+--- FAIL: TestConcurrentReservationsNeverExceedCap (0.03s)
+FAIL
+FAIL	github.com/vasic-digital/job_seeker/internal/limiter	0.219s
+FAIL

@@ -1,0 +1,28 @@
+# TCP-ONLY variant of compose.yml: the UDP port is NOT published, which is the real "UDP blocked" state
+# tools/containers (jsstack up/down). TCP and UDP are both published on ONE port number.
+# Until cmd/jobseekerd wires the server, the entrypoint is the real server stack in cmd/jsgate-serve.
+# Required env: JS_PORT (jsstack port -udp), JS_CERT_DIR (dir with tls.crt, tls.key).
+services:
+  jobseeker:
+    container_name: jobseeker-gate
+    image: localhost/job_seeker-gate:dev
+    build:
+      context: ..
+      dockerfile: deploy/Containerfile
+    entrypoint: ["/usr/local/bin/jsgate-serve"]
+    command: ["-addr", ":${JS_PORT:?set by jsstack port}", "-cert", "/certs/tls.crt", "-key", "/certs/tls.key"]
+    ports:
+      - "${JS_PORT}:${JS_PORT}/tcp"
+    volumes:
+      - "${JS_CERT_DIR:?directory with tls.crt and tls.key}:/certs:ro"
+    read_only: true
+    tmpfs:
+      - /tmp:size=16m,mode=1777
+    cap_drop: [ALL]
+    security_opt:
+      - no-new-privileges:true
+    mem_limit: 256m
+    pids_limit: 128
+    cpus: 1.0
+    # restart with the runtime's built-in exponential backoff, bounded
+    restart: "on-failure:5"

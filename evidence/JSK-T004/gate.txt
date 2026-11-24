@@ -1,0 +1,10 @@
+constitution resolved: submodules/constitution (13108 lines)
+lockstep OK (4 carriers, normalised digest a737b7489482b27d)
+PROVE-FAILURE OK: drift and a missing carrier are both refused
+umbrella cwd:
+<umbrella>/submodules/constitution
+rc=0
+ERROR: constitution submodule not found above /tmp
+from /tmp rc=1
+
+# paths normalised for publication ($HOME, <repo>, <umbrella> placeholders)

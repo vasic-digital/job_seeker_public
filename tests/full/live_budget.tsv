@@ -1,0 +1,5 @@
+# JSK-T109 live-call budget AS DATA: provider<TAB>max real requests per full run. Exhaustion (the limiter or the provider refuses) is SKIP provider_quota, never a pass.
+# remotive is documented at 4 requests per 24 h and the observer already spends it, so a full run does not touch it. himalayas needs the operator key and ToS decision.
+remoteok	1
+remotive	0
+himalayas	0

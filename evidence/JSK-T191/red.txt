@@ -1,0 +1,14 @@
+# github.com/vasic-digital/job_seeker/internal/position [github.com/vasic-digital/job_seeker/internal/position.test]
+internal/position/resolver_test.go:21:6: undefined: Resolver
+internal/position/resolver_test.go:35:29: undefined: Resolver
+internal/position/resolver_test.go:35:41: undefined: DefaultParams
+internal/position/resolver_test.go:89:32: undefined: Outcome
+internal/position/resolver_test.go:91:8: undefined: Outcome
+internal/position/resolver_test.go:121:12: undefined: CheckInvariants
+internal/position/resolver_test.go:267:12: undefined: pair
+internal/position/resolver_test.go:282:10: undefined: AddConstraint
+internal/position/resolver_test.go:291:71: undefined: AddConstraint
+internal/position/resolver_test.go:346:10: undefined: AddConstraint
+internal/position/resolver_test.go:346:10: too many errors
+FAIL	github.com/vasic-digital/job_seeker/internal/position [build failed]
+FAIL

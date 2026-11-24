@@ -1,0 +1,298 @@
+[
+ {
+  "challenge_id": "jsk-no-send-without-approval",
+  "challenge_name": "Nothing is sent without a human approval",
+  "status": "passed",
+  "start_time": "2026-11-24T13:07:29.143927168+01:00",
+  "end_time": "2026-11-24T13:07:29.161267288+01:00",
+  "duration": 17340140,
+  "assertions": [
+   {
+    "type": "contains",
+    "target": "handoff_before_approval",
+    "expected": "illegal transition",
+    "actual": "draft: illegal transition: application is awaiting_human_approval",
+    "passed": true,
+    "message": "contains 'illegal transition'"
+   },
+   {
+    "type": "contains",
+    "target": "live_with_live_mode_off",
+    "expected": "live mode is off",
+    "actual": "draft: live mode is off",
+    "passed": true,
+    "message": "contains 'live mode is off'"
+   },
+   {
+    "type": "exact_count",
+    "target": "submissions_before_approval",
+    "expected": 0,
+    "actual": 0,
+    "passed": true,
+    "message": "count 0 == 0"
+   },
+   {
+    "type": "contains",
+    "target": "dry_run_state",
+    "expected": "dry_run_recorded",
+    "actual": "dry_run_recorded",
+    "passed": true,
+    "message": "contains 'dry_run_recorded'"
+   },
+   {
+    "type": "contains",
+    "target": "dry_run_submission_kind",
+    "expected": "would_send",
+    "actual": "would_send",
+    "passed": true,
+    "message": "contains 'would_send'"
+   },
+   {
+    "type": "contains",
+    "target": "handoff_after_dry_run",
+    "expected": "illegal transition",
+    "actual": "draft: illegal transition: application is dry_run_recorded",
+    "passed": true,
+    "message": "contains 'illegal transition'"
+   },
+   {
+    "type": "exact_count",
+    "target": "sent_applications",
+    "expected": 0,
+    "actual": 0,
+    "passed": true,
+    "message": "count 0 == 0"
+   },
+   {
+    "type": "exact_count",
+    "target": "provider_calls",
+    "expected": 0,
+    "actual": 0,
+    "passed": true,
+    "message": "count 0 == 0"
+   }
+  ],
+  "metrics": null,
+  "outputs": {
+   "dry_run_state": "dry_run_recorded",
+   "dry_run_submission_kind": "would_send",
+   "handoff_after_dry_run": "draft: illegal transition: application is dry_run_recorded",
+   "handoff_before_approval": "draft: illegal transition: application is awaiting_human_approval",
+   "live_with_live_mode_off": "draft: live mode is off",
+   "provider_calls": "0",
+   "sent_applications": "0",
+   "submissions_before_approval": "0"
+  },
+  "logs": {
+   "challenge_log": "",
+   "output_log": "",
+   "api_requests": "",
+   "api_responses": ""
+  },
+  "recorded_actions": [
+   "prepared an application up to awaiting_human_approval",
+   "tried to complete a hand-off before any approval",
+   "tried a LIVE approval while live mode is off",
+   "approved in dry-run (the default)",
+   "tried to complete a hand-off after a dry-run approval"
+  ]
+ },
+ {
+  "challenge_id": "jsk-hash-mismatch",
+  "challenge_name": "A changed draft invalidates approval",
+  "status": "passed",
+  "start_time": "2026-11-24T13:07:29.277949897+01:00",
+  "end_time": "2026-11-24T13:07:29.301354677+01:00",
+  "duration": 23404660,
+  "assertions": [
+   {
+    "type": "contains",
+    "target": "approve_after_tamper",
+    "expected": "draft hash differs",
+    "actual": "draft: draft hash differs from the approved hash",
+    "passed": true,
+    "message": "contains 'draft hash differs'"
+   },
+   {
+    "type": "exact_count",
+    "target": "approvals_after_tamper",
+    "expected": 0,
+    "actual": 0,
+    "passed": true,
+    "message": "count 0 == 0"
+   },
+   {
+    "type": "exact_count",
+    "target": "submissions_after_tamper",
+    "expected": 0,
+    "actual": 0,
+    "passed": true,
+    "message": "count 0 == 0"
+   },
+   {
+    "type": "contains",
+    "target": "state_after_tamper",
+    "expected": "draft_prepared",
+    "actual": "draft_prepared",
+    "passed": true,
+    "message": "contains 'draft_prepared'"
+   },
+   {
+    "type": "contains",
+    "target": "state_after_restore_and_reapprove",
+    "expected": "dry_run_recorded",
+    "actual": "dry_run_recorded",
+    "passed": true,
+    "message": "contains 'dry_run_recorded'"
+   }
+  ],
+  "metrics": null,
+  "outputs": {
+   "approvals_after_tamper": "0",
+   "approve_after_tamper": "draft: draft hash differs from the approved hash",
+   "state_after_restore_and_reapprove": "dry_run_recorded",
+   "state_after_tamper": "draft_prepared",
+   "submissions_after_tamper": "0"
+  },
+  "logs": {
+   "challenge_log": "",
+   "output_log": "",
+   "api_requests": "",
+   "api_responses": ""
+  },
+  "recorded_actions": [
+   "changed the bytes of the prepared CV template file on disk",
+   "tried to approve the application whose draft changed",
+   "restored the file, re-prepared and approved again (control)"
+  ]
+ },
+ {
+  "challenge_id": "jsk-no-personal-data",
+  "challenge_name": "No personal data leaves the private overlay",
+  "status": "passed",
+  "start_time": "2026-11-24T13:07:29.384734132+01:00",
+  "end_time": "2026-11-24T13:07:29.449341784+01:00",
+  "duration": 64607672,
+  "assertions": [
+   {
+    "type": "exact_count",
+    "target": "scan_findings_on_run_artifacts",
+    "expected": 0,
+    "actual": 0,
+    "passed": true,
+    "message": "count 0 == 0"
+   },
+   {
+    "type": "min_count",
+    "target": "scan_files_covered",
+    "expected": 4,
+    "actual": 4,
+    "passed": true,
+    "message": "count 4 \u003e= 4"
+   },
+   {
+    "type": "min_count",
+    "target": "scan_control_findings",
+    "expected": 1,
+    "actual": 1,
+    "passed": true,
+    "message": "count 1 \u003e= 1"
+   }
+  ],
+  "metrics": null,
+  "outputs": {
+   "scan_control_findings": "1",
+   "scan_files_covered": "4",
+   "scan_findings_on_run_artifacts": "0"
+  },
+  "logs": {
+   "challenge_log": "",
+   "output_log": "",
+   "api_requests": "",
+   "api_responses": ""
+  },
+  "recorded_actions": [
+   "ran prepare + dry-run approve on a real SQLite file",
+   "scanned the run artifacts with the repository no-personal-data scanner",
+   "planted a needle and re-scanned (scanner control)"
+  ]
+ },
+ {
+  "challenge_id": "jsk-invent-no-area",
+  "challenge_name": "The classifier never invents a career area",
+  "status": "passed",
+  "start_time": "2026-11-24T13:07:29.540500016+01:00",
+  "end_time": "2026-11-24T13:07:29.560300964+01:00",
+  "duration": 19800978,
+  "assertions": [
+   {
+    "type": "min_count",
+    "target": "offtopic_cases",
+    "expected": 12,
+    "actual": 14,
+    "passed": true,
+    "message": "count 14 \u003e= 12"
+   },
+   {
+    "type": "exact_count",
+    "target": "offtopic_mapped",
+    "expected": 0,
+    "actual": 0,
+    "passed": true,
+    "message": "count 0 == 0"
+   },
+   {
+    "type": "exact_count",
+    "target": "offtopic_nonempty_area",
+    "expected": 0,
+    "actual": 0,
+    "passed": true,
+    "message": "count 0 == 0"
+   },
+   {
+    "type": "exact_count",
+    "target": "control_mapped",
+    "expected": 1,
+    "actual": 1,
+    "passed": true,
+    "message": "count 1 == 1"
+   },
+   {
+    "type": "exact_count",
+    "target": "draft_rows_for_unmapped",
+    "expected": 0,
+    "actual": 0,
+    "passed": true,
+    "message": "count 0 == 0"
+   },
+   {
+    "type": "contains",
+    "target": "unmapped_prepare_error",
+    "expected": "slot missing",
+    "actual": "draft: template slot missing: posting has no mapped area",
+    "passed": true,
+    "message": "contains 'slot missing'"
+   }
+  ],
+  "metrics": null,
+  "outputs": {
+   "control_mapped": "1",
+   "draft_rows_for_unmapped": "0",
+   "offtopic_cases": "14",
+   "offtopic_mapped": "0",
+   "offtopic_nonempty_area": "0",
+   "unmapped_prepare_error": "draft: template slot missing: posting has no mapped area"
+  },
+  "logs": {
+   "challenge_log": "",
+   "output_log": "",
+   "api_requests": "",
+   "api_responses": ""
+  },
+  "recorded_actions": [
+   "classified 14 off-topic postings with the real rules in <repo>/rules",
+   "classified the control posting that must map",
+   "asked the real draft service to prepare an application whose posting has no mapped area"
+  ]
+ }
+]

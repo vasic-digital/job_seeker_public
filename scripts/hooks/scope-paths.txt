@@ -1,0 +1,28 @@
+# In-scope path prefixes for a job_seeker commit (section 11.4.293). A staged path outside
+# every prefix needs an Out-of-Scope-Reason trailer from out-of-scope-reasons.txt.
+.env.example
+.gitignore
+Makefile
+README.md
+go.mod
+go.sum
+cmd/
+internal/
+web/
+rules/
+gates/
+tests/
+evidence/
+deploy/
+tools/
+scripts/
+docs/
+specs/
+upstreams/
+helix-deps.yaml
+.gitmodules
+submodules/
+LICENSE
+SECURITY.md
+CONTRIBUTING.md
+THIRD_PARTY_NOTICES.md

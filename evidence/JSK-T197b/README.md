@@ -1,0 +1,5 @@
+# JSK-T197b / T202 wiring (2026-11-24)
+- red.txt: build failure before wiring (config fields, BAKeyVar absent). green.txt: tests after. mut1..3.txt: paired mutations (BA flag gate removed; empty-section skip removed; apply default changed) each FAIL on the mutant, restored tree green.
+- Live reads (ONE GET each, egress client, allow-list host only):
+  - Greenhouse https://boards-api.greenhouse.io/v1/boards/stripe/jobs?content=true -> HTTP 200, 769 jobs, 5 translated / 0 skipped, ip 13.32.12.41, tls *.greenhouse.io, req-id af0a4e95-b7e1-4bda-8492-16c4adf25fa1, sha256 c0f6b0da...695b87. Real payload shape MATCHED; the verbatim trimmed capture was replaced by synthetic records of the same shape (internal/providers/testdata/greenhouse_synthetic_shape.*, FIXTURE-TERMS.md). The earlier 404 was for the docs example board slug (UNCONFIRMED why; a different tenant served 200).
+  - Bundesagentur with the community key "jobboerse-jobsuche" -> HTTP 403, response sha256 36a9e7f1... identical to the earlier read: still BLOCKED, key/shape UNCONFIRMED. The service documents no anonymous endpoint that was found; T202 NOT ticked.

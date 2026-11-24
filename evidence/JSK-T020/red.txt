@@ -1,0 +1,3 @@
+# github.com/vasic-digital/job_seeker/internal/egress
+# [github.com/vasic-digital/job_seeker/internal/egress]
+vet: internal/egress/egress_test.go:36:66: undefined: Client

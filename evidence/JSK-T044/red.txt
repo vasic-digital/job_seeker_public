@@ -1,0 +1,3 @@
+# github.com/vasic-digital/job_seeker/internal/ingest
+# [github.com/vasic-digital/job_seeker/internal/ingest]
+vet: internal/ingest/retention_test.go:47:16: r.Prune undefined (type *Runner has no field or method Prune)

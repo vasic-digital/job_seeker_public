@@ -1,0 +1,25 @@
+# publish_snapshot.sh REFUSAL list: if any tracked path in the snapshot matches one of these shell globs
+# (matched with bash [[ == ]] against the full repo-relative path), publication is REFUSED (not silently dropped).
+# One glob per line; '#' starts a comment.
+.env
+.env.*
+*/.env
+*/.env.*
+*.pem
+*.key
+*.p12
+*.pfx
+*.passphrase
+id_rsa*
+id_ed25519*
+secrets/*
+career_private/*
+.cache-career/*
+*.sqlite
+*.sqlite3
+*.db
+# Explicit, reasoned allowances ('!glob'):
+# .env.example is the NAMES-ONLY template (values empty, FR-053) and must ship.
+!.env.example
+# The tracked workable-items DB (constitution 11.4.95) holds tracker rows only; audited 2026-11-24: no e-mail / home path strings.
+!docs/workable_items.db

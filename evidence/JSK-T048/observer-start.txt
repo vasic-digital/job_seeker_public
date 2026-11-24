@@ -1,0 +1,13 @@
+2026-11-24T10:28:07Z START hours=24.00 providers=remotive,remoteok himalayas_ok=false
+2026-11-24T10:28:07Z FETCH remotive requests=1 ok=1 errors=0 new=15 updated=0 unchanged=0 dups=0 skipped=map[] err=<nil>
+2026-11-24T10:28:09Z FETCH remoteok requests=1 ok=1 errors=0 new=100 updated=0 unchanged=0 dups=0 skipped=map[] err=<nil>
+--- recorded by the implementer
+observer binary: cmd/jsobserve at commit d5f8c1f613ce (built from this worktree), pid file: none; process started 2026-11-24T10:28:07Z
+planned end: 2026-11-25T10:28:07Z
+run directory (outside the repository, holds observe.db with provider_call and limiter_event rows): $HOME/.local/share/job_seeker-observe/run-20261124
+verification query to run after the end:
+  sqlite3 -readonly observe.db "select p.name, count(*), min(at), max(at) from limiter_event e join provider p on p.id=e.provider_id group by 1"
+  expectation: remotive <= 4 events, consecutive gaps >= 6 h; remoteok consecutive gaps >= 60 min
+NOTE: the running binary predates the run-close/panic fix of PR #15; it only affects error paths.
+
+# paths normalised for publication ($HOME, <repo>, <umbrella> placeholders)

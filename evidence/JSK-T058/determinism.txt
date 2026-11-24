@@ -1,0 +1,7 @@
+# determinism, 3 runs, frozen real corpus
+determinism: 115 item(s), 3 runs, differing items=0
+  run 1 digest e6c4129aa16f83b4e964f53825938de2435a708d0f9cf7dc9963bc2e1473c7a7
+  run 2 digest e6c4129aa16f83b4e964f53825938de2435a708d0f9cf7dc9963bc2e1473c7a7
+  run 3 digest e6c4129aa16f83b4e964f53825938de2435a708d0f9cf7dc9963bc2e1473c7a7
+OK: three identical runs
+rc=0

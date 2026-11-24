@@ -1,0 +1,95 @@
+=== RUN   TestRealCapturesExtract
+--- PASS: TestRealCapturesExtract (0.00s)
+=== RUN   TestDefaultTableIsValid
+--- PASS: TestDefaultTableIsValid (0.00s)
+=== RUN   TestValidateRefusesEnabledPatternWithoutCapture
+--- PASS: TestValidateRefusesEnabledPatternWithoutCapture (0.00s)
+=== RUN   TestValidateRefusesCaptureThatDoesNotExtract
+--- PASS: TestValidateRefusesCaptureThatDoesNotExtract (0.00s)
+=== RUN   TestDisabledPatternsNeverMatch
+--- PASS: TestDisabledPatternsNeverMatch (0.00s)
+=== RUN   TestExtractIgnoresTrackingAndSuffixes
+--- PASS: TestExtractIgnoresTrackingAndSuffixes (0.00s)
+=== RUN   TestBackfillFromLegacyDupOf
+--- PASS: TestBackfillFromLegacyDupOf (0.07s)
+=== RUN   TestBackfillIdempotentAndResumable
+--- PASS: TestBackfillIdempotentAndResumable (0.09s)
+=== RUN   TestBackfillOrphanDupOfBecomesOwnPosition
+--- PASS: TestBackfillOrphanDupOfBecomesOwnPosition (0.10s)
+=== RUN   TestBackfillChainIsFlattenedToRoot
+--- PASS: TestBackfillChainIsFlattenedToRoot (0.08s)
+=== RUN   TestBackfillKeepsLegacyRepresentativeEvenWhenRootExpired
+--- PASS: TestBackfillKeepsLegacyRepresentativeEvenWhenRootExpired (0.09s)
+=== RUN   TestObserverCopyEvaluation
+    eval_observer_test.go:23: JS_OBSERVER_DB not set: no observer database to evaluate
+--- SKIP: TestObserverCopyEvaluation (0.00s)
+=== RUN   TestRealCorpusEvaluation
+    eval_real_test.go:119: 
+        corpus_items=115 positions=115 employers=49 auto_merges=0 queued=0 new=115 resolver_version=r1
+        
+        
+--- PASS: TestRealCorpusEvaluation (0.56s)
+=== RUN   TestNormEmployerGolden
+--- PASS: TestNormEmployerGolden (0.00s)
+=== RUN   TestNormEmployerIdempotentProperty
+--- PASS: TestNormEmployerIdempotentProperty (0.04s)
+=== RUN   TestNormTitle
+--- PASS: TestNormTitle (0.00s)
+=== RUN   TestSeniorityTiersDiffer
+--- PASS: TestSeniorityTiersDiffer (0.00s)
+=== RUN   TestCanonURL
+--- PASS: TestCanonURL (0.00s)
+=== RUN   TestCanonURLIdempotentAndOrderIndependent
+--- PASS: TestCanonURLIdempotentAndOrderIndependent (0.00s)
+=== RUN   TestRemoteScopeParseAndCompat
+--- PASS: TestRemoteScopeParseAndCompat (0.00s)
+=== RUN   TestNormEmployerIdempotentOnSuffixChains
+--- PASS: TestNormEmployerIdempotentOnSuffixChains (0.00s)
+=== RUN   TestCanonURLKeepsEscapedPathAndIsIdempotent
+--- PASS: TestCanonURLKeepsEscapedPathAndIsIdempotent (0.00s)
+=== RUN   TestCanonURLRefusesUnparseableQuery
+--- PASS: TestCanonURLRefusesUnparseableQuery (0.00s)
+=== RUN   TestNormEmployerDottedLegalThenNoise
+--- PASS: TestNormEmployerDottedLegalThenNoise (0.00s)
+=== RUN   TestCanonURLRepeatedApplySuffixIdempotent
+--- PASS: TestCanonURLRepeatedApplySuffixIdempotent (0.00s)
+=== RUN   TestATSIdentityAcrossProvidersAutoAttaches
+--- PASS: TestATSIdentityAcrossProvidersAutoAttaches (0.08s)
+=== RUN   TestIdempotentAndEmployerAliasFromTenant
+--- PASS: TestIdempotentAndEmployerAliasFromTenant (0.07s)
+=== RUN   TestApplyURLHardKeyOnEmployerHostOnly
+--- PASS: TestApplyURLHardKeyOnEmployerHostOnly (0.09s)
+=== RUN   TestEdgeCasesStayDistinct
+--- PASS: TestEdgeCasesStayDistinct (0.46s)
+=== RUN   TestSameProviderRelistingSharesATSIdentity
+--- PASS: TestSameProviderRelistingSharesATSIdentity (0.06s)
+=== RUN   TestThresholdBandsAndEdge
+--- PASS: TestThresholdBandsAndEdge (0.48s)
+=== RUN   TestHumanConstraintsOutrankEvidence
+--- PASS: TestHumanConstraintsOutrankEvidence (0.09s)
+=== RUN   TestTransitiveBridgeMergesTwoPositions
+--- PASS: TestTransitiveBridgeMergesTwoPositions (0.07s)
+=== RUN   TestBridgeRefusedAcrossCannotLink
+--- PASS: TestBridgeRefusedAcrossCannotLink (0.07s)
+=== RUN   TestMergeBusyGuardAndHumanMergeSplit
+--- PASS: TestMergeBusyGuardAndHumanMergeSplit (0.08s)
+=== RUN   TestArrivalOrderIndependent
+--- PASS: TestArrivalOrderIndependent (3.61s)
+=== RUN   TestParamsLoadAndValidate
+--- PASS: TestParamsLoadAndValidate (0.00s)
+=== RUN   TestInvariantCheckerDetectsCorruption
+--- PASS: TestInvariantCheckerDetectsCorruption (0.45s)
+=== RUN   TestInvariantCheckerSeesMemberWithoutMirror
+--- PASS: TestInvariantCheckerSeesMemberWithoutMirror (0.10s)
+=== RUN   TestGenericCareersPageIsNotAnApplyIdentity
+--- PASS: TestGenericCareersPageIsNotAnApplyIdentity (0.08s)
+=== RUN   TestSyntheticSafePerturbationsAlwaysResolve
+    synth_test.go:87: [synthetic-pair] 56 safe pairs resolved (tool logic only, not recall evidence)
+--- PASS: TestSyntheticSafePerturbationsAlwaysResolve (4.62s)
+=== RUN   TestSyntheticPairsFromRealCorpus
+    synth_test.go:132: [synthetic-pair] 84 safe pairs from the real postings (stride 10 of 115) all resolved; hard-perturbation outcomes (measured, not asserted): drop_word=map[new:6 queued:6] swap_words=map[auto:11 new:1] typo=map[auto:10 queued:2] loc_rewrite=map[auto:12] 
+--- PASS: TestSyntheticPairsFromRealCorpus (12.14s)
+=== RUN   TestEdgeCaseAgencyVsEndClientAndAliases
+--- PASS: TestEdgeCaseAgencyVsEndClientAndAliases (0.11s)
+PASS
+ok  	github.com/vasic-digital/job_seeker/internal/position	23.723s

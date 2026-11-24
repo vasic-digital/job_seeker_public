@@ -1,0 +1,7 @@
+{{define "content"}}
+<p><a href="/audit.jsonl" download>{{t .Lang "audit.export"}}</a></p>
+{{if .Rows}}<table class="od-table"><caption class="od-visually-hidden">{{t .Lang "audit.caption"}}</caption>
+<thead><tr><th scope="col">#</th><th scope="col">{{t .Lang "audit.ts"}}</th><th scope="col">{{t .Lang "audit.actor"}}</th><th scope="col">{{t .Lang "audit.transition"}}</th><th scope="col">{{t .Lang "audit.reason"}}</th></tr></thead>
+<tbody>{{range .Rows}}<tr><th scope="row">{{.ID}}</th><td>{{.TS}}</td><td>{{.Actor}}</td><td>{{.From}} → {{.To}}</td><td>{{.Reason}}</td></tr>{{end}}</tbody></table>
+{{else}}<div class="od-empty-state"><p class="od-empty-state__title">{{t .Lang "audit.empty"}}</p></div>{{end}}
+{{end}}

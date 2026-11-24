@@ -1,0 +1,5 @@
+# github.com/vasic-digital/job_seeker/internal/ext [github.com/vasic-digital/job_seeker/internal/ext.test]
+internal/ext/policy_load_test.go:8:20: undefined: Catalog
+internal/ext/policy_load_test.go:9:9: undefined: Catalog
+internal/ext/policy_load_test.go:40:12: undefined: LoadPolicy
+internal/ext/policy_load_test.go:47:17: undefined: Scope

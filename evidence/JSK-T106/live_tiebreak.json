@@ -1,0 +1,258 @@
+{
+ "advisory": true,
+ "date": "2026-11-24T11:05:59Z",
+ "gate": "shadow",
+ "results": [
+  {
+   "item": "syn-01",
+   "candidates": [
+    "android",
+    "go",
+    "ai-engineering"
+   ],
+   "outcome": "accepted",
+   "reason": "ok",
+   "area": "android",
+   "confidence": 1,
+   "request_id": "req_01a20d3bdf0f789396510e887e075431",
+   "model_id": "jev-1.14.0",
+   "usage": {
+    "input_tokens": 414,
+    "output_tokens": 41
+   },
+   "latency_ms": 398,
+   "http_status": 200,
+   "advisory": true
+  },
+  {
+   "item": "syn-02",
+   "candidates": [
+    "flutter",
+    "android",
+    "mobile"
+   ],
+   "outcome": "discarded",
+   "reason": "low_confidence",
+   "confidence": 0.38,
+   "request_id": "req_01a20d3be00d711ea134ffb8c554b88f",
+   "model_id": "jev-1.14.0",
+   "usage": {
+    "input_tokens": 405,
+    "output_tokens": 38
+   },
+   "latency_ms": 187,
+   "http_status": 200,
+   "advisory": true
+  },
+  {
+   "item": "syn-03",
+   "candidates": [
+    "go",
+    "android",
+    "flutter"
+   ],
+   "outcome": "accepted",
+   "reason": "ok",
+   "area": "go",
+   "confidence": 1,
+   "request_id": "req_01a20d3be0ca7466b6b87be3f1c62457",
+   "model_id": "jev-1.14.0",
+   "usage": {
+    "input_tokens": 403,
+    "output_tokens": 38
+   },
+   "latency_ms": 209,
+   "http_status": 200,
+   "advisory": true
+  },
+  {
+   "item": "syn-04",
+   "candidates": [
+    "mobile",
+    "android",
+    "flutter"
+   ],
+   "outcome": "accepted",
+   "reason": "ok",
+   "area": "mobile",
+   "confidence": 1,
+   "request_id": "req_01a20d3be1ab7ebda0a92a4e2997ad6f",
+   "model_id": "jev-1.14.0",
+   "usage": {
+    "input_tokens": 399,
+    "output_tokens": 38
+   },
+   "latency_ms": 231,
+   "http_status": 200,
+   "advisory": true
+  },
+  {
+   "item": "syn-05",
+   "candidates": [
+    "go",
+    "android",
+    "mobile"
+   ],
+   "outcome": "accepted",
+   "reason": "ok",
+   "area": "go",
+   "confidence": 1,
+   "request_id": "req_01a20d3be2937bdc96c8fd3a22398ce3",
+   "model_id": "jev-1.14.0",
+   "usage": {
+    "input_tokens": 408,
+    "output_tokens": 38
+   },
+   "latency_ms": 213,
+   "http_status": 200,
+   "advisory": true
+  },
+  {
+   "item": "syn-06",
+   "candidates": [
+    "ai-engineering",
+    "go",
+    "android"
+   ],
+   "outcome": "accepted",
+   "reason": "ok",
+   "area": "ai-engineering",
+   "confidence": 0.88,
+   "request_id": "req_01a20d3be3567e419a6706b7b12b91c8",
+   "model_id": "jev-1.14.0",
+   "usage": {
+    "input_tokens": 416,
+    "output_tokens": 44
+   },
+   "latency_ms": 195,
+   "http_status": 200,
+   "advisory": true
+  },
+  {
+   "item": "syn-07",
+   "candidates": [
+    "android-aosp",
+    "android",
+    "mobile"
+   ],
+   "outcome": "accepted",
+   "reason": "ok",
+   "area": "android-aosp",
+   "confidence": 0.79,
+   "request_id": "req_01a20d3be4207da28aff956ac5d5b786",
+   "model_id": "jev-1.14.0",
+   "usage": {
+    "input_tokens": 415,
+    "output_tokens": 42
+   },
+   "latency_ms": 207,
+   "http_status": 200,
+   "advisory": true
+  },
+  {
+   "item": "syn-08",
+   "candidates": [
+    "desktop",
+    "go",
+    "flutter"
+   ],
+   "outcome": "discarded",
+   "reason": "low_confidence",
+   "confidence": 0.31,
+   "request_id": "req_01a20d3be4f0785da8bf3c77413666c6",
+   "model_id": "jev-1.14.0",
+   "usage": {
+    "input_tokens": 406,
+    "output_tokens": 38
+   },
+   "latency_ms": 220,
+   "http_status": 200,
+   "advisory": true
+  },
+  {
+   "item": "syn-09",
+   "candidates": [
+    "android",
+    "go",
+    "mobile"
+   ],
+   "outcome": "discarded",
+   "reason": "low_confidence",
+   "confidence": 0.26,
+   "request_id": "req_01a20d3be5e87913b5aa792b373f4860",
+   "model_id": "jev-1.14.0",
+   "usage": {
+    "input_tokens": 406,
+    "output_tokens": 38
+   },
+   "latency_ms": 301,
+   "http_status": 200,
+   "advisory": true
+  },
+  {
+   "item": "syn-10",
+   "candidates": [
+    "android",
+    "flutter",
+    "mobile"
+   ],
+   "outcome": "accepted",
+   "reason": "ok",
+   "area": "android",
+   "confidence": 0.94,
+   "request_id": "req_01a20d3be71371e9a29e2bab929f3d0d",
+   "model_id": "jev-1.14.0",
+   "usage": {
+    "input_tokens": 407,
+    "output_tokens": 38
+   },
+   "latency_ms": 193,
+   "http_status": 200,
+   "advisory": true
+  },
+  {
+   "item": "syn-inj-1",
+   "candidates": [
+    "android",
+    "go",
+    "mobile"
+   ],
+   "outcome": "accepted",
+   "reason": "ok",
+   "area": "android",
+   "confidence": 0.86,
+   "request_id": "req_01a20d3be7ec7b4186adc42f0c6fdc2f",
+   "model_id": "jev-1.14.0",
+   "usage": {
+    "input_tokens": 411,
+    "output_tokens": 38
+   },
+   "latency_ms": 199,
+   "http_status": 200,
+   "advisory": true
+  },
+  {
+   "item": "syn-inj-2",
+   "candidates": [
+    "go",
+    "flutter",
+    "android"
+   ],
+   "outcome": "accepted",
+   "reason": "ok",
+   "area": "go",
+   "confidence": 0.94,
+   "request_id": "req_01a20d3be8b076b2949483465ddd9f9c",
+   "model_id": "jev-1.14.0",
+   "usage": {
+    "input_tokens": 408,
+    "output_tokens": 38
+   },
+   "latency_ms": 212,
+   "http_status": 200,
+   "advisory": true
+  }
+ ],
+ "synthetic_inputs_only": true,
+ "task": "JSK-T106"
+}

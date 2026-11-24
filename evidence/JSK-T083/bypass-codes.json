@@ -1,0 +1,56 @@
+[
+ {
+  "code": "live_mode_off",
+  "http_status": 403,
+  "endpoint": "/applications/{id}/approve",
+  "label": "POST /applications/{id}/approve"
+ },
+ {
+  "code": "language_confirmation_required",
+  "http_status": 400,
+  "endpoint": "/applications/{id}/approve",
+  "label": "POST /applications/{id}/approve"
+ },
+ {
+  "code": "overlay_absent",
+  "http_status": 403,
+  "endpoint": "/applications/{id}/approve",
+  "label": "POST /applications/{id}/approve"
+ },
+ {
+  "code": "kill_switch_on",
+  "http_status": 403,
+  "endpoint": "/applications/{id}/approve",
+  "label": "POST /applications/{id}/approve"
+ },
+ {
+  "code": "company_confirmation_failed",
+  "http_status": 403,
+  "endpoint": "/applications/{id}/approve",
+  "label": "POST /applications/{id}/approve"
+ },
+ {
+  "code": "cap_exceeded",
+  "http_status": 403,
+  "endpoint": "/applications/{id}/approve",
+  "label": "POST /applications/{id}/approve"
+ },
+ {
+  "code": "approval_hash_mismatch",
+  "http_status": 409,
+  "endpoint": "/applications/{id}/approve",
+  "label": "POST /applications/{id}/approve"
+ },
+ {
+  "code": "illegal_transition",
+  "http_status": 409,
+  "endpoint": "/applications/{id}/handoff-complete",
+  "label": "handoff on a non-live_approved application"
+ },
+ {
+  "code": "step_up_required",
+  "http_status": 403,
+  "endpoint": "/applications/{id}/approve",
+  "label": "POST /applications/{id}/approve"
+ }
+]

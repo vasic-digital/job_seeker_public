@@ -1,0 +1,4 @@
+{
+ "name": "greenhouse_docderived",
+ "label": "DOC-DERIVED, NOT CAPTURED: hand-written from the field list in https://docs.greenhouse.io/job-board.html (read 2026-11-24). The only live read of boards-api.greenhouse.io (board 'vaulttec', the docs' example) returned HTTP 404 (greenhouse_vaulttec.provenance.json), so the live payload shape is UNCONFIRMED. Board 'exampleboard' is a placeholder, not an employer."
+}

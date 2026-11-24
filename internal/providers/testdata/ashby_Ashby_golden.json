@@ -1,0 +1,179 @@
+{
+ "apiVersion": "1",
+ "jobs": [
+  {
+   "id": "00000000-0000-4000-8000-0000000000e1",
+   "title": "Engineering Manager - EU",
+   "department": "Engineering",
+   "team": "Engineering",
+   "employmentType": "FullTime",
+   "location": "Remote - European Union",
+   "shouldDisplayCompensationOnJobPostings": true,
+   "secondaryLocations": [],
+   "publishedAt": "2024-03-04T14:29:08.532+00:00",
+   "isListed": true,
+   "isRemote": true,
+   "workplaceType": "Remote",
+   "address": {
+    "postalAddress": {
+     "addressRegion": "",
+     "addressCountry": "Spain",
+     "addressLocality": ""
+    }
+   },
+   "jobUrl": "https://jobs.ashbyhq.com/Examplecorp/00000000-0000-4000-8000-0000000000e1",
+   "applyUrl": "https://jobs.ashbyhq.com/Examplecorp/00000000-0000-4000-8000-0000000000e1/application",
+   "descriptionHtml": "<p>Synthetic fixture text. A fictional team is hiring for this remote role and wants someone who owns outcomes end to end.</p><ul><li>Synthetic responsibility one</li><li>Synthetic responsibility two</li></ul><p>Synthetic closing paragraph describing the interview process.</p>",
+   "descriptionPlain": "Synthetic fixture text. A fictional team is hiring for this remote role and wants someone who owns outcomes end to end.\n- Synthetic responsibility one\n- Synthetic responsibility two\nSynthetic closing paragraph describing the interview process.\n",
+   "compensation": {
+    "compensationTierSummary": "€150K - €250K • Offers Equity",
+    "scrapeableCompensationSalarySummary": "€150K - €250K",
+    "compensationTiers": [
+     {
+      "id": "00000000-0000-4000-8000-0000000000a1",
+      "tierSummary": "€150K - €250K",
+      "title": "Tier",
+      "additionalInformation": null,
+      "components": [
+       {
+        "id": "00000000-0000-4000-8000-0000000000b1",
+        "summary": "€150K - €250K",
+        "compensationType": "Salary",
+        "interval": "1 YEAR",
+        "currencyCode": "EUR",
+        "minValue": 150000,
+        "maxValue": 250000
+       }
+      ]
+     }
+    ],
+    "summaryComponents": [
+     {
+      "summary": "€150K - €250K",
+      "compensationType": "Salary",
+      "interval": "1 YEAR",
+      "currencyCode": "EUR",
+      "minValue": 150000,
+      "maxValue": 250000
+     }
+    ]
+   }
+  },
+  {
+   "id": "00000000-0000-4000-8000-0000000000e2",
+   "title": "Mid Market Account Executive - EMEA",
+   "department": "Sales",
+   "team": "Sales",
+   "employmentType": "FullTime",
+   "location": "France",
+   "shouldDisplayCompensationOnJobPostings": true,
+   "secondaryLocations": [],
+   "publishedAt": "2026-09-08T16:27:26.694+00:00",
+   "isListed": true,
+   "isRemote": true,
+   "workplaceType": "Remote",
+   "address": {
+    "postalAddress": {
+     "addressRegion": "",
+     "addressCountry": "France",
+     "addressLocality": ""
+    }
+   },
+   "jobUrl": "https://jobs.ashbyhq.com/Examplecorp/00000000-0000-4000-8000-0000000000e2",
+   "applyUrl": "https://jobs.ashbyhq.com/Examplecorp/00000000-0000-4000-8000-0000000000e2/application",
+   "descriptionHtml": "<p>Synthetic fixture text. A fictional team is hiring for this remote role and wants someone who owns outcomes end to end.</p><ul><li>Synthetic responsibility one</li><li>Synthetic responsibility two</li></ul><p>Synthetic closing paragraph describing the interview process.</p>",
+   "descriptionPlain": "Synthetic fixture text. A fictional team is hiring for this remote role and wants someone who owns outcomes end to end.\n- Synthetic responsibility one\n- Synthetic responsibility two\nSynthetic closing paragraph describing the interview process.\n",
+   "compensation": {
+    "compensationTierSummary": "€90K - €120K • Offers Equity",
+    "scrapeableCompensationSalarySummary": "€90K - €120K",
+    "compensationTiers": [
+     {
+      "id": "00000000-0000-4000-8000-0000000000a1",
+      "tierSummary": "€90K - €120K",
+      "title": "Tier",
+      "additionalInformation": null,
+      "components": [
+       {
+        "id": "00000000-0000-4000-8000-0000000000b1",
+        "summary": "€90K - €120K",
+        "compensationType": "Salary",
+        "interval": "1 YEAR",
+        "currencyCode": "EUR",
+        "minValue": 90000,
+        "maxValue": 120000
+       }
+      ]
+     }
+    ],
+    "summaryComponents": [
+     {
+      "summary": "€90K - €120K",
+      "compensationType": "Salary",
+      "interval": "1 YEAR",
+      "currencyCode": "EUR",
+      "minValue": 90000,
+      "maxValue": 120000
+     }
+    ]
+   }
+  },
+  {
+   "id": "00000000-0000-4000-8000-0000000000e3",
+   "title": "Senior Product Designer",
+   "department": "Design",
+   "team": "Design",
+   "employmentType": "FullTime",
+   "location": "Remote - US",
+   "shouldDisplayCompensationOnJobPostings": true,
+   "secondaryLocations": [],
+   "publishedAt": "2025-12-05T22:43:22.147+00:00",
+   "isListed": true,
+   "isRemote": true,
+   "workplaceType": "Remote",
+   "address": {
+    "postalAddress": {
+     "addressRegion": "",
+     "addressCountry": "United States",
+     "addressLocality": ""
+    }
+   },
+   "jobUrl": "https://jobs.ashbyhq.com/Examplecorp/00000000-0000-4000-8000-0000000000e3",
+   "applyUrl": "https://jobs.ashbyhq.com/Examplecorp/00000000-0000-4000-8000-0000000000e3/application",
+   "descriptionHtml": "<p>Synthetic fixture text. A fictional team is hiring for this remote role and wants someone who owns outcomes end to end.</p><ul><li>Synthetic responsibility one</li><li>Synthetic responsibility two</li></ul><p>Synthetic closing paragraph describing the interview process.</p>",
+   "descriptionPlain": "Synthetic fixture text. A fictional team is hiring for this remote role and wants someone who owns outcomes end to end.\n- Synthetic responsibility one\n- Synthetic responsibility two\nSynthetic closing paragraph describing the interview process.\n",
+   "compensation": {
+    "compensationTierSummary": "$140K - $180K • Offers Equity",
+    "scrapeableCompensationSalarySummary": "$140K - $180K",
+    "compensationTiers": [
+     {
+      "id": "00000000-0000-4000-8000-0000000000a1",
+      "tierSummary": "$140K - $180K",
+      "title": "Tier",
+      "additionalInformation": null,
+      "components": [
+       {
+        "id": "00000000-0000-4000-8000-0000000000b1",
+        "summary": "$140K - $180K",
+        "compensationType": "Salary",
+        "interval": "1 YEAR",
+        "currencyCode": "USD",
+        "minValue": 140000,
+        "maxValue": 180000
+       }
+      ]
+     }
+    ],
+    "summaryComponents": [
+     {
+      "summary": "$140K - $180K",
+      "compensationType": "Salary",
+      "interval": "1 YEAR",
+      "currencyCode": "USD",
+      "minValue": 140000,
+      "maxValue": 180000
+     }
+    ]
+   }
+  }
+ ]
+}

@@ -1,0 +1,11 @@
+{
+ "audit_rows_after": 35,
+ "chain_ok": true,
+ "committed_before_refusal": 35,
+ "first_error": "disk I/O error (778)",
+ "integrity_check": "ok",
+ "limit_bytes": 1242248,
+ "mechanism": "RLIMIT_FSIZE in a real child process (kernel EFBIG at the write syscall); no disk space consumed",
+ "postings_after": 35,
+ "write_after_recovery": "ok"
+}

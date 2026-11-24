@@ -1,0 +1,4 @@
+--- FAIL: TestGenericCareersPageIsNotAnApplyIdentity (0.12s)
+    resolver_test.go:502: generic careers URL merged distinct jobs: {Position:1 Decision:auto Score:0.99 Reason:apply_url Features:map[apply_url:1]}
+FAIL
+FAIL	github.com/vasic-digital/job_seeker/internal/position	0.133s

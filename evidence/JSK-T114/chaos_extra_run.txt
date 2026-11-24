@@ -1,0 +1,14 @@
+=== RUN   TestDiskFullViaKernelFileSizeLimit
+    disk_lock_clock_test.go:81: disk-full: 35 commits then "disk I/O error (778)"; integrity ok; chain ok
+--- PASS: TestDiskFullViaKernelFileSizeLimit (0.13s)
+=== RUN   TestLockContentionAcrossProcesses
+--- PASS: TestLockContentionAcrossProcesses (9.39s)
+=== RUN   TestClockSkewLimiterAndScheduler
+--- PASS: TestClockSkewLimiterAndScheduler (0.04s)
+=== RUN   TestTenThousandIngestion
+    ingest10k_test.go:106: 10k: 11.5s (866/s) audit entries 16668 TAMPER-FREE VmHWM 80264 kB
+--- PASS: TestTenThousandIngestion (12.09s)
+=== RUN   TestNetworkFaults
+--- PASS: TestNetworkFaults (0.79s)
+PASS
+ok  	github.com/vasic-digital/job_seeker/tests/chaos	22.454s

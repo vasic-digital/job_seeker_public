@@ -1,0 +1,14 @@
+# github.com/vasic-digital/job_seeker/internal/position [github.com/vasic-digital/job_seeker/internal/position.test]
+internal/position/ats_test.go:11:15: undefined: DefaultCaptures
+internal/position/ats_test.go:16:14: undefined: ExtractATS
+internal/position/ats_test.go:24:13: undefined: DefaultPatterns
+internal/position/ats_test.go:28:13: undefined: DefaultCaptures
+internal/position/ats_test.go:29:12: undefined: Validate
+internal/position/ats_test.go:36:11: undefined: DefaultPatterns
+internal/position/ats_test.go:37:13: undefined: DefaultCaptures
+internal/position/ats_test.go:39:17: undefined: Pattern
+internal/position/ats_test.go:51:13: undefined: Validate
+internal/position/ats_test.go:59:11: undefined: DefaultPatterns
+internal/position/ats_test.go:59:11: too many errors
+FAIL	github.com/vasic-digital/job_seeker/internal/position [build failed]
+FAIL

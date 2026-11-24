@@ -1,0 +1,2 @@
+PROVE-FAILURE OK: clean 0, uncalled 0, called dependency 1, called stdlib 1 (toolchain), garbage 2
+PROVE-FAILURE OK: dropped component and wrong version both refused, control green

@@ -1,0 +1,22 @@
+{
+  "image": "evidence/JSK-T084/frames/console-draft.png",
+  "prompt": "This is a screenshot of a web page. List the page title or main heading, the navigation links, and any buttons or form fields you can read. Quote the visible text exactly.",
+  "endpoint": "http://127.0.0.1:11500/v1/chat/completions",
+  "model_requested": "qwen2.5vl:3b",
+  "model_served": "qwen2.5vl:3b",
+  "expected_facts": [
+    "Draft review",
+    "Template files"
+  ],
+  "response": "**Page Title or Main Heading:** Draft review\n\n**Navigation Links:**\n- Job Seeker\n- Inbox\n- Review queue\n- Applications\n- Settings\n- Audit log\n- Sign Out\n\n**Buttons or Form Fields:**\n- Open the PDF\n\n**Visible Text:**\n- Draft review\n- Mobile Engineer · Delta Apps\n- State: awaiting_human_approval\n- Draft language: en (detected)\n- Draft hash (SHA-256): b53cc859f0c369ca8e1071259580930bbc87c0afdbbd85e4d90792dfb5a95a7\n- Outbound action: Hand off to the posting's own apply page at remotive.com. Nothing is sent from here.\n- Mode: Live\n- Template files\n  - Cover letter · cover-android-en.pdf\n    - SHA-256: 0e89e599915ade1965764c32bf770d800ad619862ced6ee3bc88d474e50d43\n    - Open the PDF\n  - CV · cv-android-en.pdf\n    - SHA-256: e4050e339f6eb49e076c71e05692a79a7bcb9de6b765a87522db5498b58db4\n    - Open the PDF",
+  "matched_facts": 2,
+  "expected_count": 2,
+  "hallucinated": false,
+  "pass": true,
+  "expect_fail": false,
+  "case_result": true,
+  "latency_ms": 7455,
+  "http_status": 200,
+  "prompt_tokens": 1530,
+  "completion_tokens": 346
+}

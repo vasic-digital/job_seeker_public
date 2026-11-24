@@ -1,0 +1,5 @@
+--- PASS: TestJSONLDExtractsJobPostings (0.00s)
+--- PASS: TestJSONLDRefusesNonHTTPSPageAndHostileFields (0.00s)
+--- PASS: TestJSONLDBoundsWork (0.25s)
+--- PASS: FuzzJSONLD (0.00s)
+ok  	github.com/vasic-digital/job_seeker/internal/providers	1.287s

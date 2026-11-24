@@ -1,0 +1,7 @@
+{{define "content"}}
+{{if .Rows}}
+<table class="od-table"><caption class="od-visually-hidden">{{t .Lang "apps.caption"}}</caption>
+<thead><tr><th scope="col">{{t .Lang "col.title"}}</th><th scope="col">{{t .Lang "col.company"}}</th><th scope="col">{{t .Lang "col.state"}}</th><th scope="col">{{t .Lang "tracking.link"}}</th></tr></thead>
+<tbody>{{range .Rows}}<tr><th scope="row"><a href="/applications/{{.ID}}/draft">{{.Title}}</a></th><td>{{.Company}}</td><td>{{.State}}</td><td><a href="/applications/{{.ID}}/tracking">{{t $.Lang "tracking.link"}}</a></td></tr>{{end}}</tbody></table>
+{{else}}<div class="od-empty-state"><p class="od-empty-state__title">{{t .Lang "apps.empty"}}</p></div>{{end}}
+{{end}}

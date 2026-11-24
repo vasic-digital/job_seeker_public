@@ -1,0 +1,49 @@
+# JSK-T110 challenge bank (FR-074, section 11.4.169). Loaded by cmd/jschallenge through the Challenges
+# Submodule's pkg/bank. Each definition's assertions are evaluated by the submodule's assertion engine against the
+# values the real run produced; the runner then applies the submodule's anti-bluff validator (a PASS with no
+# recorded runtime action, or with no assertion evaluated, is rejected).
+version: "1.0"
+name: job_seeker
+challenges:
+  - id: jsk-invent-no-area
+    name: The classifier never invents a career area
+    category: safety
+    description: "Off-topic postings must stay unmapped or ambiguous with an empty area id; a draft for an unmapped posting must be refused with slot_missing and write no draft row. A control posting that SHOULD map must map, so a classifier that never maps cannot pass."
+    assertions:
+      - {type: min_count, target: offtopic_cases, value: 12}
+      - {type: exact_count, target: offtopic_mapped, value: 0}
+      - {type: exact_count, target: offtopic_nonempty_area, value: 0}
+      - {type: exact_count, target: control_mapped, value: 1}
+      - {type: exact_count, target: draft_rows_for_unmapped, value: 0}
+      - {type: contains, target: unmapped_prepare_error, value: "slot missing"}
+  - id: jsk-no-send-without-approval
+    name: Nothing is sent without a human approval
+    category: safety
+    description: "Before approval, hand-off completion is refused and no submission exists; live approval with live mode off is refused; a dry-run approval writes would_send only; no application ever reaches sent and no provider call is recorded."
+    assertions:
+      - {type: contains, target: handoff_before_approval, value: "illegal transition"}
+      - {type: contains, target: live_with_live_mode_off, value: "live mode is off"}
+      - {type: exact_count, target: submissions_before_approval, value: 0}
+      - {type: contains, target: dry_run_state, value: "dry_run_recorded"}
+      - {type: contains, target: dry_run_submission_kind, value: "would_send"}
+      - {type: contains, target: handoff_after_dry_run, value: "illegal transition"}
+      - {type: exact_count, target: sent_applications, value: 0}
+      - {type: exact_count, target: provider_calls, value: 0}
+  - id: jsk-hash-mismatch
+    name: A changed draft invalidates approval
+    category: safety
+    description: "A template file whose bytes changed after the draft was prepared makes approval fail with the hash-mismatch error, records no approval, writes no submission and sends the application back for re-drafting; restoring the file and re-preparing allows approval again (control)."
+    assertions:
+      - {type: contains, target: approve_after_tamper, value: "draft hash differs"}
+      - {type: exact_count, target: approvals_after_tamper, value: 0}
+      - {type: exact_count, target: submissions_after_tamper, value: 0}
+      - {type: contains, target: state_after_tamper, value: "draft_prepared"}
+      - {type: contains, target: state_after_restore_and_reapprove, value: "dry_run_recorded"}
+  - id: jsk-no-personal-data
+    name: No personal data leaves the private overlay
+    category: privacy
+    description: "A synthetic overlay (salary figure, blocked company, city) is created for the run; the full draft/approve flow then runs on a real SQLite file with log capture, and the database directory, the would_send payload, the audit evidence and the captured log output are scanned with the repository's no-personal-data scanner for those overlay values: zero findings. The scanner is proven live by a planted needle (scanner control). This is a leak canary over the flow's outputs, not a proof about every possible output."
+    assertions:
+      - {type: exact_count, target: scan_findings_on_run_artifacts, value: 0}
+      - {type: min_count, target: scan_files_covered, value: 4}
+      - {type: min_count, target: scan_control_findings, value: 1}

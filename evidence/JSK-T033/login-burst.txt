@@ -1,0 +1,13 @@
+attempt  1: finish 401 unauthenticated
+attempt  2: finish 401 unauthenticated
+attempt  3: finish 401 unauthenticated
+attempt  4: finish 401 unauthenticated
+attempt  5: finish 401 unauthenticated
+attempt  6: begin throttled 429 Retry-After=2 code=rate_limited body-has-next_allowed_at=true
+attempt  7: begin throttled 429 Retry-After=2 code=rate_limited body-has-next_allowed_at=true
+attempt  8: begin throttled 429 Retry-After=2 code=rate_limited body-has-next_allowed_at=true
+attempt  9: begin throttled 429 Retry-After=2 code=rate_limited body-has-next_allowed_at=true
+attempt 10: begin throttled 429 Retry-After=2 code=rate_limited body-has-next_allowed_at=true
+statuses=[401 401 401 401 401 429 429 429 429 429] 401s=5 429s=5 Retry-After="2"
+after waiting 6s: login begin -> 200 (not a hard lock-out)
+after waiting 6s: login finish -> 200

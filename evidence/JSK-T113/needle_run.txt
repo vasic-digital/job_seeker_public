@@ -1,0 +1,8 @@
+=== RUN   TestNeedleScanNothingSecretIsPersistedOrLogged
+    needle_test.go:106: map[bytes_scanned:187166 forms_per_needle:4 haystack_names:[process_output metrics_body allow.txt certs/ca.crt certs/tls.crt data/jobseeker.db] haystacks:6 leaks:0 needles:9 task:JSK-T113 needle scan]
+--- PASS: TestNeedleScanNothingSecretIsPersistedOrLogged (8.40s)
+=== RUN   TestNeedleScannerDetectsPlantedNeedles
+--- PASS: TestNeedleScannerDetectsPlantedNeedles (0.00s)
+PASS
+ok  	github.com/vasic-digital/job_seeker/tests/live	8.408s
+rc=0

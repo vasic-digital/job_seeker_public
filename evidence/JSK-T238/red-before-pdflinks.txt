@@ -1,0 +1,3 @@
+# github.com/vasic-digital/job_seeker/internal/ext/render/pdflinks [github.com/vasic-digital/job_seeker/internal/ext/render/pdflinks.test]
+internal/ext/render/pdflinks/pdflinks_test.go:42:16: undefined: Check
+internal/ext/render/pdflinks/pdflinks_test.go:50:10: undefined: Decide

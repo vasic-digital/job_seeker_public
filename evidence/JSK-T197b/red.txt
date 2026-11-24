@@ -1,0 +1,18 @@
+# github.com/vasic-digital/job_seeker/internal/config [github.com/vasic-digital/job_seeker/internal/config.test]
+internal/config/config_test.go:215:21: c.BAOK undefined (type *Config has no field or method BAOK)
+internal/config/config_test.go:215:31: c.Watchlist undefined (type *Config has no field or method Watchlist)
+internal/config/config_test.go:215:52: c.ApplyMode undefined (type *Config has no field or method ApplyMode)
+internal/config/config_test.go:223:23: c.BAOK undefined (type *Config has no field or method BAOK)
+internal/config/config_test.go:223:33: c.Watchlist undefined (type *Config has no field or method Watchlist)
+internal/config/config_test.go:223:69: c.ApplyMode undefined (type *Config has no field or method ApplyMode)
+# github.com/vasic-digital/job_seeker/internal/app [github.com/vasic-digital/job_seeker/internal/app.test]
+internal/app/fetch_test.go:149:6: cfg.Watchlist undefined (type *config.Config has no field or method Watchlist)
+internal/app/fetch_test.go:155:6: cfg.Watchlist undefined (type *config.Config has no field or method Watchlist)
+internal/app/fetch_test.go:160:6: cfg.Watchlist undefined (type *config.Config has no field or method Watchlist)
+internal/app/fetch_test.go:164:6: cfg.Watchlist undefined (type *config.Config has no field or method Watchlist)
+internal/app/fetch_test.go:174:11: undefined: BAKeyVar
+internal/app/fetch_test.go:185:6: cfg.BAOK undefined (type *config.Config has no field or method BAOK)
+internal/app/fetch_test.go:187:70: undefined: BAKeyVar
+FAIL	github.com/vasic-digital/job_seeker/internal/app [build failed]
+FAIL	github.com/vasic-digital/job_seeker/internal/config [build failed]
+FAIL

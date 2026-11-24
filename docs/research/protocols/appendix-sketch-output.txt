@@ -1,0 +1,37 @@
+$ go version
+go version go1.26.8 linux/amd64
+$ gofmt -l .
+$ go vet ./...
+(no output, rc 0)
+$ go test -count=1 -v ./... | grep -v "^=== RUN"
+--- PASS: TestResolvePrecedenceAndLockedGate (0.00s)
+--- PASS: TestEvaluateFailsClosed (0.00s)
+--- PASS: TestRegistryOrderDuplicateAndDefaults (0.00s)
+--- PASS: TestCombineUnknownIsNotAPass (0.00s)
+--- PASS: TestApprovedCannotBeForged (0.00s)
+--- PASS: TestChannelVetRejectsDirectSend (0.00s)
+--- PASS: TestFavouritesFirst (0.00s)
+PASS
+ok  	example.com/jsk-sketch/ext	0.003s
+--- PASS: TestNothingWithoutApproval (0.00s)
+--- PASS: TestAdmission (0.00s)
+PASS
+ok  	example.com/jsk-sketch/refs/handoff	0.003s
+--- PASS: TestReadGolden (0.00s)
+PASS
+ok  	example.com/jsk-sketch/refs/jsonld	0.003s
+--- PASS: TestWordBoundaryTable (0.00s)
+--- PASS: TestSubstringMutantWouldFail (0.00s)
+PASS
+ok  	example.com/jsk-sketch/refs/keyword	0.003s
+--- PASS: TestConformance (0.00s)
+    remotemode_test.go:49: mutant produced 1 conformance failures (expected >0)
+--- PASS: TestMutantIsCaught (0.00s)
+PASS
+ok  	example.com/jsk-sketch/refs/remotemode	0.003s
+$ go test -race -count=1 ./...
+ok  	example.com/jsk-sketch/ext	1.027s
+ok  	example.com/jsk-sketch/refs/handoff	1.028s
+ok  	example.com/jsk-sketch/refs/jsonld	1.029s
+ok  	example.com/jsk-sketch/refs/keyword	1.026s
+ok  	example.com/jsk-sketch/refs/remotemode	1.018s

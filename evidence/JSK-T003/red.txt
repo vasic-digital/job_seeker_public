@@ -1,0 +1,5 @@
+internal/config/datadir_test.go:39:9: undefined: CheckDataDirOutsideGit
+internal/config/datadir_test.go:46:12: undefined: CheckDataDirOutsideGit
+internal/config/datadir_test.go:59:12: undefined: CheckDataDirOutsideGit
+FAIL	github.com/vasic-digital/job_seeker/internal/config [build failed]
+FAIL

@@ -1,0 +1,4 @@
+=== RUN   TestTrackRecordListDueThroughMain
+--- PASS: TestTrackRecordListDueThroughMain (0.55s)
+PASS
+ok  	github.com/vasic-digital/job_seeker/internal/jsctl	0.584s

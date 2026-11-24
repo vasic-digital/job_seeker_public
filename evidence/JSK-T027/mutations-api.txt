@@ -1,0 +1,12 @@
+== MUTATION TokenGate moved inside CSRF/Origin (order swapped)
+--- FAIL: TestTokenScopesAndRevocation (0.03s)
+--- FAIL: TestTokenGateRunsBeforeOriginAndCSRFExemption (0.03s)
+FAIL
+FAIL	github.com/vasic-digital/job_seeker/internal/api	0.326s
+FAIL
+== MUTATION exemption keyed on the Authorization header instead of a verified token
+--- FAIL: TestOriginAndFetchMetadata (0.00s)
+--- FAIL: TestCSRFSynchronizer (0.00s)
+FAIL
+FAIL	github.com/vasic-digital/job_seeker/internal/api	0.345s
+FAIL

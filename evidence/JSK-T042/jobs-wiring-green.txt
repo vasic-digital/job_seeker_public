@@ -1,0 +1,4 @@
+=== RUN   TestJobsRunForReal
+--- PASS: TestJobsRunForReal (0.06s)
+PASS
+ok  	github.com/vasic-digital/job_seeker/internal/app	0.069s

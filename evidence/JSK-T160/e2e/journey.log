@@ -1,0 +1,123 @@
+PASS unauthenticated browser navigation lands on /login :: https://js.lan:40229/login
+PASS axe login light :: 23 rules passed
+PASS axe login dark :: 23 rules passed
+PASS first passkey registered (virtual authenticator)
+PASS passkey sign-in reaches the inbox :: Inbox · Job Seeker
+PASS inbox lists the 8 persona postings of provider remotive
+PASS state filter narrows the list through htmx (hx-request seen)
+PASS keyboard shortcut j focuses the first posting
+PASS axe inbox light :: 22 rules passed
+PASS axe inbox dark :: 22 rules passed
+PASS inbox shows every real corpus posting that fits the 200-row page :: 115 rows of 115
+PASS score bands partition exactly the scored real postings :: 1 vs 1
+PASS real posting detail shows the real score and a readable breakdown (sealed columns open) :: rows=6
+PASS axe job-real light :: 21 rules passed
+PASS axe job-real dark :: 21 rules passed
+PASS dismiss moves a scored posting to discarded and removes the actions
+PASS dismissing a posting that is no longer scored is refused (409 illegal_transition) :: 409
+PASS axe queue light :: 21 rules passed
+PASS axe queue dark :: 21 rules passed
+PASS review queue lists the unmapped persona posting and the real unmapped ones :: rows=115
+PASS every queue row carries the matcher evidence cell (closest areas, hits) :: evidence cells=115
+PASS the map form offers exactly the 10 legal areas
+PASS manual map moves the posting out of the queue (matchstore.MapHuman, audited mapped_by_human)
+PASS mapping an already mapped posting is refused (409 illegal_transition) :: 409
+PASS an area outside the 10 legal ones is refused (400 validation) :: 400
+PASS job detail shows score breakdown and sanitized text
+PASS attribution link is noreferrer noopener
+PASS axe job light :: 21 rules passed
+PASS axe job dark :: 21 rules passed
+PASS shortlist creates a pending_draft application
+PASS prepare freezes the draft: awaiting_human_approval with a hash
+PASS displayed CV SHA-256 equals the file manifest hash
+PASS PDF streamed with no-store, nosniff, inline and the same hash :: {"s":200,"cc":"no-store"}
+PASS PDF viewer serves ranges from the tmpfs-staged copy (206, 10 bytes) :: 206
+PASS axe draft light :: 25 rules passed
+PASS axe draft dark :: 25 rules passed
+PASS HTTP 403 live_mode_off at POST /applications/{id}/approve :: got 403 live_mode_off
+PASS dry-run approval records dry_run_recorded
+PASS axe applications light :: 18 rules passed
+PASS axe applications dark :: 18 rules passed
+PASS settings show live mode off and kill switch off
+PASS settings show the legal-notice diff text (T077, FR-007)
+PASS settings show retention in force and the last prune (T077, C9) :: never
+PASS passkey step-up ceremony succeeds
+PASS with a fresh step-up live mode turns on
+PASS draft page shows live mode on
+PASS kill switch turns on without step-up
+PASS axe settings light :: 24 rules passed
+PASS axe settings dark :: 24 rules passed
+PASS kill switch turns off again with a fresh step-up
+PASS live mode turns off again
+PASS axe tracking light :: 20 rules passed
+PASS axe tracking dark :: 20 rules passed
+PASS tracker page starts empty
+PASS recording a status shows it in the timeline with its decrypted note :: err= url=https://js.lan:40229/applications/1/tracking
+PASS a stale timeline edit is refused (409, no lost update)
+PASS follow-up date saved and shown back on the tracker page :: err= value=2026-11-23
+PASS a follow-up that has arrived is surfaced in the inbox :: url=https://js.lan:40229/ due-count=1 main=Inbox Follow-ups due Applications whose follow-up date has arrived TITLE COMPANY LATEST STATUS FOLLOW-UP DUE SENIOR GO ENGINEER Acme Robotics sent 2026-11-23 State Any discovered mapped ambiguous unma
+PASS axe inbox-due light :: 22 rules passed
+PASS axe inbox-due dark :: 22 rules passed
+PASS a terminal status (offer) stops the reminder
+PASS German posting requires language confirmation
+PASS HTTP 400 language_confirmation_required at POST /applications/{id}/approve :: got 400 language_confirmation_required
+PASS confirming the language re-freezes the draft
+PASS reject without a reason is refused
+PASS reject with a reason records rejected_by_human
+PASS live mode on for the bypass phase
+PASS HTTP 403 overlay_absent at POST /applications/{id}/approve :: got 403 overlay_absent
+PASS refused attempt left the application awaiting approval
+PASS HTTP 403 kill_switch_on at POST /applications/{id}/approve :: got 403 kill_switch_on
+PASS kill switch off again
+PASS HTTP 403 company_confirmation_failed at POST /applications/{id}/approve :: got 403 company_confirmation_failed
+PASS HTTP 403 cap_exceeded at POST /applications/{id}/approve :: got 403 cap_exceeded
+PASS caps restored
+PASS HTTP 403 gate_regressed at POST /applications/{id}/approve :: got 403 gate_regressed
+PASS the regressed hard gate left the application awaiting approval
+PASS HTTP 409 templates_stale at POST /applications/{id}/approve :: got 409 templates_stale
+PASS HTTP 409 approval_hash_mismatch at POST /applications/{id}/approve :: got 409 approval_hash_mismatch
+PASS the hash mismatch withdrew the approval path: the draft returns to draft_prepared
+PASS with the file restored, re-drafting freezes the same hash again (re-draft after hash change)
+PASS HTTP 409 illegal_transition at POST /applications/{id}/handoff-complete on an application that is not live_approved :: 409
+PASS HTTP 409 illegal_transition at POST /applications/{id}/approve on an application that is not awaiting approval :: 409
+PASS a second posting of an employer that already has an application is refused (duplicate_company)
+PASS the refused posting offers the explicit override form
+PASS with a closed override reason the application starts :: https://js.lan:40229/applications/4/draft
+PASS keyboard walk inbox: all 20 interactive elements reachable by Tab, focus leaves the page (no trap) :: missed= reached=20
+PASS keyboard walk inbox: every focused element shows a >= 2px focus indicator (outline or ring) :: 20 checked
+PASS keyboard walk draft: all 16 interactive elements reachable by Tab, focus leaves the page (no trap) :: missed= reached=14
+PASS keyboard walk draft: every focused element shows a >= 2px focus indicator (outline or ring) :: 14 checked
+PASS keyboard walk settings: all 14 interactive elements reachable by Tab, focus leaves the page (no trap) :: missed= reached=14
+PASS keyboard walk settings: every focused element shows a >= 2px focus indicator (outline or ring) :: 14 checked
+PASS keyboard walk tracking: all 13 interactive elements reachable by Tab, focus leaves the page (no trap) :: missed= reached=13
+PASS keyboard walk tracking: every focused element shows a >= 2px focus indicator (outline or ring) :: 13 checked
+PASS keyboard walk queue: all 349 interactive elements reachable by Tab, focus leaves the page (no trap) :: missed= reached=349
+PASS keyboard walk queue: every focused element shows a >= 2px focus indicator (outline or ring) :: 349 checked
+PASS skip link is the first Tab stop and moves focus to the main region
+PASS keyboard only: shortlist, prepare and dry-run approve complete :: true,true,true
+PASS prefers-reduced-motion: no element transitions or animates :: moving elements=0
+PASS zoom 200% inbox: content reflows with no horizontal scroll :: scrollWidth=640 innerWidth=640
+PASS zoom 200% draft: content reflows with no horizontal scroll :: scrollWidth=1280 innerWidth=1280
+PASS zoom 200% settings: content reflows with no horizontal scroll :: scrollWidth=1280 innerWidth=1280
+PASS zoom 200% audit: content reflows with no horizontal scroll :: scrollWidth=1280 innerWidth=1280
+PASS zoom 400% (reflow) inbox: content reflows with no horizontal scroll :: scrollWidth=320 innerWidth=320
+PASS zoom 400% (reflow) draft: content reflows with no horizontal scroll :: scrollWidth=320 innerWidth=320
+PASS zoom 400% (reflow) settings: content reflows with no horizontal scroll :: scrollWidth=320 innerWidth=320
+PASS zoom 400% (reflow) audit: content reflows with no horizontal scroll :: scrollWidth=320 innerWidth=320
+NOTE waiting for the step-up to age past five minutes :: 278 s (real clock, no test hook)
+PASS HTTP 403 step_up_required at POST /applications/{id}/approve :: got 403 step_up_required
+PASS all 8 FR-026 bypass codes were refused over HTTP in a real browser :: complete
+PASS fresh step-up for the live approval
+PASS with every FR-026 condition satisfied the live approval is recorded (live_approved)
+PASS HTTP 403 kill_switch_on at POST /applications/{id}/handoff-complete :: got 403 kill_switch_on
+PASS the operator-recorded handoff is the only path to sent
+PASS live mode off at the end of the live journey
+PASS a sent application is trackable (sent -> tracked) :: err= url=https://js.lan:40229/applications/3/tracking
+PASS axe audit light :: 18 rules passed
+PASS axe audit dark :: 18 rules passed
+PASS audit export has the transitions in chain order :: 169 rows
+PASS the audit export carries the journey reason codes :: 18 codes
+PASS no-JavaScript: shortlist, prepare and dry-run approve complete
+PASS no uncaught page errors
+PASS no browser console errors besides the deliberate 4xx refusals :: refusals=19 other=
+PASS T089 canary: no synthetic overlay value in any textual HTTP response the browser received :: 763 bodies checked, hits=

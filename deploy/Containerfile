@@ -1,0 +1,12 @@
+# job_seeker image RECIPE ONLY (JSK-T031, FR-072). It is built and run exclusively through
+# tools/containers (jsstack -> digital.vasic.containers); nothing here starts anything.
+# The binaries are static (CGO_ENABLED=0) and are built on the host first (make build-gate) so the
+# image build needs no network beyond the base image. Non-root; read-only rootfs and tmpfs are
+# enforced by the compose definition, not by this file.
+FROM docker.io/library/alpine:3.22
+RUN addgroup -g 10001 -S js && adduser -S -u 10001 -G js -H -s /sbin/nologin js
+COPY bin/jobseekerd bin/jsgate-serve /usr/local/bin/
+USER 10001:10001
+# one port NUMBER on both transports (FR-040): TCP TLS (h2, h1.1) and UDP QUIC (h3)
+EXPOSE 8443/tcp 8443/udp
+ENTRYPOINT ["/usr/local/bin/jobseekerd"]

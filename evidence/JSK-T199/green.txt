@@ -1,0 +1,5 @@
+--- PASS: TestAshbyTranslatesCapturedGolden (0.06s)
+--- PASS: TestAshbyMalformedHostileAndClasses (0.08s)
+--- PASS: TestAshbyTenantsEmptyAndBadSlug (0.01s)
+--- PASS: FuzzAshbyOne (0.00s)
+ok  	github.com/vasic-digital/job_seeker/internal/providers	1.187s

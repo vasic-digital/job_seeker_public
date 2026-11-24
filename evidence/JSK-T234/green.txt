@@ -1,0 +1,9 @@
+--- PASS: TestRecordFlipsIsCurrentAndKeepsHistory (0.05s)
+--- PASS: TestForgedReasonRefused (0.04s)
+--- PASS: TestNonYesWithoutReasonRefused (0.06s)
+--- PASS: TestStalenessNeverApproves (0.04s)
+--- PASS: TestConcurrentWritersOneCurrent (0.05s)
+--- PASS: TestSnapshotPluginsAndPolicyAreIdempotent (0.04s)
+--- PASS: TestSchemaHasNoDefaultsCarryingValues (0.05s)
+--- PASS: TestUpgradeFrom0001KeepsRows (0.08s)
+ok  	github.com/vasic-digital/job_seeker/internal/ext/verdictstore	0.432s

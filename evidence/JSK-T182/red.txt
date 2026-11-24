@@ -1,0 +1,33 @@
+--- FAIL: TestLiveApprovalRechecksHardGates (0.61s)
+    --- FAIL: TestLiveApprovalRechecksHardGates/blocked_company (0.22s)
+        guards_test.go:53: err <nil> want ErrGateRegressed
+    --- FAIL: TestLiveApprovalRechecksHardGates/salary_below_floor (0.15s)
+        guards_test.go:53: err <nil> want ErrGateRegressed
+    --- FAIL: TestLiveApprovalRechecksHardGates/excluded_region (0.12s)
+        guards_test.go:53: err <nil> want ErrGateRegressed
+    --- FAIL: TestLiveApprovalRechecksHardGates/onsite_outside_allowed_cities (0.11s)
+        guards_test.go:53: err <nil> want ErrGateRegressed
+--- FAIL: TestLiveApprovalGatesUndeterminedRefuses (0.55s)
+    --- FAIL: TestLiveApprovalGatesUndeterminedRefuses/no_rules (0.13s)
+        guards_test.go:97: err <nil> want ErrGateUndetermined
+    --- FAIL: TestLiveApprovalGatesUndeterminedRefuses/no_overlay_loader (0.14s)
+        guards_test.go:97: err <nil> want ErrGateUndetermined
+    --- FAIL: TestLiveApprovalGatesUndeterminedRefuses/overlay_unreadable (0.12s)
+        guards_test.go:97: err <nil> want ErrGateUndetermined
+    --- FAIL: TestLiveApprovalGatesUndeterminedRefuses/overlay_loaded_but_not_present (0.16s)
+        guards_test.go:97: err <nil> want ErrGateUndetermined
+--- FAIL: TestLiveApprovalRefusesClosedPosting (0.23s)
+    --- FAIL: TestLiveApprovalRefusesClosedPosting/state_expired (0.11s)
+        guards_test.go:118: err <nil> want ErrPostingClosed
+    --- FAIL: TestLiveApprovalRefusesClosedPosting/expires_at_in_past (0.11s)
+        guards_test.go:118: err <nil> want ErrPostingClosed
+--- FAIL: TestPostingChangedAfterPrepareSupersedes (0.12s)
+    guards_test.go:136: err <nil> want ErrApprovalHashMismatch
+--- FAIL: TestPostingChangedBetweenLiveApprovalAndHandoff (0.12s)
+    guards_test.go:159: err <nil>
+--- FAIL: TestHandoffRechecksHardGatesAndClosure (0.13s)
+    guards_test.go:176: err <nil> want ErrGateRegressed
+2026/11/24 13:51:21 WARN duplicate submission refused application_id=1 kind=would_send
+FAIL
+FAIL	github.com/vasic-digital/job_seeker/internal/draft	7.463s
+FAIL

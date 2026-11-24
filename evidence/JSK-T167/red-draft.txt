@@ -1,0 +1,10 @@
+--- FAIL: TestDecideLanguage (0.00s)
+    language_test.go:34: {det:it conf:0.95 explicit: lang:en rule:confirm_fallback confirm:true} -> {Lang:en Rule:fallback_en}
+    language_test.go:34: {det:ru conf:0.3 explicit: lang:en rule:confirm_fallback confirm:true} -> {Lang:en Rule:fallback_en}
+--- FAIL: TestMinLangConfEqualsDetectorThreshold (0.00s)
+    language_test.go:61: minLangConf 0.6 detector 0.8
+--- FAIL: TestUndeterminedWithRealTextAsksInsteadOfDefaultingToEnglish (0.00s)
+    language_test.go:73: {Lang:en Rule:fallback_en}
+FAIL
+FAIL	github.com/vasic-digital/job_seeker/internal/draft	3.198s
+FAIL

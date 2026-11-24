@@ -1,0 +1,219 @@
+bash gates/fmt_check.sh
+gofmt clean
+go vet ./...
+go test ./gates/...
+ok  	github.com/vasic-digital/job_seeker/gates/egressban	0.053s
+bash gates/run_all.sh
+== gates/verify_carriers.sh
+constitution resolved: submodules/constitution (13108 lines)
+lockstep OK (4 carriers, normalised digest a737b7489482b27d)
+== gates/verify_carriers.sh rc=0
+PROVE-FAILURE OK: drift and a missing carrier are both refused
+== gates/verify_carriers.sh --prove-failure rc=0
+== gates/verify_design.sh
+OK design copy matches its manifest; console.css defines no token and carries no literal colour
+== gates/verify_design.sh rc=0
+PROVE-FAILURE OK: control rc=0; edited token file, unpinned file, token redefinition all rc=1
+== gates/verify_design.sh --prove-failure rc=0
+== gates/verify_gitignore.sh
+ignored  .env
+ignored  prod.env
+ignored  .env.local
+ignored  data/job.db
+ignored  job.db
+ignored  job.db-wal
+ignored  job.db-shm
+ignored  job.sqlite
+ignored  backups/x.bak
+ignored  certs/ca.pem
+ignored  server.key
+ignored  tls.crt
+ignored  corpora/gold.json
+ignored  snapshots/s.json
+ignored  career_private/overlay.yaml
+ignored  .cache-career/x
+ignored  evidence/private/x
+ignored  secrets/token
+ignored  a.passphrase
+OK: all probes ignored, .env.example names-only
+== gates/verify_gitignore.sh rc=0
+PROVE-FAILURE OK: empty .gitignore is refused (rc=1)
+== gates/verify_gitignore.sh --prove-failure rc=0
+== gates/verify_gold.sh
+ruleset 8eb977f1a06b items=115 non-engineering=84 unmapped=84 lang-correct=115/115 classify-p95=1964us score-p95=15us
+  ai-engineering  gold=7   predicted=1   tp=1   precision=1.000 recall=0.143
+  android         gold=0   predicted=0   tp=0   precision=n/a recall=n/a
+  android-aosp    gold=0   predicted=0   tp=0   precision=n/a recall=n/a
+  android-tv      gold=0   predicted=0   tp=0   precision=n/a recall=n/a
+  desktop         gold=0   predicted=0   tp=0   precision=n/a recall=n/a
+  flutter         gold=0   predicted=0   tp=0   precision=n/a recall=n/a
+  go              gold=2   predicted=0   tp=0   precision=n/a recall=0.000
+  mobile          gold=0   predicted=0   tp=0   precision=n/a recall=n/a
+  react-native    gold=0   predicted=0   tp=0   precision=n/a recall=n/a
+  web-frontend    gold=2   predicted=0   tp=0   precision=n/a recall=0.000
+PARTIAL: area ai-engineering: 7 real gold item(s) < 30: PARTIAL, SC-003 thresholds not enforceable
+PARTIAL: area go: 2 real gold item(s) < 30: PARTIAL, SC-003 thresholds not enforceable
+PARTIAL: area web-frontend: 2 real gold item(s) < 30: PARTIAL, SC-003 thresholds not enforceable
+determinism: 115 item(s), 3 runs, differing items=0
+  run 1 digest e6c4129aa16f83b4e964f53825938de2435a708d0f9cf7dc9963bc2e1473c7a7
+  run 2 digest e6c4129aa16f83b4e964f53825938de2435a708d0f9cf7dc9963bc2e1473c7a7
+  run 3 digest e6c4129aa16f83b4e964f53825938de2435a708d0f9cf7dc9963bc2e1473c7a7
+OK: three identical runs
+== gates/verify_gold.sh rc=0
+PROVE-FAILURE OK: control rc=0; removed non-engineering tokens rc=1; precision regression rc=1; tampered corpus rc=2
+== gates/verify_gold.sh --prove-failure rc=0
+== gates/verify_hooks.sh
+PASS  control: no hook => trailerless commit accepted
+PASS  no Roadmap-Item refused
+PASS  bad item id refused
+PASS  two Roadmap-Item refused
+PASS  two tasks without reason refused
+PASS  two tasks with reason accepted
+PASS  single task accepted
+PASS  out-of-scope path without reason refused
+PASS  out-of-scope with bogus reason refused
+PASS  out-of-scope with closed-list reason accepted
+PASS  CI/CD file refused even with trailers
+PASS  fast-forward/new ref push accepted
+PASS  forced non-fast-forward push refused
+OK: all hook cases behaved
+== gates/verify_hooks.sh rc=0
+PROVE-FAILURE OK: a neutered commit-msg hook is caught (rc=1)
+== gates/verify_hooks.sh --prove-failure rc=0
+== gates/verify_ledger.sh
+OK: all 13 test types accounted for (5 PRESENT, 8 PLANNED, 0 SKIP)
+== gates/verify_ledger.sh rc=0
+PROVE-FAILURE OK: stripped type and invalid SKIP both refused
+== gates/verify_ledger.sh --prove-failure rc=0
+== gates/verify_match.sh
+OK: internal/match suite green against committed rules
+== gates/verify_match.sh rc=0
+PROVE-FAILURE OK: control rc=0; wrong weight, snapshot drift, raised threshold all rejected
+== gates/verify_match.sh --prove-failure rc=0
+== gates/verify_nosend.sh
+OK: no-send-bypass suite green (8 FR-026 attempts, handoff re-checks, sent-writer enumeration, no generative import)
+== gates/verify_nosend.sh rc=0
+PROVE-FAILURE OK: control rc=0; 8 mutants (live, kill, step-up, company, cap, hash, second sent writer, network import) all rejected
+== gates/verify_nosend.sh --prove-failure rc=0
+== gates/verify_pins.sh
+MATCH: containers 22b49707f9bb
+MATCH: challenges d94e55492f10
+MATCH: qa b16a0897d85e
+MATCH: security 0513361e2f9c
+OK: manifest refs equal gitlinks, both directions
+== gates/verify_pins.sh rc=0
+PROVE-FAILURE OK: control rc=0, wrong ref rc=1, missing entry rc=1
+== gates/verify_pins.sh --prove-failure rc=0
+== gates/verify_rawpage.sh
+=== RUN   TestRawPageEncryptedColumnsAreCiphertext
+--- PASS: TestRawPageEncryptedColumnsAreCiphertext (0.14s)
+PASS
+ok  	github.com/vasic-digital/job_seeker/internal/store	0.146s
+OK: E columns are ciphertext in db, wal and backups; needle control hit
+== gates/verify_rawpage.sh rc=0
+PROVE-FAILURE OK: a skipped encryption step is detected by the raw-page scan
+== gates/verify_rawpage.sh --prove-failure rc=0
+== gates/verify_tiebreak.sh
+OK: internal/llm tiebreak suite green
+== gates/verify_tiebreak.sh rc=0
+PROVE-FAILURE OK: control passes; 6 mutations all rejected
+== gates/verify_tiebreak.sh --prove-failure rc=0
+gates verdict rc=0
+go test ./...
+?   	github.com/vasic-digital/job_seeker/cmd/jobseekerd	[no test files]
+?   	github.com/vasic-digital/job_seeker/cmd/jsctl	[no test files]
+?   	github.com/vasic-digital/job_seeker/cmd/jsgate-serve	[no test files]
+?   	github.com/vasic-digital/job_seeker/cmd/jsgold	[no test files]
+?   	github.com/vasic-digital/job_seeker/cmd/jsobserve	[no test files]
+?   	github.com/vasic-digital/job_seeker/cmd/jspdscan	[no test files]
+ok  	github.com/vasic-digital/job_seeker/gates/egressban	0.081s
+ok  	github.com/vasic-digital/job_seeker/internal/api	(cached)
+ok  	github.com/vasic-digital/job_seeker/internal/app	(cached)
+ok  	github.com/vasic-digital/job_seeker/internal/audit	0.548s
+ok  	github.com/vasic-digital/job_seeker/internal/auth	(cached)
+ok  	github.com/vasic-digital/job_seeker/internal/boot	(cached)
+ok  	github.com/vasic-digital/job_seeker/internal/buildinfo	(cached)
+ok  	github.com/vasic-digital/job_seeker/internal/careersnap	(cached)
+ok  	github.com/vasic-digital/job_seeker/internal/certs	(cached)
+ok  	github.com/vasic-digital/job_seeker/internal/config	(cached)
+ok  	github.com/vasic-digital/job_seeker/internal/console	(cached)
+ok  	github.com/vasic-digital/job_seeker/internal/crypto	(cached)
+ok  	github.com/vasic-digital/job_seeker/internal/designsync	(cached)
+ok  	github.com/vasic-digital/job_seeker/internal/draft	(cached)
+ok  	github.com/vasic-digital/job_seeker/internal/egress	(cached)
+ok  	github.com/vasic-digital/job_seeker/internal/fsm	(cached)
+ok  	github.com/vasic-digital/job_seeker/internal/i18n	(cached)
+ok  	github.com/vasic-digital/job_seeker/internal/ingest	(cached)
+ok  	github.com/vasic-digital/job_seeker/internal/jobops	(cached)
+ok  	github.com/vasic-digital/job_seeker/internal/jsctl	(cached)
+ok  	github.com/vasic-digital/job_seeker/internal/limiter	(cached)
+ok  	github.com/vasic-digital/job_seeker/internal/llm	(cached)
+ok  	github.com/vasic-digital/job_seeker/internal/match	(cached)
+ok  	github.com/vasic-digital/job_seeker/internal/match/gold	(cached)
+ok  	github.com/vasic-digital/job_seeker/internal/matchstore	(cached)
+ok  	github.com/vasic-digital/job_seeker/internal/metrics	(cached)
+?   	github.com/vasic-digital/job_seeker/internal/pdgate	[no test files]
+ok  	github.com/vasic-digital/job_seeker/internal/privacy	(cached)
+ok  	github.com/vasic-digital/job_seeker/internal/privtool	(cached)
+ok  	github.com/vasic-digital/job_seeker/internal/providers	(cached)
+ok  	github.com/vasic-digital/job_seeker/internal/ratelimit	(cached)
+ok  	github.com/vasic-digital/job_seeker/internal/redact	(cached)
+ok  	github.com/vasic-digital/job_seeker/internal/scheduler	(cached)
+ok  	github.com/vasic-digital/job_seeker/internal/server	1.107s
+ok  	github.com/vasic-digital/job_seeker/internal/store	(cached)
+ok  	github.com/vasic-digital/job_seeker/internal/templates	(cached)
+?   	github.com/vasic-digital/job_seeker/internal/testauthn	[no test files]
+ok  	github.com/vasic-digital/job_seeker/internal/tracker	(cached)
+ok  	github.com/vasic-digital/job_seeker/tests/e2e	(cached)
+ok  	github.com/vasic-digital/job_seeker/tests/live	(cached)
+?   	github.com/vasic-digital/job_seeker/tools/jobops/cmd/jobops-spike	[no test files]
+?   	github.com/vasic-digital/job_seeker/web	[no test files]
+CGO_ENABLED=1 go test -race ./...
+?   	github.com/vasic-digital/job_seeker/cmd/jobseekerd	[no test files]
+?   	github.com/vasic-digital/job_seeker/cmd/jsctl	[no test files]
+?   	github.com/vasic-digital/job_seeker/cmd/jsgate-serve	[no test files]
+?   	github.com/vasic-digital/job_seeker/cmd/jsgold	[no test files]
+?   	github.com/vasic-digital/job_seeker/cmd/jsobserve	[no test files]
+?   	github.com/vasic-digital/job_seeker/cmd/jspdscan	[no test files]
+ok  	github.com/vasic-digital/job_seeker/gates/egressban	1.361s
+ok  	github.com/vasic-digital/job_seeker/internal/api	(cached)
+ok  	github.com/vasic-digital/job_seeker/internal/app	(cached)
+ok  	github.com/vasic-digital/job_seeker/internal/audit	3.600s
+ok  	github.com/vasic-digital/job_seeker/internal/auth	(cached)
+ok  	github.com/vasic-digital/job_seeker/internal/boot	(cached)
+ok  	github.com/vasic-digital/job_seeker/internal/buildinfo	(cached)
+ok  	github.com/vasic-digital/job_seeker/internal/careersnap	(cached)
+ok  	github.com/vasic-digital/job_seeker/internal/certs	(cached)
+ok  	github.com/vasic-digital/job_seeker/internal/config	(cached)
+ok  	github.com/vasic-digital/job_seeker/internal/console	(cached)
+ok  	github.com/vasic-digital/job_seeker/internal/crypto	(cached)
+ok  	github.com/vasic-digital/job_seeker/internal/designsync	(cached)
+ok  	github.com/vasic-digital/job_seeker/internal/draft	(cached)
+ok  	github.com/vasic-digital/job_seeker/internal/egress	(cached)
+ok  	github.com/vasic-digital/job_seeker/internal/fsm	(cached)
+ok  	github.com/vasic-digital/job_seeker/internal/i18n	(cached)
+ok  	github.com/vasic-digital/job_seeker/internal/ingest	(cached)
+ok  	github.com/vasic-digital/job_seeker/internal/jobops	(cached)
+ok  	github.com/vasic-digital/job_seeker/internal/jsctl	(cached)
+ok  	github.com/vasic-digital/job_seeker/internal/limiter	(cached)
+ok  	github.com/vasic-digital/job_seeker/internal/llm	(cached)
+ok  	github.com/vasic-digital/job_seeker/internal/match	(cached)
+ok  	github.com/vasic-digital/job_seeker/internal/match/gold	(cached)
+ok  	github.com/vasic-digital/job_seeker/internal/matchstore	(cached)
+ok  	github.com/vasic-digital/job_seeker/internal/metrics	(cached)
+?   	github.com/vasic-digital/job_seeker/internal/pdgate	[no test files]
+ok  	github.com/vasic-digital/job_seeker/internal/privacy	(cached)
+ok  	github.com/vasic-digital/job_seeker/internal/privtool	(cached)
+ok  	github.com/vasic-digital/job_seeker/internal/providers	(cached)
+ok  	github.com/vasic-digital/job_seeker/internal/ratelimit	(cached)
+ok  	github.com/vasic-digital/job_seeker/internal/redact	(cached)
+ok  	github.com/vasic-digital/job_seeker/internal/scheduler	(cached)
+ok  	github.com/vasic-digital/job_seeker/internal/server	2.200s
+ok  	github.com/vasic-digital/job_seeker/internal/store	(cached)
+ok  	github.com/vasic-digital/job_seeker/internal/templates	(cached)
+?   	github.com/vasic-digital/job_seeker/internal/testauthn	[no test files]
+ok  	github.com/vasic-digital/job_seeker/internal/tracker	(cached)
+ok  	github.com/vasic-digital/job_seeker/tests/e2e	(cached)
+ok  	github.com/vasic-digital/job_seeker/tests/live	(cached)
+?   	github.com/vasic-digital/job_seeker/tools/jobops/cmd/jobops-spike	[no test files]
+?   	github.com/vasic-digital/job_seeker/web	[no test files]

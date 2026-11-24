@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+# pre-push hook (JSK-T005): runs the local gates and refuses any non-fast-forward update
+# (no force-push, section 11.4.113). Set JSK_SKIP_GATES=1 only to push docs when the gates
+# cannot run on this host; the refusal of non-fast-forward is never skippable.
+set -u
+# upstream guard (public-readiness marker + m3w private-only) for every non-GitHub remote
+if [ -n "${2:-}" ]; then
+  _r="$(git rev-parse --show-toplevel)"
+  bash "$_r/scripts/upstream_guard.sh" check "$2" --root "$_r" || exit 1
+fi
+zero=0000000000000000000000000000000000000000
+while read -r lref lsha rref rsha; do
+  [ -n "${lsha:-}" ] || continue
+  [ "$lsha" = "$zero" ] && continue          # branch deletion: not a push of content
+  [ "$rsha" = "$zero" ] && continue          # new remote ref
+  if ! git merge-base --is-ancestor "$rsha" "$lsha" 2>/dev/null; then
+    echo "pre-push REFUSED: $rref update is not a fast-forward (force-push is forbidden, section 11.4.113)" >&2
+    exit 1
+  fi
+done
+if [ "${JSK_SKIP_GATES:-0}" != "1" ]; then
+  root="$(git rev-parse --show-toplevel)"
+  ( cd "$root" && make gates ) || { echo "pre-push REFUSED: make gates failed" >&2; exit 1; }
+fi
+exit 0

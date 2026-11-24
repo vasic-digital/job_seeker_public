@@ -1,0 +1,15 @@
+# Hand-labelled gold set for the HN comment parser (JSK-T201). The 30 comments in testdata/hn_comments_golden.json are ANONYMISED SYNTHETIC fixtures written to the documented HN "Who is hiring?" shape ("Company | Role | Location | ..." header, a seeker's post, replies); no real person or company text is kept. Labels were written by reading the fixtures, NOT by running the parser.
+# Rules the labels follow (header line only): exactly one of remote/hybrid/onsite named -> that mode; hybrid together with onsite -> hybrid (the stricter claim is the lesser); remote together with onsite or hybrid -> empty (ambiguous, never guessed).
+# id	verdict	company	title	location	mode	salary_min	salary_max	cur
+90000001	hire	Examplecorp Events	Software Engineer	Lisbon, Portugal	hybrid	25000	35000	EUR
+90000002	hire	Early-stage Startup	Software Engineer & Data Analyst	REMOTE (US & US Citizen)	remote	100000	180000	USD
+90000003	hire	Northwind Labs	Senior Software Engineer	Athens, Greece / REMOTE	remote	80000	160000	USD
+90000004	hire	Contoso Robotics	AI Engineer, Knowledge Systems	San Francisco	onsite	175000	230000	USD
+90000005	hire	Fabrikam Analytics	Senior Data Scientist, Staff Data Scientist	New York, NY (FiDi)	hybrid	140000	225000	USD
+90000006	hire	Confidential Healthcare AI Startup	Senior Full Stack Engineer (Frontend-Leaning)	NYC	hybrid	160000	200000	USD
+90000007	hire	Globex Engineering	Penetration Tester	Remote or onsite (US + many countries)		0	0	
+90000008	hire	Initech AI	Forward-Deployed Product Engineer	New York / London (REMOTE US/Europe considered)	remote	0	0	
+90000009	skip
+90000019	skip
+90000012	skip
+90000017	skip

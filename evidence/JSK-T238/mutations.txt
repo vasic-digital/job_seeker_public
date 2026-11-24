@@ -1,0 +1,8 @@
+KILLED       ext-pdflinks-scheme-unchecked
+KILLED       ext-pdflinks-notURI-unchecked
+KILLED       ext-pdflinks-error-is-yes
+KILLED       ext-pdflinks-block-ignored
+KILLED       ext-parsersim-tagged-always
+INVALID      ext-parsersim-size-unbounded: mutant does not compile
+SURVIVED     ext-parsersim-size-unbounded
+KILLED       ext-parsersim-size-unbounded

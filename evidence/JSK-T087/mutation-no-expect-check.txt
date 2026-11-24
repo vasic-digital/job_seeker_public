@@ -1,0 +1,8 @@
+--- FAIL: TestConcurrentEditsExactlyOneOutcome (0.10s)
+    tracker_test.go:151: unexpected: tracker: status equals the latest recorded status
+    tracker_test.go:151: unexpected: tracker: status equals the latest recorded status
+    tracker_test.go:151: unexpected: tracker: status equals the latest recorded status
+    tracker_test.go:157: ok=13 conflict=0
+FAIL
+FAIL	github.com/vasic-digital/job_seeker/internal/tracker	0.162s
+FAIL

@@ -1,0 +1,2 @@
+OK: all 13 test types accounted for (1 PRESENT, 12 PLANNED, 0 SKIP)
+PROVE-FAILURE OK: stripped type and invalid SKIP both refused

@@ -1,0 +1,15 @@
+--- FAIL: TestDetectsAllFifteenTemplateLanguages (0.00s)
+    lang15_test.go:32: tr: got und conf 0.20
+    lang15_test.go:32: be: got ru conf 0.90
+    lang15_test.go:32: ar: got und conf 0.00
+    lang15_test.go:32: es: got und conf 0.20
+    lang15_test.go:32: fr: got und conf 0.24
+    lang15_test.go:32: zh: got und conf 0.00
+    lang15_test.go:32: kk: got und conf 0.00
+    lang15_test.go:32: fa: got und conf 0.00
+    lang15_test.go:32: hi: got und conf 0.00
+    lang15_test.go:32: ja: got und conf 0.00
+    lang15_test.go:32: ko: got und conf 0.00
+FAIL
+FAIL	github.com/vasic-digital/job_seeker/internal/match	0.004s
+FAIL

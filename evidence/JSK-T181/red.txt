@@ -1,0 +1,19 @@
+--- FAIL: TestNormCompany (0.00s)
+    company_test.go:16: "Acme Inc." and "ACME, inc" must normalise equal: "Acme Inc." "ACME, inc"
+    company_test.go:16: "Acme GmbH" and "acme" must normalise equal: "Acme GmbH" "acme"
+    company_test.go:16: "Acme  Robotics Ltd" and "acme robotics" must normalise equal: "Acme  Robotics Ltd" "acme robotics"
+    company_test.go:16: "Beta d.o.o." and "Beta" must normalise equal: "Beta d.o.o." "Beta"
+    company_test.go:16: "Gamma S.A." and "gamma" must normalise equal: "Gamma S.A." "gamma"
+--- FAIL: TestCompanyDuplicateRefusedAndAudited (0.08s)
+    company_test.go:41: err <nil> want ErrDuplicateCompany
+--- FAIL: TestCompanyDuplicateOverrideNeedsClosedReasonAndIsAudited (0.08s)
+    company_test.go:59: override "because i said so": err <nil>
+--- FAIL: TestCompanyGuardWindowsAndStates (0.41s)
+    --- FAIL: TestCompanyGuardWindowsAndStates/inside_the_window_blocks,_other_company_does_not (0.08s)
+        company_test.go:102: err <nil>
+    --- FAIL: TestCompanyGuardWindowsAndStates/rejection_cool-down_outlives_the_window (0.06s)
+        company_test.go:114: err <nil>
+2026/11/24 14:06:04 WARN duplicate submission refused application_id=1 kind=would_send
+FAIL
+FAIL	github.com/vasic-digital/job_seeker/internal/draft	3.891s
+FAIL

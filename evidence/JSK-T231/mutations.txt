@@ -1,0 +1,8 @@
+KILLED       ext-compose-deliverability-unknown-ok
+KILLED       ext-compose-zero-approved-ok
+KILLED       ext-compose-subject-precedence
+KILLED       ext-compose-subject-crlf-ok
+KILLED       ext-compose-attachment-name-unchecked
+KILLED       ext-compose-message-id-unchecked
+KILLED       ext-compose-token-sent-wrong
+KILLED       ext-compose-error-wraps-cause

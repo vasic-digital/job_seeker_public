@@ -1,0 +1,43 @@
+[
+ {
+  "id": 9000001,
+  "url": "https://remotive.com/remote-jobs/all-others/content-reviewer-united-states-9000001",
+  "title": "Content Reviewer - United States",
+  "company_name": "Examplecorp Digital",
+  "company_logo": "https://remotive.com/job/9000001/logo",
+  "category": "All others",
+  "tags": [
+   "social media",
+   "research",
+   "responsive"
+  ],
+  "job_type": "part_time",
+  "publication_date": "2026-11-19T14:58:42",
+  "candidate_required_location": "USA",
+  "salary": "$14/hour",
+  "description": "Synthetic fixture text. Review search results for accuracy and relevance in a local context. Part-time, remote…[truncated]",
+  "company_logo_url": "https://remotive.com/job/9000001/logo"
+ },
+ {
+  "id": 9000002,
+  "url": "https://remotive.com/remote-jobs/software-development/tech-lead-full-stack-rails-engineer-9000002",
+  "title": "Tech Lead Full-Stack Rails Engineer",
+  "company_name": "Northwind Media",
+  "company_logo": "https://remotive.com/job/9000002/logo",
+  "category": "Software Development",
+  "tags": [
+   "api",
+   "docker",
+   "fullstack",
+   "postgresql",
+   "ruby/rails",
+   "fintech"
+  ],
+  "job_type": "full_time",
+  "publication_date": "2026-11-14T20:33:53",
+  "candidate_required_location": "USA, Canada, USA timezones",
+  "salary": "$170k - $200k",
+  "description": "About Northwind Media\nSynthetic fixture text. A fictional fintech team looking for a full-stack Rails tech lead…[truncated]",
+  "company_logo_url": "https://remotive.com/job/9000002/logo"
+ }
+]

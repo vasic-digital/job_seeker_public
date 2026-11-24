@@ -1,0 +1,35 @@
+ok  	github.com/vasic-digital/job_seeker/gates/egressban	2.797s
+ok  	github.com/vasic-digital/job_seeker/internal/api	2.981s
+ok  	github.com/vasic-digital/job_seeker/internal/app	1.437s
+ok  	github.com/vasic-digital/job_seeker/internal/audit	4.060s
+ok  	github.com/vasic-digital/job_seeker/internal/auth	6.159s
+ok  	github.com/vasic-digital/job_seeker/internal/boot	6.319s
+ok  	github.com/vasic-digital/job_seeker/internal/buildinfo	1.029s
+ok  	github.com/vasic-digital/job_seeker/internal/careersnap	1.078s
+ok  	github.com/vasic-digital/job_seeker/internal/certs	1.093s
+ok  	github.com/vasic-digital/job_seeker/internal/config	1.142s
+ok  	github.com/vasic-digital/job_seeker/internal/crypto	1.115s
+ok  	github.com/vasic-digital/job_seeker/internal/draft	11.418s
+ok  	github.com/vasic-digital/job_seeker/internal/egress	1.263s
+ok  	github.com/vasic-digital/job_seeker/internal/fsm	1.102s
+ok  	github.com/vasic-digital/job_seeker/internal/ingest	5.484s
+ok  	github.com/vasic-digital/job_seeker/internal/jobops	1.028s
+ok  	github.com/vasic-digital/job_seeker/internal/jsctl	6.833s
+ok  	github.com/vasic-digital/job_seeker/internal/limiter	2.581s
+ok  	github.com/vasic-digital/job_seeker/internal/llm	2.441s
+ok  	github.com/vasic-digital/job_seeker/internal/match	3.187s
+ok  	github.com/vasic-digital/job_seeker/internal/match/gold	1.072s
+ok  	github.com/vasic-digital/job_seeker/internal/matchstore	10.726s
+ok  	github.com/vasic-digital/job_seeker/internal/metrics	1.045s
+ok  	github.com/vasic-digital/job_seeker/internal/privacy	8.006s
+ok  	github.com/vasic-digital/job_seeker/internal/privtool	10.744s
+ok  	github.com/vasic-digital/job_seeker/internal/providers	1.246s
+ok  	github.com/vasic-digital/job_seeker/internal/ratelimit	1.345s
+ok  	github.com/vasic-digital/job_seeker/internal/redact	1.084s
+ok  	github.com/vasic-digital/job_seeker/internal/scheduler	1.305s
+ok  	github.com/vasic-digital/job_seeker/internal/server	2.323s
+ok  	github.com/vasic-digital/job_seeker/internal/store	4.079s
+ok  	github.com/vasic-digital/job_seeker/internal/templates	1.062s
+ok  	github.com/vasic-digital/job_seeker/internal/tracker	1.984s
+OK: -race clean over 42 packages
+PROVE-FAILURE OK: detector reported the seeded race

@@ -1,0 +1,90 @@
+# Versioned area classification rules (FR-013, FR-014, FR-019). DATA, not code.
+# Matching: text is lower-cased, diacritics folded and punctuation collapsed to single spaces; a token matches
+# on whole-word boundaries. Tokens in EN, RU and SR (Latin and Cyrillic) live side by side in the same rule.
+# Score per area S = sum over rules of weight x (title_multiplier if the rule hit the title, else 1 if body/tags).
+version: 1
+title_multiplier: 2
+thresholds:
+  high_s1: 10        # S1 >= 10 and margin >= 4 -> mapped (high)
+  high_margin: 4
+  ambiguous_s1: 6    # 6 <= S1 < 10, or S1 >= 6 with margin < 4 -> ambiguous; S1 < 6 -> unmapped
+# Specificity precedence: when `winner` reaches min_winner, every `losers` entry is dropped from the ranking.
+# winner_hit_in restricts which fields may supply that winning score (empty = any).
+precedence:
+  - {winner: android-tv,  losers: [android-aosp, android, mobile], min_winner: 6}
+  - {winner: android-aosp, losers: [android, mobile], min_winner: 6}
+  - {winner: android,     losers: [mobile], min_winner: 6}
+  - {winner: react-native, losers: [mobile, web-frontend], min_winner: 6}
+  - {winner: flutter,     losers: [mobile], min_winner: 6}
+  - {winner: ai-engineering, losers: [go], min_winner: 6, winner_hit_in: [title, tags]}
+# A title matching any of these is a non-engineering role: forced unmapped (FR-016), never scored into an area.
+non_engineering_title_tokens:
+  - recruiter
+  - sales manager
+  - account executive
+  - marketing manager
+  - customer support
+  - accountant
+  - account director
+  - account manager
+  - designer
+  - product design
+  - content reviewer
+  - operations manager
+  - it manager
+  - product analytics
+  - solutions engineer
+  - hr manager
+  - office manager
+  - рекрутер
+  - менеджер по продажам
+  - бухгалтер
+  - маркетолог
+  - специалист поддержки
+  - regrut
+  - menadzer prodaje
+  - racunovodja
+  - менаџер продаје
+  - рачуноводја
+areas:
+  android-tv:
+    - {id: atv-core, weight: 6, tokens: ["Android TV", "Google TV", "Leanback", "androidtv", "Android TV OS", "Fire TV"]}
+    - {id: atv-media, weight: 3, tokens: ["Jetpack Compose for TV", "ExoPlayer", "Media3", "D-pad navigation", "focus management", "HLS", "DASH", "set-top box", "ТВ-приставка", "smart tv", "приставка"]}
+    - {id: atv-tools, weight: 1, tokens: ["Espresso", "ADB"]}
+  android-aosp:
+    - {id: aosp-core, weight: 6, tokens: ["AOSP", "Android platform", "Android Open Source Project", "Android framework", "платформа Android"]}
+    - {id: aosp-sys, weight: 3, tokens: ["system services", "HAL", "Binder", "AIDL", "SELinux", "device tree", "fastboot", "hardware integration", "Android BSP", "BSP", "kernel", "ядро"]}
+    - {id: aosp-lang, weight: 1, tokens: ["C++", "Java", "Kotlin", "ADB"]}
+  android:
+    - {id: and-core, weight: 6, tokens: ["Android", "Android developer", "Android engineer", "Андроид", "Android разработчик", "Android programer", "Android programer", "Android inzenjer", "Андроид инжењер"]}
+    - {id: and-stack, weight: 3, tokens: ["Jetpack Compose", "Coroutines", "Retrofit", "Room", "Gradle", "Material Design", "Android SDK", "Bluetooth", "OBD2"]}
+    - {id: and-gen, weight: 1, tokens: ["Kotlin", "Java", "ADB", "SDK", "Flow", "JUnit", "Espresso"]}
+  mobile:
+    - {id: mob-core, weight: 5, tokens: ["mobile developer", "mobile engineer", "mobile app", "mobile SDK", "мобильный разработчик", "мобильное приложение", "mobilni programer", "мобилни програмер", "Kotlin Multiplatform"]}
+    - {id: mob-stores, weight: 2, tokens: ["App Store", "Google Play", "fastlane", "iOS", "Swift", "mobile"]}
+    - {id: mob-gen, weight: 1, tokens: ["Android", "Kotlin", "Flutter", "React Native", "CI/CD", "accessibility"]}
+  react-native:
+    - {id: rn-core, weight: 6, tokens: ["React Native", "ReactNative", "RN developer"]}
+    - {id: rn-stack, weight: 3, tokens: ["TurboModules", "Fabric", "Metro", "Detox", "native module"]}
+    - {id: rn-gen, weight: 1, tokens: ["TypeScript", "JavaScript", "Jest", "npm", "iOS", "Android", "CI/CD"]}
+  flutter:
+    - {id: fl-core, weight: 6, tokens: ["Flutter", "Dart", "pub.dev"]}
+    - {id: fl-stack, weight: 3, tokens: ["Riverpod", "Bloc", "platform channel", "FFI", "widget testing"]}
+    - {id: fl-gen, weight: 1, tokens: ["plugin", "state management", "integration testing", "CI/CD"]}
+  go:
+    - {id: go-core, weight: 6, tokens: ["Golang", "Go developer", "Go engineer", "Go программист", "Go разработчик", "Go programer", "Go backend"]}
+    - {id: go-cs, weight: 2, case_sensitive: true, tokens: ["Go"]}
+    - {id: go-stack, weight: 3, tokens: ["Gin", "gRPC", "Protobuf", "HTTP/3", "QUIC", "ClickHouse", "Kubernetes", "Prometheus", "OpenTelemetry", "TLA+", "concurrency", "goroutines"]}
+    - {id: go-gen, weight: 1, tokens: ["WebSockets", "PostgreSQL", "Redis", "Docker"]}
+  ai-engineering:
+    - {id: ai-core, weight: 5, tokens: ["LLM", "LLMOps", "RAG", "prompt engineering", "agent orchestration", "MCP", "AI engineer", "ML engineer", "инженер ИИ", "AI инжењер", "large language model"]}
+    - {id: ai-stack, weight: 3, tokens: ["embeddings", "vector database", "model evaluation", "guardrails", "LangChain", "OpenAI", "Anthropic"]}
+    - {id: ai-gen, weight: 1, tokens: ["Python", "PostgreSQL", "Redis", "Go", "HTTP/3"]}
+  web-frontend:
+    - {id: web-core, weight: 5, tokens: ["frontend developer", "front-end developer", "frontend engineer", "front end", "фронтенд", "фронтенд разработчик", "frontend programer", "React", "Angular"]}
+    - {id: web-stack, weight: 3, tokens: ["Tailwind", "Redux Toolkit", "i18next", "WCAG", "Core Web Vitals", "design systems", "Vite", "SSR", "Playwright"]}
+    - {id: web-gen, weight: 1, tokens: ["TypeScript", "accessibility"]}
+  desktop:
+    - {id: dt-core, weight: 6, tokens: ["Electron", "Tauri", "desktop developer", "desktop application", "desktop app", "десктоп", "десктопное приложение", "desktop aplikacija"]}
+    - {id: dt-stack, weight: 3, tokens: ["Qt", "auto-update", "code signing", "IPC", "offline-first", "packaging"]}
+    - {id: dt-gen, weight: 1, tokens: ["desktop", "Rust", "TypeScript", "accessibility", "C++"]}

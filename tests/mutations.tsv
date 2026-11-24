@@ -1,0 +1,232 @@
+# JSK-T107 per-package mutation pairs. id<TAB>test packages<TAB>file<TAB>old (literal, \n \t escapes)<TAB>new.
+# Each mutation must make the named packages' tests FAIL (killed). A survivor, an unmatched pattern or a compile error fails the gate.
+store-rollback-commits	./internal/store ./tests/atomicity	internal/store/store.go	_ = tx.Rollback()\n\t\treturn err	_ = tx.Commit()\n\t\treturn err
+audit-stale-guard	./internal/audit ./tests/atomicity	internal/audit/audit.go	s.From != "" && s.From != cur	false
+audit-chain-prev	./internal/audit ./tests/atomicity	internal/audit/audit.go	h := Hash(prev, r)	h := Hash(GenesisHash, r)
+fsm-posting-extra-edge	./internal/fsm	internal/fsm/fsm.go	"discarded":   {},	"discarded":   {"shortlisted"},
+fsm-application-extra-edge	./internal/fsm	internal/fsm/fsm.go	"withdrawn":               {},	"withdrawn":               {"tracked"},
+ratelimit-bucket-empty-allowed	./internal/ratelimit	internal/ratelimit/ratelimit.go	if s.tokens >= 1 {	if s.tokens >= 0 {
+limiter-min-interval-off	./internal/limiter ./internal/ingest	internal/limiter/limiter.go	bump(t.Add(lim.MinInterval), "min_interval")	_ = t
+limiter-daily-cap-off	./internal/limiter	internal/limiter/limiter.go	if len(ats) >= lim.MaxPerDay {	if false {
+egress-scheme-any	./internal/egress	internal/egress/egress.go	u.Scheme != "https"	false
+egress-port-any	./internal/egress	internal/egress/egress.go	p != "" && p != "443"	p != "" && p != "443" && false
+egress-private-10-allowed	./internal/egress	internal/egress/egress.go	"10.0.0.0/8", 	
+crypto-aad-drops-row-id	./internal/crypto	internal/crypto/crypto.go	binary.BigEndian.PutUint64(i[:], uint64(id))	binary.BigEndian.PutUint64(i[:], 0)
+crypto-version-unchecked	./internal/crypto	internal/crypto/crypto.go	subtle.ConstantTimeByteEq(blob[0], blobVersion) != 1	subtle.ConstantTimeByteEq(blob[0], blobVersion) != 1 && false
+privacy-within-allows-root	./internal/privacy	internal/privacy/delete.go	r != "." && r != ".." && 	r != ".." && 
+redact-jwt-not-scrubbed	./internal/redact	internal/redact/redact.go	s = reJWT.ReplaceAllString(s, marker)	_ = s
+redact-email-not-scrubbed	./internal/redact	internal/redact/redact.go	s = reEmail.ReplaceAllString(s, "[email]")	_ = s
+store-fk-pragma-off	./internal/store	internal/store/store.go	"foreign_keys(1)", 	
+api-host-allowlist-open	./internal/api	internal/api/security.go	if h == "" || !set[h] {	if false {
+api-cross-site-allowed	./internal/api	internal/api/security.go	case "cross-site", "same-site":	case "never-matches-value":
+auth-bootstrap-never-closes	./internal/auth	internal/auth/passkey.go	if n > 0 {\n\t\treturn nil, "", ErrBootstrapClosed	if n > 99999 {\n\t\treturn nil, "", ErrBootstrapClosed
+tracker-any-state-accepted	./internal/tracker	internal/tracker/tracker.go	if state != "sent" && state != "dry_run_recorded" && state != "tracked" {	if false {
+ingest-dup-threshold-zero	./internal/ingest	internal/ingest/ingest.go	ratio >= DupThreshold	ratio >= 0.0
+tracker-bad-status-accepted	./internal/tracker	internal/tracker/tracker.go	if !validStatus(in.Status) {	if false {
+privacy-draft-confinement-off	./internal/privacy	internal/privacy/delete.go	!(parent == draft || within(draft, parent))	false
+templates-hash-unchecked	./internal/templates	internal/templates/templates.go	if got != e.SHA256 {\n\t\treturn File{}, ErrHashMismatch	if got != e.SHA256 && false {\n\t\treturn File{}, ErrHashMismatch
+llm-advisory-flag-flipped	./internal/llm	internal/llm/tiebreak.go	r.Advisory = !t.o.Applied	r.Advisory = false
+providers-script-content-kept	./internal/providers	internal/providers/sanitize.go	"script": true, "style": true,	"style": true,
+scheduler-ignores-interval	./internal/scheduler	internal/scheduler/scheduler.go	if ok && !last.After(now) && now.Sub(last) < j.Every {	if ok && !last.After(now) && now.Sub(last) < j.Every && false {
+jobops-noop-claims-implemented	./internal/jobops	internal/jobops/jobops.go	func (NoOp) IsImplemented() bool                         { return false }	func (NoOp) IsImplemented() bool                         { return true }
+jobops-mark-applied-allowed	./internal/jobops	internal/jobops/jobops.go	func (NoOp) MarkApplied(context.Context, string) error { return ErrNotSupported }	func (NoOp) MarkApplied(context.Context, string) error { return nil }
+certs-loose-key-mode-accepted	./internal/certs	internal/certs/certs.go	fi.Mode().Perm()&0o077 != 0 {\n\t\treturn tls.Certificate{}, errors.New("certs: key file mode must be 0600 or stricter")	fi.Mode().Perm()&0o077 != 0 && false {\n\t\treturn tls.Certificate{}, errors.New("certs: key file mode must be 0600 or stricter")
+config-secret-printable	./internal/config	internal/config/config.go	func (Secret) String() string               { return "[redacted]" }	func (s Secret) String() string             { return s.v }
+config-secret-marshals-plaintext	./internal/config	internal/config/config.go	func (Secret) MarshalText() ([]byte, error) { return []byte("[redacted]"), nil }	func (s Secret) MarshalText() ([]byte, error) { return []byte(s.v), nil }
+buildinfo-unstamped-claims-stamped	./internal/buildinfo	internal/buildinfo/buildinfo.go	if v == "" || c == "" {	if false && (v == "" || c == "") {
+app-anchor-path	./internal/app	internal/app/jobs.go	"audit.anchor")\n\tjobs	"audit.anch0r")\n\tjobs
+app-himalayas-flag	./internal/app	internal/app/fetch.go	if !cfg.HimalayasOK {	if false {
+boot-secret-mode-mask	./internal/boot	internal/boot/boot.go	Perm()&0o077 != 0	Perm()&0o007 != 0
+boot-live-mode-must-be-off	./internal/boot	internal/boot/boot.go	(ok && v != "0")	(ok && v != "1")
+careersnap-areas-drift-ignored	./internal/careersnap	internal/careersnap/careersnap.go	if !equal(cur.Areas[k], fresh.Areas[k]) {	if false {
+console-killoff-needs-stepup	./internal/console ./tests/e2e	internal/console/console.go	if !on && !stepUpFresh(g, c.Now()) {	if false {
+console-liveon-needs-stepup	./internal/console ./tests/e2e	internal/console/console.go	if on && !stepUpFresh(g, c.Now()) {	if false {
+designsync-hash-drift	./internal/designsync	internal/designsync/designsync.go	case got != want:	case got != want && false:
+i18n-missing-key-marker	./internal/i18n	internal/i18n/i18n.go	return "!!" + key + "!!"	return ""
+i18n-english-fallback	./internal/i18n	internal/i18n/i18n.go	m, ok = c.langs[Source][key]\n\t}	m, ok = "", false\n\t}
+jsctl-unverified-not-a-pass	./internal/jsctl	internal/jsctl/jsctl.go	return 2 // UNVERIFIED is never a pass	return 0 // UNVERIFIED is never a pass
+matchstore-human-mapping-final	./internal/matchstore	internal/matchstore/matchstore.go	if humanCur > 0 {	if false {
+matchstore-illegal-area	./internal/matchstore	internal/matchstore/matchstore.go	if !legal[area] {	if false {
+metrics-label-closed-set	./internal/metrics	internal/metrics/metrics.go	if !c.allowed[i][v] {	if false {
+metrics-path-only-metrics	./internal/metrics	internal/metrics/metrics.go	req.URL.Path != "/metrics"	req.URL.Path == ""
+server-no-0rtt	./internal/server	internal/server/server.go	Allow0RTT: false	Allow0RTT: true
+server-alt-svc-advertised	./internal/server	internal/server/server.go	w.Header().Set("Alt-Svc", alt)	_ = alt
+pipeline-killswitch-before-fetch	./internal/pipeline	internal/pipeline/pipeline.go	if p.Killed != nil && p.Killed(ctx) {	if false {
+pipeline-score-only-mapped	./internal/pipeline	internal/pipeline/pipeline.go	if m.Status != match.StatusMapped {\n\t\t\t\treturn nil	if false {\n\t\t\t\treturn nil
+scheduler-future-last-not-due	./internal/scheduler	internal/scheduler/scheduler.go	if ok && !last.After(now) &&	if ok &&
+# JSK-T182/T186 live-approval guards (wave 1 of 13-remediation-backlog)
+draft-gate-recheck-off	./internal/draft	internal/draft/service.go	len(gates) > 0 {	len(gates) > 99 {
+draft-posting-pin-off	./internal/draft	internal/draft/service.go	"posting", postingSHA)	"posting")
+draft-closed-posting-allowed	./internal/draft	internal/draft/service.go	p.State == "expired" || p.State == "discarded" {	false {
+draft-gates-undetermined-passes	./internal/draft	internal/draft/service.go	if err != nil || ov == nil || !ov.Present {	if err != nil && false || ov == nil || !ov.Present {
+match-blocked-company-gate-off	./internal/match ./internal/draft	internal/match/score.go	if cn != "" && cn == norm1(b) {	if cn != "" && cn == norm1(b) && false {
+# JSK-T181 company-level duplicate guard
+draft-company-guard-off	./internal/draft	internal/draft/service.go	if len(conflicts) > 0 && overrideReason == "" {	if len(conflicts) > 99 && overrideReason == "" {
+draft-company-legal-suffix-kept	./internal/draft	internal/draft/company.go	for len(w) > 1 && legalSuffix[w[len(w)-1]] {	for false && len(w) > 1 && legalSuffix[w[len(w)-1]] {
+draft-company-window-ignored	./internal/draft	internal/draft/company.go	|| now.Sub(t) < window {	|| now.Sub(t) < 0 {
+draft-company-cooldown-ignored	./internal/draft	internal/draft/company.go	now.Sub(t) < cool {	now.Sub(t) < 0 {
+draft-company-withdrawn-blocks	./internal/draft	internal/draft/company.go	case "withdrawn", "rejected_by_human", "expired", "failed_terminal":	case "never_matches":
+draft-company-override-open	./internal/draft	internal/draft/company.go	if o == r {	if true || o == r {
+draft-pin-content-fallback-off	./internal/draft	internal/draft/service.go	if p.RawSHA != "" {	if true {
+draft-gates-overlay-absent-passes	./internal/draft	internal/draft/service.go	if err != nil || ov == nil || !ov.Present {	if err != nil || ov == nil {
+position-ats-enable-all	./internal/position	internal/position/ats.go	Enabled: f[1] == "1"	Enabled: true
+position-ats-apply-suffix	./internal/position	internal/position/ats.go	[]string{"/application", "/apply"}	[]string{"/application"}
+position-ats-validate-captures	./internal/position	internal/position/ats.go	if !found {	if !found && false {
+jsk016-slug-regex	./internal/providers	internal/providers/ats.go	`^[A-Za-z0-9][A-Za-z0-9_-]{0,63}$`	`^.{0,63}$`
+jsk016-gh-unescape	./internal/providers	internal/providers/greenhouse.go	Body: html.UnescapeString(r.Content)}	Body: html.UnescapeString("") + r.Content}
+jsk016-gh-https-only	./internal/providers	internal/providers/greenhouse.go	if httpsURL(r.URL) == "" {	if r.URL == "" {
+jsk016-pick-validates-slug	./internal/providers	internal/providers/ats.go	if !ValidSlug(ts[i].Slug) {	if false {
+ext-combine-empty-is-yes	./internal/ext	internal/ext/verdict.go	if len(ts) == 0 {\n\t\to.Verdict = Unknown	if len(ts) == 0 {\n\t\to.Verdict = Yes
+ext-combine-unknown-not-blocking	./internal/ext	internal/ext/verdict.go	case Unknown:\n\t\t\to.Verdict = Unknown	case Unknown:\n\t\t\t_ = o
+ext-panic-not-fail-closed	./internal/ext	internal/ext/evaluate.go	Decision{Verdict: Unknown, Reasons: []Reason{{Code: "plugin_panic"	Decision{Verdict: Yes, Reasons: []Reason{{Code: "plugin_panic"
+ext-locked-gate-switchable	./internal/ext	internal/ext/policy.go	!v && locked[k] && l.Name != offBy	false
+ext-registry-duplicate-accepted	./internal/ext	internal/ext/registry.go	if _, dup := r.byID[i.ID]; dup {	if false {
+ext-active-gates-empty-ok	./internal/ext	internal/ext/registry.go	if len(a) == 0 {\n\t\treturn nil, &ErrFailClosed	if false {\n\t\treturn nil, &ErrFailClosed
+ext-channel-direct-send-allowed	./internal/ext	internal/ext/ports.go	if i.Caps["direct_send"] {	if false {
+ext-approved-hash-unchecked	./internal/ext	internal/ext/ports.go	approvedHash != draftHash {	false {
+ext-reason-vocab-open	./internal/ext	internal/ext/reasons.go	return code != "" && ok	return code != "" || ok
+ext-combine-out-of-range-passes	./internal/ext	internal/ext/verdict.go	default: // Unknown and any out-of-range value: only Yes is consent\n\t\t\to.Verdict = Unknown	default:\n\t\t\t_ = o
+position-link-current-unindexed	./internal/store	internal/store/migrations/0002_position.sql	ON position_link(listing_id) WHERE is_current = 1;	ON position_link(listing_id) WHERE is_current = 2;
+position-apply-lock-not-pk	./internal/store	internal/store/migrations/0002_position.sql	position_id INTEGER PRIMARY KEY REFERENCES position(id) ON DELETE CASCADE,	position_id INTEGER REFERENCES position(id) ON DELETE CASCADE,
+position-fsm-merged-not-terminal	./internal/fsm	internal/fsm/fsm.go	"merged":  {},	"merged":  {"open"},
+position-state-vocab-drift	./internal/store	internal/store/migrations/0002_position.sql	CHECK (state IN ('open','expired','merged'))	CHECK (state IN ('open','expired'))
+jsk016-lever-uuid	./internal/providers	internal/providers/lever.go	if !reUUID.MatchString(r.ID) ||	if false ||
+jsk016-lever-https-only	./internal/providers	internal/providers/lever.go	if httpsURL(r.HostedURL) == "" ||	if r.HostedURL == "" ||
+jsk016-lever-salary-sane	./internal/providers	internal/providers/lever.go	s.Max < 1e9 &&	true &&
+jsk016-ashby-uuid	./internal/providers	internal/providers/ashby.go	if !reUUID.MatchString(r.ID) ||	if false ||
+jsk016-ashby-unlisted	./internal/providers	internal/providers/ashby.go	if r.Listed != nil && !*r.Listed {	if false {
+jsk016-ashby-https-only	./internal/providers	internal/providers/ashby.go	if httpsURL(r.JobURL) == "" ||	if r.JobURL == "" ||
+jsk016-ashby-salary-sane	./internal/providers	internal/providers/ashby.go	mx < 1_000_000_000 {	true {
+ext-policy-unknown-plugin-accepted	./internal/ext	internal/ext/policy_load.go	if !cat.Plugins[k] {\n\t\t\t\treturn l, perr(path+".enabled."	if false {\n\t\t\t\treturn l, perr(path+".enabled."
+ext-policy-locked-off-ignored	./internal/ext	internal/ext/policy_load.go	if e, ok := r.Enabled[k]; !ok || !e.Value {	if e, ok := r.Enabled[k]; ok && e.Value && false {
+ext-policy-gate-port-empty-ok	./internal/ext	internal/ext/policy_load.go	if n == 0 {	if false {
+ext-policy-schema-unchecked	./internal/ext	internal/ext/policy_load.go	s != "policy.v1"	s != s
+ext-settings-bad-value-accepted	./internal/ext	internal/ext/policy_load.go	default:\n\t\t\t\treturn l, fmt.Errorf("settings: %s: value must be 0 or 1"	default:\n\t\t\t\tl.Enabled[pk] = true\n\t\t\t\t_ = fmt.Errorf("settings: %s: value must be 0 or 1"
+ext-verdictstore-forged-reason-accepted	./internal/ext/verdictstore ./internal/store	internal/ext/verdictstore/verdictstore.go	if err := ext.ValidateReasons(r.Reasons); err != nil {\n\t\treturn err	if err := ext.ValidateReasons(r.Reasons); err != nil && false {\n\t\treturn err
+ext-verdictstore-stale-usable	./internal/ext/verdictstore ./internal/store	internal/ext/verdictstore/verdictstore.go	return !st\n	return !st || true\n
+ext-verdictstore-ruleset-ignored	./internal/ext/verdictstore ./internal/store	internal/ext/verdictstore/verdictstore.go	if r.PolicySHA == policySHA && r.RulesetSHA == rulesetSHA {	if r.PolicySHA == policySHA {
+ext-verdictstore-no-flip	./internal/ext/verdictstore ./internal/store	internal/ext/verdictstore/verdictstore.go	SET is_current=0 WHERE	SET is_current=1 WHERE
+ext-verdictstore-nonyes-no-reason	./internal/ext/verdictstore ./internal/store	internal/ext/verdictstore/verdictstore.go	r.Verdict != ext.Yes && len(r.Reasons) == 0	false
+jsk016-hn-top-level-only	./internal/providers	internal/providers/hn.go	if r.Parent.String() == "" || r.Parent.String() != thread {	if false {
+jsk016-hn-seeker-skip	./internal/providers	internal/providers/hn.go	if header == "" || reHNSeeker.MatchString(header) {	if header == "" {
+jsk016-hn-thread-author	./internal/providers	internal/providers/hn.go	if t.Author != "whoishiring" ||	if false ||
+jsk016-hn-cursor-bound	./internal/providers	internal/providers/hn.go	if page >= hnMaxCommentPages {	if false {
+jsk016-hn-https-apply	./internal/providers	internal/providers/hn.go	if u := httpsURL(strings.ReplaceAll(m[1], "&#x2F;", "/")); u != "" {	if u := strings.ReplaceAll(m[1], "&#x2F;", "/"); u != "" {
+jsk016-hn-salary-bound	./internal/providers	internal/providers/hn.go	&& !strings.ContainsAny(s, "<>") {	{
+ext-elig-onsite-outside-passes	./internal/ext/eligibility	internal/ext/eligibility/eligibility.go	return no("onsite_outside_allowed", map[string]string{"mode": mode})	return ext.Decision{Verdict: ext.Yes}
+ext-elig-unknown-mode-yes	./internal/ext/eligibility	internal/ext/eligibility/eligibility.go	return ext.Decision{Verdict: ext.Unknown, Reasons: []ext.Reason{{Code: "remote_mode_unknown"}}}	return ext.Decision{Verdict: ext.Yes}
+ext-elig-blocked-inverted	./internal/ext/eligibility	internal/ext/eligibility/eligibility.go	if cn == match.NormName(b) {	if cn != match.NormName(b) {
+ext-elig-salary-inverted	./internal/ext/eligibility	internal/ext/eligibility/eligibility.go	float64(top)*pk < float64(fl.Min)*fk	float64(top)*pk > float64(fl.Min)*fk
+ext-elig-region-case-sensitive	./internal/ext/eligibility	internal/ext/eligibility/eligibility.go	if strings.EqualFold(pc, ec) {	if pc == ec {
+ext-elig-no-overlay-yes	./internal/ext/eligibility	internal/ext/eligibility/eligibility.go	cities, ok := pr.AllowedOnsiteCities()\n\t\tif !ok {\n\t\t\treturn noData("remote_mode", "allowed_onsite_cities")\n\t\t}	cities, ok := pr.AllowedOnsiteCities()\n\t\tif !ok {\n\t\t\treturn ext.Decision{Verdict: ext.Yes}\n\t\t}
+# JSK-T172 template-set freshness
+templates-age-unchecked	./internal/templates ./internal/draft	internal/templates/templates.go	if now.Sub(at) > p.MaxAge {	if now.Sub(at) > p.MaxAge*1000 {
+templates-overlay-unchecked	./internal/templates ./internal/draft	internal/templates/templates.go	s.overlaySHA != p.OverlaySHA)	false)
+templates-gate-unchecked	./internal/templates ./internal/draft	internal/templates/templates.go	if e.Gate != "pass" {	if e.Gate != "pass" && false {
+templates-future-epoch-trusted	./internal/templates	internal/templates/templates.go	if at.After(now) {	if at.After(now.Add(1000 * 24 * time.Hour)) {
+draft-templates-check-off	./internal/draft	internal/draft/service.go	s.now()); err != nil {\n\t\tcause	s.now()); err != nil && s.Tpl == nil {\n\t\tcause
+position-seniority-guard-off	./internal/position	internal/position/normalize.go	return oka && okb && ra != rb	return oka && okb && ra == rb
+position-employer-noise-empties	./internal/position	internal/position/normalize.go	if len(toks) > 1 && (tbl.legal	if len(toks) > 0 && (tbl.legal
+position-canon-drops-gh-jid	./internal/position	internal/position/normalize.go	"gh_src": true,	"gh_src": true, "gh_jid": true,
+position-loc-unknown-incompatible	./internal/position	internal/position/normalize.go	return 0.5\n\t}\n\tif a.Worldwide	return 0\n\t}\n\tif a.Worldwide
+position-structured-countries-ignored	./internal/position	internal/position/normalize.go	structured := len(set) > 0	structured := false
+position-canon-unreserved-only-off	./internal/position	internal/position/normalize.go	v == '~'	false
+jsk016-jsonld-https-page	./internal/providers	internal/providers/jsonld.go	if err != nil || pu.Scheme != "https" ||	if err != nil ||
+jsk016-jsonld-block-cap	./internal/providers	internal/providers/jsonld.go	if blocks > MaxJSONLDBlocks {	if false {
+jsk016-jsonld-size-cap	./internal/providers	internal/providers/jsonld.go	if len(text) > maxJSONLDBlockSize {	if false {
+jsk016-jsonld-salary-sane	./internal/providers	internal/providers/jsonld.go	mx < 1e9 && mx > 0 {	mx > 0 {
+jsk016-jsonld-https-url	./internal/providers	internal/providers/jsonld.go	src := httpsURL(ldStr(m["url"]))	src := ldStr(m["url"])
+jsk016-ba-gated	./internal/providers	internal/providers/bundesagentur.go	if !b.Enabled || q.APIKey == "" {	if false {
+jsk016-ba-ref-shape	./internal/providers	internal/providers/bundesagentur.go	if !reBARef.MatchString(r.Refnr) ||	if false ||
+jsk016-ba-https-apply	./internal/providers	internal/providers/bundesagentur.go	if u := httpsURL(r.ExterneURL); u != "" {	if u := r.ExterneURL; u != "" {
+ext-kw-symbols-split	./internal/ext/match/keyword ./internal/match	internal/ext/match/keyword/keyword.go	 || r == '+' || r == '#'	
+ext-kw-synonyms-ignored	./internal/ext/match/keyword ./internal/match	internal/ext/match/keyword/keyword.go	append([]string{w}, f.Synonyms[w]...)	[]string{w}
+ext-kw-multiword-first-token	./internal/ext/match/keyword ./internal/match	internal/ext/match/keyword/keyword.go	hay[i+j] != needle[j]	hay[i+j] != needle[0]
+ext-kw-points-uncapped	./internal/ext/match/keyword ./internal/match	internal/match/score.go	math.Min(sr.Keywords.MaxPoints, sr.Keywords.PointsPerHit*float64(r.KeywordHits(p)))	sr.Keywords.PointsPerHit*float64(r.KeywordHits(p))
+ext-kw-sha-ignores-synonyms	./internal/ext/match/keyword ./internal/match	internal/match/rules.go	h.Write(yb)	_ = yb
+# JSK-T167 language detector and confirmation
+match-lang-hangul-script-off	./internal/match	internal/match/lang.go	case n["hangul"]*3 > tot:	case false && n["hangul"]*3 > tot:
+match-lang-persian-vs-arabic	./internal/match	internal/match/lang.go	if persian > arabic {	if false && persian > arabic {
+match-lang-belarusian-marker-off	./internal/match	internal/match/lang.go	case beM > 0:	case beM > 99999:
+draft-lang-silent-fallback	./internal/draft	internal/draft/language.go	if (detected != "" && detected != "und") || letters >= minTextLetters {	if false {
+draft-lang-threshold-loosened	./internal/draft	internal/draft/language.go	const minLangConf = match.LangMinConfidence	const minLangConf = match.LangMinConfidence - 0.2
+ext-jsonld-any-location-type-remote	./internal/ext/reader/jsonld	internal/ext/reader/jsonld/jsonld.go	if str(j["jobLocationType"]) == "TELECOMMUTE" {	if str(j["jobLocationType"]) != "" {
+ext-jsonld-type-unchecked	./internal/ext/reader/jsonld	internal/ext/reader/jsonld/jsonld.go	return t == "JobPosting"	return true
+ext-jsonld-error-swallowed	./internal/ext/reader/jsonld	internal/ext/reader/jsonld/jsonld.go	if err := dec.Decode(&v); err != nil {\n\t\treturn providers.Posting{}, false, errMalformed	if err := dec.Decode(&v); err != nil {\n\t\treturn providers.Posting{}, false, nil
+ext-jsonld-size-unbounded	./internal/ext/reader/jsonld	internal/ext/reader/jsonld/jsonld.go	if len(raw) > MaxBytes {	if false {
+ext-jsonld-identifier-name	./internal/ext/reader/jsonld	internal/ext/reader/jsonld/jsonld.go	if s := str(m["value"]); s != "" {	if s := str(m["name"]); s != "" {
+position-resolver-seniority-guard-off	./internal/position	internal/position/resolver.go	case SeniorityMismatch(a.title.Seniority, b.title.Seniority):	case false:
+position-resolver-cannot-link-ignored	./internal/position	internal/position/resolver.go	delete(targets, pos.Int64)	_ = targets
+position-resolver-t-auto-lowered	./internal/position	internal/position/resolver_weights.tsv	t_auto\t0.92	t_auto\t0.85
+position-resolver-bridge-ignores-cannot-link	./internal/position	internal/position/resolver.go	errors.Is(err, ErrCannotLink) || 	false || 
+position-merge-busy-guard-off	./internal/position	internal/position/ops.go	return ErrPositionBusy\n\t}\n\tvar cl int	_ = 0\n\t}\n\tvar cl int
+position-resolver-idempotence-off	./internal/position	internal/position/resolver.go	return Outcome{Position: cur, Decision: "existing"}, nil	_ = cur
+position-resolver-ats-differs-guard-off	./internal/position	internal/position/resolver.go	case a.ATS.JobID != "" && b.ATS.JobID != "" &&	case false &&
+position-invariants-no-inv3	./internal/position	internal/position/invariants.go	p.id<>pos.representative_listing_id AND p.dup_of IS NOT pos.representative_listing_id	1=0
+position-mirror-dup-of-null	./internal/position	internal/position/ops.go	THEN NULL ELSE ? END	THEN NULL ELSE NULL*? END
+position-ingest-wiring-off	./internal/ingest	internal/ingest/ingest.go	if r.Positions != nil {	if false {
+position-backfill-ignores-dup-of	./internal/position	internal/position/backfill.go	isRoot := it.root == it.id	isRoot := true
+position-backfill-not-idempotent	./internal/position	internal/position/backfill.go	SELECT id, dup_of FROM posting WHERE position_id IS NULL ORDER BY id	SELECT id, dup_of FROM posting ORDER BY id
+position-backfill-chain-unflattened	./internal/position	internal/position/backfill.go	cur = d.Int64	return cur, nil
+ext-mailto-unknown-header-accepted	./internal/ext/channel/mailto	internal/ext/channel/mailto/mailto.go	return Message{}, errBad // unknown header (bcc, from, x-*, ...)	_ = dv
+ext-mailto-ctl-in-value-accepted	./internal/ext/channel/mailto	internal/ext/channel/mailto/mailto.go	if err != nil || hasCtl(dv) || seen[k] {	if err != nil || seen[k] {
+ext-mailto-zero-approved-accepted	./internal/ext/channel/mailto	internal/ext/channel/mailto/mailto.go	if !a.Valid() {	if false {
+ext-mailto-subject-precedence	./internal/ext/channel/mailto	internal/ext/channel/mailto/mailto.go	if subject == "" {\n\t\tsubject = a.Subject	if true {\n\t\tsubject = a.Subject
+ext-openurl-http-accepted	./internal/ext/channel/openurl	internal/ext/channel/openurl/openurl.go	u.Scheme == "https"	u.Scheme != ""
+ext-openurl-zero-approved-accepted	./internal/ext/channel/openurl	internal/ext/channel/openurl/openurl.go	if !a.Valid() {	if false {
+ext-mailto-recipient-metachars-accepted	./internal/ext/channel/mailto	internal/ext/channel/mailto/mailto.go	|| !plainAddr(s) {	|| false {
+position-apply-url-generic-allowed	./internal/position	internal/position/resolver.go	l.ApplyCanon != "" && jobSpecificURL(l.ApplyCanon) &&	l.ApplyCanon != "" &&
+position-backfill-rederives-representative	./internal/position	internal/position/backfill.go	r.P.Version, rootRep[pid])	r.P.Version, 0)
+# JSK-T160/T161 cover slots, send-day date, placeholder guard
+draft-cover-date-unchecked	./internal/draft	internal/draft/service.go	if cover.CoverDate != s.now().Format("2006-01-02") {	if cover.CoverDate != s.now().Format("2006-01-02") && false {
+draft-cover-date-unknown-passes	./internal/draft	internal/draft/service.go	return fail("date_unknown")	return nil
+draft-cover-company-unchecked	./internal/draft	internal/draft/service.go	if cover.Company != "" && NormCompany(cover.Company) != NormCompany(p.Company) {	if false {
+draft-cover-placeholder-unchecked	./internal/draft	internal/draft/service.go	if templates.HasReserved(cover.Company) || templates.HasReserved(cover.Role) || templates.HasReserved(cover.CoverDate) {	if false {
+draft-hash-date-dropped	./internal/draft	internal/draft/service.go	"posting", postingSHA, "date", draftDate)	"posting", postingSHA)
+templates-slot-unknown-passes	./internal/templates	internal/templates/slots.go	if bad || strings.Contains(out, "{{") || strings.Contains(out, "}}") {	if bad && false {
+templates-leak-placeholder-off	./internal/templates	internal/templates/slots.go	if reReserved.MatchString(text) {	if false {
+sched-skew-tolerance-removed	./internal/scheduler	internal/scheduler/scheduler.go	now.Sub(last) >= -ClockSkewTolerance &&	now.Sub(last) >= 0 &&
+pipeline-bad-body-recounted	./internal/pipeline	internal/pipeline/pipeline.go	if p.isBad(r.id) && len(r.body) > 0 {	if false {
+ext-compose-deliverability-unknown-ok	./internal/ext/channel/smtpcompose	internal/ext/channel/smtpcompose/smtpcompose.go	d.Verdict != ext.Yes {	d.Verdict == ext.No {
+ext-compose-zero-approved-ok	./internal/ext/channel/smtpcompose	internal/ext/channel/smtpcompose/smtpcompose.go	if !a.Valid() {	if false {
+ext-compose-subject-precedence	./internal/ext/channel/smtpcompose	internal/ext/channel/smtpcompose/smtpcompose.go	if subject == "" {\n\t\tsubject = a.Subject	if true {\n\t\tsubject = a.Subject
+ext-compose-subject-crlf-ok	./internal/ext/channel/smtpcompose	internal/ext/channel/smtpcompose/message.go	!bare(m.Subject) ||	false ||
+ext-compose-attachment-name-unchecked	./internal/ext/channel/smtpcompose	internal/ext/channel/smtpcompose/message.go	!reAttach.MatchString(a.Name) ||	false ||
+ext-compose-message-id-unchecked	./internal/ext/channel/smtpcompose	internal/ext/channel/smtpcompose/message.go	!reMsgID.MatchString(m.MessageID) ||	false ||
+ext-compose-token-sent-wrong	./internal/ext/channel/smtpcompose	internal/ext/channel/smtpcompose/smtpcompose.go	req.Header.Set("Authorization", "Bearer "+tok)	req.Header.Set("Authorization", "Bearer x")
+ext-compose-error-wraps-cause	./internal/ext/channel/smtpcompose	internal/ext/channel/smtpcompose/smtpcompose.go	return DraftRef{}, errors.New("smtpcompose: draft request failed")	return DraftRef{}, fmt.Errorf("smtpcompose: draft request failed: %w", err)
+ext-pdflinks-scheme-unchecked	./internal/ext/render/pdflinks	internal/ext/render/pdflinks/pdflinks.go	case !allowed(l.Scheme):	case false:
+ext-pdflinks-notURI-unchecked	./internal/ext/render/pdflinks	internal/ext/render/pdflinks/pdflinks.go	case l.Scheme == "":	case false:
+ext-pdflinks-error-is-yes	./internal/ext/render/pdflinks	internal/ext/render/pdflinks/pdflinks.go		case err != nil:\n\t\treturn ext.Decision{Verdict: ext.Unknown		case false:\n\t\treturn ext.Decision{Verdict: ext.Unknown
+ext-pdflinks-block-ignored	./internal/ext/render/pdflinks	internal/ext/render/pdflinks/pdflinks.go	if f.Severity == "block" {	if false {
+ext-parsersim-tagged-always	./internal/ext/ats/parsersim	internal/ext/ats/parsersim/parsersim.go	doc.Tagged = strings.TrimSpace(v) == "yes"	doc.Tagged = true
+ext-parsersim-size-unbounded	./internal/ext/ats/parsersim	internal/ext/ats/parsersim/parsersim.go	if n > max {	if n > max && false {
+ext-parsersim-pdfinfo-url-ignored	./internal/ext/ats/parsersim	internal/ext/ats/parsersim/parsersim.go	if !have[t] {	if false {
+ext-parsersim-newline-href-dropped	./internal/ext/ats/parsersim	internal/ext/ats/parsersim/parsersim.go	(?s)<a href=	<a href=
+ext-parsersim-hostless-https-ok	./internal/ext/ats/parsersim	internal/ext/ats/parsersim/parsersim.go	u.Host == "" {\n\t\t\treturn l	false {\n\t\t\treturn l
+ext-scan-flate-not-inflated	./internal/ext/ats/parsersim	internal/ext/ats/parsersim/scan.go	collect(out)	_ = out
+ext-scan-bomb-inflated	./internal/ext/ats/parsersim	internal/ext/ats/parsersim/scan.go	if err != nil || len(out) > maxStreamInflate || total > maxTotalInflate {	if false {
+ext-pdflinks-incomplete-is-yes	./internal/ext/render/pdflinks	internal/ext/render/pdflinks/pdflinks.go	if d.Incomplete {	if false {
+ext-pdflinks-actions-ignored	./internal/ext/render/pdflinks	internal/ext/render/pdflinks/pdflinks.go	for _, a := range d.Actions {	for _, a := range d.Actions[:0] {
+ext-scan-chained-filter-ok	./internal/ext/ats/parsersim	internal/ext/ats/parsersim/scan.go	len(names) != 1 || string(names[0])	len(names) < 1 || string(names[0])
+ext-scan-decodeparms-ignored	./internal/ext/ats/parsersim	internal/ext/ats/parsersim/scan.go	|| bytes.Contains(dict, []byte("/DecodeParms")) || bytes.Contains(dict, []byte("/DP"))	
+ext-scan-inflate-error-ignored	./internal/ext/ats/parsersim	internal/ext/ats/parsersim/scan.go	if err != nil || len(out) > maxStreamInflate	if len(out) > maxStreamInflate
+ext-scan-name-escapes-ignored	./internal/ext/ats/parsersim	internal/ext/ats/parsersim/scan.go	if !bytes.Contains(b, []byte("#")) {	if true {
+ext-scan-dict-out-of-reach-ignored	./internal/ext/ats/parsersim	internal/ext/ats/parsersim/scan.go	r.Incomplete = true // the stream dictionary is out of reach	_ = r // the stream dictionary is out of reach
+ext-scan-indirect-filter-skipped	./internal/ext/ats/parsersim	internal/ext/ats/parsersim/scan.go	if bytes.Contains(dict, []byte("/Filter")) {\n\t\t\t\tr.Incomplete = true	if bytes.Contains(dict, []byte("/Filter")) {\n\t\t\t\t_ = dict
+ext-scan-stray-stream-keyword-ignored	./internal/ext/ats/parsersim	internal/ext/ats/parsersim/scan.go	if len(reStreamKw.FindAllIndex(raw, -1)) != len(streams) {	if false {
+ext-scan-string-header-not-stripped	./internal/ext/ats/parsersim	internal/ext/ats/parsersim/scan.go	plain, ok := stripStrings(region)	plain, ok := region, true
+ext-scan-multi-header-region-accepted	./internal/ext/ats/parsersim	internal/ext/ats/parsersim/scan.go	len(reObjHdr.FindAllIndex(plain, -1)) != 1	false
+match-lang-decoy-wins-as-template	./internal/match	internal/match/lang.go	if _, decoy := decoyStops[best]; decoy {	if _, decoy := decoyStops[best]; decoy && false {
+match-lang-pashto-kurdish-as-persian	./internal/match	internal/match/lang.go	if psKu >= 2 {	if psKu >= 2000000 {
+ext-source-foreign-fetcher-allowed	./internal/ext/source	internal/ext/source/legacy.go	!ok || ef == nil || ef.c == nil || ef.c != l.c || l.c == nil	ef == nil && !ok && false
+ext-source-skip-class-dropped	./internal/ext/source	internal/ext/source/legacy.go	out.Skipped[s.Class]++	out.Skipped[s.Class] = 1
+ext-source-raw-dropped	./internal/ext/source	internal/ext/source/legacy.go	NextCursor: b.NextCursor, Raw: b.Raw}	NextCursor: b.NextCursor}
+providers-attribution-overwrite	./internal/providers	internal/providers/export.go	if _, dup := attributions[provider]; dup {	if _, dup := attributions[provider]; dup && false {
+providers-attribution-http-home	./internal/providers	internal/providers/export.go	httpsURL(a.HomeURL) == ""	false
+ext-gmail-endpoint-scheme-unchecked	./internal/ext/channel/smtpcompose	internal/ext/channel/smtpcompose/smtpcompose.go	u.Scheme != "https" ||	false ||
+ext-gmail-endpoint-userinfo-allowed	./internal/ext/channel/smtpcompose	internal/ext/channel/smtpcompose/smtpcompose.go	|| u.User != nil {	|| false {
+ext-scan-endobj-substring	./internal/ext/ats/parsersim	internal/ext/ats/parsersim/scan.go	if before && after {	if before || after {
+ext-scan-endobj-name-counts	./internal/ext/ats/parsersim	internal/ext/ats/parsersim/scan.go	before := i == 0 || isWS(b[i-1]) || b[i-1] == ']' || b[i-1] == '>' || b[i-1] == ')'	before := true
+ext-gmail-redirect-followed	./internal/ext/channel/smtpcompose	internal/ext/channel/smtpcompose/smtpcompose.go	return http.ErrUseLastResponse	return nil
+ext-scan-xref-name-exempts	./internal/ext/ats/parsersim	internal/ext/ats/parsersim/scan.go	reXRefType.Match(dict) && !bytes.Contains(dict, []byte("/ObjStm"))	bytes.Contains(dict, []byte("/XRef"))

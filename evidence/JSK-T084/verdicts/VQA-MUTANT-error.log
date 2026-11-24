@@ -1,0 +1,1 @@
+PASS: VQA-MUTANT-error matched=0/2 hallucinated=false expect_fail=true raw_pass=false response="The visible text on the screenshot is:\n\n```\npanic: runtime error: invalid memory address or nil pointer dereference\n\ngoroutine 1 [running]:\n    main.render(0x0)\n        /app/console.go:88 +0x1c\nexit status 2\n```"

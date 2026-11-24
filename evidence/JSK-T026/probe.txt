@@ -1,0 +1,46 @@
+# JSK-T026 evidence, captured 2026-11-24T10:07:56Z via gh api (read-only)
+## repo
+{"archived":false,"created":"2021-12-15T00:17:43Z","full_name":"go-webauthn/webauthn","license":"BSD-3-Clause","open_issues":11,"pushed":"2026-11-20T17:17:57Z","stars":1368}
+## last 12 releases
+v0.18.2	2026-09-19
+v0.18.1	2026-09-10
+v0.18.0	2026-08-27
+v0.17.4	2026-05-22
+v0.17.3	2026-05-09
+v0.17.2	2026-05-03
+v0.17.1	2026-05-03
+v0.17.0	2026-04-21
+v0.16.5	2026-04-19
+v0.16.4	2026-04-09
+v0.16.3	2026-04-05
+v0.16.2	2026-04-02
+## global advisories affecting the module (empty = none returned)
+0
+## successor of
+{"archived":true,"pushed":"2022-12-05T16:42:57Z"}
+## go.mod requires (latest)
+module github.com/go-webauthn/webauthn
+
+go 1.26.0
+
+toolchain go1.27.4
+
+require (
+	github.com/fxamacker/cbor/v2 v2.10.0
+	github.com/go-viper/mapstructure/v2 v2.5.0
+	github.com/go-webauthn/x v0.4.1
+	github.com/golang-jwt/jwt/v5 v5.3.1
+	github.com/google/go-tpm v0.9.8
+	github.com/google/uuid v1.6.0
+	github.com/stretchr/testify v1.12.1
+	github.com/tinylib/msgp v1.6.5
+	go.uber.org/mock v0.6.0
+)
+
+require (
+	github.com/philhofer/fwd v1.2.0 // indirect
+	github.com/x448/float16 v0.8.4 // indirect
+	go.yaml.in/yaml/v3 v3.0.5 // indirect
+	golang.org/x/crypto v0.59.0 // indirect
+	golang.org/x/sys v0.50.0 // indirect
+)

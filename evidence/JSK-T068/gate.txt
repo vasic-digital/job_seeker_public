@@ -1,0 +1,2 @@
+OK: no-send-bypass suite green (8 FR-026 attempts, handoff re-checks, sent-writer enumeration, no generative import)
+PROVE-FAILURE OK: control rc=0; 8 mutants (live, kill, step-up, company, cap, hash, second sent writer, network import) all rejected

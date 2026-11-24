@@ -1,0 +1,14 @@
+{{define "content"}}
+{{if .Rows}}
+<table class="od-table">
+  <caption class="od-visually-hidden">{{t .Lang "queue.caption"}}</caption>
+  <thead><tr><th scope="col">{{t .Lang "col.title"}}</th><th scope="col">{{t .Lang "col.company"}}</th><th scope="col">{{t .Lang "col.state"}}</th><th scope="col">{{t .Lang "queue.top3"}}</th><th scope="col">{{t .Lang "queue.map"}}</th></tr></thead>
+  <tbody>{{range .Rows}}<tr><th scope="row"><a href="/postings/{{.ID}}">{{.Title}}</a></th><td>{{.Company}}</td><td>{{.State}}</td>
+    {{with index $.QueueDetail .ID}}<td data-testid="top3">{{range .Top3}}{{.Area}} ({{printf "%.1f" .Score}}) {{end}}{{if .Hits}}· {{t $.Lang "queue.hits"}}: {{.Hits}}{{end}}{{if .Excl}} · {{t $.Lang "queue.excluded"}}: {{.Excl}}{{end}}</td>{{else}}<td>–</td>{{end}}
+    <td><form method="post" action="/queue/{{.ID}}/map" class="console-inline"><input type="hidden" name="_csrf" value="{{$.CSRF}}">
+      <label class="od-label" for="area-{{.ID}}">{{t $.Lang "queue.area"}}</label>
+      <select class="od-input" id="area-{{.ID}}" name="area_id" required>{{range $.AllAreas}}<option>{{.}}</option>{{end}}</select>
+      <button class="od-btn od-btn--secondary" type="submit">{{t $.Lang "queue.map"}}</button></form></td></tr>{{end}}</tbody>
+</table>
+{{else}}<div class="od-empty-state"><p class="od-empty-state__title">{{t .Lang "queue.empty"}}</p></div>{{end}}
+{{end}}

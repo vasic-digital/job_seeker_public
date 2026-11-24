@@ -1,0 +1,147 @@
+# JSK-T111 HelixQA http: bank for the REAL jobseekerd (no browser, no LLM, no vision).
+# Self-driving: every step is a real HTTP request with a machine-checked status or body assertion, run by
+# `helixqa http` against a freshly booted daemon. Only the unauthenticated boundary is exercised here: logging in needs a
+# passkey ceremony, which the Go live suite (tests/live, software authenticator) and the Playwright journey cover.
+# What this bank does NOT cover (vision/autonomous legs, BLOCKED: no HELIX_VISION_ENDPOINT on this host): visual review
+# of rendered pages, curiosity-driven exploration, video evidence.
+version: "1.0"
+name: "job_seeker console boundary"
+description: "Unauthenticated boundary of the real job_seeker daemon: probes, session guard, public ceremony routes, static assets."
+metadata:
+  author: vasic-digital
+  app: job_seeker
+  target_server: "jobseekerd over TLS (private CA), JOBSEEKER_ENV=test"
+test_cases:
+  - id: JSK-QA-001
+    name: "healthz answers 200 with build provenance"
+    category: functional
+    priority: critical
+    platforms: [api]
+    steps:
+      - name: "GET /healthz"
+        action: "http: GET /healthz"
+        expected: "200 with source_commit in the body"
+        expect_status: 200
+        expect_body_contains: "source_commit"
+    tags: [health]
+    estimated_duration: "2s"
+    expected_result: "healthz is up and carries the build fingerprint"
+  - id: JSK-QA-002
+    name: "status requires a session"
+    category: negative
+    priority: critical
+    platforms: [api]
+    steps:
+      - name: "GET /api/v1/status without a cookie"
+        action: "http: GET /api/v1/status"
+        expected: "401 unauthenticated"
+        expect_status: 401
+        expect_body_contains: "unauthenticated"
+    tags: [auth]
+    estimated_duration: "2s"
+    expected_result: "no data without a session"
+  - id: JSK-QA-003
+    name: "unknown routes are not enumerable without a session"
+    category: negative
+    priority: high
+    platforms: [api]
+    steps:
+      - name: "GET /no/such/route"
+        action: "http: GET /no/such/route"
+        expected: "401, not 404"
+        expect_status: 401
+    tags: [auth, enumeration]
+    estimated_duration: "2s"
+    expected_result: "an unauthenticated caller cannot tell real routes from unknown ones"
+  - id: JSK-QA-004
+    name: "console pages are behind the session guard"
+    category: negative
+    priority: critical
+    platforms: [api]
+    steps:
+      - name: "GET /queue without a cookie"
+        action: "http: GET /queue"
+        expected: "401"
+        expect_status: 401
+      - name: "GET /settings without a cookie"
+        action: "http: GET /settings"
+        expected: "401"
+        expect_status: 401
+      - name: "GET /audit.jsonl without a cookie"
+        action: "http: GET /audit.jsonl"
+        expected: "401"
+        expect_status: 401
+    tags: [auth, console]
+    estimated_duration: "4s"
+    expected_result: "queue, settings and the audit export need a session"
+  - id: JSK-QA-005
+    name: "the kill switch cannot be flipped without a session"
+    category: negative
+    priority: critical
+    platforms: [api]
+    steps:
+      - name: "POST /settings/kill-switch off, no cookie, no token"
+        action: "http: POST /settings/kill-switch"
+        expected: "403 forbidden_origin: an unsafe request with no Origin never reaches the handler"
+        body: {}
+        expect_status: 403
+        expect_body_contains: "forbidden_origin"
+    tags: [auth, kill-switch]
+    estimated_duration: "2s"
+    expected_result: "an anonymous cross-origin or origin-less caller cannot change the outbound controls"
+  - id: JSK-QA-006
+    name: "approval routes refuse an anonymous caller"
+    category: negative
+    priority: critical
+    platforms: [api]
+    steps:
+      - name: "POST /applications/1/approve, no cookie"
+        action: "http: POST /applications/1/approve"
+        expected: "403 forbidden_origin: refused before the session or the handler is consulted"
+        body: {}
+        expect_status: 403
+        expect_body_contains: "forbidden_origin"
+    tags: [auth, approval]
+    estimated_duration: "2s"
+    expected_result: "no approval without a session"
+  - id: JSK-QA-007
+    name: "login page is public and served"
+    category: functional
+    priority: high
+    platforms: [api]
+    steps:
+      - name: "GET /login"
+        action: "http: GET /login"
+        expected: "200"
+        expect_status: 200
+    tags: [login]
+    estimated_duration: "2s"
+    expected_result: "the sign-in page is reachable without a session"
+  - id: JSK-QA-008
+    name: "an unsafe request with no Origin is refused even on a public ceremony route"
+    category: functional
+    priority: high
+    platforms: [api]
+    steps:
+      - name: "POST /login/begin"
+        action: "http: POST /login/begin"
+        expected: "403 forbidden_origin, never a 5xx"
+        body: {}
+        expect_status: 403
+        expect_body_contains: "forbidden_origin"
+    tags: [login, passkey]
+    estimated_duration: "2s"
+    expected_result: "the same-origin check runs before the route: a plain HTTP client cannot start a ceremony"
+  - id: JSK-QA-009
+    name: "vendored static assets are public"
+    category: functional
+    priority: medium
+    platforms: [api]
+    steps:
+      - name: "GET /static/vendor/htmx.min.js"
+        action: "http: GET /static/vendor/htmx.min.js"
+        expected: "200"
+        expect_status: 200
+    tags: [static]
+    estimated_duration: "2s"
+    expected_result: "the pinned htmx asset is served"

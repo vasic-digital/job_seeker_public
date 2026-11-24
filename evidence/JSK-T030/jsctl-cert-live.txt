@@ -1,0 +1,66 @@
+$ jsctl cert check
+subject=CN=js.lan
+issuer=CN=job_seeker private CA
+not_before=2026-11-24T10:34:17Z
+not_after=2027-02-22T10:35:17Z
+names=js.lan
+self_signed=false
+note: chains_to_ca.crt
+certificate: OK
+-> rc 0 (want 0)
+$ jsctl cert check --hosts js.lan,other.lan
+subject=CN=js.lan
+issuer=CN=job_seeker private CA
+not_before=2026-11-24T10:34:17Z
+not_after=2027-02-22T10:35:17Z
+names=js.lan
+self_signed=false
+note: chains_to_ca.crt
+problem: host_not_covered:other.lan
+certificate: NOT OK (QUIC needs a certificate the client trusts)
+-> rc 1 (want 1)
+$ jsctl migrate
+migrate: schema version 1 (binary expects 1)
+-> rc 0 (want 0)
+$ jsctl backup
+backup: wrote jobseeker.db.snapshot-v1-20261124T103517.324457563Z.bak in $HOME/.cache/claude-tmp/TestJsctlAgainstRealServerData155426500/001/data/backups (integrity_check ok)
+-> rc 0 (want 0)
+$ jsctl verify-audit
+UNVERIFIED: chain walk OK (1 entries); anchor cross-check NOT POSSIBLE (no anchor); anchor file unreadable
+-> rc 2 (want 2)
+$ jsctl verify-audit --anchor
+anchor: 1 entries, strength policy
+TAMPER-FREE: chain walk OK (2 entries); anchor cross-check OK (1 anchors, strength policy)
+-> rc 0 (want 0)
+$ jsctl provider-probe --host notlisted.example
+notlisted.example	DENIED	host_not_on_allow_list	addrs=0	status=0
+-> rc 1 (want 1)
+$ jsctl cert check
+subject=CN=js.lan
+issuer=CN=job_seeker private CA
+not_before=2026-11-24T10:34:17Z
+not_after=2027-02-22T10:35:17Z
+names=js.lan
+self_signed=false
+note: chains_to_ca.crt
+certificate: OK
+-> rc 0 (want 0)
+$ jsctl cert issue --hosts js.lan
+issue: certs: leaf key: open $HOME/.cache/claude-tmp/TestJsctlAgainstRealServerData155426500/001/certs/tls.key: file exists
+-> rc 1 (want 1)
+$ jsctl frobnicate
+usage: jsctl <command>
+  version
+  migrate                          apply pending migrations (verified backup first)
+  backup                           write a verified snapshot into the backup directory
+  verify-audit [--anchor]          walk the audit hash chain and cross-check anchors (--anchor appends one first)
+  provider-probe [--host H] [--fetch]   egress-policy verdict for each allow-listed host
+  cert check                       inspect the certificate in JOBSEEKER_CERT_DIR
+  cert gen-ca --hosts a,b          create a name-constrained private CA in JOBSEEKER_CERT_DIR
+  cert issue  --hosts a,b          issue the server certificate from that CA
+-> rc 2 (want 2)
+$ jsctl migrate
+config: JOBSEEKER_DATA_DIR: missing
+-> rc 1 (want 1)
+
+# paths normalised for publication ($HOME, <repo>, <umbrella> placeholders)

@@ -1,0 +1,6 @@
+KILLED       ext-elig-onsite-outside-passes
+KILLED       ext-elig-unknown-mode-yes
+KILLED       ext-elig-blocked-inverted
+KILLED       ext-elig-salary-inverted
+KILLED       ext-elig-region-case-sensitive
+KILLED       ext-elig-no-overlay-yes

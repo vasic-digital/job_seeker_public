@@ -1,0 +1,9 @@
+# Operator-chosen employers per ATS (JSK-016). SHIPPED EMPTY ON PURPOSE: which employers to watch is your decision;
+# no employer is ever pre-selected. Slugs are the board token in the employer's public careers URL, e.g.
+#   Greenhouse  https://boards.greenhouse.io/<slug>/jobs/...      Lever  https://jobs.lever.co/<slug>/...
+#   Ashby       https://jobs.ashbyhq.com/<slug>/...
+# Copy company_watchlist.example.yaml for the entry shape. Slug: letters, digits, '_' and '-' only (max 64).
+version: 1
+greenhouse: []
+lever: []
+ashby: []

@@ -1,0 +1,5 @@
+--- FAIL: TestJSONQuotedSecretsInFreeText (0.00s)
+--- FAIL: TestJWTAndAliasKeys (0.00s)
+--- FAIL: TestPanickingStringerDoesNotCrashLogging (0.00s)
+FAIL	github.com/vasic-digital/job_seeker/internal/redact	0.008s
+FAIL

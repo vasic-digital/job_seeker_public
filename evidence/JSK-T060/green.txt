@@ -1,0 +1,28 @@
+# go test -v ./internal/draft ./internal/templates (real SQLite, real keyring, manifest-shaped template directory)
+--- PASS: TestDecideLanguage (0.00s)
+--- PASS: TestExplicitLanguage (0.00s)
+--- PASS: TestEightBypassAttemptsAtApprove (0.67s)
+--- PASS: TestHashMismatchBypassAtApproveSupersedes (0.06s)
+--- PASS: TestLiveHappyPathAndHandoff (0.07s)
+--- PASS: TestHandoffRechecks (0.63s)
+--- PASS: TestGateRestartAndKillSwitch (0.06s)
+--- PASS: TestPerHostAndDailyCaps (0.06s)
+--- PASS: TestTransitionServiceEveryPair (0.10s)
+--- PASS: TestPrepareFreezesHashAndSealsPaths (0.07s)
+--- PASS: TestSlotMissingKeepsPendingDraft (0.07s)
+--- PASS: TestCreateApplicationOnlyForShortlistedAndIdempotent (0.07s)
+--- PASS: TestLanguageConfirmationFlow (0.07s)
+--- PASS: TestApproveDryRunDefault (0.06s)
+--- PASS: TestRejectRequiresReason (0.07s)
+--- PASS: TestApprovalExpiry (0.07s)
+--- PASS: TestDuplicateSubmissionKeyRefused (0.06s)
+--- PASS: TestNoGenerativeImports (0.00s)
+--- PASS: TestOnlyHandoffWritesSent (0.00s)
+PASS
+ok  	github.com/vasic-digital/job_seeker/internal/draft	2.196s
+--- PASS: TestResolveAndStreamHeaders (0.00s)
+--- PASS: TestMissingSlotAndTraversal (0.00s)
+--- PASS: TestHashPinning (0.00s)
+--- PASS: TestOpenRejectsBadManifest (0.00s)
+PASS
+ok  	github.com/vasic-digital/job_seeker/internal/templates	0.008s

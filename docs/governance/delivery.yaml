@@ -1,0 +1,9 @@
+# job_seeker delivery data (section 11.4.297(A)), INHERITED from the umbrella declaration
+# docs/governance/pr-delivery.yaml of the vasic repository (recorded operator decision 2026-11-23/24).
+mode: pr
+base_branch: main
+task_branch_prefix: pr
+landing_form: merge-commit      # env -u GITHUB_TOKEN gh pr merge --merge ; no squash, no rebase, no force-push
+reviewer_policy: independent read-only reviewer subagent per PR, blocking findings only, GO required before merge
+pr_remote: github               # vasic-digital/job_seeker
+enforcement: PROVISIONAL        # scripts/hooks enforce trailers and non-fast-forward refusal once installed

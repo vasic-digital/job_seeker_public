@@ -1,0 +1,66 @@
+=== RUN   TestRealCapturesExtract
+--- PASS: TestRealCapturesExtract (0.00s)
+=== RUN   TestDefaultTableIsValid
+--- PASS: TestDefaultTableIsValid (0.00s)
+=== RUN   TestValidateRefusesEnabledPatternWithoutCapture
+--- PASS: TestValidateRefusesEnabledPatternWithoutCapture (0.00s)
+=== RUN   TestValidateRefusesCaptureThatDoesNotExtract
+--- PASS: TestValidateRefusesCaptureThatDoesNotExtract (0.00s)
+=== RUN   TestDisabledPatternsNeverMatch
+--- PASS: TestDisabledPatternsNeverMatch (0.00s)
+=== RUN   TestExtractIgnoresTrackingAndSuffixes
+--- PASS: TestExtractIgnoresTrackingAndSuffixes (0.00s)
+=== RUN   TestNormEmployerGolden
+--- PASS: TestNormEmployerGolden (0.00s)
+=== RUN   TestNormEmployerIdempotentProperty
+--- PASS: TestNormEmployerIdempotentProperty (0.03s)
+=== RUN   TestNormTitle
+--- PASS: TestNormTitle (0.00s)
+=== RUN   TestSeniorityTiersDiffer
+--- PASS: TestSeniorityTiersDiffer (0.00s)
+=== RUN   TestCanonURL
+--- PASS: TestCanonURL (0.00s)
+=== RUN   TestCanonURLIdempotentAndOrderIndependent
+--- PASS: TestCanonURLIdempotentAndOrderIndependent (0.00s)
+=== RUN   TestRemoteScopeParseAndCompat
+--- PASS: TestRemoteScopeParseAndCompat (0.00s)
+=== RUN   TestNormEmployerIdempotentOnSuffixChains
+--- PASS: TestNormEmployerIdempotentOnSuffixChains (0.00s)
+=== RUN   TestCanonURLKeepsEscapedPathAndIsIdempotent
+--- PASS: TestCanonURLKeepsEscapedPathAndIsIdempotent (0.00s)
+=== RUN   TestCanonURLRefusesUnparseableQuery
+--- PASS: TestCanonURLRefusesUnparseableQuery (0.00s)
+=== RUN   TestNormEmployerDottedLegalThenNoise
+--- PASS: TestNormEmployerDottedLegalThenNoise (0.00s)
+=== RUN   TestCanonURLRepeatedApplySuffixIdempotent
+--- PASS: TestCanonURLRepeatedApplySuffixIdempotent (0.00s)
+=== RUN   TestATSIdentityAcrossProvidersAutoAttaches
+--- PASS: TestATSIdentityAcrossProvidersAutoAttaches (0.08s)
+=== RUN   TestIdempotentAndEmployerAliasFromTenant
+--- PASS: TestIdempotentAndEmployerAliasFromTenant (0.06s)
+=== RUN   TestApplyURLHardKeyOnEmployerHostOnly
+--- PASS: TestApplyURLHardKeyOnEmployerHostOnly (0.09s)
+=== RUN   TestEdgeCasesStayDistinct
+--- PASS: TestEdgeCasesStayDistinct (0.42s)
+=== RUN   TestSameProviderRelistingSharesATSIdentity
+--- PASS: TestSameProviderRelistingSharesATSIdentity (0.07s)
+=== RUN   TestThresholdBandsAndEdge
+--- PASS: TestThresholdBandsAndEdge (0.38s)
+=== RUN   TestHumanConstraintsOutrankEvidence
+--- PASS: TestHumanConstraintsOutrankEvidence (0.07s)
+=== RUN   TestTransitiveBridgeMergesTwoPositions
+--- PASS: TestTransitiveBridgeMergesTwoPositions (0.07s)
+=== RUN   TestBridgeRefusedAcrossCannotLink
+--- PASS: TestBridgeRefusedAcrossCannotLink (0.07s)
+=== RUN   TestMergeBusyGuardAndHumanMergeSplit
+--- PASS: TestMergeBusyGuardAndHumanMergeSplit (0.07s)
+=== RUN   TestArrivalOrderIndependent
+--- PASS: TestArrivalOrderIndependent (3.30s)
+=== RUN   TestParamsLoadAndValidate
+--- PASS: TestParamsLoadAndValidate (0.00s)
+=== RUN   TestInvariantCheckerDetectsCorruption
+--- PASS: TestInvariantCheckerDetectsCorruption (0.70s)
+=== RUN   TestInvariantCheckerSeesMemberWithoutMirror
+--- PASS: TestInvariantCheckerSeesMemberWithoutMirror (0.06s)
+PASS
+ok  	github.com/vasic-digital/job_seeker/internal/position	5.488s

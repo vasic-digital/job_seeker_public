@@ -1,0 +1,31 @@
+{
+  "name": "greenhouse_synthetic_shape",
+  "label": "SYNTHETIC records written to the field shape confirmed by one earlier live read of a public board (JSK-T197b); no third-party listing text",
+  "job_keys": [
+    "absolute_url",
+    "ai_disclaimer",
+    "ai_opt_out_request_url",
+    "application_deadline",
+    "company_name",
+    "content",
+    "data_compliance",
+    "departments",
+    "education",
+    "first_published",
+    "id",
+    "include_ai_disclaimer",
+    "internal_job_id",
+    "language",
+    "location",
+    "metadata",
+    "offices",
+    "requisition_id",
+    "title",
+    "updated_at"
+  ],
+  "envelope_keys": [
+    "jobs",
+    "meta"
+  ],
+  "note": "shape only; the verbatim capture was removed for public readiness, see docs/public-readiness/FIXTURE-TERMS.md"
+}

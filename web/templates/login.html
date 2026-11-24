@@ -1,0 +1,15 @@
+{{define "content"}}
+<section class="od-card console-card" aria-labelledby="login-h">
+  <h2 id="login-h" class="console-h2">{{t .Lang "login.signin"}}</h2>
+  <p>{{t .Lang "login.help"}}</p>
+  <button class="od-btn od-btn--primary" type="button" id="passkey-login" data-next="/">{{t .Lang "login.button"}}</button>
+  <p id="passkey-status" role="status" aria-live="polite"></p>
+</section>
+<section class="od-card console-card" aria-labelledby="boot-h">
+  <h2 id="boot-h" class="console-h2">{{t .Lang "login.bootstrap.title"}}</h2>
+  <p>{{t .Lang "login.bootstrap.help"}}</p>
+  <div class="od-field"><label class="od-label" for="bootstrap-token">{{t .Lang "login.bootstrap.token"}}</label>
+  <input class="od-input" id="bootstrap-token" type="password" autocomplete="off"></div>
+  <button class="od-btn od-btn--secondary" type="button" id="passkey-register">{{t .Lang "login.bootstrap.button"}}</button>
+</section>
+{{end}}

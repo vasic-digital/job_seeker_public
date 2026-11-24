@@ -1,0 +1,4 @@
+ok  	github.com/vasic-digital/job_seeker/internal/buildinfo	(cached)
+ok  	github.com/vasic-digital/job_seeker/internal/config	(cached)
+ok  	github.com/vasic-digital/job_seeker/internal/crypto	(cached)
+ok  	github.com/vasic-digital/job_seeker/internal/redact	(cached)

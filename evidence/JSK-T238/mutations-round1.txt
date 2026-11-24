@@ -1,0 +1,11 @@
+KILLED       ext-parsersim-pdfinfo-url-ignored
+SURVIVED     ext-parsersim-newline-href-dropped
+KILLED       ext-parsersim-hostless-https-ok
+KILLED       ext-scan-flate-not-inflated
+KILLED       ext-scan-bomb-inflated
+KILLED       ext-scan-undecodable-filter-ignored
+KILLED       ext-pdflinks-incomplete-is-yes
+KILLED       ext-pdflinks-actions-ignored
+SURVIVED     ext-parsersim-newline-href-dropped
+CONTROL-RED  ext-parsersim-newline-href-dropped: ./internal/ext/ats/parsersim does not pass unmodified
+KILLED       ext-parsersim-newline-href-dropped

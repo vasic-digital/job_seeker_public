@@ -1,0 +1,15 @@
+{
+  "bytes": 4605265,
+  "host": "api.ashbyhq.com",
+  "label": "anonymised-synthetic fixture written to the documented Ashby posting-api shape; no captured text retained",
+  "latency_ms": 346,
+  "name": "ashby_Ashby",
+  "original_capture_note": "resp_sha256/bytes/retrieved_at describe the one-time shape-discovery capture of 2026-11-24; the captured body is NOT redistributed in this repository",
+  "request_id": "a5f8a965ce39f339-BEG",
+  "resolved_ip": "172.66.40.214",
+  "resp_sha256": "3ecc7b3f928f32fb3b89d069779a993c23a939e5bed24ac741be50e123e24285",
+  "retrieved_at": "2026-11-24T13:11:49Z",
+  "status": 200,
+  "tls_subject": "ashbyhq.com",
+  "url": "https://api.ashbyhq.com/posting-api/job-board/Ashby?includeCompensation=true"
+}

@@ -1,0 +1,14 @@
+=== RUN   TestRealCapturesExtract
+--- PASS: TestRealCapturesExtract (0.00s)
+=== RUN   TestDefaultTableIsValid
+--- PASS: TestDefaultTableIsValid (0.00s)
+=== RUN   TestValidateRefusesEnabledPatternWithoutCapture
+--- PASS: TestValidateRefusesEnabledPatternWithoutCapture (0.00s)
+=== RUN   TestValidateRefusesCaptureThatDoesNotExtract
+--- PASS: TestValidateRefusesCaptureThatDoesNotExtract (0.00s)
+=== RUN   TestDisabledPatternsNeverMatch
+--- PASS: TestDisabledPatternsNeverMatch (0.00s)
+=== RUN   TestExtractIgnoresTrackingAndSuffixes
+--- PASS: TestExtractIgnoresTrackingAndSuffixes (0.00s)
+PASS
+ok  	github.com/vasic-digital/job_seeker/internal/position	0.004s

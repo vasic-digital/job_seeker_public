@@ -1,0 +1,10 @@
+=== RUN   TestRecordTransitionsAuditsSealsNoteAndRejectsBadInput
+--- PASS: TestRecordTransitionsAuditsSealsNoteAndRejectsBadInput (0.27s)
+=== RUN   TestConcurrentEditsExactlyOneOutcome
+--- PASS: TestConcurrentEditsExactlyOneOutcome (0.15s)
+=== RUN   TestConcurrentApproveRejectExactlyOneOutcome
+--- PASS: TestConcurrentApproveRejectExactlyOneOutcome (0.15s)
+=== RUN   TestFollowUpsDueAndTerminalSuppressed
+--- PASS: TestFollowUpsDueAndTerminalSuppressed (0.15s)
+PASS
+ok  	github.com/vasic-digital/job_seeker/internal/tracker	1.760s

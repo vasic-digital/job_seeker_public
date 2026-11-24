@@ -1,0 +1,6 @@
+KILLED       ext-kw-symbols-split
+KILLED       ext-kw-synonyms-ignored
+KILLED       ext-kw-multiword-first-token
+KILLED       ext-kw-points-uncapped
+KILLED       ext-kw-sha-ignores-synonyms
+KILLED       ext-kw-sha-ignores-synonyms

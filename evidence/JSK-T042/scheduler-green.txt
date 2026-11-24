@@ -1,0 +1,6 @@
+--- PASS: TestDueJobsRunOnceAndPersistLastRun (0.00s)
+--- PASS: TestRestartDoesNotRerunARecentJob (0.00s)
+--- PASS: TestJobFailureAndPanicAreIsolated (0.00s)
+--- PASS: TestSettingStoreSurvivesReopen (0.04s)
+--- PASS: TestRunStopsOnContextCancel (0.00s)
+ok  	github.com/vasic-digital/job_seeker/internal/scheduler	0.046s

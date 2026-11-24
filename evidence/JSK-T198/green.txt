@@ -1,0 +1,6 @@
+--- PASS: TestLeverTranslatesCapturedGolden (0.02s)
+--- PASS: TestLeverMalformedHostileAndClasses (0.06s)
+--- PASS: TestLeverTenantsAndEmptyWatchlist (0.01s)
+--- PASS: TestLeverNegativeSalaryDropped (0.00s)
+--- PASS: FuzzLeverOne (0.00s)
+ok  	github.com/vasic-digital/job_seeker/internal/providers	1.116s

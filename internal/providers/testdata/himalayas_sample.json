@@ -1,0 +1,76 @@
+[
+ {
+  "title": "Hotline Operator, Research per diem",
+  "excerpt": "Synthetic fixture text for a fictional role.",
+  "companyName": "Contoso Health",
+  "companySlug": "contoso-health",
+  "companyLogo": "https://cdn-images.himalayas.app/example",
+  "employmentType": "Temporary",
+  "minSalary": 16.35,
+  "maxSalary": 22.84,
+  "salaryPeriod": "hourly",
+  "seniority": [
+   "Entry-level"
+  ],
+  "currency": "USD",
+  "locationRestrictions": [
+   "United States"
+  ],
+  "timezoneRestrictions": [
+   -10,
+   -9,
+   -8,
+   -7,
+   -6,
+   -5,
+   14
+  ],
+  "categories": [
+   "Hotline-Operator",
+   "Patient-Services-Representative"
+  ],
+  "parentCategories": [],
+  "description": "Synthetic fixture text for a fictional role…[truncated]",
+  "pubDate": 1795474300,
+  "expiryDate": 1800658299,
+  "applicationLink": "https://himalayas.app/companies/contoso-health/jobs/hotline-operator-research-per-diem-9000001?utm_source=api",
+  "guid": "https://himalayas.app/companies/contoso-health/jobs/hotline-operator-research-per-diem-9000001"
+ },
+ {
+  "title": "Math Programmer (Lean 4) - Remote",
+  "excerpt": "Synthetic fixture text for a fictional role.",
+  "companyName": "Fabrikam AI Labs",
+  "companySlug": "fabrikam-ai-labs",
+  "companyLogo": "https://cdn-images.himalayas.app/example",
+  "employmentType": "Contractor",
+  "minSalary": 120,
+  "maxSalary": 140,
+  "salaryPeriod": "hourly",
+  "seniority": [
+   "Mid-level"
+  ],
+  "currency": "USD",
+  "locationRestrictions": [
+   "United States"
+  ],
+  "timezoneRestrictions": [
+   -10,
+   -9,
+   -8,
+   -7,
+   -6,
+   -5,
+   14
+  ],
+  "categories": [
+   "Lean-4",
+   "Formal-Methods-Engineer"
+  ],
+  "parentCategories": [],
+  "description": "Synthetic fixture text for a fictional role…[truncated]",
+  "pubDate": 1795474148,
+  "expiryDate": 1800658147,
+  "applicationLink": "https://himalayas.app/companies/fabrikam-ai-labs/jobs/math-programmer-lean-4-remote?utm_source=api",
+  "guid": "https://himalayas.app/companies/fabrikam-ai-labs/jobs/math-programmer-lean-4-remote"
+ }
+]

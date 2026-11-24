@@ -1,0 +1,15 @@
+PASS  control: no hook => trailerless commit accepted
+PASS  no Roadmap-Item refused
+PASS  bad item id refused
+PASS  two Roadmap-Item refused
+PASS  two tasks without reason refused
+PASS  two tasks with reason accepted
+PASS  single task accepted
+PASS  out-of-scope path without reason refused
+PASS  out-of-scope with bogus reason refused
+PASS  out-of-scope with closed-list reason accepted
+PASS  CI/CD file refused even with trailers
+PASS  fast-forward/new ref push accepted
+PASS  forced non-fast-forward push refused
+OK: all hook cases behaved
+PROVE-FAILURE OK: a neutered commit-msg hook is caught (rc=1)

@@ -1,0 +1,4 @@
+=== RUN   TestPurgeSourceRemovesOnlyThatProviderAndKeepsLinked
+--- PASS: TestPurgeSourceRemovesOnlyThatProviderAndKeepsLinked (0.09s)
+PASS
+ok  	github.com/vasic-digital/job_seeker/internal/jsctl	0.094s

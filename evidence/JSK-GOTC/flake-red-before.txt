@@ -1,0 +1,8 @@
+# RED on base b27c5ba (test unchanged since 81a4d5c): go test -race -count=100 -run TestRequireH3FailsClosedWhenUDPBindFails ./internal/server/
+--- FAIL: TestRequireH3FailsClosedWhenUDPBindFails (0.00s)
+    server_test.go:153: TCP listener leaked after failed Start: listen tcp 127.0.0.1:60182: bind: address already in use
+--- FAIL: TestRequireH3FailsClosedWhenUDPBindFails (0.00s)
+    server_test.go:153: TCP listener leaked after failed Start: listen tcp 127.0.0.1:59964: bind: address already in use
+FAIL	github.com/vasic-digital/job_seeker/internal/server	0.298s
+# 2 of 100 failures, in isolation (no other tests running): the UDP port number the kernel hands out can already be
+# the local port of an unrelated outbound TCP connection; re-binding TCP on it then fails for a reason unrelated to the server.

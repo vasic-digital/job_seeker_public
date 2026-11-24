@@ -1,0 +1,33 @@
+{{define "content"}}
+<article class="od-card console-card" aria-labelledby="job-h">
+  <h2 id="job-h" class="console-h2">{{.P.Title}}</h2>
+  <dl class="console-dl">
+    <dt>{{t .Lang "col.company"}}</dt><dd>{{.P.Company}}</dd>
+    <dt>{{t .Lang "col.state"}}</dt><dd>{{.P.State}}</dd>
+    <dt>{{t .Lang "col.lang"}}</dt><dd>{{if .P.Lang}}{{t .Lang "lang.detected" .P.Lang}}{{else}}–{{end}}</dd>
+    <dt>{{t .Lang "col.source"}}</dt><dd>{{.P.Provider}}{{if .P.SourceURL}} · <a href="{{.P.SourceURL}}" rel="noreferrer noopener" target="_blank">{{t .Lang "job.attribution"}}</a>{{end}}</dd>
+  </dl>
+  <p class="console-hint">{{t .Lang "job.lang.original"}}</p>
+</article>
+<section class="od-card console-card" aria-labelledby="why-h">
+  <h2 id="why-h" class="console-h2">{{t .Lang "job.why"}}</h2>
+  {{if .Score}}<p>{{t .Lang "score.total" (printf "%.0f" .Score.Total)}} · {{.Score.Band}}</p>
+  <table class="od-table"><caption class="od-visually-hidden">{{t .Lang "score.breakdown"}}</caption><thead><tr><th scope="col">{{t .Lang "score.component"}}</th><th scope="col">{{t .Lang "score.value"}}</th><th scope="col">{{t .Lang "score.weight"}}</th></tr></thead>
+  <tbody>{{range .Score.Rows}}<tr><th scope="row">{{.Name}}</th><td>{{printf "%.2f" .Value}}</td><td>{{printf "%.2f" .Weight}}</td></tr>{{end}}</tbody></table>
+  {{if .Score.Gates}}<p>{{t .Lang "score.gates"}}: {{range .Score.Gates}}{{.}} {{end}}</p>{{end}}
+  {{else}}<p>{{t .Lang "score.none"}}</p>{{end}}
+</section>
+<section class="od-card console-card" aria-labelledby="body-h">
+  <h2 id="body-h" class="console-h2">{{t .Lang "job.text"}}</h2>
+  {{range .Body}}<p>{{.}}</p>{{else}}<p>{{t $.Lang "job.text.none"}}</p>{{end}}
+</section>
+<section class="console-actions" aria-label="{{t .Lang "job.actions"}}">
+  {{if .CanShortlist}}<form method="post" action="/postings/{{.P.ID}}/shortlist"><input type="hidden" name="_csrf" value="{{.CSRF}}"><button class="od-btn od-btn--primary" type="submit">{{t .Lang "job.shortlist"}}</button></form>{{end}}
+  {{if .CanDismiss}}<form method="post" action="/postings/{{.P.ID}}/dismiss"><input type="hidden" name="_csrf" value="{{.CSRF}}"><button class="od-btn od-btn--secondary" type="submit" data-testid="dismiss">{{t .Lang "job.dismiss"}}</button></form>{{end}}
+  {{if .CanStart}}<form method="post" action="/postings/{{.P.ID}}/start-application" data-testid="start-form"><input type="hidden" name="_csrf" value="{{.CSRF}}">
+    <label for="override">{{t .Lang "job.override.label"}}</label>
+    <select id="override" name="override" data-testid="override"><option value="">{{t .Lang "job.override.none"}}</option>{{range .OverrideReasons}}<option value="{{.}}">{{t $.Lang (printf "override.%s" .)}}</option>{{end}}</select>
+    <button class="od-btn od-btn--primary" type="submit" data-testid="start-application">{{t .Lang "job.start"}}</button></form>{{end}}
+  {{if .AppID}}<a class="od-btn od-btn--secondary" href="/applications/{{.AppID}}/draft">{{t .Lang "job.open_draft"}}</a>{{end}}
+</section>
+{{end}}

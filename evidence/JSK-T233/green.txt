@@ -1,0 +1,15 @@
+--- PASS: TestRegisterAfterFreezeAndMissingFields (0.00s)
+--- PASS: TestLoadPolicyGood (0.00s)
+--- PASS: TestLoadPolicyRejects (0.00s)
+--- PASS: TestMissingPolicyMeansNoGateEnabled (0.00s)
+--- PASS: TestCheckMatrixLockedGatesNeverOff (0.00s)
+--- PASS: TestOperatorLayerFromSettings (0.00s)
+ok  	github.com/vasic-digital/job_seeker/internal/ext	0.010s
+--- PASS: TestShippedPolicyLoadsAndChecks (0.00s)
+--- PASS: TestMissingPolicyFileIsBuiltinDefault (0.00s)
+ok  	github.com/vasic-digital/job_seeker/internal/ext/builtin	0.007s
+--- PASS: TestPolicyCheckShippedRulesPass (0.00s)
+--- PASS: TestPolicyCheckRejectsBadPolicy (0.00s)
+--- PASS: TestPolicyCheckWithoutRulesDirIsUndetermined (0.00s)
+--- PASS: TestExtListJSON (0.00s)
+ok  	github.com/vasic-digital/job_seeker/internal/jsctl	0.011s

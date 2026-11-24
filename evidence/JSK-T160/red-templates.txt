@@ -1,0 +1,5 @@
+# github.com/vasic-digital/job_seeker/internal/templates [github.com/vasic-digital/job_seeker/internal/templates.test]
+internal/templates/slots_test.go:12:7: undefined: SlotValues
+internal/templates/slots_test.go:13:14: undefined: Fill
+internal/templates/slots_test.go:21:18: undefined: Fill
+internal/templates/slots_test.go:25:15: undefined: Fill

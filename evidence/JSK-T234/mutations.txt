@@ -1,0 +1,6 @@
+KILLED       ext-verdictstore-forged-reason-accepted
+INVALID      ext-verdictstore-stale-usable: mutant does not compile
+KILLED       ext-verdictstore-ruleset-ignored
+KILLED       ext-verdictstore-no-flip
+KILLED       ext-verdictstore-nonyes-no-reason
+KILLED       ext-verdictstore-stale-usable

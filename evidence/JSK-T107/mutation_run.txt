@@ -1,0 +1,41 @@
+KILLED       store-rollback-commits
+KILLED       audit-stale-guard
+KILLED       audit-chain-prev
+KILLED       fsm-posting-extra-edge
+KILLED       fsm-application-extra-edge
+KILLED       ratelimit-bucket-empty-allowed
+KILLED       limiter-min-interval-off
+KILLED       limiter-daily-cap-off
+KILLED       egress-scheme-any
+KILLED       egress-port-any
+KILLED       egress-private-10-allowed
+KILLED       crypto-aad-drops-row-id
+KILLED       crypto-version-unchecked
+KILLED       privacy-within-allows-root
+KILLED       redact-jwt-not-scrubbed
+KILLED       redact-email-not-scrubbed
+KILLED       store-fk-pragma-off
+KILLED       api-host-allowlist-open
+KILLED       api-cross-site-allowed
+KILLED       auth-bootstrap-never-closes
+KILLED       tracker-any-state-accepted
+KILLED       ingest-dup-threshold-zero
+KILLED       tracker-bad-status-accepted
+KILLED       privacy-draft-confinement-off
+KILLED       templates-hash-unchecked
+KILLED       llm-advisory-flag-flipped
+KILLED       providers-script-content-kept
+KILLED       scheduler-ignores-interval
+KILLED       jobops-noop-claims-implemented
+KILLED       jobops-mark-applied-allowed
+KILLED       certs-loose-key-mode-accepted
+KILLED       config-secret-printable
+KILLED       config-secret-marshals-plaintext
+KILLED       buildinfo-unstamped-claims-stamped
+mutations: 34 killed of 34
+rc=0
+SURVIVED     neutral-comment
+INVALID      nomatch: pattern does not match exactly once in internal/fsm/fsm.go
+mutations: 0 killed of 2
+PROVE-FAILURE OK: a neutral mutant is reported SURVIVED and an unmatched pattern INVALID
+prove-failure rc=0

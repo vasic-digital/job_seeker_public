@@ -1,0 +1,41 @@
+=== RUN   TestInjectClassifiesScoresAndQueues
+--- PASS: TestInjectClassifiesScoresAndQueues (0.11s)
+=== RUN   TestProcessIsIdempotent
+--- PASS: TestProcessIsIdempotent (0.10s)
+=== RUN   TestKillSwitchSkipsFetchBeforeLimiter
+--- PASS: TestKillSwitchSkipsFetchBeforeLimiter (0.10s)
+=== RUN   TestFetchHonoursPersistedLimiterAndCountsOnce
+--- PASS: TestFetchHonoursPersistedLimiterAndCountsOnce (0.09s)
+=== RUN   TestLegalNoticeDiffRecordedThroughPipeline
+--- PASS: TestLegalNoticeDiffRecordedThroughPipeline (0.10s)
+=== RUN   TestJobsOnePerProviderNamedAndPaced
+--- PASS: TestJobsOnePerProviderNamedAndPaced (0.07s)
+=== RUN   TestDisabledProviderIsNotAFailure
+--- PASS: TestDisabledProviderIsNotAFailure (0.09s)
+=== RUN   TestRealCorpusInjectedAtIngestStage
+    pipeline_test.go:273: real corpus at ingest stage: 115 postings, 1 mapped+scored=1, 114 queued
+--- PASS: TestRealCorpusInjectedAtIngestStage (0.61s)
+PASS
+ok  	github.com/vasic-digital/job_seeker/internal/pipeline	1.280s
+=== RUN   TestBuildPipelineWiring
+=== RUN   TestBuildPipelineWiring/unconfigured:_nothing_is_contacted
+=== RUN   TestBuildPipelineWiring/no_rules_dir:_not_started
+=== RUN   TestBuildPipelineWiring/remotive_and_remoteok
+=== RUN   TestBuildPipelineWiring/himalayas_stays_off_without_the_operator_flag
+=== RUN   TestBuildPipelineWiring/himalayas_only_with_the_operator_flag
+=== RUN   TestBuildPipelineWiring/unknown_provider_is_a_configuration_error
+=== RUN   TestBuildPipelineWiring/unreadable_rules_are_an_error
+--- PASS: TestBuildPipelineWiring (0.66s)
+    --- PASS: TestBuildPipelineWiring/unconfigured:_nothing_is_contacted (0.10s)
+    --- PASS: TestBuildPipelineWiring/no_rules_dir:_not_started (0.11s)
+    --- PASS: TestBuildPipelineWiring/remotive_and_remoteok (0.08s)
+    --- PASS: TestBuildPipelineWiring/himalayas_stays_off_without_the_operator_flag (0.07s)
+    --- PASS: TestBuildPipelineWiring/himalayas_only_with_the_operator_flag (0.08s)
+    --- PASS: TestBuildPipelineWiring/unknown_provider_is_a_configuration_error (0.13s)
+    --- PASS: TestBuildPipelineWiring/unreadable_rules_are_an_error (0.09s)
+=== RUN   TestFetchJobRespectsPersistedKillSwitchInRealScheduler
+--- PASS: TestFetchJobRespectsPersistedKillSwitchInRealScheduler (0.12s)
+=== RUN   TestJobsRunForReal
+--- PASS: TestJobsRunForReal (0.13s)
+PASS
+ok  	github.com/vasic-digital/job_seeker/internal/app	0.934s

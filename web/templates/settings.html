@@ -1,0 +1,33 @@
+{{define "content"}}
+<section class="od-card console-card" aria-labelledby="g-h">
+  <h2 id="g-h" class="console-h2">{{t .Lang "settings.controls"}}</h2>
+  <p>{{t .Lang "settings.kill"}}: <strong data-testid="kill-state">{{if .Kill}}{{t .Lang "on"}}{{else}}{{t .Lang "off"}}{{end}}</strong>{{if .EnvKill}} ({{t .Lang "settings.kill.env"}}){{end}}</p>
+  <form method="post" action="/settings/kill-switch" class="console-inline"><input type="hidden" name="_csrf" value="{{.CSRF}}"><input type="hidden" name="on" value="{{if .Kill}}0{{else}}1{{end}}">
+    <button class="od-btn od-btn--secondary" type="submit" data-testid="kill-toggle">{{if .Kill}}{{t .Lang "settings.kill.turn_off"}}{{else}}{{t .Lang "settings.kill.turn_on"}}{{end}}</button></form>
+  <p>{{t .Lang "settings.live"}}: <strong data-testid="live-state">{{if .Live}}{{t .Lang "on"}}{{else}}{{t .Lang "off"}}{{end}}</strong> · {{t .Lang "settings.live.help"}}</p>
+  <form method="post" action="/settings/live-mode" class="console-inline"><input type="hidden" name="_csrf" value="{{.CSRF}}"><input type="hidden" name="on" value="{{if .Live}}0{{else}}1{{end}}">
+    <button class="od-btn od-btn--secondary" type="submit" data-testid="live-toggle">{{if .Live}}{{t .Lang "settings.live.turn_off"}}{{else}}{{t .Lang "settings.live.turn_on"}}{{end}}</button></form>
+  <form method="post" action="/settings/caps">
+    <input type="hidden" name="_csrf" value="{{.CSRF}}">
+    <div class="od-field"><label class="od-label" for="cap-d">{{t .Lang "settings.cap.daily"}}</label><input class="od-input" id="cap-d" name="daily" inputmode="numeric" pattern="[0-9]+" value="{{.CapDaily}}"></div>
+    <div class="od-field"><label class="od-label" for="cap-h">{{t .Lang "settings.cap.host"}}</label><input class="od-input" id="cap-h" name="host" inputmode="numeric" pattern="[0-9]+" value="{{.CapHost}}"></div>
+    <button class="od-btn od-btn--secondary" type="submit">{{t .Lang "settings.cap.save"}}</button>
+  </form>
+  <p class="console-hint">{{t .Lang "draft.stepup.hint"}} <button class="od-btn od-btn--ghost" type="button" id="stepup">{{t .Lang "draft.stepup.button"}}</button> <span id="passkey-status" role="status" aria-live="polite"></span></p>
+</section>
+<section class="od-card console-card" aria-labelledby="p-h">
+  <h2 id="p-h" class="console-h2">{{t .Lang "settings.providers"}}</h2>
+  {{if .Health}}<table class="od-table"><caption class="od-visually-hidden">{{t .Lang "settings.providers"}}</caption>
+  <thead><tr><th scope="col">{{t .Lang "col.source"}}</th><th scope="col">{{t .Lang "settings.circuit"}}</th><th scope="col">{{t .Lang "settings.next_allowed"}}</th><th scope="col">{{t .Lang "settings.legal"}}</th></tr></thead>
+  <tbody>{{range .Health}}<tr><th scope="row">{{.Name}}</th><td>{{.Circuit}}</td><td>{{if .NextAllowed}}{{.NextAllowed}}{{else}}–{{end}}</td><td><code>{{.Legal}}</code></td></tr>{{end}}</tbody></table>
+  {{range .Health}}<div class="console-legal" data-testid="legal-{{.Name}}"><h3 class="console-h3">{{.Name}} · {{t $.Lang "settings.legal.diff"}}</h3>
+    {{if .LegalDiff}}<p>{{t $.Lang "settings.legal.changed"}}: {{.LegalChangedAt}}</p><pre class="console-pre" tabindex="0" data-testid="legal-diff">{{.LegalDiff}}</pre>{{else}}<p>{{t $.Lang "settings.legal.nochange"}}</p>{{end}}</div>{{end}}
+  {{else}}<p>{{t .Lang "settings.providers.none"}}</p>{{end}}
+</section>
+<section class="od-card console-card" aria-labelledby="ret-h">
+  <h2 id="ret-h" class="console-h2">{{t .Lang "settings.retention"}}</h2>
+  <p data-testid="retention-postings">{{t .Lang "settings.retention.postings" (printf "%d" .PostingDays)}}</p>
+  <p data-testid="retention-snapshots">{{t .Lang "settings.retention.snapshots" (printf "%d" .SnapshotDays)}}</p>
+  <p>{{t .Lang "settings.retention.lastprune"}}: <span data-testid="last-prune">{{if .LastPrune}}{{.LastPrune}}{{else}}{{t .Lang "settings.retention.never"}}{{end}}</span></p>
+</section>
+{{end}}

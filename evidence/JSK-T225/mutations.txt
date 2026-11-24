@@ -1,0 +1,12 @@
+KILLED       ext-combine-empty-is-yes
+mutations: 1 killed of 1
+KILLED       ext-combine-unknown-not-blocking
+KILLED       ext-panic-not-fail-closed
+KILLED       ext-locked-gate-switchable
+KILLED       ext-registry-duplicate-accepted
+KILLED       ext-active-gates-empty-ok
+KILLED       ext-channel-direct-send-allowed
+KILLED       ext-approved-hash-unchecked
+KILLED       ext-reason-vocab-open
+KILLED       ext-combine-out-of-range-passes
+mutations: 1 killed of 1

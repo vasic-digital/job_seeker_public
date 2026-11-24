@@ -1,0 +1,13 @@
+--- PASS: TestGreenhouseTranslatesGolden (0.01s)
+--- PASS: TestGreenhouseTenantCursorWalksTheWatchlist (0.01s)
+--- PASS: TestGreenhouseEmptyWatchlistContactsNothing (0.00s)
+--- PASS: TestGreenhouseMalformedAndHostile (0.05s)
+--- PASS: TestGreenhouseHTTPClasses (0.04s)
+--- PASS: TestAttributionCoversATSProviders (0.00s)
+--- PASS: TestRemotiveTranslatesRecordsAndAttribution (0.02s)
+--- PASS: TestShippedWatchlistIsEmptyAndLoads (0.00s)
+--- PASS: TestWatchlistLoadsAndValidates (0.02s)
+--- PASS: FuzzGreenhouseOne (0.00s)
+--- PASS: FuzzLoadWatchlist (0.00s)
+PASS
+ok  	github.com/vasic-digital/job_seeker/internal/providers	1.173s

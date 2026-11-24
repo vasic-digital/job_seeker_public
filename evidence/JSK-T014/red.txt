@@ -1,0 +1,4 @@
+# github.com/vasic-digital/job_seeker/internal/crypto [github.com/vasic-digital/job_seeker/internal/crypto.test]
+internal/crypto/crypto_test.go:12:15: undefined: minParams
+internal/crypto/crypto_test.go:12:27: undefined: Params
+internal/crypto/crypto_test.go:14:12: undefined: Params

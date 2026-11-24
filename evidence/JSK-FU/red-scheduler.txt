@@ -1,0 +1,6 @@
+--- FAIL: TestSmallClockStepBackDoesNotRerunTheJob (0.00s)
+    scheduler_test.go:146: back 1s: 2 runs, want 1
+    scheduler_test.go:146: back 30s: 2 runs, want 1
+FAIL
+FAIL	github.com/vasic-digital/job_seeker/internal/scheduler	0.011s
+FAIL

@@ -1,0 +1,5 @@
+MUTATION: application-linked exemption removed from the age rule
+--- FAIL: TestPruneDeletesOldUnlinkedKeepsLinkedAndFreshAndAudits (0.04s)
+FAIL
+FAIL	github.com/vasic-digital/job_seeker/internal/ingest	0.678s
+FAIL

@@ -1,0 +1,8 @@
+# github.com/vasic-digital/job_seeker/internal/ext [github.com/vasic-digital/job_seeker/internal/ext.test]
+internal/ext/kernel_extra_test.go:11:7: undefined: KnownReason
+internal/ext/kernel_extra_test.go:15:5: undefined: KnownReason
+internal/ext/kernel_extra_test.go:18:12: undefined: ValidateReasons
+internal/ext/kernel_extra_test.go:21:12: undefined: ValidateReasons
+internal/ext/kernel_extra_test.go:32:13: undefined: ValidateReasons
+internal/ext/kernel_extra_test.go:36:12: undefined: ValidateReasons
+internal/ext/kernel_extra_test.go:45:13: r.Infos undefined (type *Registry[fake] has no field or method Infos)

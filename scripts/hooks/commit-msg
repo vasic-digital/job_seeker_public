@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+# commit-msg hook (JSK-T005, FR-075, FR-076): enforces section 11.4.293 / 11.4.297 trailers.
+#  - exactly one `Roadmap-Item: JSK-0NN` (NN 01..12)
+#  - more than one distinct JSK-Tnnn task id in the message needs `Multi-Task-Reason:`
+#  - a staged path outside scope-paths.txt needs `Out-of-Scope-Reason: <code from the closed list>`
+#  - no CI/CD pipeline files may be staged (section 11.4.156)
+# Exit 1 refuses the commit. Only names are printed, never message bodies.
+set -u
+msg="$1"
+here="$(cd "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")" && pwd)"
+body="$(grep -v '^#' "$msg")"
+fail() { echo "commit-msg REFUSED: $1" >&2; exit 1; }
+
+n="$(printf '%s\n' "$body" | grep -cE '^Roadmap-Item:')"
+[ "$n" -eq 1 ] || fail "need exactly one 'Roadmap-Item:' trailer (found $n)"
+printf '%s\n' "$body" | grep -qE '^Roadmap-Item: JSK-0(0[1-9]|1[0-2])[[:space:]]*$' \
+  || fail "Roadmap-Item must name exactly one item JSK-001..JSK-012"
+
+tasks="$(printf '%s\n' "$body" | grep -v '^Multi-Task-Reason:' | grep -oE 'JSK-T[0-9]{3}' | sort -u | wc -l)"
+if [ "$tasks" -gt 1 ]; then
+  printf '%s\n' "$body" | grep -qE '^Multi-Task-Reason: .{10,}' \
+    || fail "$tasks task ids named; add 'Multi-Task-Reason: <reason>' (section 11.4.297)"
+fi
+
+root="$(git rev-parse --show-toplevel)"
+staged="$(git diff --cached --name-only --diff-filter=ACMRD)"
+if printf '%s\n' "$staged" | grep -qE '^(\.github/workflows/|\.gitlab-ci\.yml|\.circleci/|azure-pipelines\.yml)' ; then
+  fail "CI/CD files are forbidden (section 11.4.156)"
+fi
+oos=""
+while IFS= read -r p; do
+  [ -n "$p" ] || continue
+  ok=0
+  while IFS= read -r pre; do
+    case "$pre" in ''|'#'*) continue;; esac
+    case "$p" in "$pre"*) ok=1; break;; esac
+  done < "$here/scope-paths.txt"
+  [ "$ok" -eq 1 ] || oos="$oos $p"
+done <<< "$staged"
+if [ -n "$oos" ]; then
+  reason="$(printf '%s\n' "$body" | sed -n 's/^Out-of-Scope-Reason: *//p' | head -1 | tr -d '[:space:]')"
+  [ -n "$reason" ] || fail "path(s) outside scope:$oos ; add 'Out-of-Scope-Reason: <code>'"
+  grep -qxF "$reason" "$here/out-of-scope-reasons.txt" || fail "Out-of-Scope-Reason '$reason' is not in the closed list"
+fi
+exit 0

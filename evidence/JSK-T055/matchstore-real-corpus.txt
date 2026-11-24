@@ -1,0 +1,9 @@
+# 2026-11-24T10:53:12Z real corpus (115 postings) loaded into a real migrated SQLite store
+=== RUN   TestIdempotentRerunAndVersionedRows
+--- PASS: TestIdempotentRerunAndVersionedRows (0.66s)
+=== RUN   TestReviewQueueAndAuditedHumanMapping
+--- PASS: TestReviewQueueAndAuditedHumanMapping (0.26s)
+=== RUN   TestScoreIdempotentAndVersioned
+--- PASS: TestScoreIdempotentAndVersioned (0.75s)
+PASS
+ok  	github.com/vasic-digital/job_seeker/internal/matchstore	1.669s

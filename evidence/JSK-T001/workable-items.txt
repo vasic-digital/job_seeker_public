@@ -1,0 +1,7 @@
+# JSK-T001 evidence
+Workable items by Status:
+  Queued  12
+  -----------
+  TOTAL   12
+validate: note — reproduction closure gate NOT armed (run `states freeze`); closed Bugs without a reproduction record are not checked
+validate: OK — 12 items, all invariants satisfied

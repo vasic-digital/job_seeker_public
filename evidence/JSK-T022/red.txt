@@ -1,0 +1,2 @@
+# github.com/vasic-digital/job_seeker/internal/server
+# [github.com/vasic-digital/job_seeker/internal/server]

@@ -1,0 +1,4 @@
+--- PASS: TestPlantedViolationsAreFoundAndCleanShapesAreNot (0.01s)
+    txcheck_test.go:78: TXCHECK: 47 write-tx closures analysed over 594 function bodies; 13 lock sites; lock-order edges: []
+--- PASS: TestRealTreeHasNoNetworkInsideWriteTxAndNoLockOrderCycle (0.05s)
+ok  	github.com/vasic-digital/job_seeker/gates/txcheck	0.055s

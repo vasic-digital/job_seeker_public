@@ -1,0 +1,4 @@
+# github.com/vasic-digital/job_seeker/internal/ext/reader/jsonld [github.com/vasic-digital/job_seeker/internal/ext/reader/jsonld.test]
+internal/ext/reader/jsonld/jsonld_test.go:67:59: undefined: Reader
+internal/ext/reader/jsonld/jsonld_test.go:70:76: undefined: Reader
+internal/ext/reader/jsonld/jsonld_test.go:82:29: undefined: Reader

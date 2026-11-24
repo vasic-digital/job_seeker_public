@@ -1,0 +1,4 @@
+{"stellenangebote":[
+ {"beruf":"Softwareentwickler/in","titel":"Backend-Entwickler (m/w/d) Go","refnr":"10001-1002716922-S","arbeitsort":{"plz":"10115","ort":"Berlin","region":"Berlin","land":"Deutschland"},"arbeitgeber":"Beispiel Arbeitgeber GmbH","aktuelleVeroeffentlichungsdatum":"2026-11-20","eintrittsdatum":"2026-12-01","modifikationsTimestamp":"2026-11-20T08:00:00.000"},
+ {"beruf":"Systemadministrator/in","titel":"Systemadministrator (m/w/d)","refnr":"10002-2002716923-S","arbeitsort":{"ort":"Leipzig","land":"Deutschland"},"arbeitgeber":"Muster AG","aktuelleVeroeffentlichungsdatum":"2026-11-19","externeUrl":"https://karriere.example.com/job/42"}
+],"maxErgebnisse":2,"page":1,"size":10}

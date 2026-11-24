@@ -1,0 +1,2 @@
+OK design copy matches its manifest; console.css defines no token and carries no literal colour
+PROVE-FAILURE OK: control rc=0; edited token file, unpinned file, token redefinition all rc=1

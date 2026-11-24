@@ -1,0 +1,6 @@
+# Closed list of Out-of-Scope-Reason codes (section 11.4.293). Extended only by a reviewed change to this file.
+governance-carrier-sync
+dependency-pin-bump
+generated-regeneration
+tooling-fix
+review-finding-fix

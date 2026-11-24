@@ -1,0 +1,6 @@
+--- PASS: TestConformance (0.00s)
+--- PASS: TestRegisters (0.00s)
+--- PASS: TestMutantsAreCaughtByTheSuite (0.00s)
+--- PASS: TestSniff (0.00s)
+--- PASS: TestOversizeAndDepthAreBounded (0.01s)
+ok  	github.com/vasic-digital/job_seeker/internal/ext/reader/jsonld	0.018s

@@ -1,0 +1,8 @@
+=== RUN   TestDeleteAllShredsKeyRowsFilesAndFreePages
+--- PASS: TestDeleteAllShredsKeyRowsFilesAndFreePages (0.35s)
+=== RUN   TestControlPlainDeleteLeavesPlaintext
+--- PASS: TestControlPlainDeleteLeavesPlaintext (0.17s)
+=== RUN   TestDeletePostingRemovesSubtreeAndDraftFileKeepsOthers
+--- PASS: TestDeletePostingRemovesSubtreeAndDraftFileKeepsOthers (0.13s)
+PASS
+ok  	github.com/vasic-digital/job_seeker/internal/privacy	0.673s

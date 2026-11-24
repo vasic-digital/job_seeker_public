@@ -1,0 +1,15 @@
+{
+  "bytes": 83430,
+  "host": "api.lever.co",
+  "label": "anonymised-synthetic fixture written to the documented Lever postings shape; no captured text retained",
+  "latency_ms": 1283,
+  "name": "lever_leverdemo",
+  "original_capture_note": "resp_sha256/bytes/retrieved_at describe the one-time shape-discovery capture of 2026-11-24; the captured body is NOT redistributed in this repository",
+  "request_id": "",
+  "resolved_ip": "44.253.56.171",
+  "resp_sha256": "7f214eec723a2fe8ada51da679d2dd35b6028c13b6057ef64e2ce9c53310c7b3",
+  "retrieved_at": "2026-11-24T13:11:47Z",
+  "status": 200,
+  "tls_subject": "i.prod.lever.co",
+  "url": "https://api.lever.co/v0/postings/leverdemo?mode=json&limit=10"
+}

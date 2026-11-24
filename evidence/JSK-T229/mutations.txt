@@ -1,0 +1,7 @@
+KILLED       ext-mailto-unknown-header-accepted
+KILLED       ext-mailto-ctl-in-value-accepted
+KILLED       ext-mailto-zero-approved-accepted
+KILLED       ext-mailto-subject-precedence
+KILLED       ext-openurl-http-accepted
+KILLED       ext-openurl-zero-approved-accepted
+KILLED       ext-mailto-recipient-metachars-accepted

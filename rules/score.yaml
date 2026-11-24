@@ -1,0 +1,27 @@
+# Versioned scoring rules (FR-016, FR-017, FR-018). DATA, not code. No personal values live here (overlay only).
+version: 1
+score_version: "score.v2"   # v2: skills may receive keyword points (JSK-T236); identical to v1 when no keyword hook is attached
+weights: {skills: 0.35, area_fit: 0.20, seniority: 0.15, location: 0.15, salary: 0.10, recency: 0.05}
+bands: {shortlist_min: 70, review_min: 55}   # >= 70 shortlisted; 55..69.9 review band; < 55 discarded (kept)
+keywords: {points_per_hit: 1.0, max_points: 5.0}   # skills S1 += min(max_points, points_per_hit x token-exact keyword hits); NOT a seventh weight
+skills_cap: 20            # skills component = min(1, S1 / cap) for the mapped area (top candidate when not mapped)
+area_fit: {mapped_high: 1.0, mapped_medium: 0.7, ambiguous: 0.35, unmapped: 0.0}
+seniority:
+  senior_tokens: [senior, lead, staff, principal, "tech lead", старший, ведущий, лид, сениор, "ведущий разработчик", senior, "vodeci", "водећи", "stariji", "старији"]
+  junior_tokens: [junior, intern, internship, trainee, graduate, стажер, стажёр, джуниор, младший, "pocetnik", "почетник", "praktikant", "практикант"]
+  senior: 1.0
+  unspecified: 0.6
+location:
+  neutral: 0.5            # overlay absent or nothing comparable
+  remote_anywhere: 1.0
+  onsite_allowed: 0.8
+  min_overlap_hours: 4    # overlap with the overlay tz window that earns full credit
+  assumed_working_hours: {start: 9, end: 17}   # local hours assumed for the posting's tz_hint
+salary:
+  neutral: 0.5            # overlay floor absent, posting salary absent, or currencies differ
+  meets_floor: 1.0
+  annual_factors: {year: 1, month: 12, hour: 2080}
+recency:
+  tiers: [{max_days: 3, value: 1.0}, {max_days: 14, value: 0.7}, {max_days: 30, value: 0.4}]
+  older: 0.1
+  unknown: 0.3

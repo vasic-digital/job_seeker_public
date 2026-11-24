@@ -1,0 +1,44 @@
+# live HTTP/3 + Brotli gate, 2026-11-24T10:27:01Z, commit f4ea86533024
+runtime=podman version=5.7.0 compose=available
+== 1. full stack, TCP+UDP published, port 18443
+2026/11/24 11:27:05 [INFO]  jsstack: compose down: podman-compose -f <repo>/deploy/compose.yml --project-name js-live-h3 down --remove-orphans
+2026/11/24 11:27:05 [DEBUG] jsstack: executing: podman-compose -f <repo>/deploy/compose.yml --project-name js-live-h3 down --remove-orphans (dir: <repo>/deploy)
+2026/11/24 11:27:05 [DEBUG] jsstack: compose command completed successfully
+2026/11/24 11:27:05 [INFO]  jsstack: compose up: podman-compose -f <repo>/deploy/compose.yml --project-name js-live-h3 up -d --remove-orphans --build
+2026/11/24 11:27:05 [DEBUG] jsstack: executing: podman-compose -f <repo>/deploy/compose.yml --project-name js-live-h3 up -d --remove-orphans --build (dir: <repo>/deploy)
+2026/11/24 11:27:06 [DEBUG] jsstack: compose command completed successfully
+up: jobseeker-gate running
+name=jobseeker-gate state=running health="running" exit=0 started=2026-11-24T11:27:06+01:00
+PASS: HTTP/3 request completed (<nil>)
+PASS: protocol is HTTP/3.0 (got HTTP/3.0)
+PASS: Content-Encoding is br (got br)
+PASS: Vary names Accept-Encoding
+PASS: body Brotli-decodes to the real /healthz JSON
+jsgate-serve: listening tcp=[::]:18443 udp=[::]:18443 h3=true mutate=none
+2026/11/24 11:27:12 [INFO]  jsstack: compose down: podman-compose -f <repo>/deploy/compose.yml --project-name js-live-h3 down --remove-orphans
+2026/11/24 11:27:12 [DEBUG] jsstack: executing: podman-compose -f <repo>/deploy/compose.yml --project-name js-live-h3 down --remove-orphans (dir: <repo>/deploy)
+2026/11/24 11:27:13 [DEBUG] jsstack: compose command completed successfully
+down: ok
+== 2. TCP-only stack (UDP not published)
+2026/11/24 11:27:14 [INFO]  jsstack: compose down: podman-compose -f <repo>/deploy/compose.tcp-only.yml --project-name js-live-h3 down --remove-orphans
+2026/11/24 11:27:14 [DEBUG] jsstack: executing: podman-compose -f <repo>/deploy/compose.tcp-only.yml --project-name js-live-h3 down --remove-orphans (dir: <repo>/deploy)
+2026/11/24 11:27:15 [DEBUG] jsstack: compose command completed successfully
+2026/11/24 11:27:15 [INFO]  jsstack: compose up: podman-compose -f <repo>/deploy/compose.tcp-only.yml --project-name js-live-h3 up -d --remove-orphans --build
+2026/11/24 11:27:15 [DEBUG] jsstack: executing: podman-compose -f <repo>/deploy/compose.tcp-only.yml --project-name js-live-h3 up -d --remove-orphans --build (dir: <repo>/deploy)
+2026/11/24 11:27:16 [DEBUG] jsstack: compose command completed successfully
+up: jobseeker-gate running
+PASS: HTTP/3 attempt FAILS while UDP is not published
+PASS: TCP fallback request completed (<nil>)
+PASS: fallback protocol is HTTP/2.0 (got HTTP/2.0)
+PASS: fallback Content-Encoding is br (got br)
+PASS: fallback body decodes to the real /healthz JSON
+== 2b. mutation control: the h3 assertion MUST fail on the TCP-only stack
+FAIL: HTTP/3 request failed: context deadline exceeded
+PASS: h3 assertion fails without QUIC (rc=1)
+2026/11/24 11:27:28 [INFO]  jsstack: compose down: podman-compose -f <repo>/deploy/compose.tcp-only.yml --project-name js-live-h3 down --remove-orphans
+2026/11/24 11:27:28 [DEBUG] jsstack: executing: podman-compose -f <repo>/deploy/compose.tcp-only.yml --project-name js-live-h3 down --remove-orphans (dir: <repo>/deploy)
+2026/11/24 11:27:29 [DEBUG] jsstack: compose command completed successfully
+down: ok
+LIVE-H3 OK
+
+# paths normalised for publication ($HOME, <repo>, <umbrella> placeholders)

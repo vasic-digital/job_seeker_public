@@ -1,0 +1,21 @@
+# Captured output, jobops spike run 2026-11-24 (transcribed from the terminal of the run; credentials not included)
+$ podman images --digests ghcr.io/dakheera47/job-ops
+ghcr.io/dakheera47/job-ops  v0.14.0  sha256:4e94e734b03030a6299b4562d9d52b21185d7e3b797342bb30926039dfc92ab1  7adc69b15492  3 weeks ago  6.05 GB
+$ podman image inspect ghcr.io/dakheera47/job-ops:v0.14.0 --format 'size={{.Size}} digest={{.Digest}}'
+size=6051441989 digest=sha256:48b629cd26eb8a6040792f548293e664c5a075908bed858b1c9ba6c89308fa19
+$ podman pull ...   real 25m26.095s
+$ podman info --format 'rootless={{.Host.Security.Rootless}}'
+rootless=true
+$ free -m (before)   Mem: 30974 5536 6429 234 19678 25437
+$ free -m (after)    Mem: 30974 6001 5135 220 20495 24973
+$ df -h ~  before pull: 1.7T used, 9.4G avail 100%   after: 4.3G avail 100%
+$ jsstack up -file deploy/jobops.compose.yml ...   -> "up: jobseeker-jobops running", rc=0, 9.025549173355103 s
+$ podman stats --no-stream   idle mem=371.5MB / 2.147GB pids=85 ; after calls mem=372MB ; later mem=301.8MB / 2.147GB pids=84
+$ jobops-spike (unauthenticated first run): /health 200, /api/app/status 200, all other /api/* 401
+$ jobops-spike -apply-throwaway (authenticated): all 13 calls 200, "apply effect: status discovered -> applied, appliedAt set=true", "jobops-spike: all expectations met", rc=0
+$ podman logs | grep -oE 'https?://[A-Za-z0-9.-]+' | sort | uniq -c  ->  4 http://localhost ; 1 https://github.com
+$ podman logs | grep -ciE 'umami|openpanel' -> 0
+$ curl -X POST /stats/api/send -> 404
+log: "Downloaded 7344 sponsors for provider: ca" / "Downloaded 13089 sponsors for provider: nl" / "Failed to download sponsors for provider uk: fetch failed"
+$ podman exec ... established tcp (/proc/net/tcp state 01): 1 connection, remote 2F59C017:01BB (port 443)
+$ jsstack down -> "down: ok"; podman ps -a --filter name=jobseeker-jobops -q | wc -l -> 0

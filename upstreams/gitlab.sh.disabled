@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+# GitLab (public mirror, group vasic-digital)
+# DISABLED (suffix .disabled: install_upstreams.sh and push_all.sh glob *.sh and ignore this file).
+# SNAPSHOT-ONLY: this URL is the one-way PUBLIC repo (job_seeker_public, fresh history). It is fed ONLY by scripts/publish_snapshot.sh push;
+# NEVER enable this recipe in the dev repo - push_all.sh would push private dev history to it.
+# Enable only with: bash scripts/upstream_guard.sh enable gitlab
+# which refuses unless docs/public-readiness/AUDIT-GO exists and the target repository EXISTS.
+# Credentials are never stored here; see docs/public-readiness/PROVIDERS.md.
+export UPSTREAMABLE_REPOSITORY="git@gitlab.com:vasic-digital/job_seeker_public.git"

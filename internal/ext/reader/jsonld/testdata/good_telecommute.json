@@ -1,0 +1,5 @@
+{"@context":"https://schema.org","@type":"JobPosting","title":"Backend Engineer","description":"<p>Build things in Go.</p>","identifier":{"@type":"PropertyValue","name":"Example GmbH","value":"REQ-1042"},
+ "datePosted":"2026-11-01","validThrough":"2026-12-31T00:00:00Z","employmentType":"FULL_TIME","hiringOrganization":{"@type":"Organization","name":"Example GmbH","sameAs":"https://example.test"},
+ "jobLocationType":"TELECOMMUTE","applicantLocationRequirements":[{"@type":"Country","name":"DE"},{"@type":"Country","name":"AT"}],
+ "baseSalary":{"@type":"MonetaryAmount","currency":"EUR","value":{"@type":"QuantitativeValue","minValue":70000,"maxValue":90000,"unitText":"YEAR"}},
+ "url":"https://jobs.example.test/j/1042","directApply":true}

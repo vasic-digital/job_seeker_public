@@ -1,0 +1,137 @@
+[
+ {
+  "additional": "",
+  "additionalPlain": "",
+  "categories": {
+   "commitment": "Regular Full Time (Salary)",
+   "department": "Customer Success",
+   "location": "Atlanta, Georgia",
+   "team": "Customer Success Team",
+   "allLocations": [
+    "Atlanta, Georgia"
+   ]
+  },
+  "createdAt": 1788199939703,
+  "descriptionPlain": "Synthetic fixture text. Join a fictional customer success team advising customers on getting value from the product.",
+  "description": "<div>Synthetic fixture text. Join a fictional customer success team advising customers on getting value from the product.</div>",
+  "id": "00000000-0000-4000-8000-000000000001",
+  "lists": [
+   {
+    "text": "Skill Set:",
+    "content": "\n<li>3+ years of customer relationship or account management experience in software as a service (SaaS)</li>\n<li>Results-oriented mindset</li>\n<li>Strong project and time management skills</li>\n"
+   }
+  ],
+  "salaryRange": {
+   "min": 85000,
+   "max": 175000,
+   "currency": "USD",
+   "interval": "per-year-salary"
+  },
+  "text": "Customer Success Manager",
+  "country": "US",
+  "workplaceType": "hybrid",
+  "opening": "",
+  "openingPlain": "",
+  "descriptionBody": "<div>Synthetic fixture text. Join a fictional customer success team advising customers on getting value from the product.</div>",
+  "descriptionBodyPlain": "Synthetic fixture text. Join a fictional customer success team advising customers on getting value from the product.",
+  "hostedUrl": "https://jobs.lever.co/examplecorp/00000000-0000-4000-8000-000000000001",
+  "applyUrl": "https://jobs.lever.co/examplecorp/00000000-0000-4000-8000-000000000001/apply"
+ },
+ {
+  "additional": "",
+  "additionalPlain": "",
+  "categories": {
+   "commitment": "Regular Full Time (Salary)",
+   "department": "People (HR)",
+   "location": "Houston, TX",
+   "team": "People",
+   "allLocations": [
+    "Houston, TX"
+   ]
+  },
+  "createdAt": 1787600587936,
+  "description": "",
+  "descriptionPlain": "",
+  "id": "00000000-0000-4000-8000-000000000002",
+  "lists": [
+   {
+    "text": "Responsibilities:",
+    "content": "\n<li>Synthetic fixture duty one</li>\n<li>Synthetic fixture duty two</li>\n"
+   }
+  ],
+  "salaryRange": {
+   "min": 150000,
+   "max": 185000,
+   "currency": "USD",
+   "interval": "per-year-salary"
+  },
+  "text": "Dentist",
+  "country": "US",
+  "workplaceType": "onsite",
+  "opening": "",
+  "openingPlain": "",
+  "descriptionBody": "",
+  "descriptionBodyPlain": "",
+  "hostedUrl": "https://jobs.lever.co/examplecorp/00000000-0000-4000-8000-000000000002",
+  "applyUrl": "https://jobs.lever.co/examplecorp/00000000-0000-4000-8000-000000000002/apply"
+ },
+ {
+  "additional": "",
+  "additionalPlain": "",
+  "categories": {
+   "commitment": "Regular Full Time (Salary)",
+   "department": "Executive",
+   "location": "London, UK",
+   "team": "Executive",
+   "allLocations": [
+    "London, UK"
+   ]
+  },
+  "createdAt": 1718633877107,
+  "description": "",
+  "descriptionPlain": "",
+  "id": "00000000-0000-4000-8000-000000000003",
+  "lists": [],
+  "text": "Director of People Programs",
+  "country": "GB",
+  "workplaceType": "onsite",
+  "opening": "",
+  "openingPlain": "",
+  "descriptionBody": "",
+  "descriptionBodyPlain": "",
+  "hostedUrl": "https://jobs.lever.co/examplecorp/00000000-0000-4000-8000-000000000003",
+  "applyUrl": "https://jobs.lever.co/examplecorp/00000000-0000-4000-8000-000000000003/apply"
+ },
+ {
+  "additionalPlain": "",
+  "additional": "",
+  "categories": {
+   "commitment": "Remote",
+   "department": "Sales",
+   "location": "New York, New York",
+   "team": "Sales Engineering",
+   "allLocations": [
+    "New York, New York"
+   ]
+  },
+  "createdAt": 1764105683926,
+  "descriptionPlain": "Synthetic fixture text for a fictional sales engineering role.",
+  "description": "<div>Synthetic fixture text for a fictional sales engineering role.</div>",
+  "id": "00000000-0000-4000-8000-000000000004",
+  "lists": [
+   {
+    "text": "Requirements:",
+    "content": "\n<li>Synthetic fixture requirement</li>\n"
+   }
+  ],
+  "text": "Sales Engineer",
+  "country": "US",
+  "workplaceType": "remote",
+  "opening": "",
+  "openingPlain": "",
+  "descriptionBody": "<div>Synthetic fixture text for a fictional sales engineering role.</div>",
+  "descriptionBodyPlain": "Synthetic fixture text for a fictional sales engineering role.",
+  "hostedUrl": "https://jobs.lever.co/examplecorp/00000000-0000-4000-8000-000000000004",
+  "applyUrl": "https://jobs.lever.co/examplecorp/00000000-0000-4000-8000-000000000004/apply"
+ }
+]

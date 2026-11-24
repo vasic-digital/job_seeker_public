@@ -1,0 +1,3 @@
+RED (measured on pre-fix code, review round 1):
+--- FAIL: TestStructScanXRefNameIsNotAnExemption: stray /XRef hid the action: {Actions:[] Incomplete:false}
+--- FAIL: TestRedirectDoesNotCarryTheToken: redirect followed: hits=1

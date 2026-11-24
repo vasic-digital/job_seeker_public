@@ -1,0 +1,2 @@
+UNDETERMINED: pdgate: overlay not available; cannot determine
+rc=2

@@ -1,0 +1,14 @@
+ok internal/match BenchmarkClassify ns/op best=76040 baseline=110000
+ok internal/match BenchmarkClassify p99-ns best=328231 baseline=700000
+ok internal/match BenchmarkScorePosting ns/op best=5468 baseline=6200
+ok internal/match BenchmarkScorePosting p99-ns best=22120 baseline=22000
+ok internal/store BenchmarkWriteInsert ns/op best=539717 baseline=520000
+ok internal/store BenchmarkWriteInsert p50-ns best=113950 baseline=122000
+ok internal/store BenchmarkWriteInsert p99-ns best=5440439 baseline=7900000
+ok internal/audit BenchmarkAppend ns/op best=226682 baseline=223000
+ok internal/audit BenchmarkAppend p50-ns best=97971 baseline=100000
+ok internal/audit BenchmarkAppend p99-ns best=336741 baseline=1400000
+ok internal/ingest BenchmarkUpsertReplay ns/op best=7434358 baseline=7900000
+ok internal/ingest BenchmarkUpsertReplay p50-ns best=5346419 baseline=5900000
+ok internal/ingest BenchmarkUpsertReplay p99-ns best=55326619 baseline=56700000
+rc=0

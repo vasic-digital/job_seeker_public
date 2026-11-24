@@ -1,0 +1,4 @@
+# github.com/vasic-digital/job_seeker/internal/ext/verdictstore [github.com/vasic-digital/job_seeker/internal/ext/verdictstore.test]
+internal/ext/verdictstore/verdictstore_test.go:35:37: undefined: Row
+internal/ext/verdictstore/verdictstore_test.go:36:9: undefined: Row
+internal/ext/verdictstore/verdictstore_test.go:40:40: undefined: Row

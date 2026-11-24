@@ -1,0 +1,4 @@
+jsstack probe:
+runtime=podman version=5.7.0 compose=available
+port -udp:
+18700

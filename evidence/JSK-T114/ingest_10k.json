@@ -1,0 +1,16 @@
+{
+ "audit_entries": 16668,
+ "audit_state": "TAMPER-FREE",
+ "batch": 500,
+ "ingest_seconds": 11.545990323,
+ "integrity_check": "ok",
+ "mapped_and_scored": 6668,
+ "new": 10000,
+ "note": "labelled synthetic load input through the real ingest, classifier, scorer and matchstore; counts are exact, classification quality is not claimed",
+ "postings": 10000,
+ "postings_per_second": 866.101540036775,
+ "queued": 3332,
+ "reingest_new": 0,
+ "reingest_unchanged": 500,
+ "vmhwm_kb": 80264
+}

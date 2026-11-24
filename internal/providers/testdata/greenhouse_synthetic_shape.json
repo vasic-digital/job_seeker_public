@@ -1,0 +1,83 @@
+{
+  "jobs": [
+    {
+      "absolute_url": "https://example.com/jobs/9000001",
+      "ai_disclaimer": null,
+      "ai_opt_out_request_url": "https://example.com/ai_opt_out/9000001",
+      "application_deadline": null,
+      "company_name": "Example Co",
+      "content": "&lt;p&gt;Synthetic posting body for tests.&lt;/p&gt;",
+      "data_compliance": [],
+      "departments": [
+        {
+          "child_ids": [],
+          "id": 1,
+          "name": "Example departments",
+          "parent_id": null
+        }
+      ],
+      "education": "education_required",
+      "first_published": "2026-09-09T10:50:29-04:00",
+      "id": "9000001",
+      "include_ai_disclaimer": false,
+      "internal_job_id": "9000101",
+      "language": "en",
+      "location": {
+        "name": "Remote (Example City)"
+      },
+      "metadata": null,
+      "offices": [
+        {
+          "child_ids": [],
+          "id": 1,
+          "name": "Example offices",
+          "parent_id": null
+        }
+      ],
+      "requisition_id": "EX-0",
+      "title": "Example Analyst",
+      "updated_at": "2026-11-19T12:12:24-05:00"
+    },
+    {
+      "absolute_url": "https://example.com/jobs/9000002",
+      "ai_disclaimer": null,
+      "ai_opt_out_request_url": "https://example.com/ai_opt_out/9000002",
+      "application_deadline": null,
+      "company_name": "Example Co",
+      "content": "&lt;p&gt;Synthetic posting body for tests.&lt;/p&gt;",
+      "data_compliance": [],
+      "departments": [
+        {
+          "child_ids": [],
+          "id": 2,
+          "name": "Example departments",
+          "parent_id": null
+        }
+      ],
+      "education": "education_required",
+      "first_published": "2026-09-18T13:27:51-04:00",
+      "id": "9000002",
+      "include_ai_disclaimer": false,
+      "internal_job_id": "9000102",
+      "language": "en",
+      "location": {
+        "name": "Remote (Example City)"
+      },
+      "metadata": null,
+      "offices": [
+        {
+          "child_ids": [],
+          "id": 2,
+          "name": "Example offices",
+          "parent_id": null
+        }
+      ],
+      "requisition_id": "EX-1",
+      "title": "Example Engineer",
+      "updated_at": "2026-11-19T12:12:23-05:00"
+    }
+  ],
+  "meta": {
+    "total": 2
+  }
+}

@@ -1,0 +1,12 @@
+# Keyword synonyms (JSK-T236, docs/research/protocols/24 section 6). DATA. Canonical term -> variants; every variant
+# is matched as a WHOLE TOKEN SEQUENCE, case-insensitive. Hashed into the ruleset sha. Wanted terms are the public
+# career-snapshot skills (rules/career_snapshot.yaml); nothing private lives here.
+schema: synonyms.v1
+terms:
+  Kubernetes: [k8s]
+  Go: [golang]
+  "Amazon Web Services": [aws]
+  PostgreSQL: [postgres]
+  JavaScript: [js]
+  TypeScript: [ts]
+  "Node.js": [nodejs]

@@ -1,0 +1,9 @@
+# github.com/vasic-digital/job_seeker/internal/fsm [github.com/vasic-digital/job_seeker/internal/fsm.test]
+internal/fsm/fsm_test.go:110:9: undefined: PositionStates
+internal/fsm/fsm_test.go:111:33: undefined: PositionStates
+internal/fsm/fsm_test.go:120:13: undefined: PositionCan
+# github.com/vasic-digital/job_seeker/internal/store [github.com/vasic-digital/job_seeker/internal/store.test]
+internal/store/position_schema_test.go:52:33: undefined: fsm.PositionStates
+FAIL	github.com/vasic-digital/job_seeker/internal/store [build failed]
+FAIL	github.com/vasic-digital/job_seeker/internal/fsm [build failed]
+FAIL

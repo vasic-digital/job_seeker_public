@@ -1,0 +1,12 @@
+PASSED   jsk-no-send-without-approval (8 assertions, 5 recorded actions)
+PASSED   jsk-hash-mismatch (5 assertions, 3 recorded actions)
+PASSED   jsk-no-personal-data (3 assertions, 3 recorded actions)
+PASSED   jsk-invent-no-area (6 assertions, 3 recorded actions)
+challenges: 4 run, 0 failed
+rc=0
+  mutant classifier-forces-area: killed (jsk-invent-no-area failed)
+  mutant live-check-removed: killed (jsk-no-send-without-approval failed)
+  mutant hash-mismatch-swallowed: killed (jsk-hash-mismatch failed)
+  mutant scanner-neutered: killed (jsk-no-personal-data failed)
+PROVE-FAILURE OK: control passes, 4 production mutants each make the bank fail on the intended challenge
+prove-failure rc=0

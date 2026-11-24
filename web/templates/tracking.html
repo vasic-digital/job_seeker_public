@@ -1,0 +1,31 @@
+{{define "content"}}
+<section class="od-card console-card" aria-labelledby="t-h">
+  <h2 id="t-h" class="console-h2">{{.A.Title}} · {{.A.Company}}</h2>
+  <p><a href="/applications/{{.A.ID}}/draft">{{t .Lang "draft.title"}}</a></p>
+  <h3 class="console-h3">{{t .Lang "tracking.timeline"}}</h3>
+  {{if .Timeline}}
+  <table class="od-table" data-testid="timeline"><caption class="od-visually-hidden">{{t .Lang "tracking.timeline"}}</caption>
+    <thead><tr><th scope="col">{{t .Lang "col.when"}}</th><th scope="col">{{t .Lang "tracking.status"}}</th><th scope="col">{{t .Lang "tracking.source"}}</th><th scope="col">{{t .Lang "tracking.note"}}</th></tr></thead>
+    <tbody>{{range .Timeline}}<tr><td>{{.TS.Format "2006-01-02 15:04"}}</td><th scope="row">{{.Status}}</th><td>{{.Source}}</td><td>{{.Note}}</td></tr>{{end}}</tbody></table>
+  {{else}}<div class="od-empty-state"><p class="od-empty-state__title">{{t .Lang "tracking.empty"}}</p></div>{{end}}
+</section>
+<section class="od-card console-card" aria-labelledby="r-h">
+  <h2 id="r-h" class="console-h2">{{t .Lang "tracking.record"}}</h2>
+  <form method="post" action="/applications/{{.A.ID}}/tracking">
+    <input type="hidden" name="_csrf" value="{{.CSRF}}"><input type="hidden" name="latest" value="{{.Latest}}">
+    <div class="od-field"><label class="od-label" for="tr-status">{{t .Lang "tracking.status"}}</label>
+      <select class="od-input" id="tr-status" name="status" required>{{range .Statuses}}<option>{{.}}</option>{{end}}</select></div>
+    <div class="od-field"><label class="od-label" for="tr-note">{{t .Lang "tracking.note"}}</label><textarea class="od-textarea" id="tr-note" name="note"></textarea></div>
+    <button class="od-btn od-btn--primary" type="submit" data-testid="track-save">{{t .Lang "tracking.save"}}</button>
+  </form>
+</section>
+<section class="od-card console-card" aria-labelledby="f-h">
+  <h2 id="f-h" class="console-h2">{{t .Lang "tracking.followup"}}</h2>
+  <form method="post" action="/applications/{{.A.ID}}/follow-up">
+    <input type="hidden" name="_csrf" value="{{.CSRF}}">
+    <div class="od-field"><label class="od-label" for="fu-date">{{t .Lang "tracking.followup"}}</label><input class="od-input" id="fu-date" name="date" type="date" value="{{.FollowUp}}"></div>
+    <p class="console-hint">{{t .Lang "tracking.followup.help"}}</p>
+    <button class="od-btn od-btn--secondary" type="submit" data-testid="followup-save">{{t .Lang "tracking.followup.save"}}</button>
+  </form>
+</section>
+{{end}}

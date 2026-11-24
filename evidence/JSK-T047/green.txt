@@ -1,0 +1,4 @@
+=== RUN   TestNewProviderNeedsOnlyAdapterAndRow
+--- PASS: TestNewProviderNeedsOnlyAdapterAndRow (0.09s)
+PASS
+ok  	github.com/vasic-digital/job_seeker/internal/ingest	0.107s

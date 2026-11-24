@@ -1,0 +1,15 @@
+podman rootless/runtime:
+rootless=true ocirt=crun podman=5.7.0
+module runtime-probe (umbrella tool, containers pin 22b49707f9bb):
+runtime=podman version=5.7.0
+port-discover usage (supports -udp for h3 same-port):
+usage: port-discover [-registry-dir DIR] [-udp] NAME DEFAULT_PORT
+podman compose provider:
+podman-compose version 1.5.0
+module primitives present (grep of the pinned submodule):
+50:	Run(
+261:func (o *DefaultOrchestrator) Up(
+478:func (o *DefaultOrchestrator) Down(
+30:func NewDefaultChecker() *DefaultChecker {
+
+SCOPE NOTE: this probe establishes presence and host support (rootless podman, podman-compose provider, module symbols). It does NOT execute Run or compose Up; those are exercised for real at JSK-T031/T032. Remote-stdin Run is a known upstream gap (umbrella CLAUDE.md), irrelevant here (local run only).

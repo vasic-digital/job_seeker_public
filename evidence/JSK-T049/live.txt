@@ -1,0 +1,13 @@
+# live run, 2026-11-24T10:51:24Z
+career snapshot in sync (areas 10, skills 57, source 4c8eebeaaa05e1bbb5ce35c66e9a40b0bc68a363)
+rc=0
+wrote $HOME/.cache/claude-tmp/p4/regen.yaml (areas 10, skills 57, source 4c8eebeaaa05e1bbb5ce35c66e9a40b0bc68a363)
+rc=0
+## mutated copy (one keyword changed) must report drift:
+career snapshot drift: area ai-engineering
+rc=1
+## source unset:
+snapshot-career: CAREER_CONTENT_DIR unset
+rc=2
+
+# paths normalised for publication ($HOME, <repo>, <umbrella> placeholders)

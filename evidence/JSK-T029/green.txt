@@ -1,0 +1,12 @@
+=== RUN   TestTokenLifecycleStoresOnlyAHash
+--- PASS: TestTokenLifecycleStoresOnlyAHash (0.10s)
+=== RUN   TestOnlyReadAndDryrunScopesExist
+--- PASS: TestOnlyReadAndDryrunScopesExist (0.09s)
+=== RUN   TestTokensAreUnique
+--- PASS: TestTokensAreUnique (0.20s)
+=== RUN   TestNoTokenCanApproveSendOrChangeSettings
+--- PASS: TestNoTokenCanApproveSendOrChangeSettings (0.01s)
+=== RUN   TestEnumerationSeesAWidenedPolicy
+--- PASS: TestEnumerationSeesAWidenedPolicy (0.01s)
+PASS
+ok  	github.com/vasic-digital/job_seeker/internal/auth	1.420s

@@ -1,0 +1,5 @@
+--- FAIL: TestDeleteAllShredsKeyRowsFilesAndFreePages (0.20s)
+    delete_test.go:55: plaintext marker still on disk: 2 hits
+FAIL
+FAIL	github.com/vasic-digital/job_seeker/internal/privacy	0.214s
+FAIL

@@ -1,0 +1,16 @@
+{
+ "bytes_scanned": 187166,
+ "forms_per_needle": 4,
+ "haystack_names": [
+  "process_output",
+  "metrics_body",
+  "allow.txt",
+  "certs/ca.crt",
+  "certs/tls.crt",
+  "data/jobseeker.db"
+ ],
+ "haystacks": 6,
+ "leaks": 0,
+ "needles": 9,
+ "task": "JSK-T113 needle scan"
+}

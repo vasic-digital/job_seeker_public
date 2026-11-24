@@ -1,0 +1,33 @@
+/* console layout only: every value comes from the synced OpenDesign tokens (var(--od-*)); no token is defined here */
+body { margin: 0; background: var(--od-bg); color: var(--od-text); font-family: var(--od-font-body); font-size: var(--od-fs-base); line-height: var(--od-lh-normal); }
+.od-header { display: flex; align-items: center; gap: var(--od-space-5); flex-wrap: wrap; padding: var(--od-space-3) var(--od-space-5); }
+.od-header__brand { font-family: var(--od-font-display); font-weight: 700; font-size: var(--od-fs-lg); }
+.od-nav { display: flex; gap: var(--od-space-4); flex-wrap: wrap; flex: 1; }
+.od-nav a { color: var(--od-text); padding: var(--od-space-2) var(--od-space-1); }
+.od-nav a[aria-current="page"] { color: var(--od-accent); font-weight: 600; text-decoration: underline; text-underline-offset: 0.25em; }
+.console-main { max-width: var(--od-container-max); margin: 0 auto; padding: var(--od-space-5); }
+.console-main:focus { outline: none; }
+.console-h1 { font-family: var(--od-font-display); font-size: var(--od-fs-2xl); letter-spacing: var(--od-tracking-tight); line-height: var(--od-lh-tight); margin: var(--od-space-4) 0; }
+.console-h2 { font-family: var(--od-font-display); font-size: var(--od-fs-xl); margin-top: 0; }
+.console-h3 { font-size: var(--od-fs-lg); }
+.console-card { margin-bottom: var(--od-space-5); padding: var(--od-space-5); }
+.console-filters { display: flex; flex-wrap: wrap; gap: var(--od-space-4); align-items: flex-end; margin-bottom: var(--od-space-5); }
+.console-inline { display: inline-flex; gap: var(--od-space-3); align-items: flex-end; flex-wrap: wrap; }
+.console-dl { display: grid; grid-template-columns: max-content 1fr; gap: var(--od-space-2) var(--od-space-5); }
+.console-dl dt { color: var(--od-text-muted); }
+.console-dl dd { margin: 0; overflow-wrap: anywhere; }
+.console-hint { color: var(--od-text-muted); font-size: var(--od-fs-sm); }
+.console-actions { display: flex; gap: var(--od-space-4); flex-wrap: wrap; }
+.console-pdf { width: 100%; height: 28rem; border: 1px solid var(--od-border); }
+.console-fieldset { border: 1px solid var(--od-border); margin-bottom: var(--od-space-4); }
+code { font-family: var(--od-font-mono); font-size: var(--od-fs-sm); overflow-wrap: anywhere; }
+a { color: var(--od-accent); }
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible, .console-main:focus-visible, .console-pre:focus-visible { outline: 2px solid var(--od-focus); outline-offset: 2px; }
+.od-table { width: 100%; }
+@media (max-width: 40rem) { .console-dl { grid-template-columns: 1fr; } .console-h1 { font-size: var(--od-fs-xl); } }
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; scroll-behavior: auto !important; } }
+.console-pre { white-space: pre-wrap; overflow-wrap: anywhere; padding: var(--od-space-3, 0.75rem); border: 1px solid currentColor; border-radius: 4px; max-height: 20rem; overflow: auto; }
+/* reflow at 320 CSS px (WCAG 1.4.10): the header wraps, long words break, wide data tables scroll inside themselves */
+.console-main { min-width: 0; overflow-wrap: anywhere; }
+.od-header, .od-nav { flex-wrap: wrap; }
+@media (max-width: 40rem) { .od-table { display: block; max-width: 100%; overflow-x: auto; } }

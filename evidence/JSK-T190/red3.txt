@@ -1,0 +1,13 @@
+--- FAIL: TestNormEmployerDottedLegalThenNoise (0.00s)
+    normalize_test.go:197: "s.ltd ,a ,s technologies ," -> "s ltd a s" -> "s" not idempotent
+    normalize_test.go:194: "Foo S.A. Group" -> "foo s a" want "foo"
+    normalize_test.go:197: "Foo S.A. Group" -> "foo s a" -> "foo" not idempotent
+    normalize_test.go:194: "Foo d.o.o. Technologies" -> "foo d o o" want "foo"
+    normalize_test.go:197: "Foo d.o.o. Technologies" -> "foo d o o" -> "foo" not idempotent
+--- FAIL: TestCanonURLRepeatedApplySuffixIdempotent (0.00s)
+    normalize_test.go:209: https://h.com/application//apply -> https://h.com/application -> https://h.com
+    normalize_test.go:209: https://h.com/apply//apply -> https://h.com/apply -> https://h.com
+    normalize_test.go:209: https://h.com///apply/apply -> https://h.com///apply -> https://h.com
+FAIL
+FAIL	github.com/vasic-digital/job_seeker/internal/position	0.023s
+FAIL

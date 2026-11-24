@@ -1,0 +1,19 @@
+# name	status	note   (status: implemented | noop | off | planned). Tracked data, printed at boot by NAME and STATUS only.
+config_loader	implemented	env-by-name, fail-fast
+envelope_encryption	implemented	AES-256-GCM column envelope
+audit_chain	implemented	hash chain + anchors
+egress_policy	implemented	allow-list + resolved-IP denylist
+http3	implemented	QUIC listener pair with conditional Alt-Svc
+brotli	implemented	RFC 9110 negotiation
+security_headers	implemented	CSP, Host, Origin, CSRF
+passkey_auth	implemented	WebAuthn passkeys, sessions, step-up, bootstrap token (T027), mounted by jobseekerd
+rate_limiting	implemented	login backoff, write and outbound buckets (T028), mounted by jobseekerd
+api_tokens	implemented	scoped hashed revocable tokens behind TokenGate (T029)
+provider_ingest	planned	JSK-T036..T048
+classifier	planned	JSK-T051..T059
+live_send	off	dry-run is the default at every layer; live mode resets to off on boot
+jobops_adapter	noop	time-boxed spike, adapter only on GO (FR-066)
+tiebreak	off	JS_LLM_TIEBREAK defaults off, JEV_GATE must be shadow
+cert_tooling	implemented	certificate loading, jsctl cert check/gen-ca/issue (T030)
+metrics_listener	implemented	separate internal listener, closed labels (T034)
+operator_cli	implemented	jsctl migrate, backup, verify-audit, provider-probe, cert (T035)

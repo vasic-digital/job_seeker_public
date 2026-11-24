@@ -1,0 +1,32 @@
+invariant migrations_applied ... OK
+invariant dry_run_default ... OK
+invariant live_mode_off ... OK
+invariant jev_gate_shadow ... OK
+invariant tls_certificate_valid ... OK
+invariant secret_file_modes ... OK
+invariant allowlist_loaded ... OK
+invariant csp_configured ... OK
+invariant disk_headroom ... OK
+invariant port_headroom ... OK
+invariant sensitive_columns_encrypted ... OK
+invariant overlay_readable ... OK
+capability config_loader implemented
+capability envelope_encryption implemented
+capability audit_chain implemented
+capability egress_policy implemented
+capability http3 implemented
+capability brotli implemented
+capability security_headers implemented
+capability passkey_auth implemented
+capability rate_limiting implemented
+capability api_tokens implemented
+capability provider_ingest planned
+capability classifier planned
+capability live_send off
+capability jobops_adapter noop
+capability tiebreak off
+capability cert_tooling implemented
+capability metrics_listener implemented
+capability operator_cli implemented
+boot OK
+jobseekerd: serving https tcp=127.0.0.1:37771 udp=127.0.0.1:37771 metrics=127.0.0.1:35675

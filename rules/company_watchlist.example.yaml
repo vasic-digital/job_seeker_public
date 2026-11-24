@@ -1,0 +1,7 @@
+# SHAPE EXAMPLE ONLY. Every entry below is commented out and uses a placeholder; none is a selected employer.
+version: 1
+greenhouse: []
+#  - slug: your-employer-board-token
+#    name: Display Name (optional; the slug is shown when omitted)
+lever: []
+ashby: []

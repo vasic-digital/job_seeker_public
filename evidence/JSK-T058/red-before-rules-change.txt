@@ -1,0 +1,17 @@
+# RED baseline BEFORE any rules change, 2026-11-24T10:48:03Z, real corpus 115 postings (remotive 15, remoteok 100)
+ruleset 9c05cf6205f6 items=115 non-engineering=84 unmapped=75 lang-correct=115/115 classify-p95=2162us score-p95=19us
+  ai-engineering  gold=7   predicted=1   tp=1   precision=1.000 recall=0.143
+  android         gold=0   predicted=0   tp=0   precision=n/a recall=n/a
+  android-aosp    gold=0   predicted=0   tp=0   precision=n/a recall=n/a
+  android-tv      gold=0   predicted=0   tp=0   precision=n/a recall=n/a
+  desktop         gold=0   predicted=0   tp=0   precision=n/a recall=n/a
+  flutter         gold=0   predicted=0   tp=0   precision=n/a recall=n/a
+  go              gold=2   predicted=0   tp=0   precision=n/a recall=0.000
+  mobile          gold=0   predicted=0   tp=0   precision=n/a recall=n/a
+  react-native    gold=0   predicted=0   tp=0   precision=n/a recall=n/a
+  web-frontend    gold=2   predicted=0   tp=0   precision=n/a recall=0.000
+PARTIAL: area ai-engineering: 7 real gold item(s) < 30: PARTIAL, SC-003 thresholds not enforceable
+PARTIAL: area go: 2 real gold item(s) < 30: PARTIAL, SC-003 thresholds not enforceable
+PARTIAL: area web-frontend: 2 real gold item(s) < 30: PARTIAL, SC-003 thresholds not enforceable
+FINDING: non-engineering corpus: 75/84 unmapped (must be 100%)
+rc=1

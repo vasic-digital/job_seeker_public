@@ -1,0 +1,14 @@
+--- FAIL: TestLiveApprovalRefusesStaleTemplateSet (0.33s)
+    --- FAIL: TestLiveApprovalRefusesStaleTemplateSet/no_metadata_at_all_(today's_manifests) (0.09s)
+        fresh_test.go:87: err <nil> want ErrTemplatesStale
+    --- FAIL: TestLiveApprovalRefusesStaleTemplateSet/epoch_31_days_old (0.08s)
+        fresh_test.go:87: err <nil> want ErrTemplatesStale
+    --- FAIL: TestLiveApprovalRefusesStaleTemplateSet/built_from_a_different_overlay (0.08s)
+        fresh_test.go:87: err <nil> want ErrTemplatesStale
+    --- FAIL: TestLiveApprovalRefusesStaleTemplateSet/gate_stamp_missing (0.07s)
+        fresh_test.go:87: err <nil> want ErrTemplatesStale
+--- FAIL: TestLiveApprovalAndHandoffWithFreshSet (0.08s)
+    fresh_test.go:112: err <nil> want ErrTemplatesStale
+FAIL
+FAIL	github.com/vasic-digital/job_seeker/internal/draft	0.416s
+FAIL

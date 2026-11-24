@@ -1,0 +1,54 @@
+{
+ "jobs": [
+  {
+   "id": 127817,
+   "internal_job_id": 144371,
+   "title": "Senior Go Engineer",
+   "updated_at": "2026-11-20T09:15:00-05:00",
+   "requisition_id": "R-1",
+   "location": {
+    "name": "Remote - Europe"
+   },
+   "absolute_url": "https://boards.greenhouse.io/exampleboard/jobs/127817",
+   "language": "en",
+   "metadata": null,
+   "content": "&lt;p&gt;Build &lt;strong&gt;services&lt;/strong&gt; in Go.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;gRPC&lt;/li&gt;&lt;li&gt;SQL&lt;/li&gt;&lt;/ul&gt;",
+   "departments": [
+    {
+     "id": 1,
+     "name": "Engineering",
+     "parent_id": null,
+     "child_ids": []
+    }
+   ],
+   "offices": [
+    {
+     "id": 2,
+     "name": "Berlin",
+     "location": "Berlin, Germany",
+     "parent_id": null,
+     "child_ids": []
+    }
+   ]
+  },
+  {
+   "id": 127818,
+   "internal_job_id": 144372,
+   "title": "Office Manager",
+   "updated_at": "2026-11-19T12:00:00-05:00",
+   "requisition_id": null,
+   "location": {
+    "name": "New York, NY"
+   },
+   "absolute_url": "https://boards.greenhouse.io/exampleboard/jobs/127818",
+   "language": "en",
+   "metadata": null,
+   "content": "&lt;p&gt;Run the office.&lt;/p&gt;",
+   "departments": [],
+   "offices": []
+  }
+ ],
+ "meta": {
+  "total": 2
+ }
+}

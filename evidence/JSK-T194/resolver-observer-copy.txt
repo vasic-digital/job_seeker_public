@@ -1,0 +1,2 @@
+observer_postings=115 positions=115 auto_merges=0 queued=0 resolver_version=r1
+

@@ -1,0 +1,3 @@
+KILLED       ext-scan-indirect-filter-skipped
+SURVIVED     ext-scan-stray-stream-keyword-ignored
+KILLED       ext-scan-stray-stream-keyword-ignored

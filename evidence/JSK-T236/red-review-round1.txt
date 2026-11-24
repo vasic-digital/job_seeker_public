@@ -1,0 +1,3 @@
+--- FAIL: TestRulesetSHACoversCareerSnapshot (0.01s)
+FAIL
+FAIL	github.com/vasic-digital/job_seeker/internal/ext/match/keyword	0.027s

@@ -1,0 +1,1 @@
+{"label":"MEMORY-DERIVED, NOT CAPTURED, UNCONFIRMED. Field names follow the bundesAPI community docs only in part (refnr, externeUrl are named there; the rest is from the author's memory of the public API). The one live read (see ba_jobs.provenance.json) was refused with HTTP 403, so no real payload exists. Employers/refnr here are placeholders."}

@@ -1,0 +1,24 @@
+--- FAIL: TestCheckRefusesStaleForeignOrUnstamped (0.00s)
+    --- FAIL: TestCheckRefusesStaleForeignOrUnstamped/older_than_the_age_limit (0.00s)
+        fresh_test.go:107: err <nil> want ErrTemplatesStale cause age
+    --- FAIL: TestCheckRefusesStaleForeignOrUnstamped/epoch_absent (0.00s)
+        fresh_test.go:107: err <nil> want ErrTemplatesStale cause epoch_missing
+    --- FAIL: TestCheckRefusesStaleForeignOrUnstamped/epoch_in_the_future (0.00s)
+        fresh_test.go:107: err <nil> want ErrTemplatesStale cause epoch_missing
+    --- FAIL: TestCheckRefusesStaleForeignOrUnstamped/built_from_a_different_overlay (0.00s)
+        fresh_test.go:107: err <nil> want ErrTemplatesStale cause overlay
+    --- FAIL: TestCheckRefusesStaleForeignOrUnstamped/manifest_records_no_overlay_hash (0.00s)
+        fresh_test.go:107: err <nil> want ErrTemplatesStale cause overlay
+    --- FAIL: TestCheckRefusesStaleForeignOrUnstamped/caller_cannot_supply_the_overlay_hash (0.00s)
+        fresh_test.go:107: err <nil> want ErrTemplatesStale cause overlay
+    --- FAIL: TestCheckRefusesStaleForeignOrUnstamped/gate_stamp_absent (0.00s)
+        fresh_test.go:107: err <nil> want ErrTemplatesStale cause gate
+    --- FAIL: TestCheckRefusesStaleForeignOrUnstamped/gate_stamp_is_not_pass (0.00s)
+        fresh_test.go:107: err <nil> want ErrTemplatesStale cause gate
+--- FAIL: TestResolveEnforcesAttachedPolicy (0.00s)
+    fresh_test.go:125: err <nil> want ErrTemplatesStale
+--- FAIL: TestEmptyStoreCheckIsNotAPass (0.00s)
+    fresh_test.go:139: an empty store has no verdict: err <nil>
+FAIL
+FAIL	github.com/vasic-digital/job_seeker/internal/templates	0.013s
+FAIL

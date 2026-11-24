@@ -1,0 +1,22 @@
+{
+ "concurrency": 200,
+ "date": "2026-11-24T11:10:42Z",
+ "healthz_after": 200,
+ "p50_ms": 3.94,
+ "p95_ms": 15.561,
+ "p99_ms": 25.393,
+ "requests": 1107042,
+ "rps": 36901.4,
+ "rss_ceiling_kb": 524288,
+ "rss_kb_end": 55888,
+ "rss_kb_peak": 133816,
+ "rss_kb_start": 85992,
+ "seconds": 30,
+ "status_histogram": {
+  "200": 553528,
+  "401": 553514
+ },
+ "target": "local jobseekerd only",
+ "task": "JSK-T112+T117",
+ "transport_errors": 0
+}

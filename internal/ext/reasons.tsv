@@ -1,0 +1,30 @@
+# code	description	emitted_by (family that MUST emit it)
+plugin_panic	a plugin panicked; verdict forced to unknown	kernel
+plugin_timeout	a plugin exceeded its deadline; verdict forced to unknown	kernel
+rule_no_data	rule could not decide: required profile data absent	eligibility
+not_remote	posting is not remote	eligibility/remote_mode
+remote_mode_unknown	posting remote mode unknown	eligibility/remote_mode
+onsite_outside_allowed	onsite or hybrid posting outside the allowed cities	eligibility/remote_mode
+work_auth_unknown	work authorisation could not be determined	eligibility/work_auth
+work_auth_region_excluded	work authorisation excludes the region	eligibility/work_auth
+tz_overlap_insufficient	time-zone overlap below the minimum	eligibility/timezone
+lang_not_supported	posting language not supported	eligibility/language
+excluded_region	posting countries do not intersect the eligible countries	eligibility/excluded_region
+blocked_company	company is on the blocked list	eligibility/blocked_company
+salary_below_floor	posted salary below the operator floor	eligibility/salary_floor
+gate_regressed_at_approval	a gate that passed at scoring fails at approval	draft
+strategy_favourite	strategy chose a favourite	strategy
+strategy_first_ranked	strategy chose the first ranked candidate	strategy
+strategy_none_acceptable	strategy found no acceptable candidate	strategy
+channel_manual_only	channel strategy forces a manual hand-off	channel
+ats_finding_block	an ATS profile check produced a blocking finding	ats
+compliance_blocked	a compliance gate blocked the action	compliance
+policy_stale	stored verdict computed under a different policy or ruleset	verdict
+keyword_hit	keyword feature matched a wanted term	score_feature/keyword_tokens
+tool_missing	a required external tool is not installed	parsersim
+pdf_link_not_uri	a PDF link annotation is not a URI action	ats/pdf_links
+pdf_link_scheme	a PDF link annotation uses a scheme outside the allow-list	ats/pdf_links
+pdf_no_struct_tree	PDF is not tagged (no structure tree)	ats/pdf_links
+pdf_link_label_mismatch	visible link label differs from the link target	ats/pdf_links
+pdf_unreadable	PDF could not be parsed by the extraction tools	parsersim
+pdf_scan_incomplete	the PDF could not be scanned completely (encrypted, undecodable filter or oversize inflate)	parsersim

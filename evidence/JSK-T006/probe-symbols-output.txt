@@ -1,0 +1,63 @@
+=== pkg tree: http3
+internal/testcert pkg/server
+=== pkg tree: auth
+pkg/accesstoken pkg/apikey pkg/gin pkg/i18n pkg/jwt pkg/middleware pkg/oauth pkg/oauth2provider pkg/token pkg/tokenmanager
+=== pkg tree: middleware
+pkg/altsvc pkg/auth pkg/brotli pkg/cache pkg/chain pkg/cors pkg/gin pkg/i18n pkg/logging pkg/ratelimit pkg/recovery pkg/requestid pkg/validation
+=== pkg tree: ratelimiter
+pkg/adaptive pkg/gin pkg/ladder pkg/limiter pkg/memory pkg/middleware pkg/redis pkg/sliding pkg/throttler pkg/tokenbucket
+=== pkg tree: I18n
+pkg/i18n pkg/loader pkg/middleware
+=== pkg tree: config
+pkg/config pkg/env pkg/storageconfig pkg/validator
+=== pkg tree: database
+pkg/connection pkg/database pkg/dialect pkg/gorm pkg/helpers pkg/migration pkg/netstorage pkg/pool pkg/postgres pkg/query pkg/repository pkg/sqlite
+=== pkg tree: security
+pkg/attestation pkg/content pkg/e2ee pkg/gpuattest pkg/guardrails pkg/headers pkg/i18n pkg/pii pkg/policy pkg/scanner pkg/securestorage pkg/security pkg/ssrf
+=== pkg tree: observability
+pkg/analytics pkg/gin pkg/health pkg/i18n pkg/logging pkg/metrics pkg/middleware pkg/trace
+=== pkg tree: recovery
+pkg/breaker pkg/facade pkg/health
+=== symbols: http3/pkg/server
+-- server.go
+// Package server provides an HTTP/3 server that wraps quic-go/http3 and
+type Config struct {
+func (c Config) Validate() error {
+type Server struct {
+func New(cfg Config) (*Server, error) {
+func (s *Server) Start() error {
+func (s *Server) Shutdown(ctx context.Context) error {
+func (s *Server) Done() <-chan error { return s.doneCh }
+func (s *Server) Addr() string { return s.cfg.Addr }
+func nextProtoIncludesH3(protos []string) bool {
+=== symbols: middleware/pkg/brotli
+-- brotli.go
+// Package brotli provides Brotli compression middleware for net/http.
+type Config struct {
+func DefaultConfig() *Config {
+func New(cfg *Config) func(http.Handler) http.Handler {
+type brotliWriter struct {
+func (bw *brotliWriter) WriteHeader(code int) {
+func (bw *brotliWriter) Write(b []byte) (int, error) {
+func (bw *brotliWriter) finish() {
+func acceptsBrotli(r *http.Request) bool {
+func isCompressible(contentType string, types []string) bool {
+=== symbols: middleware/pkg/altsvc
+-- altsvc.go
+// Package altsvc provides HTTP middleware that advertises HTTP/3 (QUIC) via Alt-Svc headers.
+type Config struct {
+func DefaultConfig() *Config {
+func New(cfg *Config) func(http.Handler) http.Handler {
+=== negative checks (case-insensitive grep over http3/pkg/server/server.go and middleware/pkg/brotli/brotli.go)
+pkg/server/server.go alt-svc : 0 hit(s)
+pkg/server/server.go 0rtt\|0-rtt\|allow0rtt : 0 hit(s)
+pkg/server/server.go q= : 0 hit(s)
+pkg/server/server.go etag : 0 hit(s)
+pkg/server/server.go range\|206 : 1 hit(s)
+pkg/server/server.go tls.Listen\|ListenAndServeTLS : 0 hit(s)
+pkg/brotli/brotli.go alt-svc : 0 hit(s)
+pkg/brotli/brotli.go 0rtt\|0-rtt\|allow0rtt : 0 hit(s)
+pkg/brotli/brotli.go q= : 0 hit(s)
+pkg/brotli/brotli.go etag : 0 hit(s)
+pkg/brotli/brotli.go range\|206 : 1 hit(s)
+pkg/brotli/brotli.go tls.Listen\|ListenAndServeTLS : 0 hit(s)

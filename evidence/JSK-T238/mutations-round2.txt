@@ -1,0 +1,7 @@
+KILLED       ext-scan-decodeparms-ignored
+KILLED       ext-scan-dict-out-of-reach-ignored
+KILLED       ext-scan-bomb-inflated
+KILLED       ext-scan-chained-filter-ok
+KILLED       ext-scan-inflate-error-ignored
+KILLED       ext-scan-name-escapes-ignored
+KILLED       ext-scan-flate-not-inflated

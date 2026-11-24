@@ -1,0 +1,5 @@
+KILLED       ext-source-raw-dropped
+KILLED       providers-attribution-overwrite
+KILLED       providers-attribution-http-home
+KILLED       ext-source-foreign-fetcher-allowed
+KILLED       ext-source-skip-class-dropped

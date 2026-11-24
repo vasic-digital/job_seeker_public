@@ -1,0 +1,3 @@
+# github.com/vasic-digital/job_seeker/internal/server
+# [github.com/vasic-digital/job_seeker/internal/server]
+vet: internal/server/server_test.go:48:55: undefined: Server

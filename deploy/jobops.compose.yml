@@ -1,0 +1,27 @@
+# jobops sidecar for the spike and the live contract tests (JSK-T097, T101). Driven only by
+# tools/containers (jsstack up/down) -> submodules/containers. UNMODIFIED upstream image, pinned by tag.
+# Required env: JOBOPS_BASIC_USER, JOBOPS_BASIC_PASS, JOBOPS_PORT (jsstack port), JOBOPS_DATA_DIR (empty directory, mounted at /app/data).
+# Published on loopback only. No provider keys, no Gmail, no scraper run is ever triggered by this repo.
+services:
+  jobops:
+    container_name: jobseeker-jobops
+    image: ghcr.io/dakheera47/job-ops:v0.14.0
+    pull_policy: never
+    ports:
+      - "127.0.0.1:${JOBOPS_PORT:?set by jsstack port}:3001/tcp"
+    volumes:
+      - "${JOBOPS_DATA_DIR:?empty data directory}:/app/data"
+    environment:
+      NODE_ENV: production
+      PORT: "3001"
+      # telemetry off: source reading (UNCONFIRMED until the T097 runtime measurement): app.ts and product-analytics.ts read it
+      JOBOPS_DISABLE_ANALYTICS: "true"
+      # the API answers 401 without credentials (measured, T097); names come from env, values never committed
+      BASIC_AUTH_USER: "${JOBOPS_BASIC_USER:?set by the caller}"
+      BASIC_AUTH_PASSWORD: "${JOBOPS_BASIC_PASS:?set by the caller}"
+    cap_drop: [ALL]
+    security_opt:
+      - no-new-privileges:true
+    mem_limit: 2g
+    pids_limit: 1024
+    restart: "no"

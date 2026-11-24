@@ -1,0 +1,2 @@
+PROVE-FAILURE OK: real baseline passes, baseline/1000 flagged as regression, a dropped baseline row flagged as a gap
+rc=0

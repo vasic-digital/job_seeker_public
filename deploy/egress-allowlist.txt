@@ -1,0 +1,19 @@
+# Exact DNS names the process may contact (FR-009). One per line.
+remotive.com
+remoteok.com
+himalayas.app
+# JSK-016 provider adapters (one line per host; reason in the comment above it)
+# Greenhouse public Job Board API (GET, no key; documented at docs.greenhouse.io/job-board.html)
+boards-api.greenhouse.io
+# Lever public Postings API (GET, no key; github.com/lever/postings-api). EU host api.eu.lever.co deliberately NOT listed.
+api.lever.co
+# Hacker News "Who is hiring" via the Algolia HN search API (GET, no key; hn.algolia.com/api)
+hn.algolia.com
+# Ashby public job-board API (GET, no key; developers.ashbyhq.com/docs/public-job-posting-api)
+api.ashbyhq.com
+# Bundesagentur fuer Arbeit Jobsuche REST (GET; X-API-Key is a COMMUNITY-documented public client key: UNCONFIRMED officially).
+# The adapter is behind the operator flag JOBSEEKER_BA_OK and is never contacted otherwise.
+rest.arbeitsagentur.de
+# JSK-T231 smtp_compose draft endpoint (Gmail API users.drafts.create, POST, operator OAuth token). NOT enabled: the channel is
+# not registered until the operator configures it, and this host is added deliberately at that time (uncomment to enable).
+# gmail.googleapis.com

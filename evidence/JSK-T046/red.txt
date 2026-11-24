@@ -1,0 +1,3 @@
+# github.com/vasic-digital/job_seeker/internal/privtool
+# [github.com/vasic-digital/job_seeker/internal/privtool]
+vet: internal/privtool/privtool_test.go:20:15: undefined: Scan

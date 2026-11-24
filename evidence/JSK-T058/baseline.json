@@ -1,0 +1,33 @@
+{
+  "ruleset_sha": "8eb977f1a06b530b8a90be78acf4dcda7ebe366cd13ab48f2dfeaf944283b7f9",
+  "items": 115,
+  "areas": {
+    "ai-engineering": {
+      "Gold": 7,
+      "Predicted": 1,
+      "TP": 1,
+      "Precision": 1,
+      "Recall": 0.14285714285714285
+    },
+    "go": {
+      "Gold": 2,
+      "Predicted": 0,
+      "TP": 0,
+      "Precision": -1,
+      "Recall": 0
+    },
+    "web-frontend": {
+      "Gold": 2,
+      "Predicted": 0,
+      "TP": 0,
+      "Precision": -1,
+      "Recall": 0
+    }
+  },
+  "non_engineering": 84,
+  "non_engineering_unmapped": 84,
+  "lang_items": 115,
+  "lang_accepted_correct": 115,
+  "classify_p95_us": 2090,
+  "score_p95_us": 15
+}

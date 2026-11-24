@@ -1,0 +1,15 @@
+{
+  "bytes": 190629,
+  "host": "hn.algolia.com",
+  "label": "anonymised-synthetic fixture derived from the documented HN \"Who is hiring?\" comment shape; no captured text retained",
+  "latency_ms": 754,
+  "name": "hn_comments",
+  "original_capture_note": "resp_sha256/bytes/retrieved_at describe the one-time shape-discovery capture of 2026-11-24; the captured body is NOT redistributed in this repository",
+  "request_id": "",
+  "resolved_ip": "34.160.168.181",
+  "resp_sha256": "ebb68e0292accb592af1879e052a8fafb22db171549b5d7adf8610ac38f89b78",
+  "retrieved_at": "2026-11-24T13:22:36Z",
+  "status": 200,
+  "tls_subject": "hn.algolia.com",
+  "url": "https://hn.algolia.com/api/v1/search_by_date?tags=comment,story_50338728&hitsPerPage=100&page=0"
+}

@@ -1,0 +1,4 @@
+# github.com/vasic-digital/job_seeker/internal/store [github.com/vasic-digital/job_seeker/internal/store.test]
+internal/store/store_test.go:16:48: undefined: DB
+internal/store/store_test.go:23:7: undefined: Options
+internal/store/store_test.go:27:12: undefined: Open

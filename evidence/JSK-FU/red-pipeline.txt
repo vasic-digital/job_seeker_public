@@ -1,0 +1,5 @@
+--- FAIL: TestUnreadableBodyIsReportedOnceNotEveryPass (0.15s)
+    pipeline_test.go:307: second pass must not re-report or re-count it: {Seen:1 Mapped:0 Queued:0 Scored:0 Skipped:1} posting 1: body unreadable
+FAIL
+FAIL	github.com/vasic-digital/job_seeker/internal/pipeline	0.175s
+FAIL

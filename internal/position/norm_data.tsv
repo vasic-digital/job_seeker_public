@@ -1,0 +1,125 @@
+# JSK-T190 normalisation tables as DATA (FR-081, docs/research/providers/04 sections 2.1-2.3). Edit here, not in code.
+# section<TAB>key<TAB>value ; sections: legal (trailing legal-form token), noise (trailing noise word), syn (title synonym, after
+# transliteration), tech (technology token -> canonical), tier (seniority word -> tier), locword (words that make a title suffix a location),
+# country (lowercase name -> ISO-3166 alpha-2), region (lowercase region -> comma list of ISO codes)
+legal	inc	
+legal	llc	
+legal	ltd	
+legal	limited	
+legal	gmbh	
+legal	ag	
+legal	se	
+legal	sa	
+legal	bv	
+legal	nv	
+legal	plc	
+legal	corp	
+legal	co	
+legal	oy	
+legal	ab	
+legal	as	
+legal	srl	
+legal	spa	
+legal	doo	
+legal	ooo	
+legal	oao	
+legal	zao	
+legal	ad	
+noise	group	
+noise	holding	
+noise	technologies	
+noise	technology	
+noise	software	
+noise	labs	
+syn	entwickler	developer
+syn	softwareentwickler	software engineer
+syn	razrabotchik	developer
+syn	inzhener	engineer
+syn	inzhenjer	engineer
+tech	android	android
+tech	ios	ios
+tech	flutter	flutter
+tech	go	go
+tech	golang	go
+tech	react native	react native
+tech	react	react
+tech	kotlin	kotlin
+tech	swift	swift
+tech	python	python
+tech	java	java
+tech	typescript	typescript
+tech	javascript	javascript
+tech	rust	rust
+tech	ruby	ruby
+tech	php	php
+tech	django	django
+tech	angular	angular
+tech	vue	vue
+tech	kubernetes	kubernetes
+tech	terraform	terraform
+tech	scala	scala
+tech	elixir	elixir
+tier	intern	intern
+tier	trainee	intern
+tier	junior	junior
+tier	jr	junior
+tier	mid	mid
+tier	middle	mid
+tier	senior	senior
+tier	sr	senior
+tier	lead	lead
+tier	staff	lead
+tier	principal	lead
+locword	remote	
+locword	worldwide	
+locword	anywhere	
+locword	global	
+locword	hybrid	
+locword	onsite	
+locword	europe	
+locword	emea	
+locword	eu	
+locword	usa	
+locword	us	
+locword	uk	
+locword	apac	
+locword	latam	
+locword	serbia	
+locword	germany	
+country	serbia	RS
+country	germany	DE
+country	deutschland	DE
+country	united states	US
+country	usa	US
+country	us	US
+country	united kingdom	GB
+country	uk	GB
+country	france	FR
+country	spain	ES
+country	italy	IT
+country	netherlands	NL
+country	poland	PL
+country	portugal	PT
+country	austria	AT
+country	switzerland	CH
+country	sweden	SE
+country	norway	NO
+country	denmark	DK
+country	finland	FI
+country	ireland	IE
+country	belgium	BE
+country	czechia	CZ
+country	romania	RO
+country	bulgaria	BG
+country	croatia	HR
+country	greece	GR
+country	hungary	HU
+country	ukraine	UA
+country	russia	RU
+country	canada	CA
+country	india	IN
+country	brazil	BR
+country	australia	AU
+region	europe	AT,BE,BG,CH,CZ,DE,DK,ES,FI,FR,GB,GR,HR,HU,IE,IT,NL,NO,PL,PT,RO,RS,SE,UA
+region	emea	AT,BE,BG,CH,CZ,DE,DK,ES,FI,FR,GB,GR,HR,HU,IE,IT,NL,NO,PL,PT,RO,RS,SE,UA
+region	eu	AT,BE,BG,CZ,DE,DK,ES,FI,FR,GR,HR,HU,IE,IT,NL,PL,PT,RO,SE

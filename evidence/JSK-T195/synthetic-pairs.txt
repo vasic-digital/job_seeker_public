@@ -1,0 +1,1 @@
+label=synthetic-pair safe_pairs=805 real_sources=115 hard=drop_word=map[auto:13 new:52 queued:50] swap_words=map[auto:107 new:8] typo=map[auto:107 queued:8] loc_rewrite=map[auto:115] 

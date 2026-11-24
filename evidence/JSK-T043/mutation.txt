@@ -1,0 +1,5 @@
+MUTATION: duplicate threshold lowered 0.92 -> 0.5
+--- FAIL: TestCrossProviderDuplicateAtThreshold (0.03s)
+FAIL
+FAIL	github.com/vasic-digital/job_seeker/internal/ingest	0.680s
+FAIL

@@ -1,0 +1,14 @@
+{
+  "bytes": 6581,
+  "host": "hn.algolia.com",
+  "label": "fixture-input; captured once; contains public postings only",
+  "latency_ms": 416,
+  "name": "hn_thread_search",
+  "request_id": "",
+  "resolved_ip": "34.160.168.181",
+  "resp_sha256": "0dcb28cd8cd6d6a611215de1386e376040b5d8b7d6d15be6c745cb6e262d61d2",
+  "retrieved_at": "2026-11-24T13:22:23Z",
+  "status": 200,
+  "tls_subject": "hn.algolia.com",
+  "url": "https://hn.algolia.com/api/v1/search_by_date?tags=story,author_whoishiring\u0026query=%22Who%20is%20hiring%22\u0026hitsPerPage=1"
+}

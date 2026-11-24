@@ -1,0 +1,74 @@
+=== RUN   TestPositionTablesAndColumnsExist
+--- PASS: TestPositionTablesAndColumnsExist (0.05s)
+=== RUN   TestPositionStateVocabularyMatchesFSM
+--- PASS: TestPositionStateVocabularyMatchesFSM (0.05s)
+=== RUN   TestPositionConstraintsRefuseBadRows
+--- PASS: TestPositionConstraintsRefuseBadRows (0.05s)
+=== RUN   TestPositionLinkSingleCurrentAndConstraintOrdering
+--- PASS: TestPositionLinkSingleCurrentAndConstraintOrdering (0.05s)
+=== RUN   TestPositionApplyLockIsDatabaseEnforced
+--- PASS: TestPositionApplyLockIsDatabaseEnforced (0.05s)
+=== RUN   TestEmployerPolicyAndProviderProfileChecks
+--- PASS: TestEmployerPolicyAndProviderProfileChecks (0.05s)
+=== RUN   TestPositionDeleteBehaviour
+--- PASS: TestPositionDeleteBehaviour (0.06s)
+=== RUN   TestUpgradeFromV1KeepsRows
+--- PASS: TestUpgradeFromV1KeepsRows (0.08s)
+=== RUN   TestRawPageEncryptedColumnsAreCiphertext
+--- PASS: TestRawPageEncryptedColumnsAreCiphertext (0.13s)
+=== RUN   TestAllTablesExist
+--- PASS: TestAllTablesExist (0.05s)
+=== RUN   TestStateVocabularyMatchesFSM
+--- PASS: TestStateVocabularyMatchesFSM (0.05s)
+=== RUN   TestConstraintsRefuseBadRows
+--- PASS: TestConstraintsRefuseBadRows (0.05s)
+=== RUN   TestSingleCurrentRowInvariants
+--- PASS: TestSingleCurrentRowInvariants (0.05s)
+=== RUN   TestApplicationAndSubmissionUniqueness
+--- PASS: TestApplicationAndSubmissionUniqueness (0.06s)
+=== RUN   TestForeignKeyDeleteBehaviour
+--- PASS: TestForeignKeyDeleteBehaviour (0.05s)
+=== RUN   TestAuditLogIsAppendOnlyAndSurvivesSubjectDeletion
+--- PASS: TestAuditLogIsAppendOnlyAndSurvivesSubjectDeletion (0.05s)
+=== RUN   TestSensitiveColumnsAreBlobs
+--- PASS: TestSensitiveColumnsAreBlobs (0.05s)
+=== RUN   TestNoOverlayValueRepresentableInDefaultsOrChecks
+--- PASS: TestNoOverlayValueRepresentableInDefaultsOrChecks (0.06s)
+=== RUN   TestOverlayLiteralWouldBeCaught
+--- PASS: TestOverlayLiteralWouldBeCaught (0.00s)
+=== RUN   TestPragmasOnBothPools
+--- PASS: TestPragmasOnBothPools (0.02s)
+=== RUN   TestReadPoolCannotWrite
+--- PASS: TestReadPoolCannotWrite (0.02s)
+=== RUN   TestMigrateFreshAndIdempotent
+--- PASS: TestMigrateFreshAndIdempotent (0.05s)
+=== RUN   TestBackupTakenBeforePendingMigration
+--- PASS: TestBackupTakenBeforePendingMigration (0.06s)
+=== RUN   TestMigrationRefusedWhenBackupFails
+--- PASS: TestMigrationRefusedWhenBackupFails (0.04s)
+=== RUN   TestNoBackupDirConfiguredRefusesPendingMigrationOfExistingDB
+--- PASS: TestNoBackupDirConfiguredRefusesPendingMigrationOfExistingDB (0.04s)
+=== RUN   TestFailedMigrationRollsBackCompletely
+--- PASS: TestFailedMigrationRollsBackCompletely (0.05s)
+=== RUN   TestHardlinkIsNotASnapshot
+--- PASS: TestHardlinkIsNotASnapshot (0.06s)
+=== RUN   TestWriterIsSerialisedAndRollsBack
+--- PASS: TestWriterIsSerialisedAndRollsBack (0.04s)
+PASS
+ok  	github.com/vasic-digital/job_seeker/internal/store	1.408s
+=== RUN   TestPostingTransitionsExhaustive
+--- PASS: TestPostingTransitionsExhaustive (0.00s)
+=== RUN   TestApplicationTransitionsExhaustive
+--- PASS: TestApplicationTransitionsExhaustive (0.00s)
+=== RUN   TestTerminalStatesHaveNoExit
+--- PASS: TestTerminalStatesHaveNoExit (0.00s)
+=== RUN   TestUnknownStatesRefused
+--- PASS: TestUnknownStatesRefused (0.00s)
+=== RUN   TestSelfLoopsAreIllegal
+--- PASS: TestSelfLoopsAreIllegal (0.00s)
+=== RUN   TestAnySentRequiresLiveApprovedPredecessor
+--- PASS: TestAnySentRequiresLiveApprovedPredecessor (0.00s)
+=== RUN   TestPositionStatesAndEdges
+--- PASS: TestPositionStatesAndEdges (0.00s)
+PASS
+ok  	github.com/vasic-digital/job_seeker/internal/fsm	0.004s

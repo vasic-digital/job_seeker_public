@@ -1,0 +1,24 @@
+== MUTATION clone-check-removed
+ok  	github.com/vasic-digital/job_seeker/internal/auth	0.704s
+== MUTATION bootstrap-cond-removed
+--- FAIL: TestRacingBootstrapsYieldExactlyOnePasskey (0.04s)
+FAIL
+FAIL	github.com/vasic-digital/job_seeker/internal/auth	0.733s
+FAIL
+== MUTATION cas-removed
+ok  	github.com/vasic-digital/job_seeker/internal/auth	0.704s
+== MUTATION token-compare-always
+--- FAIL: TestBootstrapRequiresTokenAndZeroPasskeys (0.03s)
+FAIL
+FAIL	github.com/vasic-digital/job_seeker/internal/auth	0.720s
+FAIL
+== MUTATION ceremony-reusable
+--- FAIL: TestAssertionRefusals (0.29s)
+FAIL
+FAIL	github.com/vasic-digital/job_seeker/internal/auth	0.722s
+FAIL
+== MUTATION clone-check AND counter-CAS both removed (each alone is covered by the other: defence in depth)
+--- FAIL: TestAssertionRefusals (0.33s)
+FAIL
+FAIL	github.com/vasic-digital/job_seeker/internal/auth	0.758s
+FAIL

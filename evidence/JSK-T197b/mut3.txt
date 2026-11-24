@@ -1,0 +1,3 @@
+FAIL
+FAIL	github.com/vasic-digital/job_seeker/internal/config	0.032s
+FAIL

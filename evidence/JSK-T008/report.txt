@@ -1,0 +1,11 @@
+T008 reproduce-first inspection of the real template manifest (names, counts, hashes only; no content)
+manifest location: umbrella .cache-career/manifest.json (NOT career_private/; career_private holds overlay.example.yaml and docs/)
+manifest sha256: b19661f706e1dfb44059a3df2f625f280ad5fcc9cf2d48bc648ef8f8ebe7e3bd bytes: 79397
+schema: career.manifest.v1 | declared count: 600 | file entries: 600
+entry shape: {name: {bytes:int, sha256:str}}
+PDF slots: 300 {'cover': 150, 'cv': 150}
+areas (10): ['ai-engineering', 'android', 'android-aosp', 'android-tv', 'desktop', 'flutter', 'go', 'mobile', 'react-native', 'web-frontend']
+languages (15): ['ar', 'be', 'de', 'en', 'es', 'fa', 'fr', 'hi', 'ja', 'kk', 'ko', 'ru', 'sr', 'tr', 'zh']
+slot name pattern: <cv|cover>-<area>-<lang>.pdf ; slots = 10 areas x 15 languages x 2 kinds = 300
+non-PDF entries by ext: {'html': 40, 'tex': 260}
+sha256 of sorted PDF name list: d87191407bcdb5d6c3ef7b3037cf20673a914dc67903440c6bae230c418ff660

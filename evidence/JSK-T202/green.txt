@@ -1,0 +1,5 @@
+--- PASS: TestBundesagenturIsInertWithoutFlagAndKey (0.00s)
+--- PASS: TestBundesagenturTranslatesDocDerivedShape (0.01s)
+--- PASS: TestBundesagenturFailsClosed (0.05s)
+--- PASS: FuzzBundesagenturOne (0.00s)
+ok  	github.com/vasic-digital/job_seeker/internal/providers	1.087s

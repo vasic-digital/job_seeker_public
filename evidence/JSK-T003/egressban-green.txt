@@ -1,0 +1,1 @@
+ok  	github.com/vasic-digital/job_seeker/gates/egressban	0.010s

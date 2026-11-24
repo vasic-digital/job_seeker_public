@@ -1,0 +1,8 @@
+# Real captures of PUBLIC ATS job URLs, single read each on 2026-11-24 (labels: real-capture). Only URLs are stored, never payloads.
+# kind	tenant	job_id	url	source_endpoint
+greenhouse	gitlab	8638232002	https://job-boards.greenhouse.io/gitlab/jobs/8638232002	GET https://boards-api.greenhouse.io/v1/boards/gitlab/jobs (field absolute_url)
+greenhouse	gitlab	8940982002	https://job-boards.greenhouse.io/gitlab/jobs/8940982002	GET https://boards-api.greenhouse.io/v1/boards/gitlab/jobs (field absolute_url)
+lever	leverdemo	ad208490-4052-4f91-a57e-433f2d1e484b	https://jobs.lever.co/leverdemo/ad208490-4052-4f91-a57e-433f2d1e484b	GET https://api.lever.co/v0/postings/leverdemo?mode=json (field hostedUrl)
+lever	leverdemo	ad208490-4052-4f91-a57e-433f2d1e484b	https://jobs.lever.co/leverdemo/ad208490-4052-4f91-a57e-433f2d1e484b/apply	GET https://api.lever.co/v0/postings/leverdemo?mode=json (field applyUrl)
+ashby	ashby	7458d4e9-da2e-47bd-98cb-adfda43d42b2	https://jobs.ashbyhq.com/Ashby/7458d4e9-da2e-47bd-98cb-adfda43d42b2	GET https://api.ashbyhq.com/posting-api/job-board/ashby (field jobUrl)
+ashby	ashby	7458d4e9-da2e-47bd-98cb-adfda43d42b2	https://jobs.ashbyhq.com/Ashby/7458d4e9-da2e-47bd-98cb-adfda43d42b2/application	GET https://api.ashbyhq.com/posting-api/job-board/ashby (field applyUrl)

@@ -1,0 +1,5 @@
+=== RUN   TestSoakRSS
+    soak_test.go:141: map[concurrency:16 five_xx:0 growth_limit_pct:25 growth_pct_last_vs_middle_third:-33.01950235373235 healthz_after:200 open_fds_last_third_median:35 open_fds_middle_third_median:35 requests:1148306 rss_ceiling_kb:524288 rss_kb_last_third_median:23904 rss_kb_middle_third_median:35688 rss_kb_peak:143384 samples:384 seconds:1920 task:JSK-T117 transport_errors:0 warmup_third_median_kb:39040]
+--- PASS: TestSoakRSS (1926.40s)
+PASS
+ok  	github.com/vasic-digital/job_seeker/tests/live	1926.424s

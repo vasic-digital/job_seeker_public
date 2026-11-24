@@ -1,0 +1,31 @@
+bash gates/fmt_check.sh
+gofmt clean
+go vet ./...
+go test ./gates/...
+ok  	github.com/vasic-digital/job_seeker/gates/egressban	0.010s
+bash gates/run_all.sh
+== gates/verify_gitignore.sh
+ignored  .env
+ignored  prod.env
+ignored  .env.local
+ignored  data/job.db
+ignored  job.db
+ignored  job.db-wal
+ignored  job.db-shm
+ignored  job.sqlite
+ignored  backups/x.bak
+ignored  certs/ca.pem
+ignored  server.key
+ignored  tls.crt
+ignored  corpora/gold.json
+ignored  snapshots/s.json
+ignored  career_private/overlay.yaml
+ignored  .cache-career/x
+ignored  evidence/private/x
+ignored  secrets/token
+ignored  a.passphrase
+OK: all probes ignored, .env.example names-only
+== gates/verify_gitignore.sh rc=0
+PROVE-FAILURE OK: empty .gitignore is refused (rc=1)
+== gates/verify_gitignore.sh --prove-failure rc=0
+gates verdict rc=0

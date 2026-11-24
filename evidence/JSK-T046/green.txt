@@ -1,0 +1,6 @@
+--- PASS: TestScanFindsJobPostingMarkupInAnyTemplateOrStaticFile (0.00s)
+--- PASS: TestScanCleanTemplatePasses (0.00s)
+--- PASS: TestScanCoversBinaryAdjacentAndLargeFilesWithoutSkipping (0.41s)
+--- PASS: TestRepositoryTemplatesEmitNoJobPosting (0.00s)
+--- PASS: TestPostingExportRoutesAreForbiddenInRouterSource (0.00s)
+ok  	github.com/vasic-digital/job_seeker/internal/privtool	0.414s

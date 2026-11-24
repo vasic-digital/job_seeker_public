@@ -1,0 +1,14 @@
+# ATS URL identity patterns as DATA (FR-081). A row is enabled only when testdata/ats_captures.tsv holds a REAL capture that
+# it matches (TestEnabledPatternsHaveRealCaptures); a row with enabled=0 never matches (TestDisabledPatternsNeverMatch).
+# 2026-11-24 captures: Greenhouse, Lever and Ashby returned URLs; Workable widget endpoint answered 404 and SmartRecruiters
+# returns an API `ref`, not a public job URL, so both stay disabled. Patterns apply to lowercase host + path (no query, no
+# trailing /apply or /application). Capture groups: 1 = tenant, 2 = job id.
+# kind	enabled	regex	basis
+greenhouse	1	^job-boards\.greenhouse\.io/([^/]+)/jobs/(\d+)$	real-capture 2026-11-24 (absolute_url)
+greenhouse	0	^boards\.greenhouse\.io/([^/]+)/jobs/(\d+)$	documented example host, not captured
+greenhouse	0	^job-boards\.eu\.greenhouse\.io/([^/]+)/jobs/(\d+)$	region host, not captured
+lever	1	^jobs\.lever\.co/([^/]+)/([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})$	real-capture 2026-11-24 (hostedUrl, applyUrl)
+lever	0	^jobs\.eu\.lever\.co/([^/]+)/([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})$	EU host, not captured
+ashby	1	^jobs\.ashbyhq\.com/([^/]+)/([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})$	real-capture 2026-11-24 (jobUrl, applyUrl)
+workable	0	^apply\.workable\.com/([^/]+)/j/([a-z0-9]+)$	UNCONFIRMED: widget endpoint 404 on 2026-11-24
+smartrecruiters	0	^jobs\.smartrecruiters\.com/([^/]+)/(\d+)(?:-[^/]*)?$	UNCONFIRMED: API returns no public job URL

@@ -1,0 +1,16 @@
+--- FAIL: TestCanonURL (0.00s)
+    normalize_test.go:91: CanonURL("https://example.com/a%20b/c?gclid=1&fbclid=2&ref=r&source=s")={URL:https://example.com/a b/c Region:},<nil> want "https://example.com/a%20b/c"
+--- FAIL: TestNormEmployerIdempotentOnSuffixChains (0.00s)
+    normalize_test.go:154: "Acme Group Inc Group" -> "acme group" -> "acme"
+    normalize_test.go:154: "Acme Inc Group Ltd Labs" -> "acme inc group" -> "acme"
+    normalize_test.go:154: "Acme Labs Inc Technologies GmbH Group" -> "acme labs inc technologies" -> "acme labs"
+    normalize_test.go:158: got "acme inc group"
+--- FAIL: TestCanonURLKeepsEscapedPathAndIsIdempotent (0.00s)
+    normalize_test.go:171: https://x.com/jobs/a%23b -> https://x.com/jobs/a#b -> https://x.com/jobs/a (<nil>)
+    normalize_test.go:171: https://x.com/jobs/a%3Fb -> https://x.com/jobs/a?b -> https://x.com/jobs/a?b= (<nil>)
+    normalize_test.go:174: https://x.com/a%2Fb and https://x.com/a/b collide at https://x.com/a/b
+--- FAIL: TestCanonURLRefusesUnparseableQuery (0.00s)
+    normalize_test.go:185: dropped an identity parameter silently: https://x.com/j?c=3
+FAIL
+FAIL	github.com/vasic-digital/job_seeker/internal/position	0.024s
+FAIL

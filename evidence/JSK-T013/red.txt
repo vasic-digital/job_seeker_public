@@ -1,0 +1,5 @@
+# github.com/vasic-digital/job_seeker/internal/config [github.com/vasic-digital/job_seeker/internal/config.test]
+internal/config/config_test.go:13:36: undefined: Lookup
+internal/config/config_test.go:39:10: undefined: ValidationError
+internal/config/config_test.go:52:12: undefined: Load
+internal/config/config_test.go:56:14: undefined: EnvProduction

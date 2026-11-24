@@ -1,0 +1,4 @@
+=== RUN   TestExportImportRoundTripWholeAndPerCompany
+--- PASS: TestExportImportRoundTripWholeAndPerCompany (0.67s)
+PASS
+ok  	github.com/vasic-digital/job_seeker/internal/privacy	0.703s
