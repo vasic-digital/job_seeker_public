@@ -53,7 +53,7 @@ Wave 1 (start together): T225, T226 (reader needs only the `ext` types), T236 (f
 - [ ] JSK-T240 [P] [US*] DeliverabilityCheck spf/dkim/dmarc via allow-listed DNS-over-HTTPS Fetcher; gate for ext.channel.allow_mailto (Part A 04)
 - [ ] JSK-T241 [P] [US*] TrackerHook + EvidenceSink ports with reply-detect/ghosting reference hooks (Part A 07, 08)
 - [ ] JSK-T242 [US*] Eligibility rules work_auth, timezone, language over the Profile accessors (T167, T177, T183 share inputs) (FR-096; Part A 06)
-- [ ] JSK-T243 [P] [US*] Derived-format DocumentRenderer skeleton: TXT from the resolved model with round-trip equality gate (T171 prerequisite)
+- [ ] JSK-T243 [P] [US*] Derived-format DocumentRenderer skeleton: TXT from the resolved model with round-trip equality gate (formerly a T171 prerequisite; T171 is WON'T-DO, ADR 0011)
 - [ ] JSK-T244 [REVIEW] Extension-architecture acceptance: SC-030..SC-035 evidence, independent review, tag proposal
 ```
 
@@ -98,7 +98,7 @@ Part B ATS backlog ([13](13-remediation-backlog.md)); "umbrella" = renderer work
 | T167 language detector | G-05, G-13 | `EligibilityRule` `language` + draft language rule | T242 | unify `minLangConf` with `match.LangMinConfidence` |
 | T168/T169 extractor variance, RTL | G-06, G-07 | `ParserSimulator` + `ATSProfile` | T238 | measurements in 25 s3 |
 | T170 tagged PDF/XMP | G-08 | `FormatProfile.RequiresTags/XMP` | T238 | umbrella renders |
-| T171 DOCX/TXT | G-09 | `DocumentRenderer` | T243 | XL stays with T171 |
+| T171 DOCX/TXT | G-09 | `DocumentRenderer` | T243 | WON'T-DO 2026-11-24 (ADR 0011: PDF-only); TXT stays with T243 |
 | T172 manifest freshness | G-10 | `ComplianceGate` `manifest_fresh` at draft | new data check in `templates.Open` | `gate_stamp` field |
 | T173 page budget | G-11 | `FormatProfile.MaxPages` | T238 | decision first |
 | T174 headings | G-12 | `FormatProfile.LocaleHeading` | data | alias table per locale |

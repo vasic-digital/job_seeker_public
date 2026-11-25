@@ -29,3 +29,26 @@ pdf_link_label_mismatch	visible link label differs from the link target	ats/pdf_
 pdf_unreadable	PDF could not be parsed by the extraction tools	parsersim
 pdf_scan_incomplete	the PDF could not be scanned completely (encrypted, undecodable filter or oversize inflate)	parsersim
 ats_finding_warn	an ATS profile check produced an advisory finding	ats
+mail_spf_missing	no SPF record published for the sending domain	deliver
+mail_spf_invalid	SPF record is malformed or duplicated (RFC 7208 permerror)	deliver
+mail_spf_weak	SPF record does not end in -all or ~all	deliver
+mail_spf_redirect	SPF uses redirect=, which v1 does not follow; cannot judge	deliver
+mail_dmarc_missing	no DMARC record published at _dmarc.<domain>	deliver
+mail_dmarc_invalid	DMARC record is malformed, duplicated or has an unknown policy	deliver
+mail_dmarc_weak	DMARC policy is p=none (monitoring only)	deliver
+mail_dkim_missing	no DKIM key published for any configured selector	deliver
+mail_dkim_unconfigured	no DKIM selector configured; DKIM cannot be discovered from DNS	deliver
+mail_lookup_failed	a DNS-over-HTTPS lookup failed or was unusable; fail-closed	deliver
+compliance_no_settings	the compliance gate is not enabled by the operator or the stage is unknown	compliance
+robots_disallow	robots.txt (RFC 9309) disallows fetching the posting URL	compliance/robots
+robots_unavailable	robots.txt could not be read or the server failed (5xx): assume disallow	compliance/robots
+tos_unreviewed	no human review of the provider terms is recorded	compliance/provider_tos
+tos_changed	the provider legal-notice hash changed since the last human review; provider paused	compliance/provider_tos
+mail_channel_disabled	the mail channel setting ext.channel.allow_mailto is off or absent (default)	mailgate
+mail_setting_invalid	the mail channel setting is unreadable or not exactly 0 or 1; fail-closed	mailgate
+mail_gate_unconfigured	the mail gate lacks its check, fetcher, domain or settings source; fail-closed	mailgate
+mail_audit_failed	the gate could not audit its allow decision, so the allow is withdrawn	mailgate
+junior_or_intern	title carries a junior or intern token	eligibility/junior_or_intern
+duplicate	posting was already marked as a duplicate	eligibility/duplicate
+non_engineering	classifier excluded the posting as non-engineering	eligibility/classifier_exclusion
+outside_business_hours	posting local business window is closed now (advisory)	eligibility/local_hours

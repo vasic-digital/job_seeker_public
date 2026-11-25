@@ -313,3 +313,9 @@ func refreshPosition(ctx context.Context, tx *sql.Tx, pos int64, version string,
 	_, err = tx.ExecContext(ctx, `UPDATE posting SET dup_of = CASE WHEN id=? THEN NULL ELSE ? END WHERE position_id=?`, rep, rep, pos)
 	return err
 }
+
+// Refresh recomputes the derived fields of one Position (state, title, seniority, first/last seen, representative) from its Listings in the caller's
+// transaction, under the resolver's version. It is used after a Listing's content changed (an updated manual intake).
+func (r *Resolver) Refresh(ctx context.Context, tx *sql.Tx, pos int64) error {
+	return RefreshPosition(ctx, tx, pos, r.P.Version)
+}

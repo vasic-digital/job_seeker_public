@@ -16,6 +16,7 @@ import (
 	"testing"
 	"time"
 
+	"github.com/vasic-digital/job_seeker/internal/evnorm"
 	"github.com/vasic-digital/job_seeker/internal/testauthn"
 )
 
@@ -44,7 +45,7 @@ func evidence(t *testing.T, name string, v any) {
 	}
 	_ = os.MkdirAll(d, 0o755)
 	b, _ := json.MarshalIndent(v, "", " ")
-	if err := os.WriteFile(filepath.Join(d, name), b, 0o644); err != nil {
+	if err := evnorm.WriteFile(filepath.Join(d, name), b, 0o644); err != nil {
 		t.Fatal(err)
 	}
 }

@@ -111,3 +111,8 @@ func ashbyOne(slug, company string, raw json.RawMessage) (Posting, string) {
 	}
 	return p, ""
 }
+
+// RequestURLs implements Requester: the exact URL Fetch builds for each tenant.
+func (a *Ashby) RequestURLs() []string {
+	return tenantURLs(a.Tenants, func(s string) string { return a.Endpoint + "/posting-api/job-board/" + s + "?includeCompensation=true" })
+}

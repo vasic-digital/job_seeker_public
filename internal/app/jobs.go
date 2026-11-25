@@ -24,7 +24,7 @@ import (
 //	expire  hourly  postings past expires_at move to expired through the audited transition
 //	anchor  daily   audit chain anchor (FR-033)
 func Jobs(db *store.DB, c *config.Config, extra ...scheduler.Job) []scheduler.Job {
-	r := &ingest.Runner{DB: db, SnapshotDir: SnapshotDir(c)}
+	r := ingest.NewMaintenance(db, SnapshotDir(c))
 	anchorPath := filepath.Join(c.DataDir, "audit.anchor")
 	jobs := []scheduler.Job{
 		{Name: "backup", Every: 24 * time.Hour, Run: func(ctx context.Context) error {

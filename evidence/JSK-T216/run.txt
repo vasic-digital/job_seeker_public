@@ -1,0 +1,6 @@
+=== RUN   TestPositionRoutesContractMatchesRouter
+--- PASS: TestPositionRoutesContractMatchesRouter (0.00s)
+PASS
+ok  	github.com/vasic-digital/job_seeker/internal/console	0.015s
+ok  	github.com/vasic-digital/job_seeker/internal/auth	3.339s
+ok  	github.com/vasic-digital/job_seeker/internal/api	1.191s

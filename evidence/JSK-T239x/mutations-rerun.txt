@@ -1,0 +1,2 @@
+KILLED       ungated-typed-nil-guard-ok
+KILLED       ungated-scanner-misses-stray-inpkg

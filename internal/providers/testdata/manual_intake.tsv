@@ -1,0 +1,53 @@
+# JSK-T200 hardening: data for TestManualIntakeTable and gates/verify_manual_intake.sh. verdict<TAB>url. refuse = ErrManualInput, accept = a Posting.
+# Reserved and private-use suffixes (RFC 6761, 6762, 8375, 7686, 9476, 1035/3596 reverse zones, ICANN private use, de-facto home and office suffixes)
+refuse	https://printer.local/1
+refuse	https://a.localhost/1
+refuse	https://wiki.internal/1
+refuse	https://js.lan/1
+refuse	https://router.home.arpa/1
+refuse	https://a.invalid/1
+refuse	https://a.corp/1
+refuse	https://nas.home/1
+refuse	https://srv.localdomain/1
+refuse	https://hr.intranet/1
+refuse	https://files.private/1
+refuse	https://a.test/1
+refuse	https://a.example/1
+refuse	https://abcdefghijklmnop.onion/1
+refuse	https://a.alt/1
+refuse	https://1.0.0.127.in-addr.arpa/1
+refuse	https://a.b.ip6.arpa/1
+refuse	https://deep.sub.printer.local/1
+refuse	https://UPPER.LOCAL/1
+# Malformed names
+refuse	https://a..com/1
+refuse	https://.com/1
+refuse	https://a.com./1
+refuse	https://-a.example.com/1
+refuse	https://a-.example.com/1
+refuse	https://a.-b.example.com/1
+refuse	https://a.example.com-/1
+refuse	https://a.b..example.com/1
+refuse	https://localhost/1
+refuse	https://example/1
+refuse	https://127.0.0.1/1
+refuse	https://[::1]/1
+refuse	https://127.1/1
+refuse	https://0x7f.1/1
+refuse	https://2130706433/1
+refuse	https://u@a.example.com/1
+refuse	https://a.example.com:8443/1
+refuse	http://a.example.com/1
+refuse	ftp://a.example.com/1
+refuse	javascript:alert(1)
+refuse	https://a.example.com/1#f
+# Accepted: public DNS names, including look-alikes that merely CONTAIN a reserved word
+accept	https://boards.example.com/jobs/1
+accept	https://a.example.org/1
+accept	https://contest.com/1
+accept	https://local.example.com/1
+accept	https://test.example.com/1
+accept	https://internal.example.com/1
+accept	https://a-b.example.com/1
+accept	https://xn--bcher-kva.example.com/1
+accept	https://jobs.lever.co/acme/1

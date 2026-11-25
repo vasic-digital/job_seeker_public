@@ -19,6 +19,7 @@ import (
 	"github.com/vasic-digital/job_seeker/internal/audit"
 	"github.com/vasic-digital/job_seeker/internal/crypto"
 	"github.com/vasic-digital/job_seeker/internal/ext"
+	"github.com/vasic-digital/job_seeker/internal/ext/knockout"
 	"github.com/vasic-digital/job_seeker/internal/match"
 	"github.com/vasic-digital/job_seeker/internal/store"
 	"github.com/vasic-digital/job_seeker/internal/templates"
@@ -44,10 +45,29 @@ type Service struct {
 	TemplatePolicy func() templates.Policy
 	Rules          *match.Rules
 	Overlay        func() (*match.Overlay, error)
+	// PDFCheck judges the frozen PDFs at draft time and gates approval on a block finding (JSK-T238). Optional.
+	PDFCheck *PDFCheck
+	// Upload judges the frozen files against the provider's upload profile (types, bytes, count, characters) at draft
+	// time and gates approval and handoff on a block finding (JSK-T176). Optional.
+	Upload *UploadCheck
+	// Coverage enables CoverageReport, the per-application keyword coverage report (JSK-T165). Optional.
+	Coverage *CoverageConfig
 	// CompanyWindow and RejectCooldown tune the company-level duplicate guard (JSK-T181); zero means the Default* values.
 	CompanyWindow, RejectCooldown time.Duration
-	Now                           func() time.Time
-	Log                           *slog.Logger
+	// Policy is the apply-policy layer (JSK-T205). It only RESTRICTS: it runs after every FR-026 condition has passed and can refuse, never grant.
+	// nil means no policy layer (tests, tools).
+	Policy PolicyGate
+	// Compliance, when non-nil, is consulted at StageDraft (Prepare) and StageApprove (Approve): any verdict other than
+	// Yes refuses with ErrComplianceBlocked and an audit row, before anything is written (JSK-T239). nil means no gate layer
+	// (tests, tools); the daemon always sets it.
+	Compliance ComplianceGuard
+	// Knockout, when non-nil, is the knockout-question pre-flight (JSK-T177): a live approval is refused while a recognised
+	// question is unfavourable or unanswerable and not acknowledged; nil means no layer (tests, tools); the daemon sets it.
+	Knockout *knockout.Checker
+	Now      func() time.Time
+	Log      *slog.Logger
+	// Candidate returns the display name used in download filenames (JSK-T175); nil or "" keeps the slot name.
+	Candidate func() string
 }
 
 func (s *Service) now() time.Time {
@@ -278,7 +298,7 @@ func (s *Service) assemble(ctx context.Context, tx *sql.Tx, appID int64, area, l
 			return "", nil, err
 		}
 	}
-	return DraftHash(area, lang, files[0].SHA256, files[1].SHA256, postingSHA, s.now().Format("2006-01-02")), files, nil
+	return DraftHash(area, lang, files[0].SHA256, files[1].SHA256, postingSHA, now[:10]), files, nil
 }
 
 // bodyOf opens the sealed posting text (only to look for an explicit apply-language requirement).
@@ -298,6 +318,9 @@ func (s *Service) bodyOf(ctx context.Context, q rowQuerier, postingID int64) str
 // pending_draft -> draft_prepared -> awaiting_human_approval in ONE transaction, hash frozen. A missing slot leaves
 // the application at pending_draft with state_reason slot_missing and returns ErrSlotMissing. No text is generated.
 func (s *Service) Prepare(ctx context.Context, appID int64, actor string) error {
+	if err := s.complianceCheck(ctx, ext.StageDraft, appID, actor); err != nil {
+		return err
+	}
 	var outErr error
 	err := s.DB.Write(ctx, func(tx *sql.Tx) error {
 		a, err := loadApp(ctx, tx, appID)
@@ -336,6 +359,12 @@ func (s *Service) Prepare(ctx context.Context, appID int64, actor string) error 
 		}
 		if _, err := tx.ExecContext(ctx, `UPDATE application SET lang=?, lang_rule=?, cv_slot=?, cover_slot=?, draft_hash=?, state_reason=NULL WHERE id=?`,
 			d.Lang, d.Rule, files[0].Name, files[1].Name, hash, appID); err != nil {
+			return err
+		}
+		if err := s.recordPDFVerdict(ctx, tx, appID, hash, files); err != nil {
+			return err
+		}
+		if err := s.recordUploadVerdict(ctx, tx, appID, hash, p.Host(), files); err != nil {
 			return err
 		}
 		ev := map[string]any{"draft_hash": hash, "lang": d.Lang, "lang_rule": d.Rule}
@@ -393,6 +422,12 @@ func (s *Service) ConfirmLanguage(ctx context.Context, appID int64, lang, actor 
 		}
 		if _, err := tx.ExecContext(ctx, `UPDATE application SET lang=?, lang_rule=?, cv_slot=?, cover_slot=?, draft_hash=?, approved_hash=NULL, approved_by=NULL, approved_at=NULL WHERE id=?`,
 			lang, RuleHuman, files[0].Name, files[1].Name, hash, appID); err != nil {
+			return err
+		}
+		if err := s.recordPDFVerdict(ctx, tx, appID, hash, files); err != nil { // the re-assembled files must be re-judged too
+			return err
+		}
+		if err := s.recordUploadVerdict(ctx, tx, appID, hash, cp.Host(), files); err != nil {
 			return err
 		}
 		ev := map[string]any{"draft_hash": hash, "lang": lang, "lang_rule": RuleHuman}
@@ -493,6 +528,27 @@ type ApproveInput struct {
 	Live           bool
 	CompanyConfirm string
 	StepUpAt       time.Time
+	AckDuplicate   bool // the operator acknowledged another application to the same Position (gate G9d)
+	// AckKnockouts are the knockout question ids the operator acknowledges (JSK-T177); an id not on the checklist is ignored.
+	AckKnockouts []string
+}
+
+// PolicyGate is the narrow seam to the position package's apply policy.
+type PolicyGate interface {
+	CheckApprove(ctx context.Context, tx *sql.Tx, appID int64, live, ackDuplicate bool, actor string) (string, error)
+	CheckHandoff(ctx context.Context, tx *sql.Tx, appID int64, actor string) error
+}
+
+// policyRefusal converts an audited policy refusal into the draft refusal type; any other error is returned unchanged.
+func policyRefusal(err error) error {
+	var pr interface {
+		PolicyReason() (string, map[string]any)
+	}
+	if errors.As(err, &pr) {
+		reason, ev := pr.PolicyReason()
+		return &refusal{err: err, reason: reason, evidence: ev}
+	}
+	return err
 }
 
 // Approval is the outcome of Approve.
@@ -501,7 +557,8 @@ type Approval struct {
 	WouldSend []byte // the would_send payload (dry-run only; never sent anywhere)
 	// Token is the channel-facing approval record (JSK-T229, FR-098, SC-033). It is minted here and nowhere else, for a
 	// live approval only; it is the zero (invalid) value for a dry-run or a refused approval.
-	Token ext.Approved
+	Token    ext.Approved
+	Warnings []string // advisory only (JSK-T183); a warning never blocks
 }
 
 func (s *Service) stepUpFresh(t time.Time) bool {
@@ -511,6 +568,9 @@ func (s *Service) stepUpFresh(t time.Time) bool {
 // Approve records the human approval. Dry-run (Live=false) is the default: a would_send payload is written and no
 // outbound call exists. Live approval requires every FR-026 condition and ends at live_approved (handoff pending).
 func (s *Service) Approve(ctx context.Context, in ApproveInput) (Approval, error) {
+	if err := s.complianceCheck(ctx, ext.StageApprove, in.AppID, in.Actor); err != nil {
+		return Approval{}, err
+	}
 	var res Approval
 	var outErr error
 	err := s.DB.Write(ctx, func(tx *sql.Tx) error {
@@ -536,6 +596,21 @@ func (s *Service) Approve(ctx context.Context, in ApproveInput) (Approval, error
 			outErr = ErrApprovalHashMismatch
 			return nil
 		}
+		if rf := s.checkPDF(ctx, tx, a); rf != nil { // an audited refusal commits its audit row and leaves the application untouched
+			if aerr := s.auditRefusal(ctx, tx, a, in.Actor, rf); aerr != nil {
+				return aerr
+			}
+			outErr = rf.err
+			return nil
+		}
+		if rf := s.checkUpload(ctx, p, files); rf != nil { // an oversize, mistyped or too-many-file draft never reaches the provider's form (F-10)
+			if aerr := s.auditRefusal(ctx, tx, a, in.Actor, rf); aerr != nil {
+				return aerr
+			}
+			outErr = rf.err
+			return nil
+		}
+		kitems := s.knockoutItems(ctx, tx, p)
 		if in.Live {
 			if err := s.checkLive(ctx, tx, p, in, files); err != nil {
 				var rf *refusal
@@ -547,6 +622,30 @@ func (s *Service) Approve(ctx context.Context, in ApproveInput) (Approval, error
 					return nil
 				}
 				return err
+			}
+			if rf := checkKnockout(kitems, in.AckKnockouts); rf != nil { // JSK-T177 (F-11)
+				if aerr := s.auditRefusal(ctx, tx, a, in.Actor, rf); aerr != nil {
+					return aerr
+				}
+				outErr = rf.err
+				return nil
+			}
+			if s.Policy != nil {
+				sha, perr := s.Policy.CheckApprove(ctx, tx, a.ID, true, in.AckDuplicate, in.Actor)
+				if perr != nil {
+					var rf *refusal
+					if errors.As(policyRefusal(perr), &rf) {
+						if aerr := s.auditRefusal(ctx, tx, a, in.Actor, rf); aerr != nil {
+							return aerr
+						}
+						outErr = rf.err
+						return nil
+					}
+					return perr
+				}
+				if _, err := tx.ExecContext(ctx, `UPDATE application SET policy_sha=? WHERE id=?`, sha, a.ID); err != nil {
+					return err
+				}
 			}
 		}
 		var cycle int
@@ -583,6 +682,25 @@ func (s *Service) Approve(ctx context.Context, in ApproveInput) (Approval, error
 			return err
 		}
 		res = Approval{State: to}
+		if hoursOutside(p.TZHint, s.now()) { // JSK-T183 (F-15): advisory only
+			res.Warnings = append(res.Warnings, "outside_business_hours")
+			if err := s.auditWarning(ctx, tx, a, in.Actor, "warned_outside_business_hours", map[string]any{"posting_id": p.ID}); err != nil {
+				return err
+			}
+		}
+		if soft := riskIDs(s.riskOf(ctx, tx, p), false); len(soft) > 0 { // hard flags already refused a live approval; shown, never blocking, otherwise
+			for _, id := range soft {
+				res.Warnings = append(res.Warnings, "risk:"+id.(string))
+			}
+			if err := s.auditWarning(ctx, tx, a, in.Actor, "warned_posting_risk", map[string]any{"flags": soft}); err != nil {
+				return err
+			}
+		}
+		kwarn, kerr := s.recordKnockout(ctx, tx, a, in.Actor, in.Live, kitems, in.AckKnockouts)
+		if kerr != nil {
+			return kerr
+		}
+		res.Warnings = append(res.Warnings, kwarn...)
 		if !in.Live {
 			res.WouldSend = payload
 		} else if res.Token, err = mintToken(a, p, in.Actor); err != nil {
@@ -615,6 +733,9 @@ func (s *Service) checkLive(ctx context.Context, tx *sql.Tx, p postingRow, in Ap
 		return ErrCompanyConfirmation
 	}
 	if rf := s.checkPosting(p); rf != nil {
+		return rf
+	}
+	if rf := s.checkRisk(ctx, tx, p); rf != nil { // JSK-T185 (F-17)
 		return rf
 	}
 	if rf := s.checkTemplates(); rf != nil {
@@ -811,6 +932,13 @@ func (s *Service) HandoffComplete(ctx context.Context, appID int64, actor, confi
 			outErr = rf.err
 			return nil
 		}
+		if rf := s.checkUpload(ctx, p, hfiles); rf != nil { // the profile may have changed since the approval
+			if aerr := s.auditRefusal(ctx, tx, a, actor, rf); aerr != nil {
+				return aerr
+			}
+			outErr = rf.err
+			return nil
+		}
 		if rf := s.checkCover(hfiles, p); rf != nil { // the day may have rolled over since the approval
 			if aerr := s.auditRefusal(ctx, tx, a, actor, rf); aerr != nil {
 				return aerr
@@ -825,8 +953,28 @@ func (s *Service) HandoffComplete(ctx context.Context, appID int64, actor, confi
 			outErr = rf.err
 			return nil
 		}
+		if rf := s.checkRisk(ctx, tx, p); rf != nil {
+			if aerr := s.auditRefusal(ctx, tx, a, actor, rf); aerr != nil {
+				return aerr
+			}
+			outErr = rf.err
+			return nil
+		}
 		if err := s.checkCaps(ctx, tx, p, a.ID); err != nil {
 			return err
+		}
+		if s.Policy != nil {
+			if perr := s.Policy.CheckHandoff(ctx, tx, a.ID, actor); perr != nil {
+				var rf *refusal
+				if errors.As(policyRefusal(perr), &rf) {
+					if aerr := s.auditRefusal(ctx, tx, a, actor, rf); aerr != nil {
+						return aerr
+					}
+					outErr = rf.err
+					return nil
+				}
+				return perr
+			}
 		}
 		blob, err := s.Keys.Seal("application", "provider_ref", a.ID, []byte(confirmationRef))
 		if err != nil {
@@ -894,6 +1042,9 @@ func (p postingRow) asMatch() match.Posting {
 func (s *Service) checkPosting(p postingRow) *refusal {
 	if s.postingClosed(p) {
 		return &refusal{err: ErrPostingClosed, reason: "refused_posting_closed", evidence: map[string]any{"posting_state": p.State}}
+	}
+	if isMailto(p.ApplyURL) { // JSK-T184 (F-16): no mail path exists, so a mailto: apply method is a manual action
+		return &refusal{err: ErrManualOnly, reason: "refused_manual_only", evidence: map[string]any{"apply_scheme": "mailto"}}
 	}
 	if s.Rules == nil || s.Overlay == nil {
 		return &refusal{err: ErrGateUndetermined, reason: "refused_gate_undetermined", evidence: map[string]any{"cause": "inputs_missing"}}
@@ -986,4 +1137,35 @@ func (s *Service) checkCover(files []templates.File, p postingRow) *refusal {
 		return fail("role")
 	}
 	return nil
+}
+
+// DownloadName is the JSK-T175 download filename of one frozen draft file: candidate (Service.Candidate), kind, the posting title as the
+// role and the draft date. When no candidate name is configured or a component is unrepresentable it returns the slot name unchanged.
+func (s *Service) DownloadName(ctx context.Context, appID int64, kind string) (string, error) {
+	fs, err := loadDraft(ctx, s.DB.Read(), appID)
+	if err != nil {
+		return "", err
+	}
+	a, err := loadApp(ctx, s.DB.Read(), appID)
+	if err != nil {
+		return "", err
+	}
+	p, err := loadPosting(ctx, s.DB.Read(), a.PostingID)
+	if err != nil {
+		return "", err
+	}
+	for _, d := range fs {
+		if d.Kind != kind {
+			continue
+		}
+		if s.Candidate != nil && len(d.CreatedAt) >= 10 {
+			if day, perr := time.Parse("2006-01-02", d.CreatedAt[:10]); perr == nil {
+				if n, ok := templates.DownloadName(s.Candidate(), kind, p.Title, day); ok {
+					return n, nil
+				}
+			}
+		}
+		return d.Slot, nil
+	}
+	return "", ErrNotFound
 }

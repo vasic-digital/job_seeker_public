@@ -1,0 +1,37 @@
+{
+ "lang": "ru",
+ "source": "internal/i18n/messages/en.json",
+ "pipeline": "umbrella _tools/translate-pipeline.sh (HelixTranslate), via i18n_schedule.py",
+ "providers": [
+  "cohere:command-a-translate-08-2025",
+  "groq:openai/gpt-oss-20b",
+  "groq:qwen/qwen3.8-27b",
+  "claude:sonnet-5.5-manual"
+ ],
+ "targets": [
+  "cohere-command-a-translate",
+  "groq-gpt-oss-20b",
+  "groq-qwen3.8-27b"
+ ],
+ "keys": 312,
+ "manual_keys_note": "the report.* / error.report_required / error.area_confirmation_required keys added by JSK-T187 and JSK-T187b were translated by hand by the coding agent (not by the HelixTranslate pipeline); recorded as translator claude:sonnet-5.5-manual so the reviewer must differ",
+ "delta": [
+  {
+   "task": "JSK-T177",
+   "keys": [
+    "knockout.title",
+    "knockout.help",
+    "knockout.ack",
+    "knockout.q.work_auth_required",
+    "knockout.q.sponsorship_restriction",
+    "knockout.q.other",
+    "knockout.state.confirmed",
+    "knockout.state.unfavourable",
+    "knockout.state.missing",
+    "error.knockout_unconfirmed"
+   ],
+   "translator": "claude:sonnet-5.5",
+   "note": "HelixTranslate pipeline not runnable on this host (translate-pipeline.sh exits rc 2: HT_FLEET undeclared, no engine image, fleet hosts unresolvable); the 10 new keys were translated by the Claude translator under the 2026-11-24 operator decision recorded in this file's earlier note; the independent delta review is verdict.delta.json."
+  }
+ ]
+}

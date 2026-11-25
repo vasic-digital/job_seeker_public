@@ -1,0 +1,1 @@
+RED note: the implementation (lastEndobj token boundary, '/' excluded) already exists at github/main c066041; the regression test passes there and the mutant that admits a '/' before endobj is KILLED, which is the RED-equivalent (test bites the defect).

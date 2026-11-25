@@ -250,3 +250,101 @@ func TestLoadDirRefusesOverlapAndMissing(t *testing.T) {
 		t.Fatal("an empty directory must be an error: no profile is not a permissive default")
 	}
 }
+
+// JSK-T176: a provider upload profile also limits the number of files and, optionally, the characters of the text.
+const limitsDoc = `schema: ats_profile.v1
+id: demo
+version: "1.0.0"
+applies_hosts: ["jobs.demo.example"]
+spec: "x"
+upload: { types: [pdf], max_bytes: 1000, max_files: 2, max_pages: 2, max_chars: 10 }
+checks: []
+quirks: []
+`
+
+func TestCheckUploadCountAndBytes(t *testing.T) {
+	p, err := Parse([]byte(limitsDoc))
+	if err != nil {
+		t.Fatal(err)
+	}
+	a := art("cv.pdf", "application/pdf", 1000)
+	if fs := p.CheckUpload(a, 2); len(codes(fs, "block")) != 0 {
+		t.Fatalf("at the limits: %+v", fs)
+	}
+	if b := codes(p.CheckUpload(a, 3), "block"); len(b) != 1 || b[0] != "upload_count" {
+		t.Fatalf("3 files > max_files 2: %v", b)
+	}
+	if b := codes(p.CheckUpload(art("cv.pdf", "application/pdf", 1001), 1), "block"); len(b) != 1 || b[0] != "upload_size" {
+		t.Fatalf("oversize: %v", b)
+	}
+	if b := codes(p.CheckUpload(art("cv.exe", "application/x-msdownload", 10), 1), "block"); len(b) != 1 || b[0] != "upload_type" {
+		t.Fatalf("type: %v", b)
+	}
+	if b := codes(p.CheckUpload(a, 0), "warn"); len(b) != 1 || b[0] != "upload_count_unknown" {
+		t.Fatalf("count 0 must be reported, not swallowed: %v", b)
+	}
+}
+
+func TestMaxCharsBlocksOnlyOverTheLimit(t *testing.T) {
+	p, _ := Parse([]byte(limitsDoc))
+	a := art("cv.pdf", "application/pdf", 10)
+	for text, want := range map[string]bool{"0123456789": false, "01234567890": true, "ééééééééééé": true, "éééééééééé": false} { // runes, not bytes
+		got := len(codes(p.Check(ext.ExtractedDoc{Text: text, Pages: 1}, a), "block")) > 0
+		if got != want {
+			t.Errorf("%q: block=%v want %v", text, got, want)
+		}
+	}
+	if w := codes(p.Check(ext.ExtractedDoc{Pages: 1}, a), "warn"); !contains(w, "upload_chars_unknown") {
+		t.Fatalf("no extracted text with a char limit must be advisory-visible: %v", w)
+	}
+	q, _ := Parse([]byte(strings.Replace(limitsDoc, ", max_chars: 10", "", 1)))
+	if fs := q.Check(ext.ExtractedDoc{Text: strings.Repeat("x", 100000), Pages: 1}, a); len(fs) != 0 {
+		t.Fatalf("no max_chars means no limit: %+v", fs)
+	}
+	if _, err := Parse([]byte(strings.Replace(limitsDoc, "max_chars: 10", "max_chars: -1", 1))); err == nil {
+		t.Fatal("negative max_chars accepted")
+	}
+}
+
+func TestShippedProfilesNameEveryLimitTheyRely(t *testing.T) {
+	for _, p := range load(t) {
+		l := p.Limits()
+		if l.MaxBytes <= 0 || l.MaxFiles <= 0 || len(l.Types) == 0 {
+			t.Errorf("%s: incomplete limits %+v", p.Info().ID, l)
+		}
+	}
+}
+
+// JSK-T173 (decision 0009): the 3-page maximum stays; a CV that REACHES the limit has no headroom and gets an
+// advisory warning, one that exceeds it is still blocked, one under it is clean. Advisory means Decide stays Yes.
+func TestPageHeadroomWarning(t *testing.T) {
+	for _, id := range []string{"greenhouse", "lever", "ashby", "generic"} {
+		g := byID(load(t), id)
+		mk := func(pages int) ext.ExtractedDoc {
+			return ext.ExtractedDoc{Pages: pages, Tagged: true, Headings: []string{"Experience"}}
+		}
+		a := art("cv_ada_backend_20261124.pdf", "application/pdf", 100_000)
+		has := func(fs []ext.Finding, sev, code string) bool {
+			for _, c := range codes(fs, sev) {
+				if c == code {
+					return true
+				}
+			}
+			return false
+		}
+		if fs := g.Check(mk(2), a); has(fs, "warn", "page_budget_at_limit") || len(codes(fs, "block")) != 0 {
+			t.Errorf("%s: 2 pages must be clean: %+v", id, fs)
+		}
+		at := g.Check(mk(3), a)
+		if !has(at, "warn", "page_budget_at_limit") || len(codes(at, "block")) != 0 {
+			t.Errorf("%s: 3 pages (the limit) must warn and not block: %+v", id, at)
+		}
+		if d := Decide(g, mk(3), a); d.Verdict != ext.Yes {
+			t.Errorf("%s: a headroom warning is advisory, verdict %v", id, d.Verdict)
+		}
+		over := g.Check(mk(4), a)
+		if !has(over, "block", "page_budget") || has(over, "warn", "page_budget_at_limit") {
+			t.Errorf("%s: 4 pages must block, not warn: %+v", id, over)
+		}
+	}
+}

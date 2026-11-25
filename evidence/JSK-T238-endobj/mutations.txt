@@ -1,0 +1,2 @@
+KILLED       ext-scan-slash-endobj-name-counts
+mutations: 1 killed of 1

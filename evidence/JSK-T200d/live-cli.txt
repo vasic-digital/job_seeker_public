@@ -1,0 +1,15 @@
+$ jsctl migrate
+migrate: schema version 5 (binary expects 5)
+rc=0
+$ jsctl read-job --url <non-ATS>
+read-job: not a supported ATS posting link (greenhouse boards/job-boards, lever, ashby)
+rc=2
+$ jsctl read-job --url <non-ATS>
+read-job: not a supported ATS posting link (greenhouse boards/job-boards, lever, ashby)
+rc=2
+$ jsctl read-job --url <non-ATS>
+read-job: not a supported ATS posting link (greenhouse boards/job-boards, lever, ashby)
+rc=2
+$ jsctl read-job --url https://boards.greenhouse.io/acme/jobs/4012345   (provider terms never accepted)
+read-job: blocked by a compliance gate (robots at the exact URL, or the provider's terms are not accepted: jsctl ext terms accept --provider NAME); nothing was requested
+rc=1

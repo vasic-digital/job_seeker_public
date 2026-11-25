@@ -1,0 +1,24 @@
+{
+ "task": "JSK-T128",
+ "file": "internal/i18n/messages/en.json",
+ "sha256": "7ade2d072bdfbb0927ea5960fe1ab64bf357a76b260b530bac9b08b213286261",
+ "keys": 252,
+ "invariant": [
+  "app.name",
+  "draft.sha"
+ ],
+ "review": {
+  "reviewer": "independent read-only claude subagent (not the translating pipeline)",
+  "round1": "FAIL: 4 duplicate keys, 2 code-referenced keys missing (error.passkey_limit, error.registration_rejected), empty invariant list",
+  "fixes": "duplicates removed, 2 keys added, app.name and draft.sha declared invariant",
+  "round2": "PASS (fresh independent subagent: 204 unique keys, all 154 literal code references present, invariant app.name+draft.sha, only %s verbs; runtime-built keys not checked)"
+ },
+ "note": "the freeze hash is re-taken whenever main adds keys; i18n_schedule.py translates only keys missing from its per-key cache, so later additions cost only the new keys",
+ "review_addendum_2026-11-24": {
+  "reviewer": "fresh independent read-only claude subagent (not the translating pipeline)",
+  "scope": "the 48 keys added after the first PASS (204 -> 252): position.*, queue.merges.*, settings.apply*, settings.fav*, dup.*, error.{position_busy,merge_blocked,upload_refused,compliance_blocked}, nav.merges, job.position",
+  "verdict": "PASS (blocking-only): no duplicate JSON keys, no referenced literal key missing, runtime-built position.field.* and error.* sets complete",
+  "non_blocking": "nav.merges is not referenced by navAll (internal/console/console.go) - unused or the nav entry was never added",
+  "hints": "ambiguous labels got disambiguating INPUT phrases in scripts/i18n_hints.json (the pipeline translates the hint, so hints are label-shaped phrases, not instructions); 'robots.txt' must survive verbatim and is checked by the per-language reviewer"
+ }
+}

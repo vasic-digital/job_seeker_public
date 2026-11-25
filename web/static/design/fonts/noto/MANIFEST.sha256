@@ -1,0 +1,23 @@
+# pins every file under fonts/noto/ and the generated:noto block of fonts/fonts.css; written by `jsctl sync-design --pin-noto` (run by scripts/build_noto_subsets.py --build); do not edit
+869ef830174368c35192370a634206cf569a3a2066242c0045317fda08de71c6  fonts/noto/OFL-CJK.txt
+1a66683213dbb5b3de72cb2f43fc71699328435dacd81e15c1b6cdc122828634  fonts/noto/OFL.txt
+c68c749b210d2a27f623e611c703b793da7a5b4d7db5faa9f5dd1801438d57d1  fonts/noto/SOURCES.tsv
+b92c65f2d449c38b0f7c8e5de472f4a06e702dcf71a114a1e6c4306e311c4e83  fonts/noto/codepoints/arabic.txt
+842b10c8ebce72e3ed8697abaa647cc9beb4721b30b744ba880e1431a8e3bbcf  fonts/noto/codepoints/devanagari.txt
+9b24594b6ead1f0703468e43aa96a9edf1b5f4200b93904312bfb283a5677fab  fonts/noto/codepoints/jp-core.txt
+f2164561bbefb4df930db45cd92a6d8382fd0c923adb35b0a160d56de76a97cf  fonts/noto/codepoints/jp-rest.txt
+a5fa118b8090f909fb25336c0b63acad90ea51130aad90d1e2a12c9eedfc8364  fonts/noto/codepoints/kr-core.txt
+77f618ed6885981561af28c62e7fcb3955348ccc0442e2ebb614e44a568244df  fonts/noto/codepoints/kr-rest.txt
+d66ae64fc0c0c994788ba31d840253a9c6c4780c8eef819c234c4b78ea91d56c  fonts/noto/codepoints/sc-core.txt
+a26f97d1e8fba14fedd0f3fcc5364a0d5ced23504f72802c6e7488705373231a  fonts/noto/codepoints/sc-rest.txt
+3c12b79528e978e599b6acd5ccd26a1d7d32d9e3276447e31ee079d579ddacf6  fonts/noto/noto-sans-arabic-400.woff2
+d4b546788f430e6d17ae983645a86c17a84dd3ecd25848a9a3e69b0438d2b27e  fonts/noto/noto-sans-arabic-700.woff2
+49dad4dfe047ca2b073959df35536a6555200ebc1662f38c8f6a6a222159b6bd  fonts/noto/noto-sans-devanagari-400.woff2
+5dbadec5085cc21e27e59ec748a850af4c757495ee2e08237832c503c5c1fda6  fonts/noto/noto-sans-devanagari-700.woff2
+394c95db353c26d5f6f2727c3f1b7d580ec71a64c26c8e8907ab4d7fbaecb739  fonts/noto/noto-sans-jp-400-core.woff2
+5854f6907867a68e559d65c297b0e5c5af383d5f509ca0ba90b5b6d4d0d3e16d  fonts/noto/noto-sans-jp-400-rest.woff2
+d0f833f6b1e30e4c09868eb1e1b845711e30a26d712b96069647c156c694ddb3  fonts/noto/noto-sans-kr-400-core.woff2
+2284108a95d6291192c88d8cdebfb7a8e80bc286ea4fbf99249aba1b5a046664  fonts/noto/noto-sans-kr-400-rest.woff2
+6a63050a8d2f7075c3c1cb0eb2a9223d9c3b323503a840d07a61f1954b180c31  fonts/noto/noto-sans-sc-400-core.woff2
+4b4278a5f6fe87b20dd2bb3f8add1fe075c6485a6b76084750b4f07d1bbb847c  fonts/noto/noto-sans-sc-400-rest.woff2
+d657645766284ce78b2cbe552206aa1848059ff671934b087b4c9c28e3811e8b  fonts/fonts.css#generated:noto

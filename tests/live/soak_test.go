@@ -2,6 +2,7 @@ package live
 
 import (
 	"fmt"
+	"github.com/vasic-digital/job_seeker/internal/evnorm"
 	"os"
 	"path/filepath"
 	"sort"
@@ -136,7 +137,7 @@ func TestSoakRSS(t *testing.T) {
 		"rss_ceiling_kb": ceilKB, "growth_limit_pct": growth, "healthz_after": after.Status}
 	evidence(t, "soak_summary.json", rec)
 	if dir != "" {
-		_ = os.WriteFile(filepath.Join(dir, "soak_rss_series.csv"), []byte(csv.String()), 0o644)
+		_ = evnorm.WriteFile(filepath.Join(dir, "soak_rss_series.csv"), []byte(csv.String()), 0o644)
 	}
 	t.Logf("%v", rec)
 	if n < 6 {

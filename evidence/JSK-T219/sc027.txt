@@ -1,0 +1,3 @@
+--- PASS: TestIdempotentAndEmployerAliasFromTenant (0.05s)
+--- PASS: TestArrivalOrderIndependent (2.49s)
+ok  	github.com/vasic-digital/job_seeker/internal/position	2.550s

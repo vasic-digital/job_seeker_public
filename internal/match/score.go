@@ -198,7 +198,13 @@ func (r *Rules) ScorePosting(p Posting, m Mapping, ov *Overlay, now time.Time) S
 		s.Gates = append(s.Gates, "duplicate")
 	}
 	if r.Shadow != nil {
-		r.Shadow(p, ov, append([]string(nil), s.Gates...), now)
+		gates := append([]string(nil), s.Gates...)
+		callShadow(func() { r.Shadow(p, m, ov, gates, now) })
+	}
+	if r.deciderIsPlugin() { // JSK-T244 step 2: the plugin decides; the gates collected above are the reverse shadow
+		pg := r.pluginGates(p, m, ov, now)
+		noteDivergence(s.Gates, pg)
+		s.Gates = pg
 	}
 	if len(s.Gates) > 0 {
 		s.Total, s.Band = 0, BandDiscard
@@ -297,5 +303,17 @@ func (r *Rules) HardGates(p Posting, ov *Overlay) []string {
 	if _, below := salaryBelowFloor(p, ov, &r.Score); below {
 		out = append(out, "salary_below_floor")
 	}
+	if r.HardShadow != nil {
+		gates := append([]string(nil), out...)
+		callShadow(func() { r.HardShadow(p, ov, gates, time.Now()) })
+	}
+	if r.deciderIsPlugin() {
+		pg := r.pluginHardGates(p, ov, time.Now())
+		noteDivergence(out, pg)
+		return pg
+	}
 	return out
 }
+
+// ParseTZ parses a posting's UTC-offset hint ("UTC+1", "+01:00") into hours; ok=false when it is absent or unparseable.
+func ParseTZ(h string) (float64, bool) { return parseTZ(h) }

@@ -1,0 +1,12 @@
+KILLED       intake-redirect-target
+mutations: 1 killed of 1
+KILLED       intake-label-detached
+mutations: 1 killed of 1
+KILLED       intake-no-position-resolver
+mutations: 1 killed of 1
+KILLED       intake-refusal-200
+mutations: 1 killed of 1
+KILLED       intake-nav-link-missing
+mutations: 1 killed of 1
+KILLED       intake-post-unmounted
+mutations: 1 killed of 1

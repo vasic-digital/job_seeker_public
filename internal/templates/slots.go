@@ -2,8 +2,10 @@ package templates
 
 import (
 	"errors"
+	"golang.org/x/text/unicode/norm"
 	"regexp"
 	"strings"
+	"time"
 	"unicode"
 	"unicode/utf8"
 )
@@ -79,14 +81,60 @@ func Leaks(text string, v SlotValues, others []string) []string {
 	if reReserved.MatchString(text) {
 		out = append(out, "placeholder")
 	}
-	if strings.Count(text, v.Company) != 1 || v.Company == "" {
+	lt, lc := strings.ToLower(text), strings.ToLower(v.Company)
+	if lc == "" || strings.Count(lt, lc) != 1 {
 		out = append(out, "company_count")
 	}
 	for _, o := range others {
-		if o != "" && o != v.Company && !strings.Contains(v.Company, o) && strings.Contains(text, o) {
+		lo := strings.ToLower(o)
+		if lo != "" && lo != lc && !strings.Contains(lc, lo) && strings.Contains(lt, lo) {
 			out = append(out, "other_company")
 			break
 		}
 	}
 	return out
+}
+
+var reNameRun = regexp.MustCompile(`[^A-Za-z0-9]+`)
+
+// nameToken folds s to ASCII (diacritics stripped; letters with no ASCII form are dropped), joins word runs with "-" and caps the length.
+func nameToken(s string, max int) string {
+	d := norm.NFD.String(s)
+	var b strings.Builder
+	for _, r := range d {
+		if unicode.Is(unicode.Mn, r) {
+			continue
+		}
+		if r < 0x80 {
+			b.WriteRune(r)
+		} else {
+			b.WriteByte(' ')
+		}
+	}
+	t := strings.Trim(reNameRun.ReplaceAllString(b.String(), "-"), "-")
+	if len(t) > max {
+		t = strings.Trim(t[:max], "-")
+	}
+	return t
+}
+
+// DownloadName builds the JSK-T175 / F-21 download filename `<Candidate>_<Kind>_<Role>_<yyyymmdd>.pdf` from confirmed fields. The
+// result is ASCII, free of path separators, quotes and control characters (so it is safe in a Content-Disposition header). ok is
+// false when a component cannot be represented (empty, or no ASCII letters at all, or an unknown kind); the caller then keeps the
+// slot name rather than inventing one.
+func DownloadName(candidate, kind, role string, d time.Time) (string, bool) {
+	var k string
+	switch kind {
+	case "cv":
+		k = "CV"
+	case "cover":
+		k = "Cover"
+	default:
+		return "", false
+	}
+	c, r := nameToken(candidate, 60), nameToken(role, 60)
+	if c == "" || r == "" || d.IsZero() {
+		return "", false
+	}
+	return c + "_" + k + "_" + r + "_" + d.UTC().Format("20060102") + ".pdf", true
 }

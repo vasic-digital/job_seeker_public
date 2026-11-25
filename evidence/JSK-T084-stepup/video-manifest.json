@@ -1,0 +1,11 @@
+{
+  "videos": [
+    {
+      "file": "stepup-flow.webm",
+      "bytes": 6456968,
+      "sha256": "e2d84ed4ae2f8767c0ee18ebb6b325d230c406679903bb10e5fde4535e8e7315",
+      "frames": "7799",
+      "stored_under": "storage-policy drive, not committed"
+    }
+  ]
+}

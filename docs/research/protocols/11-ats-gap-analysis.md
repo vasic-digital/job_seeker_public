@@ -54,7 +54,7 @@ But it validates a *generic* file. Three things decide whether an application is
 | G-20 | S4 | OCR cross-check (visual vs text layer) was never part of the gate. Measured now: en 98.4%, de 99.2% word recall; **ru 71%, sr 67.5%, ru cover 77%**. Cause UNCONFIRMED (engine accuracy on Cyrillic at 200 dpi vs a real text/visual mismatch) | MEASURED | T179 |
 | G-21 | S4 | Dates: all 4-digit years with localized month names; no ISO or numeric forms; Arabic cover date places the colon after the day in visual order (`19 : <month> 2026`), a logical-order concern tied to G-07 | MEASURED | T169 |
 | G-22 | S4 | Metadata: `Keywords` carries ~33 comma-separated terms in every PDF, no XMP duplicate; harmless to most parsers, possible keyword-stuffing signal; `/ViewerPreferences/DisplayDocTitle` absent | MEASURED | T170 |
-| G-23 | S4 | No Hebrew locale (the directive names AR/HE RTL; the 15 locales have ar and fa only) | CODE | T180 |
+| G-23 | S4 | No Hebrew locale (the directive names AR/HE RTL; the 15 locales have ar and fa only) | CODE | T180 | CLOSED 2026-11-24: Hebrew dropped from the RTL list (ADR 0010) |
 | G-24 | S4 | Gate cost/coverage: it runs after the build only; job_seeker never re-runs it; no CI (by policy) and no scheduled re-verification of the set | CODE | T172 |
 
 Counts: S1 = 4, S2 = 6, S3 = 9, S4 = 5 (24 gaps).

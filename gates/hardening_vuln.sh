@@ -55,5 +55,5 @@ for d in "${GOBIN:-}" "$HOME/.cache/claude-tmp/gobin" "$(go env GOPATH 2>/dev/nu
 out="$(mktemp)"; trap 'rm -f -- "$out"' EXIT
 (cd "$here" && "$gv" -format json ./... > "$out" 2>"$out.err"); rc=$?
 if [ $rc -ne 0 ] && [ $rc -ne 3 ]; then echo "UNDETERMINED: govulncheck rc=$rc: $(head -c 300 "$out.err")"; rm -f "$out.err"; exit 2; fi
-rm -f "$out.err"; [ -n "${JSK_VULN_SAVE:-}" ] && cp "$out" "$JSK_VULN_SAVE"
+rm -f "$out.err"; if [ -n "${JSK_VULN_SAVE:-}" ]; then cp "$out" "$JSK_VULN_SAVE"; bash "$here/scripts/evnorm.sh" -w "$JSK_VULN_SAVE" || { echo "UNDETERMINED: could not normalise $JSK_VULN_SAVE"; exit 2; }; fi   # shared evidence normaliser
 classify "$out"

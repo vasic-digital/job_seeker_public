@@ -1,0 +1,6 @@
+KILLED       t196-source-link-any-scheme
+KILLED       t196-merged-not-redirected
+KILLED       t196-merged-value-no-fallback
+KILLED       t196-provenance-dup-provider
+KILLED       t196-posting-not-redirected
+KILLED       t196-representative-ignored

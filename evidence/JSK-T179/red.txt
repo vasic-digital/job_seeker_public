@@ -1,0 +1,15 @@
+# RED: T179 OCR gate NOT wired into validate_pdf (OCR call disabled in a scratch worktree of umbrella PR #83 tip, 2026-11-24); real PDF whose ToUnicode no longer matches the glyphs
+F
+======================================================================
+FAIL: test_text_layer_that_disagrees_with_the_page_is_refused (career.test_extract_gates.RealSample.test_text_layer_that_disagrees_with_the_page_is_refused)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "$HOME/.cache/claude-tmp/claude-1000/-home-milosvasic-Projects-vasic/3d238ae2-d49c-4f10-a74d-4d1decde165b/scratchpad/redwt/_tools/career/test_extract_gates.py", line 209, in test_text_layer_that_disagrees_with_the_page_is_refused
+    self.assertIn("OCR recall", msg)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+AssertionError: 'OCR recall' not found in "contact URL not intact in text layer: <contact email len=11 sha=7329b117>; contact URL not intact in text layer: <contact url len=13 sha=24e26a2d>; contact URL not intact in text layer: <contact url len=21 sha=6d1dc381>; contact URL not intact in text layer: <contact url len=23 sha=e7c50ad4>; contact URL not intact in text layer: <contact url len=17 sha=cfc11578>; section heading(s) not recognisable as a standalone line in 'en': experience, education, skills; 3 word(s) split by automatic hyphenation at a line end: p1:pxowl-surylghu, p1:dqwl-eoxii, p2:srlqw-forxg"
+
+----------------------------------------------------------------------
+Ran 1 test in 310.111s
+
+FAILED (failures=1)

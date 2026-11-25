@@ -1,0 +1,8 @@
+KILLED       manual-scheme-https
+KILLED       manual-userinfo
+KILLED       manual-ip-literal
+KILLED       manual-port
+KILLED       manual-title-required
+KILLED       manual-id-from-canonical
+KILLED       manual-skip-resolve
+PROVE-FAILURE OK: a neutral mutant is reported SURVIVED and an unmatched pattern INVALID

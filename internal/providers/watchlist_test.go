@@ -21,7 +21,7 @@ func TestShippedWatchlistIsEmptyAndLoads(t *testing.T) {
 		if err != nil {
 			t.Fatalf("%s: %v", f, err)
 		}
-		if len(w.Greenhouse)+len(w.Lever)+len(w.Ashby) != 0 {
+		if len(w.Greenhouse)+len(w.Lever)+len(w.Ashby)+len(w.Feeds)+len(w.Pages)+len(w.Workable)+len(w.SmartRecruiters)+len(w.Recruitee)+len(w.Personio)+len(w.Teamtailor)+len(w.ReadThrough) != 0 {
 			t.Fatalf("%s must ship with NO selected employers: %+v", f, w)
 		}
 	}
@@ -79,4 +79,35 @@ func FuzzLoadWatchlist(f *testing.F) {
 			}
 		}
 	})
+}
+
+func TestWatchlistFeedsValidate(t *testing.T) {
+	w, err := LoadWatchlist(writeWL(t, "version: 1\nfeeds:\n  - url: https://careers.example.org/f.xml\n    name: Example\n    terms_reviewed: 2026-11-24\n"))
+	if err != nil || len(w.Feeds) != 1 || w.Feeds[0].Name != "Example" || w.Feeds[0].TermsReviewed != "2026-11-24" {
+		t.Fatalf("%v %+v", err, w)
+	}
+	for n, body := range map[string]string{
+		"http":        "version: 1\nfeeds:\n  - url: http://careers.example.org/f.xml\n",
+		"credentials": "version: 1\nfeeds:\n  - url: https://u:p@careers.example.org/f.xml\n",
+		"no host":     "version: 1\nfeeds:\n  - url: https:///f.xml\n",
+		"dup":         "version: 1\nfeeds:\n  - url: https://a.example.org/f\n  - url: https://A.example.org/f\n",
+		"unknown key": "version: 1\nfeeds:\n  - url: https://a.example.org/f\n    extra: 1\n",
+		"page http":   "version: 1\npages:\n  - url: http://a.example.org/jobs\n",
+	} {
+		if _, err := LoadWatchlist(writeWL(t, body)); err == nil {
+			t.Errorf("%s accepted", n)
+		}
+	}
+}
+
+// JSK-T212: the five further ATS sections carry terms_reviewed per tenant; the shipped files hold none of them.
+func TestWatchlistT212SectionsCarryTermsDate(t *testing.T) {
+	w, err := LoadWatchlist(writeWL(t, "version: 1\nworkable:\n  - slug: aa\n    terms_reviewed: 2026-11-24\nsmartrecruiters: [{slug: bb}]\nrecruitee: [{slug: cc}]\npersonio: [{slug: dd}]\nteamtailor: [{slug: ee}]\n"))
+	if err != nil || len(w.Workable) != 1 || w.Workable[0].TermsReviewed != "2026-11-24" || w.SmartRecruiters[0].TermsReviewed != "" ||
+		len(w.Recruitee) != 1 || len(w.Personio) != 1 || len(w.Teamtailor) != 1 {
+		t.Fatalf("%v %+v", err, w)
+	}
+	if _, err := LoadWatchlist(writeWL(t, "version: 1\nrecruitee: [{slug: \"a/b\"}]\n")); err == nil {
+		t.Fatal("bad slug in a T212 section must be refused")
+	}
 }

@@ -1,0 +1,76 @@
+?   	github.com/vasic-digital/job_seeker/cmd/i18naudit	[no test files]
+ok  	github.com/vasic-digital/job_seeker/cmd/jobseekerd	0.058s
+?   	github.com/vasic-digital/job_seeker/cmd/jsctl	[no test files]
+?   	github.com/vasic-digital/job_seeker/cmd/jsgate-serve	[no test files]
+?   	github.com/vasic-digital/job_seeker/cmd/jsgold	[no test files]
+?   	github.com/vasic-digital/job_seeker/cmd/jsobserve	[no test files]
+?   	github.com/vasic-digital/job_seeker/cmd/jspdscan	[no test files]
+ok  	github.com/vasic-digital/job_seeker/gates/egressban	0.306s
+ok  	github.com/vasic-digital/job_seeker/gates/txcheck	0.175s
+ok  	github.com/vasic-digital/job_seeker/internal/api	1.264s
+ok  	github.com/vasic-digital/job_seeker/internal/app	2.516s
+ok  	github.com/vasic-digital/job_seeker/internal/audit	1.601s
+ok  	github.com/vasic-digital/job_seeker/internal/auth	2.368s
+?   	github.com/vasic-digital/job_seeker/internal/benchutil	[no test files]
+ok  	github.com/vasic-digital/job_seeker/internal/boot	3.167s
+ok  	github.com/vasic-digital/job_seeker/internal/buildinfo	0.015s
+ok  	github.com/vasic-digital/job_seeker/internal/careersnap	0.063s
+ok  	github.com/vasic-digital/job_seeker/internal/certs	0.061s
+ok  	github.com/vasic-digital/job_seeker/internal/config	0.153s
+ok  	github.com/vasic-digital/job_seeker/internal/console	1.115s
+ok  	github.com/vasic-digital/job_seeker/internal/crypto	0.021s
+ok  	github.com/vasic-digital/job_seeker/internal/designsync	0.148s
+ok  	github.com/vasic-digital/job_seeker/internal/draft	22.127s
+ok  	github.com/vasic-digital/job_seeker/internal/egress	0.137s
+ok  	github.com/vasic-digital/job_seeker/internal/ext	0.052s
+ok  	github.com/vasic-digital/job_seeker/internal/ext/ats/parsersim	1.784s
+ok  	github.com/vasic-digital/job_seeker/internal/ext/ats/profile	0.055s
+ok  	github.com/vasic-digital/job_seeker/internal/ext/builtin	0.043s
+ok  	github.com/vasic-digital/job_seeker/internal/ext/channel	0.063s
+ok  	github.com/vasic-digital/job_seeker/internal/ext/channel/mailto	0.012s
+ok  	github.com/vasic-digital/job_seeker/internal/ext/channel/openurl	0.010s
+ok  	github.com/vasic-digital/job_seeker/internal/ext/channel/smtpcompose	0.141s
+ok  	github.com/vasic-digital/job_seeker/internal/ext/compliance	0.038s
+ok  	github.com/vasic-digital/job_seeker/internal/ext/eligibility	1.501s
+?   	github.com/vasic-digital/job_seeker/internal/ext/exttest	[no test files]
+ok  	github.com/vasic-digital/job_seeker/internal/ext/match/keyword	0.129s
+ok  	github.com/vasic-digital/job_seeker/internal/ext/reader/jsonld	0.063s
+ok  	github.com/vasic-digital/job_seeker/internal/ext/render/pdflinks	0.774s
+ok  	github.com/vasic-digital/job_seeker/internal/ext/render/txt	0.065s
+ok  	github.com/vasic-digital/job_seeker/internal/ext/source	0.023s
+ok  	github.com/vasic-digital/job_seeker/internal/ext/track	0.126s
+ok  	github.com/vasic-digital/job_seeker/internal/ext/verdictstore	0.916s
+ok  	github.com/vasic-digital/job_seeker/internal/fsm	0.009s
+ok  	github.com/vasic-digital/job_seeker/internal/i18n	0.024s
+ok  	github.com/vasic-digital/job_seeker/internal/ingest	2.858s
+ok  	github.com/vasic-digital/job_seeker/internal/jobops	0.011s
+ok  	github.com/vasic-digital/job_seeker/internal/jsctl	4.322s
+ok  	github.com/vasic-digital/job_seeker/internal/limiter	0.792s
+ok  	github.com/vasic-digital/job_seeker/internal/llm	0.596s
+ok  	github.com/vasic-digital/job_seeker/internal/match	2.541s
+ok  	github.com/vasic-digital/job_seeker/internal/match/gold	0.020s
+ok  	github.com/vasic-digital/job_seeker/internal/matchstore	4.417s
+ok  	github.com/vasic-digital/job_seeker/internal/metrics	0.043s
+?   	github.com/vasic-digital/job_seeker/internal/pdgate	[no test files]
+ok  	github.com/vasic-digital/job_seeker/internal/pipeline	3.155s
+ok  	github.com/vasic-digital/job_seeker/internal/position	29.575s
+ok  	github.com/vasic-digital/job_seeker/internal/privacy	13.423s
+ok  	github.com/vasic-digital/job_seeker/internal/privtool	1.111s
+ok  	github.com/vasic-digital/job_seeker/internal/providers	0.773s
+ok  	github.com/vasic-digital/job_seeker/internal/ratelimit	0.042s
+ok  	github.com/vasic-digital/job_seeker/internal/redact	0.021s
+ok  	github.com/vasic-digital/job_seeker/internal/scheduler	0.158s
+ok  	github.com/vasic-digital/job_seeker/internal/server	1.288s
+ok  	github.com/vasic-digital/job_seeker/internal/store	3.167s
+ok  	github.com/vasic-digital/job_seeker/internal/templates	0.040s
+?   	github.com/vasic-digital/job_seeker/internal/testauthn	[no test files]
+ok  	github.com/vasic-digital/job_seeker/internal/tracker	0.927s
+ok  	github.com/vasic-digital/job_seeker/tests/atomicity	1.653s
+ok  	github.com/vasic-digital/job_seeker/tests/chaos	42.182s
+ok  	github.com/vasic-digital/job_seeker/tests/e2e	356.147s
+ok  	github.com/vasic-digital/job_seeker/tests/full	2.952s
+ok  	github.com/vasic-digital/job_seeker/tests/integration	0.353s
+ok  	github.com/vasic-digital/job_seeker/tests/live	85.819s
+?   	github.com/vasic-digital/job_seeker/tools/jobops/cmd/jobops-spike	[no test files]
+?   	github.com/vasic-digital/job_seeker/web	[no test files]
+rc=0

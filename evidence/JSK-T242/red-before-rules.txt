@@ -1,0 +1,7 @@
+# github.com/vasic-digital/job_seeker/internal/ext/eligibility [github.com/vasic-digital/job_seeker/internal/ext/eligibility.test]
+internal/ext/eligibility/more_test.go:35:28: undefined: WorkAuth
+internal/ext/eligibility/more_test.go:51:28: undefined: Timezone
+internal/ext/eligibility/more_test.go:53:10: undefined: Timezone
+internal/ext/eligibility/more_test.go:74:28: undefined: Language
+FAIL	github.com/vasic-digital/job_seeker/internal/ext/eligibility [build failed]
+FAIL

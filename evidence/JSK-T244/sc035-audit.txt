@@ -1,0 +1,15 @@
+# SC-035 audit 2026-11-25: every production reader of a stored verdict (internal/, cmd/, non-test)
+$ grep -rn "verdictstore\.\(Current\|History\|Stale\|Usable\|Record\)\|verdictstore\.[A-Z]" --include=*.go internal cmd | grep -v _test | grep -v "^internal/ext/verdictstore"
+internal/draft/uploadprofile.go:108:	return verdictstore.Record(ctx, tx, verdictstore.Row{SubjectKind: "application", SubjectID: appID, Stage: "draft",
+internal/draft/pdfcheck.go:75:	return verdictstore.Record(ctx, tx, verdictstore.Row{SubjectKind: "application", SubjectID: appID, Stage: "draft",
+internal/draft/pdfcheck.go:86:	rows, err := verdictstore.Current(ctx, tx, "application", a.ID, "draft")
+internal/draft/pdfcheck.go:92:			// SC-035: staleness has ONE definition, verdictstore.Stale (policy key bound to this frozen draft AND the
+internal/draft/pdfcheck.go:94:			if st, _ := verdictstore.Stale(r, pdfPolicyKey(s.PDFCheck.PolicySHA, a.DraftHash), s.currentRulesetSHA()); st {
+internal/draft/pdfcheck.go:104:			if r.Verdict == ext.Yes && !verdictstore.Usable(r, pdfPolicyKey(s.PDFCheck.PolicySHA, a.DraftHash), s.currentRulesetSHA()) {
+
+$ grep -n "func (s \*Service) Approve" -A45 internal/draft/service.go | grep -n "check\|Verdict"
+30:		if rf := s.checkPDF(ctx, tx, a); rf != nil { // an audited refusal commits its audit row and leaves the application untouched
+37:		if rf := s.checkUpload(ctx, p, files); rf != nil { // an oversize, mistyped or too-many-file draft never reaches the provider's form (F-10)
+45:			if err := s.checkLive(ctx, tx, p, in, files); err != nil {
+
+# Readers: pdfcheck.go checkPDF (Current + Stale + Usable). uploadprofile.go only Records; its approve-time decision is checkUpload, a FRESH judge() of the frozen files, never the stored row. No eligibility verdict is stored anywhere (no Stage score/approve Record caller).

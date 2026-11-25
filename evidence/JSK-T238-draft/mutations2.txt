@@ -1,0 +1,5 @@
+KILLED       draft-pdf-confirmlang-not-rejudged
+KILLED       draft-pdf-stale-verdict-honoured
+KILLED       draft-pdf-block-ignored
+KILLED       draft-pdf-verdict-not-recorded
+done

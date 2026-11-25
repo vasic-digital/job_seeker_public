@@ -1,0 +1,4 @@
+# JSK-T173 pages-after, 2026-11-24: new profile check (page_budget_at_limit) run over every cv-*.pdf under the umbrella .cache-career via parsersim.PopplerSim + generic profile; counts only. 3 pages = the limit = warning (advisory); 4 pages = over the limit = block.
+generic profile, cv PDFs of umbrella .cache-career: pages=3 warn=page_budget_at_limit count=191
+generic profile, cv PDFs of umbrella .cache-career: pages=4 block=page_budget count=1
+ok  	github.com/vasic-digital/job_seeker/internal/ext/ats/profile	18.401s

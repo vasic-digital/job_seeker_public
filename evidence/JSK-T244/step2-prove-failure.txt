@@ -1,0 +1,1 @@
+PROVE-FAILURE OK: control rc=0; dropped junior_or_intern rc=1; dropped duplicate rc=1; strict-unknown (Unknown blocks) rc=1; dropped blocked_company (also the approve-time HardGates shadow) rc=1; tampered corpus rc=2

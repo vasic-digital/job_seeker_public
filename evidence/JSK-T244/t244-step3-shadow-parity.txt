@@ -1,0 +1,20 @@
+# gates/verify_shadow_parity.sh
+ruleset c9fed9822df3 gold-items=115 rows=2300 (modes=4 overlays=5 salary-facets=4; text real, structured facets synthetic)
+legacy-blocked=1158 plugin-blocked=2274 permissive=0 stricter=1116 rule-divergent=0 rule-unknown=5023 outcome-changed=0
+  overlay nil             rows=460  legacy-blocked=125  plugin-blocked=460  stricter=335
+  overlay empty           rows=460  legacy-blocked=128  plugin-blocked=460  stricter=332
+  overlay present-no-data rows=460  legacy-blocked=128  plugin-blocked=460  stricter=332
+  overlay full-A          rows=460  legacy-blocked=407  plugin-blocked=454  stricter=47
+  overlay full-B          rows=460  legacy-blocked=370  plugin-blocked=440  stricter=70
+  legacy gate blocked_company          fired on 460 row(s)
+  legacy gate duplicate                fired on 327 row(s)
+  legacy gate excluded_region          fired on 306 row(s)
+  legacy gate junior_or_intern         fired on 20 row(s)
+  legacy gate non_engineering          fired on 340 row(s)
+  legacy gate onsite_outside_allowed   fired on 222 row(s)
+  legacy gate salary_below_floor       fired on 115 row(s)
+OK: on every gold row x facet x overlay the plugin No-set equals the legacy gate set; no permissive row; shadow changed no outcome
+rc=0
+# --prove-failure
+PROVE-FAILURE OK: control rc=0; dropped junior_or_intern rc=1; dropped duplicate rc=1; tampered corpus rc=2
+rc=0

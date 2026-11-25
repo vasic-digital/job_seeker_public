@@ -1,0 +1,6 @@
+=== RUN   TestOllamaEmbedderLive
+    embed_live_test.go:55: model=nomic-embed-text dim=768 cos_self=1.0000 cos_near=0.9447 cos_far=0.4986
+        
+--- PASS: TestOllamaEmbedderLive (1.00s)
+PASS
+ok  	github.com/vasic-digital/job_seeker/internal/position	1.007s

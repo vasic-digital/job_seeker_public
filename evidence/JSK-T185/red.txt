@@ -1,0 +1,6 @@
+--- FAIL: TestScamCorpusIsFlagged (0.00s)
+--- FAIL: TestHardRiskBlocksLiveApprovalSoftDoesNot (0.18s)
+--- FAIL: TestAdvisoriesListsRiskAndHours (0.22s)
+FAIL
+FAIL	github.com/vasic-digital/job_seeker/internal/draft	0.416s
+FAIL

@@ -1,0 +1,7 @@
+{
+ "_comment": "Terms that are DELIBERATELY kept in English in every shipped catalogue (product/protocol names). i18n_review_chunked.py waives a reviewer issue that complains such a term is untranslated; it never waives anything else. Add a term only with a reason.",
+ "terms": {
+  "Passkey": "WebAuthn product term; the UI and the operator docs use it verbatim in every language",
+  "Token": "protocol term (bootstrap token) shown verbatim next to the value the operator pastes"
+ }
+}

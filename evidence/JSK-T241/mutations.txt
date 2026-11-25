@@ -1,0 +1,11 @@
+KILLED       ext-track-panic-not-recovered
+KILLED       ext-track-no-timeout
+KILLED       ext-track-error-not-counted
+KILLED       ext-track-sink-unbounded
+KILLED       ext-track-sink-no-ref-check
+KILLED       ext-track-sink-aliases-refs (pattern fixed after first run)
+KILLED       ext-track-reply-wrong-set
+KILLED       ext-track-overdue-off-by-one
+KILLED       ext-tracker-hook-before-commit
+KILLED       ext-tracker-hook-panic-propagates
+KILLED       ext-track-busy-not-skipped

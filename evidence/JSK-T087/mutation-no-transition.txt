@@ -1,0 +1,8 @@
+=== RUN   TestConcurrentApproveExactlyOneWinner
+    concurrent_approve_test.go:54: live=false round 0: 16 winners and 0 illegal-transition refusals of 16 racers; want exactly 1 and 15
+--- FAIL: TestConcurrentApproveExactlyOneWinner (0.17s)
+=== RUN   TestConcurrentApproveAndRejectExactlyOneOutcome
+--- PASS: TestConcurrentApproveAndRejectExactlyOneOutcome (1.29s)
+FAIL
+FAIL	github.com/vasic-digital/job_seeker/internal/draft	1.486s
+FAIL

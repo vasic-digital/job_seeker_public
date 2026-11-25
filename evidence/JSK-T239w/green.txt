@@ -1,0 +1,5 @@
+ok  	github.com/vasic-digital/job_seeker/internal/extwire	1.993s
+ok  	github.com/vasic-digital/job_seeker/internal/ingest	4.450s
+ok  	github.com/vasic-digital/job_seeker/internal/draft	23.716s
+ok  	github.com/vasic-digital/job_seeker/internal/jsctl	4.699s
+ok  	github.com/vasic-digital/job_seeker/internal/app	3.093s

@@ -1,0 +1,4 @@
+=== RUN   TestOverlayCrossCheckWithUmbrella
+--- PASS: TestOverlayCrossCheckWithUmbrella (2.74s)
+PASS
+ok  	github.com/vasic-digital/job_seeker/internal/match	2.750s

@@ -6,9 +6,11 @@ import (
 	"fmt"
 
 	"github.com/vasic-digital/job_seeker/internal/ext/builtin"
+	"github.com/vasic-digital/job_seeker/internal/providers"
 )
 
 const extUsage = `  policy check [--rules DIR]       validate rules/policy.yaml against the registered plugins and resolve every scope (0 ok, 1 invalid, 2 cannot determine)
+  policy matrix [--rules DIR]      SC-032: resolve the COMPLETE provider x ATS x country scope matrix under hostile scope layers; no locked gate may resolve off (0 ok, 1 a gate resolves off, 2 cannot determine)
   ext list [--json]                list registered extension plugins and their capability flags`
 
 // extCmd handles the extension-architecture commands (JSK-T233). handled=false means "not mine".
@@ -51,6 +53,62 @@ func extCmd(args []string, e Env) (rc int, handled bool) {
 			return 1, true
 		}
 		fmt.Fprintf(e.Out, "policy check: ok (%d plugin keys known, %d locked gates)\n", len(cat.Plugins), len(p.Locked))
+		return 0, true
+	case args[0] == "policy" && args[1] == "matrix":
+		fs := flag.NewFlagSet("policy matrix", flag.ContinueOnError)
+		fs.SetOutput(e.Err)
+		dir := fs.String("rules", "", "rules directory (default JOBSEEKER_RULES_DIR)")
+		if fs.Parse(args[2:]) != nil {
+			return 2, true
+		}
+		if *dir == "" {
+			*dir, _ = e.Lookup("JOBSEEKER_RULES_DIR")
+		}
+		if *dir == "" {
+			fmt.Fprintln(e.Err, "policy matrix: no rules directory (set JOBSEEKER_RULES_DIR or --rules); cannot determine")
+			return 2, true
+		}
+		if err := set.LoadATS(*dir); err != nil {
+			fmt.Fprintln(e.Err, err)
+			return 1, true
+		}
+		cat := set.Catalog()
+		p, err := builtin.LoadPolicyFile(*dir, cat)
+		if err != nil {
+			fmt.Fprintln(e.Err, err)
+			return 1, true
+		}
+		if err := p.Check(cat); err != nil {
+			fmt.Fprintln(e.Err, err)
+			return 1, true
+		}
+		names := map[string]bool{}
+		for n := range cat.Providers {
+			names[n] = true
+		}
+		for _, n := range providers.ShippedNames() {
+			names[n] = true
+		}
+		var provs, atss []string
+		for n := range names {
+			provs = append(provs, n)
+		}
+		for n := range cat.ATS {
+			atss = append(atss, n)
+		}
+		if len(atss) == 0 {
+			fmt.Fprintln(e.Err, "policy matrix: the shipped catalogue names no ATS profile (rules/ats missing); cannot determine")
+			return 2, true
+		}
+		n, err := p.CheckMatrix(provs, atss)
+		if err != nil {
+			fmt.Fprintln(e.Err, err)
+			if n == 0 && len(p.Locked) == 0 {
+				return 2, true
+			}
+			return 1, true
+		}
+		fmt.Fprintf(e.Out, "policy matrix: ok (%d providers x %d ats x 676 countries, each plus no-scope = %d scopes resolved; %d locked gates stayed on)\n", len(provs), len(atss), n, len(p.Locked))
 		return 0, true
 	case args[0] == "ext" && args[1] == "list":
 		fs := flag.NewFlagSet("ext list", flag.ContinueOnError)

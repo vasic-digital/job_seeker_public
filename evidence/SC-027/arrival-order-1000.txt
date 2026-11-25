@@ -1,0 +1,12 @@
+=== RUN   TestArrivalOrderIndependent
+--- PASS: TestArrivalOrderIndependent (122.93s)
+=== RUN   TestArrivalCasesMeetSC027
+--- PASS: TestArrivalCasesMeetSC027 (0.00s)
+PASS
+ok  	github.com/vasic-digital/job_seeker/internal/position	122.956s
+
+real	2m4.808s
+user	0m30.870s
+sys	0m9.850s
+
+[exited with code 0]

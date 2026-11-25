@@ -1,0 +1,25 @@
+{
+ "verdict": "PASS",
+ "translator": "claude:sonnet-5.5",
+ "reviewer": "claude:fresh-reviewer",
+ "scores": {
+  "accuracy": 5,
+  "fluency": 5,
+  "completeness": 5,
+  "naturalness": 5,
+  "register_appropriate": 5
+ },
+ "issues": [],
+ "script_ok": true,
+ "target_script_ok": true,
+ "review_rc": 0,
+ "checks": [
+  "312/312 keys, key set equals en.json",
+  "single NBSP punctuation convention scanned over all keys: 0 violations, 0 U+202F",
+  "override.recruiter_invited correct",
+  "round-1 recommended edits applied",
+  "report.coverage.counts and report.diff.counts argument order matches web/templates/draft.html call sites",
+  "only two multi-verb keys; all other verb sequences equal en"
+ ],
+ "round": 2
+}

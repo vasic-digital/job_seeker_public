@@ -1,0 +1,6 @@
+KILLED       idem-transition-guards
+mutations: 1 killed of 1
+KILLED       idem-tracker-nochange
+mutations: 1 killed of 1
+KILLED       idem-create-app-existing
+mutations: 1 killed of 1

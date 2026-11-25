@@ -1,0 +1,20 @@
+VQA-settings-en-light	must-pass	true	dir=ltr	Inbox,provider health
+VQA-intake-en-light	must-pass	true	dir=ltr	Add posting,Add a
+VQA-merges-en-light	must-pass	true	dir=ltr	a decision
+VQA-position-en-light	must-pass	true	dir=ltr	Position
+VQA-settings-en-dark	must-pass	true	dir=ltr	Inbox,provider health
+VQA-intake-en-dark	must-pass	true	dir=ltr	Add posting,Add a
+VQA-merges-en-dark	must-pass	true	dir=ltr	a decision
+VQA-position-en-dark	must-pass	true	dir=ltr	Position
+VQA-settings-ru-light	must-pass	true	dir=ltr	Входящие,состояние провайдера
+VQA-intake-ru-light	must-pass	true	dir=ltr	Добавить вакансию,Добавить вакансию
+VQA-merges-ru-light	must-pass	true	dir=ltr	пар нет
+VQA-position-ru-light	must-pass	true	dir=ltr	Должность
+VQA-settings-ru-dark	must-pass	true	dir=ltr	Входящие,состояние провайдера
+VQA-intake-ru-dark	must-pass	true	dir=ltr	Добавить вакансию,Добавить вакансию
+VQA-merges-ru-dark	must-pass	true	dir=ltr	пар нет
+VQA-position-ru-dark	must-pass	true	dir=ltr	Должность
+VQA-MUT-en-frame-vs-ru-facts	mutation-must-be-flagged	true		Входящие,состояние провайдера
+VQA-MUT-ru-frame-vs-en-facts	mutation-must-be-flagged	true		Inbox,provider health
+SHIPPED	en,ru
+NOT-SHIPPED (no frame possible; BLOCKED on the translation stream)	sr,be,de,es,fr,zh,ja,ko,ar,fa,hi,tr,kk

@@ -44,4 +44,6 @@ PY
 fi
 build "$t/jschallenge" || exit 2
 mkdir -p "${JSK_EVIDENCE_DIR:-$t}"
-"$t/jschallenge" -repo "$here" -out "${JSK_EVIDENCE_DIR:-$t}"
+"$t/jschallenge" -repo "$here" -out "${JSK_EVIDENCE_DIR:-$t}"; crc=$?
+if [ -n "${JSK_EVIDENCE_DIR:-}" ]; then bash "$here/scripts/evnorm.sh" -w "$JSK_EVIDENCE_DIR" || { echo "UNDETERMINED: could not normalise $JSK_EVIDENCE_DIR"; exit 2; }; fi   # shared evidence normaliser
+exit "$crc"

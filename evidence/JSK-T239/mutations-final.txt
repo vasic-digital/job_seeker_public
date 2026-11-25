@@ -1,0 +1,19 @@
+KILLED       ext-comp-nil-settings-pass
+KILLED       ext-comp-off-switch-ignored
+KILLED       ext-comp-5xx-allowed
+KILLED       ext-comp-4xx-blocks
+KILLED       ext-comp-disallow-ignored
+KILLED       ext-comp-allow-tie-loses
+KILLED       ext-comp-tos-changed-passes
+KILLED       ext-comp-tos-unreviewed-passes
+KILLED       ext-comp-unknown-stage-ok
+KILLED       ext-comp-ua-substring
+KILLED       ext-comp-path-not-normalized
+INVALID      ext-comp-rule-not-normalized: pattern does not match exactly once in internal/ext/compliance/compliance.go
+KILLED       ext-comp-body-uncapped
+KILLED       ext-comp-glob-no-backtrack
+KILLED       ext-comp-robots-ua-uncut
+KILLED       ext-comp-path-uncapped
+KILLED       ext-comp-truncated-disallow-skipped
+KILLED       ext-comp-group-overflow-ignored
+FINAL: all 18 ext-comp rows KILLED at the merge commit (see mutations-final.txt; ext-comp-rule-not-normalized pattern repaired and re-run KILLED); review rounds 1-4, round 4 NO BLOCKERS

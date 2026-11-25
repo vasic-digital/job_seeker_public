@@ -1,0 +1,8 @@
+# github.com/vasic-digital/job_seeker/internal/position [github.com/vasic-digital/job_seeker/internal/position.test]
+internal/position/stats_test.go:13:24: undefined: ProviderStat
+internal/position/stats_test.go:15:12: undefined: ProviderStat
+internal/position/stats_test.go:18:14: undefined: ProviderStats
+internal/position/stats_test.go:38:17: undefined: ProviderStat
+internal/position/stats_test.go:44:9: undefined: ProviderStat
+FAIL	github.com/vasic-digital/job_seeker/internal/position [build failed]
+FAIL

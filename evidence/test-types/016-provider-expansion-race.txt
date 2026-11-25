@@ -1,0 +1,3 @@
+# race run over internal/providers and internal/position; -skip TestArrivalOrderIndependent: the 1000-order SC-027 loop exceeds the 10 min test timeout under -race (measured: panic: test timed out after 10m0s); the same test PASSES without -race in 016-provider-expansion-unit.txt
+ok  	github.com/vasic-digital/job_seeker/internal/providers	10.775s
+ok  	github.com/vasic-digital/job_seeker/internal/position	313.084s

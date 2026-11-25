@@ -1,0 +1,25 @@
+{
+  "image": "<repo>/evidence/JSK-T084-stepup/frames/05-kill-off.png",
+  "prompt": "This is a screenshot of a web page. List the page title, the labelled values and any error message. Quote the visible text exactly.",
+  "endpoint": "http://127.0.0.1:11500/v1/chat/completions",
+  "model_requested": "qwen2.5vl:3b",
+  "model_served": "qwen2.5vl:3b",
+  "expected_facts": [
+    "Kill switch",
+    "Off"
+  ],
+  "forbidden_facts": [
+    "Verify with your passkey first"
+  ],
+  "response": "**Page Title:** Settings and provider health\n\n**Labelled Values:**\n- **Kill switch:** Off\n- **Live mode:** Off\n- **Daily cap:** 5\n- **Per-host daily cap:** 2\n\n**Error Message:** None visible in the screenshot.\n\n**Visible Text:**\n```\nSettings and provider health\n\nOutbound controls\n\nKill switch: Off\n\nTURN THE KILL SWITCH ON\n\nLive mode: Off · Resets to off on every restart.\n\nTURN LIVE MODE ON\n\nDaily cap\n\n5\n\nPer-host daily cap\n\n2\n\nSAVE CAPS\n\nLive approval and some settings need a passkey check no older than five minutes.  VERIFY WITH PASSKEY\n```",
+  "matched_facts": 2,
+  "expected_count": 2,
+  "hallucinated": false,
+  "pass": true,
+  "expect_fail": false,
+  "case_result": true,
+  "latency_ms": 4369,
+  "http_status": 200,
+  "prompt_tokens": 2326,
+  "completion_tokens": 142
+}

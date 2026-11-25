@@ -15,6 +15,7 @@ import (
 
 	"github.com/vasic-digital/job_seeker/internal/crypto"
 	"github.com/vasic-digital/job_seeker/internal/egress"
+	"github.com/vasic-digital/job_seeker/internal/ingest/ingesttest"
 	"github.com/vasic-digital/job_seeker/internal/limiter"
 	"github.com/vasic-digital/job_seeker/internal/position"
 	"github.com/vasic-digital/job_seeker/internal/providers"
@@ -93,7 +94,7 @@ func newRunner(t testing.TB, ps ...providers.Provider) (*Runner, *clk) {
 	}
 	t.Cleanup(func() { d.Close() })
 	ck := &clk{t: time.Date(2026, 11, 24, 8, 0, 0, 0, time.UTC)}
-	r := &Runner{DB: d, Keys: keyring(t), Limiter: &limiter.Limiter{DB: d, Now: ck.Now}, Providers: ps, Now: ck.Now,
+	r := &Runner{Compliance: ingesttest.AllowAll{}, DB: d, Keys: keyring(t), Limiter: &limiter.Limiter{DB: d, Now: ck.Now}, Providers: ps, Now: ck.Now,
 		SnapshotDir: filepath.Join(dir, "snapshots"), Sleep: func(context.Context, time.Duration) error { return nil }}
 	return r, ck
 }
@@ -134,6 +135,14 @@ func TestRunStoresPostingsEncryptedSanitizedWithCallRow(t *testing.T) {
 	pt, err := r.Keys.Open("posting", "body_text", id, body)
 	if err != nil || string(pt) != "We need a Go engineer" {
 		t.Fatalf("body %q %v", pt, err)
+	}
+	// JSK-T193: the body-derived signature is stored sealed beside the body and is the minhash of the sanitized text
+	var sigBlob []byte
+	if err := r.DB.Read().QueryRow(`SELECT sig_sealed FROM posting WHERE id=?`, id).Scan(&sigBlob); err != nil || len(sigBlob) == 0 {
+		t.Fatalf("no sealed signature stored: %v", err)
+	}
+	if pt, err := r.Keys.Open("posting", "sig_sealed", id, sigBlob); err != nil || len(pt) != 3+4*position.MinHashPerms {
+		t.Fatalf("sealed signature does not open or has the wrong shape: %v len=%d", err, len(pt))
 	}
 	if n := count(t, r, `SELECT count(*) FROM provider_call WHERE url_host='dum.example.com' AND status=200 AND resp_sha256 IS NOT NULL AND resolved_ip IS NOT NULL AND tls_subject IS NOT NULL AND req_id IS NOT NULL`); n != 1 {
 		t.Fatalf("provider_call rows %d", n)
@@ -507,4 +516,73 @@ func TestRunnerWithPositionResolverLinksByATSIdentity(t *testing.T) {
 		t.Fatal("not one Position with a dup_of mirror")
 	}
 	// legacy path unchanged when Positions is nil (covered by TestCrossProviderDuplicateAtThreshold)
+}
+
+// JSK-T200: manual intake stores a Listing under provider "manual:<host>" with the body sealed, makes no network request (the runner has no providers and
+// no client), is idempotent on re-paste, and a pasted ATS URL shares a Position with the same job fetched from the ATS.
+func TestIngestManualStoresSealedIdempotentAndLinksByATS(t *testing.T) {
+	r, _ := newRunner(t)
+	r.Positions = &position.Resolver{P: position.DefaultParams(), Keys: r.Keys}
+	in := providers.ManualInput{URL: "https://job-boards.greenhouse.io/acme/jobs/777", Title: "Go Engineer", Company: "Acme", Text: "<p>We need a Go engineer</p><script>x()</script>"}
+	id, st, err := r.IngestManual(context.Background(), in)
+	if err != nil || st != "new" {
+		t.Fatalf("%d %s %v", id, st, err)
+	}
+	id2, st2, err := r.IngestManual(context.Background(), in)
+	if err != nil || id2 != id || st2 != "unchanged" {
+		t.Fatalf("re-paste: %d %s %v", id2, st2, err)
+	}
+	var body []byte
+	var prov string
+	if err := r.DB.Read().QueryRow(`SELECT p.body_text, pr.name FROM posting p JOIN provider pr ON pr.id=p.provider_id WHERE p.id=?`, id).Scan(&body, &prov); err != nil || prov != "manual:job-boards.greenhouse.io" {
+		t.Fatalf("%v %s", err, prov)
+	}
+	if strings.Contains(string(body), "Go engineer") {
+		t.Fatal("manual body stored in plaintext")
+	}
+	if _, _, err := r.IngestManual(context.Background(), providers.ManualInput{URL: "http://x.example.com/1", Title: "x"}); err == nil {
+		t.Fatal("a refused URL was stored")
+	}
+	if n := count(t, r, `SELECT count(*) FROM provider_call`); n != 0 {
+		t.Fatalf("manual intake made %d provider calls", n)
+	}
+	// the same job arriving later from a board lands on the same Position
+	pb := post("aaa", "1", "Go Engineer", "Acme", "Remote")
+	pb.ApplyURL = "https://job-boards.greenhouse.io/acme/jobs/777?gh_src=x"
+	r.Providers = []providers.Provider{&dummy{name: "aaa", lim: providers.Limits{MaxPages: 1}, pages: []providers.Batch{{Postings: []providers.Posting{pb}}}}}
+	if _, err := r.RunProvider(context.Background(), "aaa", TriggerScheduled); err != nil {
+		t.Fatal(err)
+	}
+	if count(t, r, `SELECT count(DISTINCT position_id) FROM posting`) != 1 || count(t, r, `SELECT count(*) FROM posting`) != 2 || count(t, r, `SELECT count(*) FROM posting WHERE position_id IS NULL`) != 0 {
+		t.Fatal("pasted ATS link and board Listing are in different Positions")
+	}
+}
+
+// JSK-T200: re-pasting a link with a changed title is an update, and the Position follows it (seniority is derived from the title); the audit trail
+// records each intake with the host only, never the pasted text.
+func TestIngestManualUpdateRefreshesPositionAndAuditsHostOnly(t *testing.T) {
+	r, _ := newRunner(t)
+	r.Positions = &position.Resolver{P: position.DefaultParams(), Keys: r.Keys}
+	in := providers.ManualInput{URL: "https://jobs.example.com/p/1", Title: "Go Engineer", Company: "Acme", Text: "secret pasted words"}
+	id, st, err := r.IngestManual(context.Background(), in)
+	if err != nil || st != "new" {
+		t.Fatalf("%d %s %v", id, st, err)
+	}
+	in.Title = "Senior Go Engineer"
+	id2, st2, err := r.IngestManual(context.Background(), in)
+	if err != nil || id2 != id || st2 != "updated" {
+		t.Fatalf("update: %d %s %v", id2, st2, err)
+	}
+	var sen, tn string
+	if err := r.DB.Read().QueryRow(`SELECT coalesce(seniority,''), title_norm FROM position WHERE id=(SELECT position_id FROM posting WHERE id=?)`, id).Scan(&sen, &tn); err != nil || sen != "senior" {
+		t.Fatalf("position not refreshed after the update: seniority %q title_norm %q %v", sen, tn, err)
+	}
+	if n := count(t, r, `SELECT count(*) FROM audit_log WHERE reason_code='manual_intake'`); n != 2 {
+		t.Fatalf("audit rows %d, want 2", n)
+	}
+	var ev string
+	_ = r.DB.Read().QueryRow(`SELECT evidence_json FROM audit_log WHERE reason_code='manual_intake' ORDER BY id DESC LIMIT 1`).Scan(&ev)
+	if !strings.Contains(ev, "jobs.example.com") || strings.Contains(ev, "secret pasted words") || strings.Contains(ev, "Senior Go Engineer") {
+		t.Fatalf("audit evidence must carry the host only: %s", ev)
+	}
 }

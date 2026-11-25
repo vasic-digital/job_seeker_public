@@ -1,0 +1,2 @@
+go test fuzz v1
+[]byte("schema: synonyms.v1\nte\x94ms: {a: [b]}\nskills: !00 ")

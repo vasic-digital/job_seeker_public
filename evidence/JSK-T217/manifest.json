@@ -1,0 +1,162 @@
+[
+ {
+  "file": "settings-en-light.png",
+  "page": "settings",
+  "path": "/settings",
+  "lang": "en",
+  "scheme": "light",
+  "dir": "ltr",
+  "title": "Settings and provider health · Job Seeker",
+  "bg": "rgb(255, 248, 247)"
+ },
+ {
+  "file": "intake-en-light.png",
+  "page": "intake",
+  "path": "/intake",
+  "lang": "en",
+  "scheme": "light",
+  "dir": "ltr",
+  "title": "Add a posting by hand · Job Seeker",
+  "bg": "rgb(255, 248, 247)"
+ },
+ {
+  "file": "merges-en-light.png",
+  "page": "merges",
+  "path": "/queue/merges",
+  "lang": "en",
+  "scheme": "light",
+  "dir": "ltr",
+  "title": "Possible duplicate positions · Job Seeker",
+  "bg": "rgb(255, 248, 247)"
+ },
+ {
+  "file": "position-en-light.png",
+  "page": "position",
+  "path": "/positions/1",
+  "lang": "en",
+  "scheme": "light",
+  "dir": "ltr",
+  "title": "Position · Job Seeker",
+  "bg": "rgb(255, 248, 247)"
+ },
+ {
+  "file": "settings-en-dark.png",
+  "page": "settings",
+  "path": "/settings",
+  "lang": "en",
+  "scheme": "dark",
+  "dir": "ltr",
+  "title": "Settings and provider health · Job Seeker",
+  "bg": "rgb(25, 18, 18)"
+ },
+ {
+  "file": "intake-en-dark.png",
+  "page": "intake",
+  "path": "/intake",
+  "lang": "en",
+  "scheme": "dark",
+  "dir": "ltr",
+  "title": "Add a posting by hand · Job Seeker",
+  "bg": "rgb(25, 18, 18)"
+ },
+ {
+  "file": "merges-en-dark.png",
+  "page": "merges",
+  "path": "/queue/merges",
+  "lang": "en",
+  "scheme": "dark",
+  "dir": "ltr",
+  "title": "Possible duplicate positions · Job Seeker",
+  "bg": "rgb(25, 18, 18)"
+ },
+ {
+  "file": "position-en-dark.png",
+  "page": "position",
+  "path": "/positions/1",
+  "lang": "en",
+  "scheme": "dark",
+  "dir": "ltr",
+  "title": "Position · Job Seeker",
+  "bg": "rgb(25, 18, 18)"
+ },
+ {
+  "file": "settings-ru-light.png",
+  "page": "settings",
+  "path": "/settings",
+  "lang": "ru",
+  "scheme": "light",
+  "dir": "ltr",
+  "title": "Настройки и состояние провайдера · Job Seeker",
+  "bg": "rgb(255, 248, 247)"
+ },
+ {
+  "file": "intake-ru-light.png",
+  "page": "intake",
+  "path": "/intake",
+  "lang": "ru",
+  "scheme": "light",
+  "dir": "ltr",
+  "title": "Добавить вакансию вручную · Job Seeker",
+  "bg": "rgb(255, 248, 247)"
+ },
+ {
+  "file": "merges-ru-light.png",
+  "page": "merges",
+  "path": "/queue/merges",
+  "lang": "ru",
+  "scheme": "light",
+  "dir": "ltr",
+  "title": "Возможные дублирующие позиции · Job Seeker",
+  "bg": "rgb(255, 248, 247)"
+ },
+ {
+  "file": "position-ru-light.png",
+  "page": "position",
+  "path": "/positions/1",
+  "lang": "ru",
+  "scheme": "light",
+  "dir": "ltr",
+  "title": "Должность · Job Seeker",
+  "bg": "rgb(255, 248, 247)"
+ },
+ {
+  "file": "settings-ru-dark.png",
+  "page": "settings",
+  "path": "/settings",
+  "lang": "ru",
+  "scheme": "dark",
+  "dir": "ltr",
+  "title": "Настройки и состояние провайдера · Job Seeker",
+  "bg": "rgb(25, 18, 18)"
+ },
+ {
+  "file": "intake-ru-dark.png",
+  "page": "intake",
+  "path": "/intake",
+  "lang": "ru",
+  "scheme": "dark",
+  "dir": "ltr",
+  "title": "Добавить вакансию вручную · Job Seeker",
+  "bg": "rgb(25, 18, 18)"
+ },
+ {
+  "file": "merges-ru-dark.png",
+  "page": "merges",
+  "path": "/queue/merges",
+  "lang": "ru",
+  "scheme": "dark",
+  "dir": "ltr",
+  "title": "Возможные дублирующие позиции · Job Seeker",
+  "bg": "rgb(25, 18, 18)"
+ },
+ {
+  "file": "position-ru-dark.png",
+  "page": "position",
+  "path": "/positions/1",
+  "lang": "ru",
+  "scheme": "dark",
+  "dir": "ltr",
+  "title": "Должность · Job Seeker",
+  "bg": "rgb(25, 18, 18)"
+ }
+]

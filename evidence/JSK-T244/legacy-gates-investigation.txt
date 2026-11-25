@@ -1,0 +1,28 @@
+# Q-ARCH-6 / section 11.4.124 investigation: are the legacy gate blocks in match.ScorePosting dead? (2026-11-25, github/main 6b89fdd)
+
+$ grep -rn "ScorePosting(" --include=*.go cmd internal | grep -v _test
+internal/match/score.go:97:func (r *Rules) ScorePosting(p Posting, m Mapping, ov *Overlay, now time.Time) Score {
+internal/match/gold/bench.go:92:		_ = r.ScorePosting(p, m, nil, time.Date(2026, 11, 24, 0, 0, 0, 0, time.UTC))
+internal/match/gold/bench.go:208:			sc := r.ScorePosting(p, m, nil, time.Date(2026, 11, 24, 0, 0, 0, 0, time.UTC))
+internal/pipeline/pipeline.go:201:			s := p.Rules.ScorePosting(mp, m, ov, now)
+
+$ grep -rn "HardGates(" --include=*.go cmd internal | grep -v "_test\|func "
+internal/draft/service.go:1037:	if gates := s.Rules.HardGates(p.asMatch(), ov); len(gates) > 0 {
+
+$ grep -rn "Shadow:\|\.Shadow =" --include=*.go cmd internal
+internal/ext/eligibility/eligibility_test.go:172:	r.Shadow = set.Shadow(func(rule string, plugin ext.Verdict, legacyGate bool) {
+internal/ext/eligibility/eligibility_test.go:186:	r.Shadow = nil
+
+$ grep -rn "eligibility.NewSet\|\.Shadow(" --include=*.go cmd internal | grep -v "func "
+internal/match/score.go:201:		r.Shadow(p, ov, append([]string(nil), s.Gates...), now)
+internal/ext/eligibility/eligibility_test.go:172:	r.Shadow = set.Shadow(func(rule string, plugin ext.Verdict, legacyGate bool) {
+
+$ grep -rn "EvaluateEligibility(" --include=*.go cmd internal | grep -v "_test\|func "
+
+$ git log --format="%h %ad %s" --date=short -- internal/match/score.go
+6d3b29a 2026-11-24 feat(ext): work_auth, timezone, language eligibility rules (JSK-T242)
+b0ad4dd 2026-11-24 feat(ext): keyword ScoreFeature feeding the skills component, score.v2 (JSK-T236)
+115d1ea 2026-11-24 Merge pull request #56 from vasic-digital/pr/jsk-017-t228-remote-mode
+debf911 2026-11-24 feat(ext): eligibility plugins with legacy-gate parity and shadow hook (JSK-T228, JSK-T235)
+1b66016 2026-11-24 JSK-T182/T186: re-check hard scoring gates and posting closure at live approval and handoff, pin the posting hash in the draft hash
+c8dc471 2026-11-24 JSK-004: internal/match classifier, scorer, overlay reader, rules and gate (T050-T052, T054)

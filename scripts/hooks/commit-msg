@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # commit-msg hook (JSK-T005, FR-075, FR-076): enforces section 11.4.293 / 11.4.297 trailers.
-#  - exactly one `Roadmap-Item: JSK-0NN` (NN 01..12)
+#  - exactly one `Roadmap-Item: JSK-0NN` naming an epic that specs/*/tasks.md defines (G06: derived from data,
+#    never a hardcoded range; unreadable/empty data refuses with rc 2, fail closed)
 #  - more than one distinct JSK-Tnnn task id in the message needs `Multi-Task-Reason:`
 #  - a staged path outside scope-paths.txt needs `Out-of-Scope-Reason: <code from the closed list>`
 #  - no CI/CD pipeline files may be staged (section 11.4.156)
@@ -13,8 +14,19 @@ fail() { echo "commit-msg REFUSED: $1" >&2; exit 1; }
 
 n="$(printf '%s\n' "$body" | grep -cE '^Roadmap-Item:')"
 [ "$n" -eq 1 ] || fail "need exactly one 'Roadmap-Item:' trailer (found $n)"
-printf '%s\n' "$body" | grep -qE '^Roadmap-Item: JSK-0(0[1-9]|1[0-2])[[:space:]]*$' \
-  || fail "Roadmap-Item must name exactly one item JSK-001..JSK-012"
+item="$(printf '%s\n' "$body" | sed -n 's/^Roadmap-Item: \(JSK-0[0-9][0-9]\)[[:space:]]*$/\1/p')"
+[ -n "$item" ] || fail "Roadmap-Item must name exactly one item of the form JSK-0NN"
+root="$(git rev-parse --show-toplevel 2>/dev/null)" || { echo "commit-msg REFUSED (rc 2): cannot resolve repo root" >&2; exit 2; }
+# Allowed ids = every JSK-0NN named in specs/*/tasks.md (JSK_TASKS_GLOB overrides, for tests only).
+ids=""
+# Fallback: the repo that owns this hook (a worktree may run main's hooks and carry no specs/).
+for f in ${JSK_TASKS_GLOB:-"$root"/specs/*/tasks.md "$here"/../../specs/*/tasks.md}; do
+  [ -r "$f" ] && ids="$ids
+$(tr -c 'A-Za-z0-9-' '\n' < "$f" | grep -xE 'JSK-0[0-9]{2}')"
+done
+ids="$(printf '%s\n' "$ids" | sed '/^$/d' | sort -u)"
+[ -n "$ids" ] || { echo "commit-msg REFUSED (rc 2): no JSK epic ids readable from specs/*/tasks.md; cannot validate Roadmap-Item" >&2; exit 2; }
+printf '%s\n' "$ids" | grep -qxF "$item" || fail "Roadmap-Item $item is not an epic defined in specs/*/tasks.md"
 
 tasks="$(printf '%s\n' "$body" | grep -v '^Multi-Task-Reason:' | grep -oE 'JSK-T[0-9]{3}' | sort -u | wc -l)"
 if [ "$tasks" -gt 1 ]; then
@@ -22,7 +34,6 @@ if [ "$tasks" -gt 1 ]; then
     || fail "$tasks task ids named; add 'Multi-Task-Reason: <reason>' (section 11.4.297)"
 fi
 
-root="$(git rev-parse --show-toplevel)"
 staged="$(git diff --cached --name-only --diff-filter=ACMRD)"
 if printf '%s\n' "$staged" | grep -qE '^(\.github/workflows/|\.gitlab-ci\.yml|\.circleci/|azure-pipelines\.yml)' ; then
   fail "CI/CD files are forbidden (section 11.4.156)"

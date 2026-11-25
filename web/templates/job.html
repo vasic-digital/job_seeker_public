@@ -8,6 +8,7 @@
     <dt>{{t .Lang "col.source"}}</dt><dd>{{.P.Provider}}{{if .P.SourceURL}} · <a href="{{.P.SourceURL}}" rel="noreferrer noopener" target="_blank">{{t .Lang "job.attribution"}}</a>{{end}}</dd>
   </dl>
   <p class="console-hint">{{t .Lang "job.lang.original"}}</p>
+  {{if .PosID}}<p><a href="/positions/{{.PosID}}" data-testid="to-position">{{t .Lang "job.position"}}</a></p>{{end}}
 </article>
 <section class="od-card console-card" aria-labelledby="why-h">
   <h2 id="why-h" class="console-h2">{{t .Lang "job.why"}}</h2>

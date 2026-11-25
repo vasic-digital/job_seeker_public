@@ -1,0 +1,5 @@
+KILLED       ungated-nil-guard-is-permissive
+KILLED       ungated-scanner-ignores-alias
+KILLED       ungated-scanner-allows-ingesttest
+KILLED       ungated-scanner-allows-value-use
+KILLED       ungated-feed-url-unvalidated

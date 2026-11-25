@@ -1,0 +1,5 @@
+--- FAIL: TestCheckReportSeenEnforcesAreaConfirmation (0.19s)
+    approval_report_test.go:167: approval without the area confirmation accepted: <nil>
+FAIL
+FAIL	github.com/vasic-digital/job_seeker/internal/draft	1.236s
+FAIL

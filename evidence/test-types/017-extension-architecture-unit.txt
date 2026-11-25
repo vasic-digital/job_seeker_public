@@ -1,0 +1,480 @@
+=== RUN   TestConformanceAcceptsGoodRule
+--- PASS: TestConformanceAcceptsGoodRule (0.00s)
+=== RUN   TestConformanceRejectsOffVocabularyCode
+--- PASS: TestConformanceRejectsOffVocabularyCode (0.00s)
+=== RUN   TestConformanceRejectsWrongKind
+--- PASS: TestConformanceRejectsWrongKind (0.00s)
+=== RUN   TestReasonVocabularyIsClosed
+--- PASS: TestReasonVocabularyIsClosed (0.00s)
+=== RUN   TestReasonRefsAreScalarIdsOnly
+--- PASS: TestReasonRefsAreScalarIdsOnly (0.00s)
+=== RUN   TestDiscoveryAndCaps
+--- PASS: TestDiscoveryAndCaps (0.00s)
+=== RUN   TestActiveGatesRefusesEmpty
+--- PASS: TestActiveGatesRefusesEmpty (0.00s)
+=== RUN   TestMapSettings
+--- PASS: TestMapSettings (0.00s)
+=== RUN   TestRegisterAfterFreezeAndMissingFields
+--- PASS: TestRegisterAfterFreezeAndMissingFields (0.00s)
+=== RUN   TestResolveHashStable
+--- PASS: TestResolveHashStable (0.00s)
+=== RUN   TestLoadPolicyGood
+--- PASS: TestLoadPolicyGood (0.01s)
+=== RUN   TestLoadPolicyRejects
+--- PASS: TestLoadPolicyRejects (0.00s)
+=== RUN   TestMissingPolicyMeansNoGateEnabled
+--- PASS: TestMissingPolicyMeansNoGateEnabled (0.00s)
+=== RUN   TestCheckMatrixLockedGatesNeverOff
+--- PASS: TestCheckMatrixLockedGatesNeverOff (0.03s)
+=== RUN   TestOperatorLayerFromSettings
+--- PASS: TestOperatorLayerFromSettings (0.00s)
+=== RUN   TestResolvePrecedenceAndLockedGate
+--- PASS: TestResolvePrecedenceAndLockedGate (0.00s)
+=== RUN   TestEvaluateFailsClosed
+--- PASS: TestEvaluateFailsClosed (0.00s)
+=== RUN   TestRegistryOrderDuplicateAndDefaults
+--- PASS: TestRegistryOrderDuplicateAndDefaults (0.00s)
+=== RUN   TestCombineUnknownIsNotAPass
+--- PASS: TestCombineUnknownIsNotAPass (0.00s)
+=== RUN   TestApprovedCannotBeForged
+--- PASS: TestApprovedCannotBeForged (0.00s)
+=== RUN   TestChannelVetRejectsDirectSend
+--- PASS: TestChannelVetRejectsDirectSend (0.00s)
+=== RUN   TestFavouritesFirst
+--- PASS: TestFavouritesFirst (0.00s)
+=== RUN   TestCombineOutOfRangeVerdictFailsClosed
+--- PASS: TestCombineOutOfRangeVerdictFailsClosed (0.00s)
+=== RUN   TestEvaluateSurvivesPanickingInfoAndNilRule
+--- PASS: TestEvaluateSurvivesPanickingInfoAndNilRule (0.00s)
+PASS
+ok  	github.com/vasic-digital/job_seeker/internal/ext	0.119s
+=== RUN   TestExtractGoodPDF
+--- PASS: TestExtractGoodPDF (0.72s)
+=== RUN   TestExtractClassifiesLinkKinds
+--- PASS: TestExtractClassifiesLinkKinds (1.21s)
+=== RUN   TestGarbageIsUnreadableNotEmpty
+--- PASS: TestGarbageIsUnreadableNotEmpty (0.12s)
+=== RUN   TestMissingToolIsErrToolMissing
+--- PASS: TestMissingToolIsErrToolMissing (0.00s)
+=== RUN   TestOversizeInputRefusedAndTempCleaned
+--- PASS: TestOversizeInputRefusedAndTempCleaned (0.00s)
+=== RUN   TestRegisters
+--- PASS: TestRegisters (0.00s)
+=== RUN   TestLinksOverEmptySpaceAreStillSeen
+--- PASS: TestLinksOverEmptySpaceAreStillSeen (0.94s)
+=== RUN   TestNewlineInHrefIsNotDropped
+--- PASS: TestNewlineInHrefIsNotDropped (0.24s)
+=== RUN   TestSchemeWithoutHostIsNotAbsolute
+--- PASS: TestSchemeWithoutHostIsNotAbsolute (0.30s)
+=== RUN   TestStructScan
+--- PASS: TestStructScan (1.41s)
+=== RUN   TestParseAnchorsMultiLine
+--- PASS: TestParseAnchorsMultiLine (0.00s)
+=== RUN   TestStructScanNeverSilentlySkips
+--- PASS: TestStructScanNeverSilentlySkips (0.12s)
+=== RUN   TestStructScanEndobjIsATokenNotASubstring
+--- PASS: TestStructScanEndobjIsATokenNotASubstring (0.09s)
+=== RUN   TestStructScanXRefNameIsNotAnExemption
+--- PASS: TestStructScanXRefNameIsNotAnExemption (0.01s)
+=== RUN   TestStructScanSlashEndobjNameInMalformedDictionary
+--- PASS: TestStructScanSlashEndobjNameInMalformedDictionary (0.00s)
+PASS
+ok  	github.com/vasic-digital/job_seeker/internal/ext/ats/parsersim	5.204s
+=== RUN   TestShippedProfilesLoadAndConform
+--- PASS: TestShippedProfilesLoadAndConform (0.03s)
+=== RUN   TestAppliesExactHostOnly
+--- PASS: TestAppliesExactHostOnly (0.03s)
+=== RUN   TestResolveFallsBackToGenericOnlyForUnknownHosts
+--- PASS: TestResolveFallsBackToGenericOnlyForUnknownHosts (0.00s)
+=== RUN   TestCheckGoodOverLimitWrongType
+--- PASS: TestCheckGoodOverLimitWrongType (0.01s)
+=== RUN   TestMissingDataIsReportedNotSwallowed
+--- PASS: TestMissingDataIsReportedNotSwallowed (0.03s)
+=== RUN   TestFilenamePolicy
+--- PASS: TestFilenamePolicy (0.05s)
+=== RUN   TestDecide
+--- PASS: TestDecide (0.00s)
+=== RUN   TestLoaderRefusesBadProfiles
+--- PASS: TestLoaderRefusesBadProfiles (0.10s)
+=== RUN   TestLoadDirRefusesOverlapAndMissing
+--- PASS: TestLoadDirRefusesOverlapAndMissing (0.01s)
+=== RUN   TestCheckUploadCountAndBytes
+--- PASS: TestCheckUploadCountAndBytes (0.00s)
+=== RUN   TestMaxCharsBlocksOnlyOverTheLimit
+--- PASS: TestMaxCharsBlocksOnlyOverTheLimit (0.00s)
+=== RUN   TestShippedProfilesNameEveryLimitTheyRely
+--- PASS: TestShippedProfilesNameEveryLimitTheyRely (0.00s)
+=== RUN   TestPageHeadroomWarning
+--- PASS: TestPageHeadroomWarning (0.03s)
+PASS
+ok  	github.com/vasic-digital/job_seeker/internal/ext/ats/profile	0.456s
+=== RUN   TestShippedPolicyLoadsAndChecks
+--- PASS: TestShippedPolicyLoadsAndChecks (0.02s)
+=== RUN   TestMissingPolicyFileIsBuiltinDefault
+--- PASS: TestMissingPolicyFileIsBuiltinDefault (0.01s)
+=== RUN   TestDiscoverIsDeterministicAndFrozen
+--- PASS: TestDiscoverIsDeterministicAndFrozen (0.00s)
+=== RUN   TestLoadATSRegistersShippedProfilesAndScopesValidate
+--- PASS: TestLoadATSRegistersShippedProfilesAndScopesValidate (0.00s)
+=== RUN   TestLoadATSInvalidProfileIsAnError
+--- PASS: TestLoadATSInvalidProfileIsAnError (0.00s)
+=== RUN   TestDeliverabilityCheckRegistered
+--- PASS: TestDeliverabilityCheckRegistered (0.00s)
+PASS
+ok  	github.com/vasic-digital/job_seeker/internal/ext/builtin	0.066s
+=== RUN   TestEveryRegisteredChannelRefusesZeroApprovedAndNeverSends
+--- PASS: TestEveryRegisteredChannelRefusesZeroApprovedAndNeverSends (0.00s)
+=== RUN   TestNewApprovedCallersAreOnlyTheAllowList
+--- PASS: TestNewApprovedCallersAreOnlyTheAllowList (0.13s)
+PASS
+ok  	github.com/vasic-digital/job_seeker/internal/ext/channel	0.236s
+=== RUN   TestLiveGateAgainstRealDoH
+    live_test.go:20: set JSK_LIVE_DOH=1 for the one bounded real DoH read
+--- SKIP: TestLiveGateAgainstRealDoH (0.00s)
+=== RUN   TestSettingKeyNameIsTheDocumentedOne
+--- PASS: TestSettingKeyNameIsTheDocumentedOne (0.00s)
+=== RUN   TestDefaultOffRefusesWithoutAnyLookup
+--- PASS: TestDefaultOffRefusesWithoutAnyLookup (0.00s)
+=== RUN   TestInvalidOrUnreadableSettingIsUnknownNotAllowed
+--- PASS: TestInvalidOrUnreadableSettingIsUnknownNotAllowed (0.00s)
+=== RUN   TestOnAndAllLegsPassIsYesAndAudited
+--- PASS: TestOnAndAllLegsPassIsYesAndAudited (0.00s)
+=== RUN   TestOnButCheckSaysNoOrUnknownRefuses
+--- PASS: TestOnButCheckSaysNoOrUnknownRefuses (0.00s)
+=== RUN   TestMisconfiguredGateIsUnknown
+--- PASS: TestMisconfiguredGateIsUnknown (0.00s)
+=== RUN   TestAuditFailureOnAllowFailsClosed
+--- PASS: TestAuditFailureOnAllowFailsClosed (0.00s)
+=== RUN   TestPanickingCheckIsUnknown
+--- PASS: TestPanickingCheckIsUnknown (0.00s)
+=== RUN   TestEnableOnlyWhenCheckIsYes
+--- PASS: TestEnableOnlyWhenCheckIsYes (0.00s)
+=== RUN   TestEnableSetFailureIsAnError
+--- PASS: TestEnableSetFailureIsAnError (0.00s)
+=== RUN   TestDisableWritesZero
+--- PASS: TestDisableWritesZero (0.00s)
+=== RUN   TestComposedChannelRefusesUnlessGateSaysYes
+--- PASS: TestComposedChannelRefusesUnlessGateSaysYes (0.02s)
+=== RUN   TestComposeOverridesACallerSuppliedDeliverability
+--- PASS: TestComposeOverridesACallerSuppliedDeliverability (0.00s)
+=== RUN   TestGateNeverSendsOrWrites
+--- PASS: TestGateNeverSendsOrWrites (0.00s)
+=== RUN   TestDBStoreEndToEndWithRealSQLiteAndHashChain
+--- PASS: TestDBStoreEndToEndWithRealSQLiteAndHashChain (0.29s)
+=== RUN   TestDBStoreSetRollsBackWithItsAuditRow
+--- PASS: TestDBStoreSetRollsBackWithItsAuditRow (0.21s)
+=== RUN   TestNoAuditorMeansNoAllow
+--- PASS: TestNoAuditorMeansNoAllow (0.00s)
+=== RUN   TestCheckThatLiesDoesNotWidenTheGate
+--- PASS: TestCheckThatLiesDoesNotWidenTheGate (0.00s)
+=== RUN   TestDBRefusedEnableIsAuditedAsRefusedNotEnabled
+--- PASS: TestDBRefusedEnableIsAuditedAsRefusedNotEnabled (0.08s)
+=== RUN   TestComposeChecksTheFromDomainNotTheGatesDomain
+--- PASS: TestComposeChecksTheFromDomainNotTheGatesDomain (0.00s)
+=== RUN   TestChangingFromAfterComposeCannotDodgeTheCheck
+--- PASS: TestChangingFromAfterComposeCannotDodgeTheCheck (0.00s)
+PASS
+ok  	github.com/vasic-digital/job_seeker/internal/ext/channel/mailgate	0.736s
+=== RUN   TestParse
+--- PASS: TestParse (0.00s)
+=== RUN   TestPrepareIsComposeOnlyAndUsesFixedSubject
+--- PASS: TestPrepareIsComposeOnlyAndUsesFixedSubject (0.00s)
+=== RUN   TestSupportsAndAdmission
+--- PASS: TestSupportsAndAdmission (0.00s)
+=== RUN   TestPrepareLinkNeverContainsRecipientMetacharacters
+--- PASS: TestPrepareLinkNeverContainsRecipientMetacharacters (0.00s)
+PASS
+ok  	github.com/vasic-digital/job_seeker/internal/ext/channel/mailto	0.069s
+=== RUN   TestNothingWithoutApproval
+--- PASS: TestNothingWithoutApproval (0.00s)
+=== RUN   TestSupportsAndAdmission
+--- PASS: TestSupportsAndAdmission (0.00s)
+PASS
+ok  	github.com/vasic-digital/job_seeker/internal/ext/channel/openurl	0.059s
+=== RUN   TestBuildRoundTrips
+--- PASS: TestBuildRoundTrips (0.00s)
+=== RUN   TestBuildRefusesHeaderInjection
+--- PASS: TestBuildRefusesHeaderInjection (0.01s)
+=== RUN   TestMailerCreatesExactlyOneDraftAndNothingElse
+--- PASS: TestMailerCreatesExactlyOneDraftAndNothingElse (0.02s)
+=== RUN   TestMailerErrorsNeverLeakTokenOrBody
+--- PASS: TestMailerErrorsNeverLeakTokenOrBody (0.12s)
+=== RUN   TestMissingTokenMakesNoRequest
+--- PASS: TestMissingTokenMakesNoRequest (0.00s)
+=== RUN   TestMailerHasNoSendMethod
+--- PASS: TestMailerHasNoSendMethod (0.00s)
+=== RUN   TestChannelRefusesWithoutApprovalWithoutTouchingTheNetwork
+--- PASS: TestChannelRefusesWithoutApprovalWithoutTouchingTheNetwork (0.00s)
+=== RUN   TestChannelNeedsDeliverabilityYes
+--- PASS: TestChannelNeedsDeliverabilityYes (0.00s)
+=== RUN   TestChannelCreatesDraftForApprovedMailtoAndHumanSends
+--- PASS: TestChannelCreatesDraftForApprovedMailtoAndHumanSends (0.02s)
+=== RUN   TestAdmissionAndCaps
+--- PASS: TestAdmissionAndCaps (0.00s)
+=== RUN   TestTransportErrorsDoNotCarryURLs
+--- PASS: TestTransportErrorsDoNotCarryURLs (0.00s)
+=== RUN   TestEndpointMustBeHTTPS
+--- PASS: TestEndpointMustBeHTTPS (0.00s)
+=== RUN   TestRedirectDoesNotCarryTheToken
+--- PASS: TestRedirectDoesNotCarryTheToken (0.03s)
+PASS
+ok  	github.com/vasic-digital/job_seeker/internal/ext/channel/smtpcompose	0.294s
+=== RUN   TestRobotsMatrix
+--- PASS: TestRobotsMatrix (0.00s)
+=== RUN   TestSettingsMissingIsUnknownAtEveryStage
+--- PASS: TestSettingsMissingIsUnknownAtEveryStage (0.00s)
+=== RUN   TestProviderTOS
+--- PASS: TestProviderTOS (0.00s)
+=== RUN   TestRegisteredAsComplianceGates
+--- PASS: TestRegisteredAsComplianceGates (0.00s)
+=== RUN   TestHostileWildcardPatternIsLinear
+--- PASS: TestHostileWildcardPatternIsLinear (0.00s)
+=== RUN   TestAllowedNormalizesCallerPath
+--- PASS: TestAllowedNormalizesCallerPath (0.00s)
+=== RUN   TestVersionedRobotsUAAndBoundedWork
+--- PASS: TestVersionedRobotsUAAndBoundedWork (0.07s)
+=== RUN   TestRuleCapIsPerGroupAndFailsClosed
+--- PASS: TestRuleCapIsPerGroupAndFailsClosed (0.00s)
+=== RUN   TestTruncationDoesNotSplitAnEscape
+--- PASS: TestTruncationDoesNotSplitAnEscape (0.00s)
+PASS
+ok  	github.com/vasic-digital/job_seeker/internal/ext/compliance	0.223s
+=== RUN   TestAllLegsPassIsYes
+--- PASS: TestAllLegsPassIsYes (0.00s)
+=== RUN   TestEachLegFailureIsNotYes
+--- PASS: TestEachLegFailureIsNotYes (0.00s)
+=== RUN   TestLookupErrorsFailClosed
+--- PASS: TestLookupErrorsFailClosed (0.00s)
+=== RUN   TestNoBeatsUnknownBeatsYes
+--- PASS: TestNoBeatsUnknownBeatsYes (0.00s)
+=== RUN   TestDKIMAnySelectorWithKeyIsEnough
+--- PASS: TestDKIMAnySelectorWithKeyIsEnough (0.00s)
+=== RUN   TestWellFormedSPFVariantsStillPass
+--- PASS: TestWellFormedSPFVariantsStillPass (0.00s)
+=== RUN   TestMultiStringTXTIsJoined
+--- PASS: TestMultiStringTXTIsJoined (0.00s)
+=== RUN   TestBadInputIsUnknownAndDoesNoLookup
+--- PASS: TestBadInputIsUnknownAndDoesNoLookup (0.00s)
+=== RUN   TestQueryNameIsEscaped
+--- PASS: TestQueryNameIsEscaped (0.00s)
+=== RUN   TestThroughEgressPolicy
+--- PASS: TestThroughEgressPolicy (0.00s)
+=== RUN   TestInfoIsAValidDeliverabilityPlugin
+--- PASS: TestInfoIsAValidDeliverabilityPlugin (0.00s)
+=== RUN   TestBareSPFRecordIsNoNotPanic
+--- PASS: TestBareSPFRecordIsNoNotPanic (0.00s)
+=== RUN   TestNoMechanismSPFAndJunkDKIMKeyAreNotYes
+--- PASS: TestNoMechanismSPFAndJunkDKIMKeyAreNotYes (0.00s)
+=== RUN   TestNegatedSPFAndWrongKeyTypeAreNotYes
+--- PASS: TestNegatedSPFAndWrongKeyTypeAreNotYes (0.08s)
+=== RUN   TestEmptyCIDRAfterSlashIsInvalid
+--- PASS: TestEmptyCIDRAfterSlashIsInvalid (0.01s)
+PASS
+ok  	github.com/vasic-digital/job_seeker/internal/ext/deliver	0.266s
+=== RUN   TestRemoteModeConformance
+--- PASS: TestRemoteModeConformance (0.00s)
+=== RUN   TestRemoteModeYesOnUnknownMutantIsCaught
+--- PASS: TestRemoteModeYesOnUnknownMutantIsCaught (0.00s)
+=== RUN   TestOtherRulesConformance
+--- PASS: TestOtherRulesConformance (0.00s)
+=== RUN   TestParityWithLegacyGates
+    eligibility_test.go:162: parity: 38400 (rule,row) comparisons, 4096 plugin-No (all matched a legacy gate), 21984 Unknown (stricter than legacy, never a pass)
+--- PASS: TestParityWithLegacyGates (4.30s)
+=== RUN   TestShadowReportsDivergence
+--- PASS: TestShadowReportsDivergence (0.03s)
+=== RUN   TestDefaultFactorsMatchScoreYAML
+--- PASS: TestDefaultFactorsMatchScoreYAML (0.01s)
+=== RUN   TestWorkAuthConformance
+--- PASS: TestWorkAuthConformance (0.00s)
+=== RUN   TestTimezoneConformance
+--- PASS: TestTimezoneConformance (0.02s)
+=== RUN   TestLanguageConformance
+--- PASS: TestLanguageConformance (0.00s)
+=== RUN   TestOverlayProfileTZWindowAndNewRulesAreNotInTheLegacyParitySet
+--- PASS: TestOverlayProfileTZWindowAndNewRulesAreNotInTheLegacyParitySet (0.00s)
+=== RUN   TestOverlayProfileAnswersWorkAuthAndLanguages
+--- PASS: TestOverlayProfileAnswersWorkAuthAndLanguages (0.00s)
+=== RUN   TestRulesAgainstRealOverlay
+--- PASS: TestRulesAgainstRealOverlay (0.00s)
+PASS
+ok  	github.com/vasic-digital/job_seeker/internal/ext/eligibility	4.439s
+?   	github.com/vasic-digital/job_seeker/internal/ext/exttest	[no test files]
+=== RUN   TestWordBoundaryTable
+--- PASS: TestWordBoundaryTable (0.00s)
+=== RUN   TestSubstringMutantWouldFail
+--- PASS: TestSubstringMutantWouldFail (0.00s)
+=== RUN   TestComponentShareAndReasons
+--- PASS: TestComponentShareAndReasons (0.00s)
+=== RUN   TestDeterministicReasonOrder
+--- PASS: TestDeterministicReasonOrder (0.00s)
+=== RUN   TestInfoRegistersAsScoreFeature
+--- PASS: TestInfoRegistersAsScoreFeature (0.00s)
+=== RUN   TestLoadSynonymsStrict
+--- PASS: TestLoadSynonymsStrict (0.03s)
+=== RUN   TestAttachFeedsSkillsAndBumpsVersion
+--- PASS: TestAttachFeedsSkillsAndBumpsVersion (0.08s)
+=== RUN   TestRulesetSHACoversSynonyms
+--- PASS: TestRulesetSHACoversSynonyms (0.08s)
+=== RUN   TestKeywordPointsAreCapped
+--- PASS: TestKeywordPointsAreCapped (0.03s)
+=== RUN   TestRulesetSHACoversCareerSnapshot
+--- PASS: TestRulesetSHACoversCareerSnapshot (0.07s)
+PASS
+ok  	github.com/vasic-digital/job_seeker/internal/ext/match/keyword	0.395s
+=== RUN   TestConformance
+--- PASS: TestConformance (0.03s)
+=== RUN   TestRegisters
+--- PASS: TestRegisters (0.00s)
+=== RUN   TestMutantsAreCaughtByTheSuite
+--- PASS: TestMutantsAreCaughtByTheSuite (0.00s)
+=== RUN   TestSniff
+--- PASS: TestSniff (0.00s)
+=== RUN   TestOversizeAndDepthAreBounded
+--- PASS: TestOversizeAndDepthAreBounded (0.06s)
+PASS
+ok  	github.com/vasic-digital/job_seeker/internal/ext/reader/jsonld	0.190s
+=== RUN   TestCorpusCounts
+    corpus_test.go:21: JSK_PDF_CORPUS not set
+--- SKIP: TestCorpusCounts (0.00s)
+=== RUN   TestCheckTable
+--- PASS: TestCheckTable (0.00s)
+=== RUN   TestDecideFailsClosed
+--- PASS: TestDecideFailsClosed (0.00s)
+=== RUN   TestEndToEndGoldenPDFs
+--- PASS: TestEndToEndGoldenPDFs (1.94s)
+=== RUN   TestProfile
+--- PASS: TestProfile (0.00s)
+=== RUN   TestDangerousActionsAndIncompleteScan
+--- PASS: TestDangerousActionsAndIncompleteScan (0.00s)
+PASS
+ok  	github.com/vasic-digital/job_seeker/internal/ext/render/pdflinks	2.041s
+=== RUN   TestRenderRoundTripsAndIsDeterministic
+--- PASS: TestRenderRoundTripsAndIsDeterministic (0.00s)
+=== RUN   TestInvalidModelsAreRefusedNotRepaired
+--- PASS: TestInvalidModelsAreRefusedNotRepaired (0.00s)
+=== RUN   TestNoResolverOrResolverErrorFailsClosed
+--- PASS: TestNoResolverOrResolverErrorFailsClosed (0.00s)
+=== RUN   TestOversizeIsRefused
+--- PASS: TestOversizeIsRefused (0.02s)
+=== RUN   TestVerifyCatchesAWrongRendering
+--- PASS: TestVerifyCatchesAWrongRendering (0.00s)
+=== RUN   TestParseRejectsMalformed
+--- PASS: TestParseRejectsMalformed (0.00s)
+=== RUN   TestProfileAndRegistration
+--- PASS: TestProfileAndRegistration (0.00s)
+=== RUN   TestValidateRefusesEmptyModelDirectly
+--- PASS: TestValidateRefusesEmptyModelDirectly (0.00s)
+=== RUN   TestEqualComparesBodyLines
+--- PASS: TestEqualComparesBodyLines (0.00s)
+PASS
+ok  	github.com/vasic-digital/job_seeker/internal/ext/render/txt	0.071s
+=== RUN   TestWrapIsIdenticalToTheBareProvider
+--- PASS: TestWrapIsIdenticalToTheBareProvider (0.05s)
+=== RUN   TestForeignFetcherRefused
+--- PASS: TestForeignFetcherRefused (0.00s)
+=== RUN   TestFetcherGetThroughEgress
+--- PASS: TestFetcherGetThroughEgress (0.01s)
+PASS
+ok  	github.com/vasic-digital/job_seeker/internal/ext/source	0.172s
+=== RUN   TestDispatcherIsolatesErrorPanicAndStall
+--- PASS: TestDispatcherIsolatesErrorPanicAndStall (0.05s)
+=== RUN   TestDispatcherPanickingOnErrorIsContained
+--- PASS: TestDispatcherPanickingOnErrorIsContained (0.00s)
+=== RUN   TestZeroDispatcherRunsNothing
+--- PASS: TestZeroDispatcherRunsNothing (0.00s)
+=== RUN   TestBufferedSinkBoundedNonBlockingCountsDrops
+--- PASS: TestBufferedSinkBoundedNonBlockingCountsDrops (0.13s)
+=== RUN   TestBufferedSinkRejectsFreeTextRefsAndCopiesRefs
+--- PASS: TestBufferedSinkRejectsFreeTextRefsAndCopiesRefs (0.00s)
+=== RUN   TestReferenceHooks
+--- PASS: TestReferenceHooks (0.00s)
+=== RUN   TestOverdue
+--- PASS: TestOverdue (0.00s)
+=== RUN   TestItoa
+--- PASS: TestItoa (0.00s)
+=== RUN   TestSinkAndHooksRegisterWithTheirKinds
+--- PASS: TestSinkAndHooksRegisterWithTheirKinds (0.00s)
+=== RUN   TestStalledHookIsNotStackedAcrossEvents
+--- PASS: TestStalledHookIsNotStackedAcrossEvents (0.02s)
+PASS
+ok  	github.com/vasic-digital/job_seeker/internal/ext/track	0.292s
+=== RUN   TestRecordFlipsIsCurrentAndKeepsHistory
+--- PASS: TestRecordFlipsIsCurrentAndKeepsHistory (0.16s)
+=== RUN   TestForgedReasonRefused
+--- PASS: TestForgedReasonRefused (0.07s)
+=== RUN   TestNonYesWithoutReasonRefused
+--- PASS: TestNonYesWithoutReasonRefused (0.10s)
+=== RUN   TestStalenessNeverApproves
+--- PASS: TestStalenessNeverApproves (0.07s)
+=== RUN   TestConcurrentWritersOneCurrent
+--- PASS: TestConcurrentWritersOneCurrent (0.08s)
+=== RUN   TestSnapshotPluginsAndPolicyAreIdempotent
+--- PASS: TestSnapshotPluginsAndPolicyAreIdempotent (0.09s)
+=== RUN   TestSchemaHasNoDefaultsCarryingValues
+--- PASS: TestSchemaHasNoDefaultsCarryingValues (0.27s)
+=== RUN   TestUpgradeFrom0001KeepsRows
+--- PASS: TestUpgradeFrom0001KeepsRows (0.19s)
+PASS
+ok  	github.com/vasic-digital/job_seeker/internal/ext/verdictstore	1.101s
+=== RUN   TestGuardDefaultBlocksUnreviewedProvider
+--- PASS: TestGuardDefaultBlocksUnreviewedProvider (0.10s)
+=== RUN   TestGuardPassesAfterReviewAndBlocksOnChange
+--- PASS: TestGuardPassesAfterReviewAndBlocksOnChange (0.07s)
+=== RUN   TestGuardRobotsDisallowBlocksEvenWhenReviewed
+--- PASS: TestGuardRobotsDisallowBlocksEvenWhenReviewed (0.20s)
+=== RUN   TestGuardFirstNoticeAcceptedBeforeFirstRun
+--- PASS: TestGuardFirstNoticeAcceptedBeforeFirstRun (0.17s)
+=== RUN   TestGuardRobotsErrorBlocks
+--- PASS: TestGuardRobotsErrorBlocks (0.10s)
+=== RUN   TestGuardExplicitOffBlocks
+--- PASS: TestGuardExplicitOffBlocks (0.11s)
+=== RUN   TestGuardPanickingGateIsUnknown
+--- PASS: TestGuardPanickingGateIsUnknown (0.00s)
+=== RUN   TestGuardNoGatesIsUnknown
+--- PASS: TestGuardNoGatesIsUnknown (0.00s)
+=== RUN   TestReviewUnknownProviderRefused
+--- PASS: TestReviewUnknownProviderRefused (0.08s)
+=== RUN   TestHooksDefaultOffNothingEmitted
+--- PASS: TestHooksDefaultOffNothingEmitted (0.36s)
+=== RUN   TestEnabledHookEmitsAndFlushPersistsEvidence
+--- PASS: TestEnabledHookEmitsAndFlushPersistsEvidence (0.41s)
+=== RUN   TestDisablingStopsEmission
+--- PASS: TestDisablingStopsEmission (0.31s)
+=== RUN   TestStalledHookDelaysByAtMostTheTimeoutAndNeverFailsTheWrite
+--- PASS: TestStalledHookDelaysByAtMostTheTimeoutAndNeverFailsTheWrite (0.40s)
+=== RUN   TestSinkFullDropsAndConsumerNeverBlocks
+--- PASS: TestSinkFullDropsAndConsumerNeverBlocks (0.32s)
+=== RUN   TestRunConsumesUntilCancelledAndFlushesOnExit
+--- PASS: TestRunConsumesUntilCancelledAndFlushesOnExit (0.20s)
+=== RUN   TestFlushRefusesEventWithBadRefsAtTheSink
+--- PASS: TestFlushRefusesEventWithBadRefsAtTheSink (0.08s)
+=== RUN   TestPoisonEventIsSkippedNotTheBatch
+--- PASS: TestPoisonEventIsSkippedNotTheBatch (0.34s)
+=== RUN   TestRobotsFetchBodyAndStatus
+--- PASS: TestRobotsFetchBodyAndStatus (0.04s)
+=== RUN   TestRobotsRedirectIsNotFollowed
+--- PASS: TestRobotsRedirectIsNotFollowed (0.06s)
+=== RUN   TestRobotsBodyCapped
+--- PASS: TestRobotsBodyCapped (0.06s)
+=== RUN   TestRobotsTimeoutIsError
+--- PASS: TestRobotsTimeoutIsError (0.31s)
+=== RUN   TestRobotsCacheTTL
+--- PASS: TestRobotsCacheTTL (0.01s)
+=== RUN   TestRobotsErrorsCachedShortly
+--- PASS: TestRobotsErrorsCachedShortly (0.01s)
+=== RUN   TestRobotsHostValidated
+--- PASS: TestRobotsHostValidated (0.00s)
+=== RUN   TestRobotsThroughGate
+--- PASS: TestRobotsThroughGate (0.02s)
+=== RUN   TestSettingsDefaults
+--- PASS: TestSettingsDefaults (0.08s)
+=== RUN   TestSetEnabledRoundTripAndAudit
+--- PASS: TestSetEnabledRoundTripAndAudit (0.08s)
+=== RUN   TestTermsListStates
+--- PASS: TestTermsListStates (0.08s)
+=== RUN   TestNewRobotsFetcherUsesEgressClientAndRefusesUnlisted
+--- PASS: TestNewRobotsFetcherUsesEgressClientAndRefusesUnlisted (0.00s)
+=== RUN   TestGuardReportsAllRefusingGates
+--- PASS: TestGuardReportsAllRefusingGates (0.00s)
+PASS
+ok  	github.com/vasic-digital/job_seeker/internal/extwire	4.068s

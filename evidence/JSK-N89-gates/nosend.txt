@@ -1,0 +1,2 @@
+OK: 3 channel package(s), NewApproved callers ['internal/draft/token.go', 'internal/ext/ports.go'], no send surface, Vet wired
+PROVE-FAILURE OK: control rc=0; 10 defects (second NewApproved caller, direct_send, net/smtp, nested net/smtp, go-smtp, aliased gomail, nested sendgrid, send endpoint, Vet removed, zero Approved accepted) rejected rc=1; no channels rc=2

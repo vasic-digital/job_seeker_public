@@ -1,0 +1,24 @@
+# github.com/vasic-digital/job_seeker/internal/ingest [github.com/vasic-digital/job_seeker/internal/ingest.test]
+internal/ingest/compliance_test.go:135:15: undefined: NewRunner
+internal/ingest/compliance_test.go:135:30: undefined: RunnerOptions
+internal/ingest/compliance_test.go:139:15: undefined: NewRunner
+internal/ingest/compliance_test.go:139:32: undefined: RunnerOptions
+internal/ingest/compliance_test.go:142:12: undefined: NewRunner
+internal/ingest/compliance_test.go:142:46: undefined: RunnerOptions
+internal/ingest/compliance_test.go:151:7: undefined: NewMaintenance
+# github.com/vasic-digital/job_seeker/internal/providers [github.com/vasic-digital/job_seeker/internal/providers.test]
+internal/providers/ats_requests_test.go:11:8: undefined: Requester
+internal/providers/ats_requests_test.go:24:50: NewGreenhouse([]Tenant{…}).RequestURLs undefined (type *Greenhouse has no field or method RequestURLs)
+FAIL	github.com/vasic-digital/job_seeker/internal/ingest [build failed]
+FAIL	github.com/vasic-digital/job_seeker/internal/providers [build failed]
+FAIL
+--- FAIL: TestProductionTreeBuildsNoUngatedRunner (0.12s)
+    ungated_test.go:121: cmd/jsobserve/main.go: ingest.Runner literal outside package ingest: use ingest.NewRunner (guard required) or ingest.NewMaintenance
+    ungated_test.go:121: internal/app/console.go: ingest.Runner literal outside package ingest: use ingest.NewRunner (guard required) or ingest.NewMaintenance
+    ungated_test.go:121: internal/app/fetch.go: ingest.Runner literal outside package ingest: use ingest.NewRunner (guard required) or ingest.NewMaintenance
+    ungated_test.go:121: internal/app/jobs.go: ingest.Runner literal outside package ingest: use ingest.NewRunner (guard required) or ingest.NewMaintenance
+    ungated_test.go:121: internal/jsctl/ops.go: ingest.Runner literal outside package ingest: use ingest.NewRunner (guard required) or ingest.NewMaintenance
+    ungated_test.go:121: internal/jsctl/ops.go: ingest.Runner literal outside package ingest: use ingest.NewRunner (guard required) or ingest.NewMaintenance
+FAIL
+FAIL	github.com/vasic-digital/job_seeker/tests/ungated	0.130s
+FAIL

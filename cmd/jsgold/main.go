@@ -6,8 +6,11 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"sort"
 	"strings"
+	"time"
 
+	"github.com/vasic-digital/job_seeker/internal/ext/eligibility"
 	"github.com/vasic-digital/job_seeker/internal/match"
 	"github.com/vasic-digital/job_seeker/internal/match/gold"
 	"github.com/vasic-digital/job_seeker/internal/providers"
@@ -67,6 +70,82 @@ func run(a []string) int {
 		}
 		fmt.Printf("postings: %d\nproviders.DetectLang: accepted at conf>=%.1f: %d/%d; codes %v\nmatch.AcceptLanguage:  accepted at conf>=%.1f: %d/%d; codes %v\n",
 			len(items), match.LangMinConfidence, oldOK, len(items), oldN, match.LangMinConfidence, newOK, len(items), newN)
+		return 0
+	case "shadow":
+		// jsgold shadow <corpus> <manifest> <labels> <rules-dir> [--drop-rule ID]: SC-034 on the gold rows (JSK-T244).
+		if len(a) < 5 || len(a) > 8 {
+			fmt.Fprintln(os.Stderr, "usage: jsgold shadow <corpus> <manifest> <labels> <rules-dir> [--drop-rule ID] [--strict-unknown]")
+			return 2
+		}
+		items, err := gold.ReadCorpus(a[1])
+		if err == nil {
+			var mf []byte
+			if mf, err = os.ReadFile(a[2]); err == nil {
+				err = gold.VerifyManifest(items, string(mf))
+			}
+		}
+		if err != nil {
+			fmt.Fprintln(os.Stderr, "UNDETERMINED:", err)
+			return 2
+		}
+		rules, err := match.LoadRules(a[4])
+		if err != nil {
+			fmt.Fprintln(os.Stderr, "UNDETERMINED:", err)
+			return 2
+		}
+		set := eligibility.NewLegacySet(rules)
+		for i := 5; i < len(a); i++ {
+			switch {
+			case a[i] == "--strict-unknown":
+				set.StrictUnknown = true
+			case a[i] == "--drop-rule" && i+1 < len(a):
+				i++
+				var kept []eligibility.Entry
+				for _, e := range set.Rules {
+					if e.Rule.Info().ID != a[i] {
+						kept = append(kept, e)
+					}
+				}
+				if len(kept) == len(set.Rules) {
+					fmt.Fprintln(os.Stderr, "UNDETERMINED: no rule", a[i])
+					return 2
+				}
+				set.Rules = kept
+			default:
+				fmt.Fprintln(os.Stderr, "usage: jsgold shadow ... [--drop-rule ID] [--strict-unknown]")
+				return 2
+			}
+		}
+		rep := eligibility.GoldParitySet(rules, set, items, time.Date(2026, 11, 25, 0, 0, 0, 0, time.UTC))
+		s := rep.Snap
+		fmt.Printf("ruleset %s gold-items=%d rows=%d (modes=%d overlays=%d salary-facets=%d; text real, structured facets synthetic)\n", rules.SHA[:12], rep.Items, rep.Rows, rep.ModesUsed, rep.OverlaysUsed, rep.Salarys)
+		fmt.Printf("legacy-blocked=%d plugin-blocked=%d permissive=%d stricter=%d rule-divergent=%d rule-unknown=%d outcome-changed=%d\n", s.LegacyBlocked, s.PluginBlocked, s.Permissive, s.Stricter, s.RuleDivergent, s.RuleUnknown, rep.OutcomeChanged)
+		h := rep.Hard
+		fmt.Printf("approve-time HardGates shadow: rows=%d legacy-blocked=%d plugin-blocked=%d permissive=%d stricter=%d rule-divergent=%d rule-unknown=%d mismatch-vs-score-gates=%d\n", h.Postings, h.LegacyBlocked, h.PluginBlocked, h.Permissive, h.Stricter, h.RuleDivergent, h.RuleUnknown, rep.HardMismatch)
+		fmt.Printf("plugin-as-decider (DeciderMode=plugin) vs legacy: rows=%d score-mismatch=%d hardgates-mismatch=%d\n", rep.PluginModeRows, rep.PluginModeMismatch, rep.PluginHardMismatch)
+		for _, o := range rep.ByOverlay {
+			fmt.Printf("  overlay %-15s rows=%-4d legacy-blocked=%-4d plugin-blocked=%-4d stricter=%d\n", o.Name, o.Rows, o.LegacyBlocked, o.PluginBlocked, o.Stricter)
+		}
+		gs := make([]string, 0, len(rep.GateFired))
+		for g := range rep.GateFired {
+			gs = append(gs, g)
+		}
+		sort.Strings(gs)
+		for _, g := range gs {
+			fmt.Printf("  legacy gate %-24s fired on %d row(s)\n", g, rep.GateFired[g])
+		}
+		if len(rep.Unexercised) > 0 {
+			fmt.Printf("UNEXERCISED legacy gates (parity for these is NOT shown by this run): %v\n", rep.Unexercised)
+		}
+		if !rep.Equivalent() {
+			fmt.Println("FAIL: plugin path diverges from the legacy decider (permissive or definite per-rule contradiction), or the shadow changed an outcome")
+			return 1
+		}
+		if len(rep.Unexercised) > 0 {
+			fmt.Println("UNDETERMINED: a gate never fired, the run is partly vacuous")
+			return 2
+		}
+		fmt.Println("OK: on every gold row x facet x overlay the plugin No-set equals the legacy gate set; no permissive row; shadow changed no outcome")
 		return 0
 	case "bench", "determinism":
 		// jsgold bench <corpus> <manifest> <labels> <rules-dir> <baseline.json> [--write-baseline]

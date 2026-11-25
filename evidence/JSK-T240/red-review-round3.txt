@@ -1,0 +1,8 @@
+--- FAIL: TestBareSPFRecordIsNoNotPanic (0.00s)
+panic: runtime error: slice bounds out of range [1:0] [recovered, repanicked]
+
+goroutine 8 [running]:
+testing.tRunner.func1.2({0x82dfa0, 0x76f6e9db8d8})
+	$GOMODCACHE/golang.org/toolchain@v0.0.1-go1.26.11.linux-amd64/src/testing/testing.go:1974 +0x232
+testing.tRunner.func1()
+	$GOMODCACHE/golang.org/toolchain@v0.0.1-go1.26.11.linux-amd64/src/testing/testing.go:1977 +0x349

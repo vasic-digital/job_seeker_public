@@ -1,0 +1,22 @@
+# JSK-T244 neutral-Unknown shadow parity, 2026-11-25
+$ bash gates/verify_shadow_parity.sh
+ruleset c9fed9822df3 gold-items=115 rows=2300 (modes=4 overlays=5 salary-facets=4; text real, structured facets synthetic)
+legacy-blocked=1158 plugin-blocked=1158 permissive=0 stricter=0 rule-divergent=0 rule-unknown=5023 outcome-changed=0
+approve-time HardGates shadow: rows=2300 legacy-blocked=717 plugin-blocked=717 permissive=0 stricter=0 rule-divergent=0 rule-unknown=5023 mismatch-vs-score-gates=0
+  overlay nil             rows=460  legacy-blocked=125  plugin-blocked=125  stricter=0
+  overlay empty           rows=460  legacy-blocked=128  plugin-blocked=128  stricter=0
+  overlay present-no-data rows=460  legacy-blocked=128  plugin-blocked=128  stricter=0
+  overlay full-A          rows=460  legacy-blocked=407  plugin-blocked=407  stricter=0
+  overlay full-B          rows=460  legacy-blocked=370  plugin-blocked=370  stricter=0
+  legacy gate blocked_company          fired on 460 row(s)
+  legacy gate duplicate                fired on 327 row(s)
+  legacy gate excluded_region          fired on 306 row(s)
+  legacy gate junior_or_intern         fired on 20 row(s)
+  legacy gate non_engineering          fired on 340 row(s)
+  legacy gate onsite_outside_allowed   fired on 222 row(s)
+  legacy gate salary_below_floor       fired on 115 row(s)
+OK: on every gold row x facet x overlay the plugin No-set equals the legacy gate set; no permissive row; shadow changed no outcome
+rc=0
+$ bash gates/verify_shadow_parity.sh --prove-failure
+PROVE-FAILURE OK: control rc=0; dropped junior_or_intern rc=1; dropped duplicate rc=1; strict-unknown (Unknown blocks) rc=1; dropped blocked_company (also the approve-time HardGates shadow) rc=1; tampered corpus rc=2
+rc=0

@@ -1,0 +1,2 @@
+cases=5 vision_steps=12 distinct_frames=12 readback_apps=3
+PASS: every requirement met

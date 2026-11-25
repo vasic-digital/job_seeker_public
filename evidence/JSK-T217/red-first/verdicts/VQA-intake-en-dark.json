@@ -1,0 +1,22 @@
+{
+  "image": "<repo>/evidence/JSK-T217/frames/intake-en-dark.png",
+  "prompt": "This is a screenshot of a web page. List the page title or main heading, the navigation links, and any buttons, form fields or table headings you can read. Quote the visible text exactly.",
+  "endpoint": "http://127.0.0.1:11500/v1/chat/completions",
+  "model_requested": "qwen2.5vl:3b",
+  "model_served": "qwen2.5vl:3b",
+  "expected_facts": [
+    "Add posting",
+    "Store posting"
+  ],
+  "response": "**Page Title or Main Heading:** Add a posting by hand\n\n**Navigation Links:**\n- Inbox\n- Review queue\n- Applications\n- Add posting\n- Settings\n\n**Buttons:**\n- Switch\n- Sign out\n\n**Form Fields:**\n- **Link to the posting (https):**\n  - **Value:** https://\n- **Job title:**\n  - **Value:** (empty)\n- **Employer (optional):**\n  - **Value:** (empty)\n- **Posting text (optional):**\n  - **Value:** (empty)",
+  "matched_facts": 1,
+  "expected_count": 2,
+  "hallucinated": false,
+  "pass": false,
+  "expect_fail": false,
+  "case_result": false,
+  "latency_ms": 3343,
+  "http_status": 200,
+  "prompt_tokens": 1533,
+  "completion_tokens": 116
+}

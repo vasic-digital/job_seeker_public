@@ -11,9 +11,20 @@ api.lever.co
 hn.algolia.com
 # Ashby public job-board API (GET, no key; developers.ashbyhq.com/docs/public-job-posting-api)
 api.ashbyhq.com
+# JSK-T212 Workable widget API and SmartRecruiters public postings API (GET, no key; fixed hosts, reached only for operator-watchlisted tenants with a recorded terms review).
+# Recruitee/Personio/Teamtailor use a per-tenant sub-domain: the operator adds each <slug>.recruitee.com / <slug>.jobs.personio.de / <slug>.teamtailor.com deliberately.
+apply.workable.com
+api.smartrecruiters.com
 # Bundesagentur fuer Arbeit Jobsuche REST (GET; X-API-Key is a COMMUNITY-documented public client key: UNCONFIRMED officially).
 # The adapter is behind the operator flag JOBSEEKER_BA_OK and is never contacted otherwise.
 rest.arbeitsagentur.de
+# Arbeitnow job board API (GET, no key; free public API, terms ask for a link back; docs arbeitnow.com/blog/job-board-api)
+www.arbeitnow.com
+# Jobicy remote jobs feed (GET, no key; free feed, credit Jobicy; jobicy.com/jobs-rss-feed)
+jobicy.com
 # JSK-T231 smtp_compose draft endpoint (Gmail API users.drafts.create, POST, operator OAuth token). NOT enabled: the channel is
 # not registered until the operator configures it, and this host is added deliberately at that time (uncomment to enable).
 # gmail.googleapis.com
+# JSK-T240 DeliverabilityCheck: Google Public DNS DNS-over-HTTPS JSON API (GET /resolve?type=TXT&name=..., no key, read-only).
+# Used only to read the sending domain's public SPF/DMARC/DKIM TXT records; one GET per leg; never sends anything.
+dns.google

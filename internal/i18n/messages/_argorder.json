@@ -1,0 +1,188 @@
+{
+  "report.coverage.counts": {
+    "callsite": "web/templates/draft.html: t .Lang \"report.coverage.counts\" Matched Terms Missing Unclaimable",
+    "roles": [
+      "matched",
+      "terms",
+      "missing",
+      "unclaimable"
+    ],
+    "reading": {
+      "en": [
+        "matched",
+        "terms",
+        "missing",
+        "unclaimable"
+      ],
+      "be": [
+        "matched",
+        "terms",
+        "missing",
+        "unclaimable"
+      ],
+      "de": [
+        "matched",
+        "terms",
+        "missing",
+        "unclaimable"
+      ],
+      "es": [
+        "matched",
+        "terms",
+        "missing",
+        "unclaimable"
+      ],
+      "kk": [
+        "matched",
+        "terms",
+        "missing",
+        "unclaimable"
+      ],
+      "ko": [
+        "matched",
+        "terms",
+        "missing",
+        "unclaimable"
+      ],
+      "ru": [
+        "matched",
+        "terms",
+        "missing",
+        "unclaimable"
+      ],
+      "sr": [
+        "matched",
+        "terms",
+        "missing",
+        "unclaimable"
+      ],
+      "fr": [
+        "matched",
+        "terms",
+        "missing",
+        "unclaimable"
+      ],
+      "ja": [
+        "matched",
+        "terms",
+        "missing",
+        "unclaimable"
+      ],
+      "hi": [
+        "matched",
+        "terms",
+        "missing",
+        "unclaimable"
+      ],
+      "tr": [
+        "matched",
+        "terms",
+        "missing",
+        "unclaimable"
+      ],
+      "ar": [
+        "matched",
+        "terms",
+        "missing",
+        "unclaimable"
+      ],
+      "fa": [
+        "matched",
+        "terms",
+        "missing",
+        "unclaimable"
+      ],
+      "zh": [
+        "matched",
+        "terms",
+        "missing",
+        "unclaimable"
+      ]
+    }
+  },
+  "report.diff.counts": {
+    "callsite": "web/templates/draft.html: t .Lang \"report.diff.counts\" Diff.AddedN Diff.RemovedN Diff.SentAt",
+    "roles": [
+      "added",
+      "removed",
+      "sent_at"
+    ],
+    "reading": {
+      "en": [
+        "added",
+        "removed",
+        "sent_at"
+      ],
+      "be": [
+        "added",
+        "removed",
+        "sent_at"
+      ],
+      "de": [
+        "added",
+        "removed",
+        "sent_at"
+      ],
+      "es": [
+        "added",
+        "removed",
+        "sent_at"
+      ],
+      "kk": [
+        "added",
+        "removed",
+        "sent_at"
+      ],
+      "ko": [
+        "added",
+        "removed",
+        "sent_at"
+      ],
+      "ru": [
+        "added",
+        "removed",
+        "sent_at"
+      ],
+      "sr": [
+        "added",
+        "removed",
+        "sent_at"
+      ],
+      "fr": [
+        "added",
+        "removed",
+        "sent_at"
+      ],
+      "ja": [
+        "added",
+        "removed",
+        "sent_at"
+      ],
+      "hi": [
+        "added",
+        "removed",
+        "sent_at"
+      ],
+      "tr": [
+        "added",
+        "removed",
+        "sent_at"
+      ],
+      "ar": [
+        "added",
+        "removed",
+        "sent_at"
+      ],
+      "fa": [
+        "added",
+        "removed",
+        "sent_at"
+      ],
+      "zh": [
+        "added",
+        "removed",
+        "sent_at"
+      ]
+    }
+  }
+}

@@ -1,0 +1,6 @@
+KILLED       ungated-scanner-skips-nested-module
+mutations: 1 killed of 1
+KILLED       ungated-scanner-harness-exemption-too-wide
+mutations: 1 killed of 1
+KILLED       ungated-scanner-harness-exemption-missing
+mutations: 1 killed of 1

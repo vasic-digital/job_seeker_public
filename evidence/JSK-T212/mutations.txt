@@ -1,0 +1,8 @@
+KILLED       t212-terms-unchecked
+KILLED       t212-robots-judged-on-wrong-path
+KILLED       t212-nil-evaluator-allows
+KILLED       t212-host-label-unchecked
+KILLED       t212-redirect-any-host
+KILLED       t212-draft-offer-listed
+KILLED       t212-http-link-accepted-workable
+KILLED       t212-personio-id-unchecked

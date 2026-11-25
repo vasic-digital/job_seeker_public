@@ -8,6 +8,9 @@ defaults:
     eligibility/excluded_region: true
     eligibility/blocked_company: true
     eligibility/salary_floor: true
+    eligibility/work_auth: true   # JSK-T242, operator decision 2026-11-24; Unknown (never No) until the overlay names work_auth_countries
+    eligibility/timezone: true    # same; Unknown until the overlay has tz_window and the posting a UTC-offset hint
+    eligibility/language: true    # same; Unknown until the overlay names languages and detection is confident
     score_feature/keyword_tokens: true
     channel/provider_url: true
     channel/mailto: true      # compose-only: opens the human's mail client; nothing is sent

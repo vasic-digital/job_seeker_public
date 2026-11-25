@@ -1,0 +1,162 @@
+warning: could not load env file .env: open .env: no such file or directory
+HelixQA Autonomous QA Session
+
+Project:          <repo>
+Platforms:        web
+Env file:         .env
+Timeout:          40m0s
+Coverage target:  90%
+Output:           <TMP>/jsk-auth-qa.JEbvOX
+Report formats:   json,markdown
+Curiosity:        false (timeout: 3m0s)
+Verbose:          true
+Hosted providers: off (opt-in)
+Bridged CLIs:     off (opt-in)
+Host video:       off (opt-in)
+Data validation:  off (no login or API probe is sent to the target)
+
+Resolved platforms: [web]
+
+Hosted providers NOT registered (no opt-in; -allow-cloud-providers): cerebras, chutes, cloudflare, codestral, cohere, deepseek, fireworks, githubmodels, google, groq, huggingface, hyperbolic, kimi, mistral, modal, nia, novita, nvidia, openrouter, publicai, replicate, sambanova, sarvam, siliconflow, upstage, venice, vulavula, zai, zen, zhipu
+Vision endpoint:  http://127.0.0.1:11500/v1/chat/completions (model: qwen2.5vl:3b, api key: unset)
+Bridged CLI:      claude found but NOT registered (no opt-in; -allow-bridged-cli)
+Bridged CLI:      opencode found but NOT registered (no opt-in; -allow-bridged-cli)
+  [llm] registered provider: vision-endpoint (model: qwen2.5vl:3b)
+  [llm] registered provider: vision-endpoint (model: qwen2.5vl:3b)
+Pass number:      1
+LLM provider:     adaptive-enhanced
+Platforms:        [web]
+Memory DB:        <repo>/HelixQA/data/memory.db
+
+Vision provider:  adaptive-enhanced
+Phase selector:   1 providers
+Process ctrl:     enabled (90s stale threshold)
+Conduit stream:   <TMP>/jsk-auth-qa.JEbvOX/session-1795569320/conduit.events.jsonl
+Conduit status:   <TMP>/jsk-auth-qa.JEbvOX/session-1795569320/conduit.status.json
+
+[pipeline] Replay buffer: <TMP>/jsk-auth-qa.JEbvOX/session-1795569320/replay.db (0 sequences)
+[pipeline] Phase 1/4: Learn
+[pipeline]   KnowledgeBase[job_seeker-wt-hqstate]: screens=0 endpoints=0 docs=88 changes=11 components=0 constraints=0 known_issues=0
+[pipeline]   Learn completed in 322ms
+[pipeline] Phase 2/4: Plan
+  [phase-selector] plan -> [vision-endpoint(0.500)]
+[pipeline] Phase plan: adaptive fallback with 1 providers
+[pipeline]   5 tests planned in 5.016s
+[pipeline] Phase 3/4: Execute
+  [exec] host-display video recording OFF for web (opt in with -record-video)
+  [1/5] Login Test (functional) ...
+  [playwright] browser launched: {"status":"launched","pid":1174581}
+    [web] screenshot OK (100KB, 4.813s)
+  [1/5] done in 6.35s
+  [2/5] Register Test (functional) ...
+    [web] screenshot OK (100KB, 2.233s)
+  [2/5] done in 3.758s
+  [3/5] Search Jobs Test (functional) ...
+    [web] screenshot OK (100KB, 2.104s)
+  [3/5] done in 3.625s
+  [4/5] Apply Job Test (functional) ...
+    [web] screenshot OK (100KB, 2.18s)
+  [4/5] done in 3.722s
+  [5/5] Logout Test (functional) ...
+    [web] screenshot OK (100KB, 2.183s)
+  [5/5] done in 3.706s
+[pipeline]   5 tests executed, 0 skipped, Execute took 21.162s
+[pipeline] Phase 3.5: Structured test bank execution
+  [phase-selector] structured -> [vision-endpoint(0.500)]
+[pipeline] Phase structured: adaptive fallback with 1 providers
+  [structured] Loaded 1 test banks from <repo>/qa/web
+  [structured] Loaded bank: job_seeker authenticated console navigation (8 test cases)
+  [structured] [JSK-AUTH-001] Inbox lists the synthetic postings (priority: high, steps: 1)
+    [step 1] Inbox lists the synthetic postings
+      [action] screenshot
+  [structured] [JSK-AUTH-001] ✓ PASSED (1 steps)
+  [structured] [JSK-AUTH-002] Open the Review queue (priority: high, steps: 1)
+    [step 1] Open the Review queue
+      [action] tap: 288,36
+  [structured] [JSK-AUTH-002] ✓ PASSED (1 steps)
+  [structured] [JSK-AUTH-003] Open Applications (priority: high, steps: 1)
+    [step 1] Open Applications
+      [action] tap: 424,36
+  [structured] [JSK-AUTH-003] ✓ PASSED (1 steps)
+  [structured] [JSK-AUTH-004] Open Add posting (priority: high, steps: 1)
+    [step 1] Open Add posting
+      [action] tap: 552,36
+  [structured] [JSK-AUTH-004] ✓ PASSED (1 steps)
+  [structured] [JSK-AUTH-005] Open Settings (priority: high, steps: 2)
+    [step 1] Open Settings
+      [action] tap: 661,36
+    [step 2] Scroll Settings to its lower sections
+      [action] keypress: End
+  [structured] [JSK-AUTH-005] ✓ PASSED (2 steps)
+  [structured] [JSK-AUTH-006] Open Audit log (priority: high, steps: 1)
+    [step 1] Open Audit log
+      [action] tap: 758,36
+  [structured] [JSK-AUTH-006] ✓ PASSED (1 steps)
+  [structured] [JSK-AUTH-007] Back to Inbox (priority: high, steps: 1)
+    [step 1] Back to Inbox
+      [action] tap: 180,36
+  [structured] [JSK-AUTH-007] ✓ PASSED (1 steps)
+  [structured] [JSK-AUTH-008] Open a posting (Position page) (priority: high, steps: 1)
+    [step 1] Open a posting (Position page)
+      [action] tap: 160,371
+  [structured] [JSK-AUTH-008] ✓ PASSED (1 steps)
+  [structured] Completed: 8 passed, 0 failed, 0 blocked (could not determine), 0 skipped (bank placeholders), 8 total, 9 steps executed in 1m35.502s
+[pipeline] Phase 4/4: Analyze
+  [phase-selector] analyze -> [vision-endpoint(0.800)]
+[pipeline] Phase analyze: adaptive fallback with 1 providers
+  [analyze] analysing 15/23 screenshots via LLM vision
+    [resize] 1920x937 -> 480x234 (100KB -> 11KB)
+  [llm] vision providers (ranked): [vision-endpoint]
+  [analyze] vision web-001-login-screen.png: 2 findings (1.621s)
+    [resize] 1920x937 -> 480x234 (100KB -> 11KB)
+  [llm] vision providers (ranked): [vision-endpoint]
+  [analyze] vision web-002-register-screen.png: 2 findings (1.608s)
+    [resize] 1920x937 -> 480x234 (100KB -> 11KB)
+  [llm] vision providers (ranked): [vision-endpoint]
+  [analyze] vision web-004-job-application-screen.png: 2 findings (1.559s)
+    [resize] 1920x937 -> 480x234 (100KB -> 11KB)
+  [llm] vision providers (ranked): [vision-endpoint]
+  [analyze] vision web-005-logout-screen.png: 2 findings (1.646s)
+    [resize] 1920x937 -> 480x234 (100KB -> 11KB)
+  [llm] vision providers (ranked): [vision-endpoint]
+  [analyze] vision structured-002-web.png: 2 findings (1.614s)
+    [resize] 1920x937 -> 480x234 (100KB -> 11KB)
+  [llm] vision providers (ranked): [vision-endpoint]
+  [analyze] vision structured-003-web.png: 2 findings (1.538s)
+    [resize] 1920x937 -> 480x234 (43KB -> 5KB)
+  [llm] vision providers (ranked): [vision-endpoint]
+  [analyze] vision structured-005-web.png: 0 findings (138ms)
+    [resize] 1920x937 -> 480x234 (34KB -> 4KB)
+  [llm] vision providers (ranked): [vision-endpoint]
+  [analyze] vision structured-006-web.png: 1 findings (996ms)
+    [resize] 1920x937 -> 480x234 (56KB -> 6KB)
+  [llm] vision providers (ranked): [vision-endpoint]
+  [analyze] vision structured-008-web.png: 1 findings (1.006s)
+    [resize] 1920x937 -> 480x234 (56KB -> 6KB)
+  [llm] vision providers (ranked): [vision-endpoint]
+  [analyze] vision structured-009-web.png: 1 findings (952ms)
+    [resize] 1920x937 -> 480x234 (74KB -> 8KB)
+  [llm] vision providers (ranked): [vision-endpoint]
+  [analyze] vision structured-011-web.png: 1 findings (958ms)
+    [resize] 1920x937 -> 480x234 (92KB -> 10KB)
+  [llm] vision providers (ranked): [vision-endpoint]
+  [analyze] vision structured-012-web.png: 1 findings (2.054s)
+    [resize] 1920x937 -> 480x234 (91KB -> 10KB)
+  [llm] vision providers (ranked): [vision-endpoint]
+  [analyze] vision structured-014-web.png: 1 findings (1.929s)
+    [resize] 1920x937 -> 480x234 (91KB -> 10KB)
+  [llm] vision providers (ranked): [vision-endpoint]
+  [analyze] vision structured-015-web.png: 0 findings (72ms)
+    [resize] 1920x937 -> 480x234 (100KB -> 11KB)
+  [llm] vision providers (ranked): [vision-endpoint]
+  [analyze] vision structured-017-web.png: 2 findings (1.556s)
+  [phase-selector] analyze -> [vision-endpoint(0.800)]
+[pipeline] Phase analyze: adaptive fallback with 1 providers
+  [dedup] skipped 13 duplicate findings
+  Created 7 issue tickets
+[pipeline]   20 issues found, Analyze took 19.757s
+[pipeline] Complete: 5/5 tests, 100.0% coverage, 15 frames analysed, 2m22.265s total
+[pipeline] LLM cost: $0.000000 (34 calls, 61893 input tokens, 5223 output tokens)
+[pipeline]   vision-endpoint: $0.000000 (34 calls)
+[pipeline] Report written: <TMP>/jsk-auth-qa.JEbvOX/session-1795569320/pipeline-report.json
+[pipeline] Updated latest -> session-1795569320

@@ -1,0 +1,8 @@
+    intake_test.go:77: "https://wiki.internal/1": 404
+    intake_test.go:77: "javascript:alert(1)": 404
+    intake_test.go:77: "": 404
+    intake_test.go:81: blank title: 404
+    intake_test.go:84: oversize text: 404
+FAIL
+FAIL	github.com/vasic-digital/job_seeker/internal/console	0.903s
+FAIL

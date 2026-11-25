@@ -128,13 +128,16 @@ func Main(ctx context.Context, args []string, e Env) int {
 	case "snapshot-career":
 		return snapshotCareer(args[1:], e)
 	}
+	if rc, ok := extSwitchCmd(ctx, args, e); ok {
+		return rc
+	}
 	if rc, ok := extCmd(args, e); ok {
 		return rc
 	}
 	if rc, ok := ops(ctx, args, e); ok {
 		return rc
 	}
-	fmt.Fprintln(e.Err, usage+"\n"+extUsage+"\n"+opsUsage)
+	fmt.Fprintln(e.Err, usage+"\n"+extUsage+"\n"+termsUsage+"\n"+opsUsage)
 	return 2
 }
 

@@ -4,6 +4,7 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"strings"
 	"testing"
 )
 
@@ -32,6 +33,32 @@ func TestOverlayCrossCheckWithUmbrella(t *testing.T) {
 		"badcc":     {"eligible_countries: [de]\n", false},
 		"badtz":     {"tz_window: {start_utc: 1}\n", false},
 		"badccy":    {"salary_currency: eur\n", false},
+	}
+	// JSK-T177/T242 keys: compared only once the umbrella allow-list knows them (the umbrella edit lands as its own
+	// reviewed change); until then the cases are skipped with a log line, never silently passed.
+	if src, _ := os.ReadFile(py); strings.Contains(string(src), "work_auth_countries") {
+		cases["wa-lang-ok"] = struct {
+			body string
+			ok   bool
+		}{"work_auth_countries: [DE]\nlanguages: [en]\n", true}
+		cases["wa-empty-ok"] = struct {
+			body string
+			ok   bool
+		}{"work_auth_countries: []\n", true}
+		cases["badwa"] = struct {
+			body string
+			ok   bool
+		}{"work_auth_countries: [usa]\n", false}
+		cases["badlang"] = struct {
+			body string
+			ok   bool
+		}{"languages: [EN]\n", false}
+		cases["emptylang"] = struct {
+			body string
+			ok   bool
+		}{"languages: []\n", false}
+	} else {
+		t.Log("umbrella overlay.py has no work_auth_countries/languages yet: those cross-check cases are SKIPPED (not passed)")
 	}
 	for name, c := range cases {
 		d := t.TempDir()

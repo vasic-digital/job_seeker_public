@@ -1,0 +1,2 @@
+ok  	github.com/vasic-digital/job_seeker/internal/providers	3.282s
+ok  	github.com/vasic-digital/job_seeker/internal/app	13.375s

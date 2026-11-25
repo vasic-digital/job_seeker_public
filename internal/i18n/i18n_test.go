@@ -1,6 +1,7 @@
 package i18n
 
 import (
+	"encoding/json"
 	"io/fs"
 	"os"
 	"path/filepath"
@@ -17,7 +18,8 @@ func TestEnglishLoadsAndFallsBack(t *testing.T) {
 	if c.Msg("en", "app.name") == "" || !c.Has("nav.inbox") {
 		t.Fatal("english source incomplete")
 	}
-	if c.Msg("ru", "nav.inbox") != c.Msg("en", "nav.inbox") {
+	// "zz" can never ship; ru does ship now and translates this key, so it no longer stands for a missing language
+	if c.Msg("zz", "nav.inbox") != c.Msg("en", "nav.inbox") {
 		t.Fatal("missing language must fall back to English")
 	}
 	if got := c.Msg("en", "no.such.key"); got != "!!no.such.key!!" {
@@ -61,5 +63,46 @@ func TestTemplatesUseOnlyKnownKeysAndNoBareText(t *testing.T) {
 		if !c.Has("error." + code) {
 			t.Errorf("error.%s missing", code)
 		}
+	}
+}
+
+// every shipped catalogue (messages/<lang>.json, not the _-prefixed metadata files) has EXACTLY the key set of en.json: a key added to
+// English must reach every shipped language in the same change, and a stray key in a translation is a defect too.
+func TestEveryShippedCatalogueHasExactlyEnglishKeys(t *testing.T) {
+	dir := filepath.Join("messages")
+	load := func(p string) map[string]string {
+		b, err := os.ReadFile(p)
+		if err != nil {
+			t.Fatal(err)
+		}
+		m := map[string]string{}
+		if err := json.Unmarshal(b, &m); err != nil {
+			t.Fatalf("%s: %v", p, err)
+		}
+		return m
+	}
+	en := load(filepath.Join(dir, "en.json"))
+	files, _ := filepath.Glob(filepath.Join(dir, "*.json"))
+	checked := 0
+	for _, f := range files {
+		base := filepath.Base(f)
+		if base == "en.json" || strings.HasPrefix(base, "_") {
+			continue
+		}
+		checked++
+		tr := load(f)
+		for k := range en {
+			if _, ok := tr[k]; !ok {
+				t.Errorf("%s lacks English key %q", base, k)
+			}
+		}
+		for k := range tr {
+			if _, ok := en[k]; !ok {
+				t.Errorf("%s has key %q that en.json does not", base, k)
+			}
+		}
+	}
+	if checked == 0 {
+		t.Fatal("no shipped translation catalogue found; the test would pass vacuously")
 	}
 }

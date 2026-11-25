@@ -1,0 +1,20 @@
+# github.com/vasic-digital/job_seeker/internal/match [github.com/vasic-digital/job_seeker/internal/match.test]
+internal/match/overlay_test.go:95:9: ov.HasWorkAuth undefined (type *Overlay has no field or method HasWorkAuth)
+internal/match/overlay_test.go:95:33: ov.WorkAuthCountries undefined (type *Overlay has no field or method WorkAuthCountries)
+internal/match/overlay_test.go:98:9: ov.HasLanguages undefined (type *Overlay has no field or method HasLanguages)
+internal/match/overlay_test.go:98:34: ov.Languages undefined (type *Overlay has no field or method Languages)
+internal/match/overlay_test.go:105:23: ov.HasWorkAuth undefined (type *Overlay has no field or method HasWorkAuth)
+internal/match/overlay_test.go:105:47: ov.WorkAuthCountries undefined (type *Overlay has no field or method WorkAuthCountries)
+internal/match/overlay_test.go:112:22: ov.HasWorkAuth undefined (type *Overlay has no field or method HasWorkAuth)
+internal/match/overlay_test.go:112:42: ov.HasLanguages undefined (type *Overlay has no field or method HasLanguages)
+internal/match/overlay_test.go:116:11: nilOv.HasWorkAuth undefined (type *Overlay has no field or method HasWorkAuth)
+internal/match/overlay_test.go:116:34: nilOv.HasLanguages undefined (type *Overlay has no field or method HasLanguages)
+internal/match/overlay_test.go:116:34: too many errors
+FAIL	github.com/vasic-digital/job_seeker/internal/match [build failed]
+--- FAIL: TestOverlayProfileAnswersWorkAuthAndLanguages (0.00s)
+    more_test.go:111: overlay invalid: [unknown key "languages" unknown key "work_auth_countries"]
+--- FAIL: TestRulesAgainstRealOverlay (0.00s)
+    more_test.go:131: overlay invalid: [unknown key "languages" unknown key "work_auth_countries"]
+FAIL
+FAIL	github.com/vasic-digital/job_seeker/internal/ext/eligibility	1.196s
+FAIL

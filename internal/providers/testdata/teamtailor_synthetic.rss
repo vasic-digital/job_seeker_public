@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:tt="https://teamtailor.com/locations">
+  <channel>
+    <title>Examplecorp jobs (synthetic)</title>
+    <link>https://examplecorp.teamtailor.com/jobs</link>
+    <item>
+      <title>Frontend Engineer</title>
+      <link>https://examplecorp.teamtailor.com/jobs/9000201-frontend-engineer</link>
+      <guid>9000201</guid>
+      <description>&lt;p&gt;UI work.&lt;/p&gt;</description>
+      <pubDate>Fri, 20 Nov 2026 09:00:00 +0000</pubDate>
+      <tt:department>Engineering</tt:department>
+    </item>
+    <item>
+      <title>Insecure</title>
+      <link>http://examplecorp.teamtailor.com/jobs/9000202</link>
+      <guid>9000202</guid>
+    </item>
+  </channel>
+</rss>

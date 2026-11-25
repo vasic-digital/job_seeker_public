@@ -1,0 +1,6 @@
+          track record --app N --status S [--source manual] [--expect ID] [--follow-up YYYY-MM-DD] [--note-stdin]
+          track list --app N               status timeline (notes are printed; they are operator data)
+          track due                        applications whose follow-up date has arrived
+FAIL
+FAIL	github.com/vasic-digital/job_seeker/internal/jsctl	0.273s
+FAIL

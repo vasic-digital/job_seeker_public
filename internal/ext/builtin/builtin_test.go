@@ -87,3 +87,17 @@ func TestLoadATSInvalidProfileIsAnError(t *testing.T) {
 }
 
 func New0() *Set { s, _ := New(); return s }
+
+// JSK-T240: the mail_auth deliverability check is registered and discoverable, and the registry is frozen.
+func TestDeliverabilityCheckRegistered(t *testing.T) {
+	s, err := New()
+	if err != nil {
+		t.Fatal(err)
+	}
+	if got := s.Deliverability.IDs(); len(got) != 1 || got[0] != "mail_auth" {
+		t.Fatalf("deliverability ids %v", got)
+	}
+	if !s.Catalog().Plugins["deliverability/mail_auth"] {
+		t.Fatal("catalog does not name deliverability/mail_auth")
+	}
+}

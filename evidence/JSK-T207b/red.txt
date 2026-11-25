@@ -1,0 +1,9 @@
+RED for the direct loadSettings check (JSK-T207 leftover): on the pre-change tree, mutation rows
+  t207-load-unknown-mode-accepted   (if !ValidApplyMode(s.mode) -> if false)
+  t207-load-bad-favourites-ignored  (unreadable provider_favourites error -> ignored)
+both reported SURVIVED: the existing TestFailClosedOnUnreadableSettingsAndUnresolvedPosition still saw a refusal because the apply
+path also refuses further down (no eligible listing), so the check inside loadSettings was never pinned.
+ROOT CAUSE: the assertions went through Evaluate, where a second refusal masks a missing first one. FIX: TestLoadSettingsDirect calls
+loadSettings itself; with it both rows are KILLED (see mutations.txt).
+Console parts (providers table, employer policies, per-Position override, invalid favourites): tests were written after the code, so
+their RED is shown by the mutation rows: each t207-* console row changes one guard and the suite fails.

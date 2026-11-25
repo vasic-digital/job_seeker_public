@@ -13,3 +13,6 @@ and that determines how contributions work.
 - **Process.** Work is PR-driven from a task branch with an independent review; merges are merge-commits
   and history is never force-pushed. Local gates (`make gates`) must pass.
 - **Security issues** go through [SECURITY.md](SECURITY.md), not issues.
+- **Evidence is normalised at write time.** Anything written under `evidence/` goes through the shared normaliser
+  (`evnorm.WriteFile` in Go, `bash scripts/evnorm.sh -w <path>` in shell, `make evidence-normalise`) so no home path,
+  checkout path, user or host name reaches git. See `docs/public-readiness/EVIDENCE-NORMALISATION.md`.

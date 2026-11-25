@@ -1,0 +1,10 @@
+KILLED       draft-upload-approve-skips-upload-check
+KILLED       draft-upload-handoff-skips-upload-check
+KILLED       draft-upload-prepare-skips-upload-verdict
+KILLED       draft-upload-redraft-skips-upload-verdict
+KILLED       draft-upload-unknown-upload-refuses
+KILLED       draft-upload-file-count-off-by-one
+KILLED       draft-upload-size-boundary-inclusive
+KILLED       draft-upload-char-boundary-inclusive
+KILLED       draft-upload-char-extract-error-ignored
+KILLED       draft-upload-char-limit-counts-bytes

@@ -62,3 +62,26 @@ func TestRequiredAndDir(t *testing.T) {
 		t.Fatal("pending/shipped inconsistent")
 	}
 }
+
+func TestCognateAllowlist(t *testing.T) {
+	m := fx()
+	m["ru"]["a"] = "Inbox"
+	if !kinds(FromMaps(m).AuditCognates(map[string]bool{"c": true}, nil))["untranslated"] {
+		t.Fatal("unlisted identical string must still fail")
+	}
+	ok := Cognates{"ru": {"a": "spelled identically in the target language"}}
+	if f := FromMaps(m).AuditCognates(map[string]bool{"c": true}, ok); len(f) != 0 {
+		t.Fatalf("listed cognate with reason must pass: %v", f)
+	}
+	if !kinds(FromMaps(m).AuditCognates(map[string]bool{"c": true}, Cognates{"ru": {"a": " "}}))["cognate-without-reason"] {
+		t.Fatal("entry without a reason must be a finding")
+	}
+	other := Cognates{"de": {"a": "only excuses de"}}
+	if !kinds(FromMaps(m).AuditCognates(map[string]bool{"c": true}, other))["untranslated"] {
+		t.Fatal("an entry for another language must not excuse ru")
+	}
+	m["ru"]["b"] = "Score %d"
+	if !kinds(FromMaps(m).AuditCognates(map[string]bool{"c": true}, Cognates{"ru": {"b": "x reason"}}))["placeholder"] {
+		t.Fatal("a cognate entry must not mask a placeholder defect")
+	}
+}

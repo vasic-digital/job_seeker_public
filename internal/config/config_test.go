@@ -229,3 +229,23 @@ func TestProviderWiringVariables(t *testing.T) {
 		t.Fatal("unknown apply mode accepted")
 	}
 }
+
+// JSK-T239: the robots test hook exists only under JOBSEEKER_ENV=test and only for a loopback http URL.
+func TestTestRobotsHookIsConfinedToTestEnv(t *testing.T) {
+	m, _ := goodProd(t)
+	m["JOBSEEKER_TEST_ROBOTS_URL"] = "http://127.0.0.1:9/robots.txt"
+	if _, err := Load(lookupOf(m)); !strings.Contains(strings.Join(problemNames(err), ","), "JOBSEEKER_TEST_ROBOTS_URL:test_hook_outside_test_env") {
+		t.Fatalf("production must refuse the hook, got %v", err)
+	}
+	m["JOBSEEKER_ENV"] = "test"
+	c, err := Load(lookupOf(m))
+	if err != nil || c.TestRobotsURL == "" {
+		t.Fatalf("test env must accept a loopback http URL: %v", err)
+	}
+	for _, bad := range []string{"https://127.0.0.1/robots.txt", "http://example.com/robots.txt", "http://10.0.0.1/robots.txt", "::"} {
+		m["JOBSEEKER_TEST_ROBOTS_URL"] = bad
+		if _, err := Load(lookupOf(m)); !strings.Contains(strings.Join(problemNames(err), ","), "must_be_loopback_http_url") {
+			t.Fatalf("%q must be refused, got %v", bad, err)
+		}
+	}
+}

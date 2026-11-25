@@ -1,0 +1,19 @@
+{
+ "verdict": "PASS",
+ "translator": "claude:sonnet-5.5",
+ "reviewer": "claude:fresh-reviewer",
+ "scores": {
+  "accuracy": 4,
+  "fluency": 5,
+  "completeness": 5,
+  "naturalness": 4,
+  "terminology": 4,
+  "format": 5
+ },
+ "issues": [
+  "round 1 FAIL: hint text leaked -> fixed in 8e6b205, round 2 PASS"
+ ],
+ "script_ok": true,
+ "target_script_ok": true,
+ "review_rc": 0
+}

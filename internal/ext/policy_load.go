@@ -7,7 +7,7 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/goccy/go-yaml"
+	"github.com/vasic-digital/job_seeker/internal/yamlsafe"
 )
 
 // OperatorLayer is the layer name allowed to switch a locked gate off (docs/research/protocols/22 section 3).
@@ -60,7 +60,7 @@ func perr(path, why string) error { return fmt.Errorf("policy: %s: %s", path, wh
 // LoadPolicy parses and validates a policy document. Errors name key paths only.
 func LoadPolicy(doc []byte, cat Catalog) (*Policy, error) {
 	var raw map[string]any
-	if err := yaml.Unmarshal(doc, &raw); err != nil || raw == nil {
+	if err := yamlsafe.Unmarshal(doc, &raw); err != nil || raw == nil {
 		return nil, errors.New("policy: not a valid YAML mapping")
 	}
 	if err := onlyKeys("", raw, "schema", "defaults", "locked", "scopes"); err != nil {

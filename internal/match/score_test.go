@@ -149,3 +149,22 @@ func TestRecencyAndDeterminism(t *testing.T) {
 		t.Fatalf("versions: %+v", a)
 	}
 }
+
+// JSK-T244 decision 2: the approve-time re-check gets its own shadow observer; it sees exactly what HardGates returns
+// and never changes it.
+func TestHardGatesShadowObservesWithoutChangingResult(t *testing.T) {
+	r := rules(t)
+	ov := &Overlay{Present: true, BlockedCompanies: []string{"example co"}}
+	p := atvPosting()
+	want := r.HardGates(p, ov)
+	var seen []string
+	calls := 0
+	r.HardShadow = func(_ Posting, _ *Overlay, gates []string, _ time.Time) { calls++; seen = gates }
+	got := r.HardGates(p, ov)
+	if calls != 1 || len(got) != len(want) || len(seen) != len(want) || (len(got) > 0 && got[0] != want[0]) {
+		t.Fatalf("calls=%d got=%v want=%v seen=%v", calls, got, want, seen)
+	}
+	if len(want) == 0 {
+		t.Fatal("fixture must trip a gate or the test is vacuous")
+	}
+}

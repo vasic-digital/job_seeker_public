@@ -1,0 +1,17 @@
+ok  	github.com/vasic-digital/job_seeker/internal/ext	(cached)
+ok  	github.com/vasic-digital/job_seeker/internal/ext/ats/parsersim	(cached)
+ok  	github.com/vasic-digital/job_seeker/internal/ext/ats/profile	(cached)
+ok  	github.com/vasic-digital/job_seeker/internal/ext/builtin	(cached)
+ok  	github.com/vasic-digital/job_seeker/internal/ext/channel	0.032s
+ok  	github.com/vasic-digital/job_seeker/internal/ext/channel/mailto	(cached)
+ok  	github.com/vasic-digital/job_seeker/internal/ext/channel/openurl	(cached)
+ok  	github.com/vasic-digital/job_seeker/internal/ext/channel/smtpcompose	(cached)
+ok  	github.com/vasic-digital/job_seeker/internal/ext/compliance	(cached)
+ok  	github.com/vasic-digital/job_seeker/internal/ext/eligibility	(cached)
+?   	github.com/vasic-digital/job_seeker/internal/ext/exttest	[no test files]
+ok  	github.com/vasic-digital/job_seeker/internal/ext/match/keyword	(cached)
+ok  	github.com/vasic-digital/job_seeker/internal/ext/reader/jsonld	(cached)
+ok  	github.com/vasic-digital/job_seeker/internal/ext/render/pdflinks	(cached)
+ok  	github.com/vasic-digital/job_seeker/internal/ext/source	(cached)
+ok  	github.com/vasic-digital/job_seeker/internal/ext/verdictstore	(cached)
+OK: 10 plugin package(s), 11 registered plugin(s): tests, mutation pairs, closed reason codes, ids and versions

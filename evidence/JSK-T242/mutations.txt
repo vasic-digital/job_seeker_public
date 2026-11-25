@@ -1,0 +1,16 @@
+KILLED       ext-elig-onsite-outside-passes
+KILLED       ext-elig-unknown-mode-yes
+KILLED       ext-elig-blocked-inverted
+KILLED       ext-elig-salary-inverted
+KILLED       ext-elig-region-case-sensitive
+KILLED       ext-elig-no-overlay-yes
+KILLED       ext-elig-workauth-empty-yes
+KILLED       ext-elig-workauth-case-sensitive
+KILLED       ext-elig-tz-onsite-checked
+KILLED       ext-elig-tz-min-off-by-one
+KILLED       ext-elig-tz-offset-sign
+KILLED       ext-elig-tz-no-hint-yes
+KILLED       ext-elig-lang-lowconf-decides
+KILLED       ext-elig-lang-region-strict
+KILLED       ext-elig-tz-wrap-ignored
+KILLED       ext-elig-tz-day-shift-dropped

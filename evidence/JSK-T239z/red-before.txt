@@ -1,0 +1,8 @@
+--- FAIL: TestScannerCoversNestedModules (0.01s)
+    ungated_test.go:239: nested draft no guard: want exactly 1 finding, got [] <nil>
+    ungated_test.go:239: nested runner literal: want exactly 1 finding, got [] <nil>
+    ungated_test.go:239: nested ingesttest: want exactly 1 finding, got [] <nil>
+    ungated_test.go:258: tools/challenges draft.Service without a guard must be flagged: [] <nil>
+FAIL
+FAIL	github.com/vasic-digital/job_seeker/tests/ungated	0.103s
+FAIL

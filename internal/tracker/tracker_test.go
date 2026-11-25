@@ -12,6 +12,7 @@ import (
 
 	"github.com/vasic-digital/job_seeker/internal/audit"
 	"github.com/vasic-digital/job_seeker/internal/crypto"
+	"github.com/vasic-digital/job_seeker/internal/ext"
 	"github.com/vasic-digital/job_seeker/internal/store"
 )
 
@@ -231,5 +232,35 @@ func TestFollowUpsDueAndTerminalSuppressed(t *testing.T) {
 	}
 	if err := s.SetFollowUp(ctx, 99, &past, "operator"); !errors.Is(err, ErrNoApp) {
 		t.Fatalf("%v", err)
+	}
+}
+
+func TestOnStatusRunsAfterCommitAndCannotFailTheWrite(t *testing.T) {
+	s := newSvc(t)
+	seedApp(t, s, 41, "sent")
+	var got []ext.StatusEvent
+	var rowsAtCall int
+	s.OnStatus = func(ctx context.Context, ev ext.StatusEvent) {
+		got = append(got, ev)
+		rowsAtCall = count(t, s, `SELECT COUNT(*) FROM tracking WHERE application_id=41`)
+		panic("hook bug")
+	}
+	e, err := s.Record(context.Background(), Input{ApplicationID: 41, Status: "replied", Actor: "u", Note: "private note"})
+	if err != nil {
+		t.Fatalf("a panicking hook failed the write: %v", err)
+	}
+	if len(got) != 1 || got[0].AppID != 41 || got[0].Status != "replied" || !got[0].At.Equal(e.TS) {
+		t.Fatalf("event %+v", got)
+	}
+	if rowsAtCall != 1 {
+		t.Fatal("the hook ran before the tracking row committed")
+	}
+	// a refused record (no change) must not fire the hook
+	got = nil
+	if _, err := s.Record(context.Background(), Input{ApplicationID: 41, Status: "replied", Actor: "u"}); !errors.Is(err, ErrNoChange) {
+		t.Fatal(err)
+	}
+	if len(got) != 0 {
+		t.Fatal("hook fired for a rejected record")
 	}
 }

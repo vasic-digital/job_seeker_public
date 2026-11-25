@@ -1,0 +1,16 @@
+{
+ "verdict": "PASS",
+ "translator": "claude:sonnet-5.5",
+ "reviewer": "claude:fresh-reviewer",
+ "scores": {
+  "accuracy": 5,
+  "fluency": 5,
+  "completeness": 5,
+  "naturalness": 5,
+  "register_appropriate": 5
+ },
+ "issues": [],
+ "script_ok": true,
+ "target_script_ok": true,
+ "review_rc": 0
+}

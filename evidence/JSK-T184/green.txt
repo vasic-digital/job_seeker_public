@@ -1,0 +1,12 @@
+--- PASS: TestMailtoApplyURLIsManualOnly (0.60s)
+--- PASS: TestHandoffRefusesMailtoSwitchedAfterApproval (0.13s)
+--- PASS: TestHttpsApplyURLIsNotManualOnly (0.14s)
+--- PASS: TestBusinessHoursWarning (1.59s)
+--- PASS: TestBusinessHoursWarningMultiOffsetHintIsNotGuessed (0.23s)
+--- PASS: TestDownloadName (0.00s)
+--- PASS: TestServiceDownloadNameUsesPostingRoleAndDraftDate (0.20s)
+ok  	github.com/vasic-digital/job_seeker/internal/draft	2.914s
+ok  	github.com/vasic-digital/job_seeker/internal/templates	0.016s [no tests to run]
+--- PASS: TestServePDFStagesOnTmpfsServesRangesAndCleansUp (0.00s)
+--- PASS: TestServePDFUsesDownloadName (0.00s)
+ok  	github.com/vasic-digital/job_seeker/internal/console	0.024s

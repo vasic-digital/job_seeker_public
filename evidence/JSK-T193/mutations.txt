@@ -1,0 +1,10 @@
+KILLED       minhash-shingle-size
+KILLED       minhash-jaccard-length-guard
+KILLED       minhash-load-nil-keys
+KILLED       minhash-resolve-sig-dropped
+KILLED       minhash-candidate-sig-dropped
+KILLED       minhash-ingest-seal-dropped
+KILLED       embedder-loopback-check
+KILLED       embedder-scheme-check
+KILLED       embedder-userinfo-check
+PROVE-FAILURE OK: a neutral mutant is reported SURVIVED and an unmatched pattern INVALID

@@ -59,3 +59,6 @@ func TestLiveHimalayas(t *testing.T) {
 	}
 	liveCheck(t, NewHimalayas(), "himalayas.app")
 }
+
+func TestLiveArbeitnow(t *testing.T) { liveCheck(t, NewArbeitnow(), "www.arbeitnow.com") }
+func TestLiveJobicy(t *testing.T)    { liveCheck(t, NewJobicy(), "jobicy.com") }

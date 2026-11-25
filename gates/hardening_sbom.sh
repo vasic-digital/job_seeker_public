@@ -52,4 +52,5 @@ fi
 [ -n "$tool" ] || { echo "UNDETERMINED: cyclonedx-gomod not installed"; exit 2; }
 mkdir -p "$(dirname "$out")"
 (cd "$here" && CGO_ENABLED=0 "$tool" mod -json -licenses=false -output "$out" . 2>/dev/null) || { echo "UNDETERMINED: cyclonedx-gomod failed"; exit 2; }
+bash "$here/scripts/evnorm.sh" -w "$out" || { echo "UNDETERMINED: could not normalise $out"; exit 2; }   # shared evidence normaliser
 verify "$out"

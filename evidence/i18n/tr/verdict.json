@@ -1,0 +1,20 @@
+{
+ "verdict": "PASS",
+ "translator": "claude:sonnet-5.5",
+ "reviewer": "claude:fresh-reviewer",
+ "scores": {
+  "accuracy": 5,
+  "fluency": 4,
+  "completeness": 5,
+  "naturalness": 4,
+  "register_appropriate": 5
+ },
+ "issues": [
+  {"key": "override.recruiter_invited", "problem": "Awkward phrasing", "fix": "Bu başvuru, işe alım uzmanının daveti üzerine yapılıyor", "severity": "minor"},
+  {"key": "mode.dry / draft.wouldsend / draft.wouldsend.help", "problem": "'Deneme çalıştırması' is a calque of 'dry run'", "fix": "Deneme modu", "severity": "minor"},
+  {"key": "report.coverage.counts", "problem": "Wording heavy; order verified", "fix": "Lighter wording, order kept", "severity": "minor"}
+ ],
+ "script_ok": true,
+ "target_script_ok": true,
+ "review_rc": 0
+}

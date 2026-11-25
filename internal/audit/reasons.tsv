@@ -54,9 +54,39 @@ position_merge_human	Operator merged two Positions	position
 position_split_human	Operator split a Listing out of its Position	position
 position_constraint_added	Human must_link or cannot_link constraint recorded	position
 position_rerun_applied	Resolver re-run applied a changed decision	position
+signature_backfill_applied	Operator backfilled sealed body signatures for stored postings	position
 employer_alias_proposed	Fuzzy employer-name match proposed for review	position
 employer_alias_human	Operator confirmed an employer alias	position
 refused_templates_stale	live approval refused: template set too old, foreign overlay or not gate-stamped	approval
 refused_duplicate_company	application refused: same company already applied to or recently rejected us	draft
 override_duplicate_company	operator started an application despite a company-level duplicate, with a closed reason code	draft
 refused_cover_stale	live approval refused: cover date, company or role does not match this send, or a placeholder remains	approval
+apply_mode_changed	apply mode setting changed	settings
+provider_favourites_changed	provider favourites order or strictness changed	settings
+position_override_set	per-Position apply override set	position
+employer_policy_changed	employer apply policy changed	settings
+policy_blocked	apply refused by the provider-policy gate G9	approval
+duplicate_acknowledged	operator acknowledged an application to the same Position	approval
+policy_changed_at_handoff	handoff refused: the policy decision differs from the approved one	approval
+position_apply_lock_taken	single-provider apply lock taken for a Position	approval
+refused_pdf_blocked	approval refused: the draft PDFs carry a blocking structure finding, or the draft-stage PDF verdict is missing	approval
+refused_manual_only	live approval or handoff refused: the apply method is mailto: and no mail path exists	approval
+warned_outside_business_hours	approval recorded outside the posting local business window (advisory only)	approval
+refused_posting_risk	live approval or handoff refused: the posting carries a hard scam-risk flag	approval
+warned_posting_risk	approval recorded for a posting with soft scam-risk flags (advisory only)	approval
+refused_knockout_unconfirmed	live approval refused: a knockout question is unfavourable or unanswerable and not acknowledged (ids and states only)	approval
+knockout_checked	live approval passed the knockout checklist; question ids, states and acknowledgements recorded	approval
+warned_knockout	dry-run approval recorded with open knockout questions (advisory only)	approval
+mail_channel_allowed	mail channel use allowed: setting on and deliverability Yes	mail_gate
+mail_channel_refused	mail channel use or enable refused: setting off, deliverability No or Unknown	mail_gate
+mail_channel_enabled	operator enabled ext.channel.allow_mailto after a deliverability Yes	mail_gate
+mail_channel_switched_off	operator disabled ext.channel.allow_mailto	mail_gate
+tos_reviewed	operator accepted the current provider legal notice (provider_tos gate)	tos
+compliance_blocked	provider run refused by a compliance gate (robots or provider_tos) before any request	ingest
+refused_compliance_blocked	draft or approval refused by a compliance gate (robots or provider_tos)	approval
+ext_switch	operator switched an extension plugin on or off	ext
+refused_upload_profile	approval or handoff refused: a draft file exceeds the provider upload profile (type, bytes, file count or characters)	approval
+ext_evidence	evidence event emitted by an enabled tracker hook (ids and enums only)	ext
+manual_intake	operator pasted a posting (host and status only)	ingest
+ats_job_read	operator read one ATS posting by its link (provider and status only)	ingest
+provider_enabled_changed	provider fetching enabled or disabled by the operator	settings

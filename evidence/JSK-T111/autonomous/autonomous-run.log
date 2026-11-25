@@ -1,0 +1,126 @@
+daemon 39761 ca=
+HelixQA Autonomous QA Session
+
+Project:          <repo>
+Platforms:        web
+Env file:         <scratch>/.env
+Timeout:          6m0s
+Coverage target:  90%
+Output:           <scratch>/auto-out
+Report formats:   markdown,json
+Curiosity:        true (timeout: 2m0s)
+Verbose:          true
+
+Resolved platforms: [web]
+
+Vision endpoint:  http://127.0.0.1:11500/v1/chat/completions (model: qwen2.5vl:3b, api key: unset)
+  [llm] registered provider: vision-endpoint (model: qwen2.5vl:3b)
+  [llm] registered provider: vision-endpoint (model: qwen2.5vl:3b)
+Pass number:      4
+LLM provider:     adaptive-enhanced
+Platforms:        [web]
+Memory DB:        <repo>/HelixQA/data/memory.db
+
+Vision provider:  adaptive-enhanced
+Phase selector:   1 providers
+Process ctrl:     enabled (90s stale threshold)
+Conduit stream:   <scratch>/auto-out/session-1795533469/conduit.events.jsonl
+Conduit status:   <scratch>/auto-out/session-1795533469/conduit.status.json
+
+[pipeline] Replay buffer: <scratch>/auto-out/session-1795533469/replay.db (0 sequences)
+[pipeline] Phase 1/4: Learn
+[pipeline]   KnowledgeBase[job_seeker-wt-vision]: screens=0 endpoints=0 docs=74 changes=9 components=0 constraints=0 known_issues=2
+[pipeline]   Learn completed in 47ms
+[pipeline] Phase 2/4: Plan
+  [phase-selector] plan -> [vision-endpoint(0.500)]
+[pipeline] Phase plan: adaptive fallback with 1 providers
+[pipeline]   5 tests planned in 32.445s
+[pipeline] Phase 3/4: Execute
+  [video] ffmpeg recording started: <scratch>/auto-out/session-1795533469/videos/web-session.mp4
+  [exec] video recording started for web (ffmpeg)
+  [1/5] Login Test (functional) ...
+  WARNING: library configuration mismatch
+Authorization required, but no authorization protocol specified
+
+[in#0 @ 0x561473f16c80] Error opening input: Input/output error
+Error opening input file :0.0.
+Error opening input files: Input/output error
+  [playwright] browser launched: {"status":"launched","pid":1582785}
+    [web] screenshot appears blank/uniform, skipping (12.264s)
+  [1/5] done in 13.862s
+  [2/5] Register Test (functional) ...
+    [web] screenshot appears blank/uniform, skipping (2.512s)
+  [2/5] done in 4.037s
+  [3/5] Search Jobs Test (functional) ...
+    [web] screenshot appears blank/uniform, skipping (2.484s)
+  [3/5] done in 4.043s
+  [4/5] Apply Job Test (functional) ...
+    [web] screenshot appears blank/uniform, skipping (2.726s)
+  [4/5] done in 4.3s
+  [5/5] Logout Test (functional) ...
+    [web] screenshot appears blank/uniform, skipping (3.066s)
+  [5/5] done in 4.638s
+[pipeline]   5 tests executed, 0 skipped, Execute took 30.893s
+[pipeline] Phase 3.5: Structured test bank execution
+  [phase-selector] structured -> [vision-endpoint(0.500)]
+[pipeline] Phase structured: adaptive fallback with 1 providers
+  [structured] Failed to load test banks: read bank dir <repo>/challenges/helixqa-banks: open <repo>/challenges/helixqa-banks: no such file or directory
+  [structured] Execution error: read bank dir <repo>/challenges/helixqa-banks: open <repo>/challenges/helixqa-banks: no such file or directory
+[pipeline] Phase 3.5: Curiosity-driven exploration (budget 2m0s)
+  [curiosity] 1 targets: web(https://localhost:<port>/login) 
+  [phase-selector] curiosity -> [vision-endpoint(0.800)]
+[pipeline] Phase curiosity: adaptive fallback with 1 providers
+  [curiosity web #1] screenshot appears blank, skipping analysis
+  [curiosity web #2] screenshot appears blank, skipping analysis
+  [curiosity web #3] screenshot appears blank, skipping analysis
+  [curiosity web #4] screenshot appears blank, skipping analysis
+  [curiosity web #5] screenshot appears blank, skipping analysis
+  [curiosity web #6] screenshot appears blank, skipping analysis
+  [curiosity web #7] screenshot appears blank, skipping analysis
+  [curiosity web #8] screenshot appears blank, skipping analysis
+  [curiosity web #9] screenshot appears blank, skipping analysis
+  [curiosity web #10] screenshot appears blank, skipping analysis
+  [curiosity web #11] screenshot appears blank, skipping analysis
+  [curiosity web #12] screenshot appears blank, skipping analysis
+  [curiosity web #13] screenshot appears blank, skipping analysis
+  [curiosity web #14] screenshot appears blank, skipping analysis
+  [curiosity web #15] screenshot appears blank, skipping analysis
+  [curiosity web #16] screenshot appears blank, skipping analysis
+  [curiosity web #17] screenshot appears blank, skipping analysis
+  [curiosity web #18] screenshot appears blank, skipping analysis
+  [curiosity web #19] screenshot appears blank, skipping analysis
+  [curiosity web #20] screenshot appears blank, skipping analysis
+  [curiosity web #21] screenshot appears blank, skipping analysis
+  [curiosity web #22] screenshot appears blank, skipping analysis
+  [curiosity web #23] screenshot appears blank, skipping analysis
+  [curiosity web #24] screenshot appears blank, skipping analysis
+  [curiosity web #25] screenshot appears blank, skipping analysis
+  [curiosity web #26] screenshot appears blank, skipping analysis
+  [curiosity web #27] screenshot appears blank, skipping analysis
+  [curiosity web #28] screenshot failed: playwright screenshot: bridge: signal: killed: 
+  Curiosity: captured 0 additional screenshots in 2m1.02s
+  [Process Controller: 0 kills, 0 warnings, 0 events total]
+  [screen-diff] 0 unchanged, 0 changed screens
+  [replay] 0 sequences stored
+[data-validation] Validating API data at https://localhost:<port>/login
+[data-validation] login request failed: Post "https://localhost:<port>/login/api/v1/auth/login": tls: failed to verify certificate: x509: certificate signed by unknown authority
+[data-validation] entities/stats request failed: Get "https://localhost:<port>/login/api/v1/entities/stats": tls: failed to verify certificate: x509: certificate signed by unknown authority
+[data-validation] media/search request failed: Get "https://localhost:<port>/login/api/v1/media/search?limit=5": tls: failed to verify certificate: x509: certificate signed by unknown authority
+  [data-validation] 2 issues found
+  [video] stopped for web (ffmpeg)
+[pipeline] Phase 4/4: Analyze
+  [phase-selector] analyze -> [vision-endpoint(0.800)]
+[pipeline] Phase analyze: adaptive fallback with 1 providers
+  [phase-selector] analyze -> [vision-endpoint(0.800)]
+[pipeline] Phase analyze: adaptive fallback with 1 providers
+  [dedup] skipped 2 duplicate findings
+  Created 0 issue tickets
+[pipeline]   2 issues found, Analyze took 2ms
+[pipeline] Complete: 5/5 tests, 100.0% coverage, 3m4.58s total
+[pipeline] LLM cost: $0.000000 (1 calls, 338 input tokens, 571 output tokens)
+[pipeline]   vision-endpoint: $0.000000 (1 calls)
+[pipeline] Report written: <scratch>/auto-out/session-1795533469/pipeline-report.json
+[pipeline] Updated latest -> session-1795533469
+Structured cases: 0 passed, 0 failed, 0 blocked (could not determine), 0 skipped — exit 2
+Structured phase could not run: read bank dir <repo>/challenges/helixqa-banks: open <repo>/challenges/helixqa-banks: no such file or directory
+autonomous rc=2

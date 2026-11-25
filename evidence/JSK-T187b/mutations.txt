@@ -1,0 +1,3 @@
+KILLED       t187b-area-confirm-ignored
+KILLED       t187b-area-confirm-always
+KILLED       t187b-area-code-wrong

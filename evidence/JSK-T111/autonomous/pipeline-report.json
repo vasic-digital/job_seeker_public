@@ -1,0 +1,58 @@
+{
+  "status": "complete",
+  "session_id": "pipeline-1795533469653571259",
+  "duration": 184580330423,
+  "tests_planned": 5,
+  "tests_run": 5,
+  "issues_found": 2,
+  "tickets_created": 0,
+  "coverage_pct": 100,
+  "cost": {
+    "total_cost_usd": 0,
+    "total_calls": 1,
+    "total_input_tokens": 338,
+    "total_output_tokens": 571,
+    "by_provider": {
+      "vision-endpoint": {
+        "provider": "vision-endpoint",
+        "model": "qwen2.5vl:3b",
+        "calls": 1,
+        "input_tokens": 338,
+        "output_tokens": 571,
+        "total_cost_usd": 0
+      }
+    },
+    "by_phase": {
+      "plan": 0
+    },
+    "by_call_type": {
+      "chat": 0
+    },
+    "records": [
+      {
+        "provider": "vision-endpoint",
+        "model": "qwen2.5vl:3b",
+        "timestamp": "2026-11-24T16:18:22.270126363+01:00",
+        "input_tokens": 338,
+        "output_tokens": 571,
+        "input_cost_usd": 0,
+        "output_cost_usd": 0,
+        "total_cost_usd": 0,
+        "phase": "plan",
+        "success": true,
+        "call_type": "chat"
+      }
+    ]
+  },
+  "structured": {
+    "test_cases_run": 0,
+    "test_cases_passed": 0,
+    "test_cases_failed": 0,
+    "test_cases_skipped": 0,
+    "test_cases_blocked": 0,
+    "steps_executed": 0,
+    "findings": [],
+    "cases": null
+  },
+  "structured_error": "read bank dir <repo>/challenges/helixqa-banks: open <repo>/challenges/helixqa-banks: no such file or directory"
+}

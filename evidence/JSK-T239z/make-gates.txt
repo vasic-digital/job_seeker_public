@@ -1,0 +1,236 @@
+bash gates/fmt_check.sh
+gofmt clean
+go vet ./...
+go test ./gates/...
+ok  	github.com/vasic-digital/job_seeker/gates/egressban	0.129s
+ok  	github.com/vasic-digital/job_seeker/gates/txcheck	0.109s
+bash gates/run_all.sh
+== gates/verify_carriers.sh
+constitution resolved: submodules/constitution (13142 lines)
+lockstep OK (4 carriers, normalised digest 049337fbfdc8c6ee)
+== gates/verify_carriers.sh rc=0
+PROVE-FAILURE OK: drift and a missing carrier are both refused
+== gates/verify_carriers.sh --prove-failure rc=0
+== gates/verify_channels_nosend.sh
+OK: 4 channel package(s), NewApproved callers ['internal/draft/token.go', 'internal/ext/ports.go'], no send surface, Vet wired
+== gates/verify_channels_nosend.sh rc=0
+PROVE-FAILURE OK: control rc=0; 10 defects (second NewApproved caller, direct_send, net/smtp, nested net/smtp, go-smtp, aliased gomail, nested sendgrid, send endpoint, Vet removed, zero Approved accepted) rejected rc=1; no channels rc=2
+== gates/verify_channels_nosend.sh --prove-failure rc=0
+== gates/verify_design.sh
+OK design copy matches its manifest; console.css defines no token and carries no literal colour
+== gates/verify_design.sh rc=0
+PROVE-FAILURE OK: control rc=0; edited token file, unpinned file, token redefinition all rc=1
+== gates/verify_design.sh --prove-failure rc=0
+== gates/verify_evidence_normalised.sh
+
+OK: evidence normalised (shared normaliser cmd/evnorm)
+== gates/verify_evidence_normalised.sh rc=0
+  ok   control: placeholders (rc 0)
+  ok   control: common-word names in prose (rc 0)
+  ok   control: fixed tmp name and bare /tmp (rc 0)
+  ok   home path (rc 1)
+  ok   macos home path (rc 1)
+  ok   per-run temp dir (rc 1)
+  ok   checkout path (rc 1)
+  ok   user name (rc 1)
+  ok   host name (rc 1)
+  ok   -w clears the finding
+  ok   untracked evidence file is scanned
+  ok   not a repo -> UNDETERMINED (rc 2)
+  ok   missing path -> UNDETERMINED (rc 2)
+PROVE-FAILURE OK: every leak class is caught, placeholders pass, -w clears, rc 2 when undeterminable
+== gates/verify_evidence_normalised.sh --prove-failure rc=0
+== gates/verify_font_licences.sh
+OK 24 font file(s), every one with a licence record, a present OFL text and a matching sha256
+== gates/verify_font_licences.sh rc=0
+PROVE-FAILURE OK: 11 mutations (M1..M11) caught as rc=1, control rc=0, missing root rc=2 (control rc=0 m1=1 m2=1 m3=1 m4=1 m5=1 m6=1 m7=1 m8=1 m9=1 m10=1 m11=1 nonexistent=2)
+== gates/verify_font_licences.sh --prove-failure rc=0
+== gates/verify_gitignore.sh
+ignored  .env
+ignored  prod.env
+ignored  .env.local
+ignored  data/job.db
+ignored  job.db
+ignored  job.db-wal
+ignored  job.db-shm
+ignored  job.sqlite
+ignored  backups/x.bak
+ignored  certs/ca.pem
+ignored  server.key
+ignored  tls.crt
+ignored  corpora/gold.json
+ignored  snapshots/s.json
+ignored  career_private/overlay.yaml
+ignored  .cache-career/x
+ignored  evidence/private/x
+ignored  secrets/token
+ignored  a.passphrase
+OK: all probes ignored, .env.example names-only
+== gates/verify_gitignore.sh rc=0
+PROVE-FAILURE OK: empty .gitignore is refused (rc=1)
+== gates/verify_gitignore.sh --prove-failure rc=0
+== gates/verify_gold.sh
+ruleset c9fed9822df3 items=115 non-engineering=84 unmapped=84 lang-correct=115/115 classify-p95=3092us score-p95=16us
+  ai-engineering  gold=7   predicted=1   tp=1   precision=1.000 recall=0.143
+  android         gold=0   predicted=0   tp=0   precision=n/a recall=n/a
+  android-aosp    gold=0   predicted=0   tp=0   precision=n/a recall=n/a
+  android-tv      gold=0   predicted=0   tp=0   precision=n/a recall=n/a
+  desktop         gold=0   predicted=0   tp=0   precision=n/a recall=n/a
+  flutter         gold=0   predicted=0   tp=0   precision=n/a recall=n/a
+  go              gold=2   predicted=0   tp=0   precision=n/a recall=0.000
+  mobile          gold=0   predicted=0   tp=0   precision=n/a recall=n/a
+  react-native    gold=0   predicted=0   tp=0   precision=n/a recall=n/a
+  web-frontend    gold=2   predicted=0   tp=0   precision=n/a recall=0.000
+PARTIAL: area ai-engineering: 7 real gold item(s) < 30: PARTIAL, SC-003 thresholds not enforceable
+PARTIAL: area go: 2 real gold item(s) < 30: PARTIAL, SC-003 thresholds not enforceable
+PARTIAL: area web-frontend: 2 real gold item(s) < 30: PARTIAL, SC-003 thresholds not enforceable
+determinism: 115 item(s), 3 runs, differing items=0
+  run 1 digest d0cc8b49357046a1ada29b27a0a02193c585d3dc9a63ff19563dbff79c1c5a04
+  run 2 digest d0cc8b49357046a1ada29b27a0a02193c585d3dc9a63ff19563dbff79c1c5a04
+  run 3 digest d0cc8b49357046a1ada29b27a0a02193c585d3dc9a63ff19563dbff79c1c5a04
+OK: three identical runs
+== gates/verify_gold.sh rc=0
+PROVE-FAILURE OK: control rc=0; removed non-engineering tokens rc=1; precision regression rc=1; tampered corpus rc=2
+== gates/verify_gold.sh --prove-failure rc=0
+== gates/verify_hooks.sh
+PASS  control: no hook => trailerless commit accepted
+PASS  no Roadmap-Item refused
+PASS  bad item id refused
+PASS  two Roadmap-Item refused
+PASS  two tasks without reason refused
+PASS  two tasks with reason accepted
+PASS  single task accepted
+PASS  out-of-scope path without reason refused
+PASS  out-of-scope with bogus reason refused
+PASS  out-of-scope with closed-list reason accepted
+PASS  CI/CD file refused even with trailers
+PASS  fast-forward/new ref push accepted
+PASS  forced non-fast-forward push refused
+OK: all hook cases behaved
+== gates/verify_hooks.sh rc=0
+PROVE-FAILURE OK: a neutered commit-msg hook is caught (rc=1)
+== gates/verify_hooks.sh --prove-failure rc=0
+== gates/verify_i18n.sh
+shipped=2 (en,ru) pending=13 (sr,be,de,es,fr,zh,ja,ko,ar,fa,hi,tr,kk)
+RESULT PASS (shipped catalogues are complete; pending languages are NOT claimed)
+== gates/verify_i18n.sh rc=0
+ok   control (complete ru) rc=0
+ok   M1 missing key rc=1
+ok   M2 untranslated key rc=1
+ok   M3 extra key rc=1
+ok   M4 placeholder verbs differ rc=1
+ok   M5 shipped without status rc=1
+ok   M6 reviewed without verdict rc=1
+ok   M7 reviewer == translator rc=1
+ok   control reviewed with distinct reviewer rc=0
+ok   M8 unparseable catalogue rc=1
+ok   M9 source missing rc=1
+ok   require-all with pending langs rc=2
+PROVE-FAILURE OK
+== gates/verify_i18n.sh --prove-failure rc=0
+== gates/verify_ledger.sh
+OK: all 13 test types accounted for (0 operator_attended SKIP-justified, never an automated PASS; 9 PRESENT, 4 PLANNED, 0 SKIP)
+== gates/verify_ledger.sh rc=0
+PROVE-FAILURE OK: control green; 13 stripped types, 9 broken PRESENT paths, bad SKIP, and operator_attended accounting (1 ok, 2 refused, wording enforced) all behave
+== gates/verify_ledger.sh --prove-failure rc=0
+== gates/verify_manual_intake.sh
+OK: manual-intake refusal table green (library and jsctl intake, nothing stored on refusal)
+== gates/verify_manual_intake.sh rc=0
+PROVE-FAILURE OK: control rc=0; 11 mutants (10 refusal rules and the too-strict accept side; every one fails on a test assertion, a mutant that does not compile is BAD) all rejected
+== gates/verify_manual_intake.sh --prove-failure rc=0
+== gates/verify_match.sh
+OK: internal/match suite green against committed rules
+== gates/verify_match.sh rc=0
+PROVE-FAILURE OK: control rc=0; wrong weight, snapshot drift, raised threshold all rejected
+== gates/verify_match.sh --prove-failure rc=0
+== gates/verify_nosend.sh
+OK: no-send-bypass suite green (8 FR-026 attempts, handoff re-checks, sent-writer enumeration, no generative import)
+== gates/verify_nosend.sh rc=0
+PROVE-FAILURE OK: control rc=0; 8 mutants (live, kill, step-up, company, cap, hash, second sent writer, network import) all rejected
+== gates/verify_nosend.sh --prove-failure rc=0
+== gates/verify_pins.sh
+SATISFIED: containers 2d18551c6c99 via umbrella -> <umbrella>/submodules/containers
+SATISFIED: challenges 04d5c31b97f9 via sibling -> <umbrella>/challenges
+SATISFIED: qa dc25b8abaa38 via sibling -> <umbrella>/HelixQA
+SATISFIED: security 0513361e2f9c via umbrella -> <umbrella>/submodules/security
+OK: no gitlinks; every manifest ref is contained in its resolved checkout
+== gates/verify_pins.sh rc=0
+PROVE-FAILURE OK: control rc=0, wrong ref rc=1, smuggled gitlink rc=1, absent dependency rc=2
+== gates/verify_pins.sh --prove-failure rc=0
+== gates/verify_plugins.sh
+OK: 13 plugin package(s), 18 registered plugin(s): tests, mutation pairs, closed reason codes, ids and versions
+OK: 13 mutant(s), one per plugin package, KILLED
+== gates/verify_plugins.sh rc=0
+PROVE-FAILURE OK: control rc=0; 4 static defects (mutation pair removed, test file removed, unknown reason code, duplicate id) rejected rc=1, unreadable tree rc=2; kill check: control KILLED rc=0, surviving mutant rc=1, invalid mutant rc=1, mutation gate absent rc=2
+== gates/verify_plugins.sh --prove-failure rc=0
+== gates/verify_public_readiness.sh
+OK: public-readiness scan clean (1381 tracked files, rules H E K C A)
+== gates/verify_public_readiness.sh rc=0
+  ok   control: placeholders, synthetic email, ssh remote (rc 0)
+  ok   control: whoishiring bot author allowed (rc 0)
+  ok   H linux home path (rc 1)
+  ok   H macos home path (rc 1)
+  ok   E real-looking email (rc 1)
+  ok   E real company domain (rc 1)
+  ok   K PEM private key (rc 1)
+  ok   C password assignment (rc 1)
+  ok   C yaml token assignment (rc 1)
+  ok   C provider token prefix (rc 1)
+  ok   C hyphenated provider key (rc 1)
+  ok   control: git@host ssh remote allowed (rc 0)
+  ok   E domain merely containing -go (rc 1)
+  ok   C empty value is fine (rc 0)
+  ok   C env reference is fine (rc 0)
+  ok   A HN author field (rc 1)
+  ok   A HN author tag (rc 1)
+  ok   allow marker skips a line (rc 0)
+  ok   not a repo -> UNDETERMINED (rc 2)
+PROVE-FAILURE OK: every violation class (H,E,K,C,A) is caught, controls and allow marker pass, rc 2 outside a repo
+== gates/verify_public_readiness.sh --prove-failure rc=0
+== gates/verify_rawpage.sh
+=== RUN   TestRawPageEncryptedColumnsAreCiphertext
+--- PASS: TestRawPageEncryptedColumnsAreCiphertext (0.25s)
+PASS
+ok  	github.com/vasic-digital/job_seeker/internal/store	0.275s
+OK: E columns are ciphertext in db, wal and backups; needle control hit
+== gates/verify_rawpage.sh rc=0
+PROVE-FAILURE OK: a skipped encryption step is detected by the raw-page scan
+== gates/verify_rawpage.sh --prove-failure rc=0
+== gates/verify_runner_flag.sh
+  PASS jsstack unknown runner
+  PASS jsstack --runner=docker (not installed) refused
+  PASS jsstack --runner=podman accepted
+  PASS answering runtime is podman
+  PASS jsstack --help rc 0
+  PASS jsstack --help documents --runner
+  PASS live_h3.sh --help rc 0 (no binaries needed, nothing run)
+  PASS live_h3.sh --help documents --runner
+  PASS status of existing container via --runner=podman
+  PASS runtime layer alone (status) refuses --runner=docker
+  PASS compose layer alone (down) refuses --runner=docker
+  PASS env CONTAINERS_RUNNER=bogus refused
+  PASS flag overrides a bad env value
+  PASS live_h3.sh unknown runner
+  PASS live_h3.sh --runner=docker refused before any container
+  PASS live_h3.sh valueless --runner
+runner-flag gate: OK
+== gates/verify_runner_flag.sh rc=0
+  KILLED   M1-autodetect-ignores-flag
+  KILLED   M2-compose-ignores-runner
+  KILLED   M3-resolve-ignores-env
+  KILLED   M4-flag-parse-errors-swallowed
+  KILLED   M5-live_h3-drops-forwarding
+prove-failure: 5/5 mutations killed
+== gates/verify_runner_flag.sh --prove-failure rc=0
+== gates/verify_tiebreak.sh
+OK: internal/llm tiebreak suite green
+== gates/verify_tiebreak.sh rc=0
+PROVE-FAILURE OK: control passes; 6 mutations all rejected
+== gates/verify_tiebreak.sh --prove-failure rc=0
+== gates/verify_upstream_guard.sh
+suite: 18 passed, 0 failed
+== gates/verify_upstream_guard.sh rc=0
+upstream_guard --prove-failure: 7/7 mutations caught
+== gates/verify_upstream_guard.sh --prove-failure rc=0
+gates verdict rc=0
+rc=0

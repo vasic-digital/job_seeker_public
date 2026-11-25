@@ -1,0 +1,12 @@
+# github.com/vasic-digital/job_seeker/internal/providers [github.com/vasic-digital/job_seeker/internal/providers.test]
+internal/providers/atsmore_test.go:25:54: undefined: NewWorkable
+internal/providers/atsmore_test.go:27:54: undefined: NewSmartRecruiters
+internal/providers/atsmore_test.go:29:54: undefined: NewRecruitee
+internal/providers/atsmore_test.go:31:54: undefined: NewPersonio
+internal/providers/atsmore_test.go:33:54: undefined: NewTeamtailor
+internal/providers/atsmore_test.go:221:7: undefined: NewWorkable
+internal/providers/atsmore_test.go:241:15: undefined: parsePersonio
+internal/providers/atsmore_test.go:253:53: undefined: NewRecruitee
+internal/providers/atsmore_test.go:254:53: undefined: NewPersonio
+internal/providers/atsmore_test.go:255:53: undefined: NewTeamtailor
+internal/providers/atsmore_test.go:255:53: too many errors

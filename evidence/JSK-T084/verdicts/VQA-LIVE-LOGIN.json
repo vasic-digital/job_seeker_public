@@ -8,15 +8,15 @@
     "Sign in",
     "passkey"
   ],
-  "response": "**Page Title or Main Heading:** Job Seeker\n\n**Navigation Links:** \n- Not explicitly visible in the screenshot.\n\n**Buttons or Form Fields:**\n- **Sign in with your passkey:** \n  - **Bootstrap token:** \n    - **Bootstrap token:** (This is a text field for entering the one-time bootstrap token)\n  - **Register passkey:** \n    - **Register passkey:** (This is a button to register a passkey)\n\n**Visible Text:**\n- **Sign in with your passkey:** Use the passkey registered on this device or security key.\n- **First passkey:** Only available until the first passkey exists. Enter the one-time bootstrap token.\n- **Bootstrap token:** (This is a text field for entering the one-time bootstrap token)\n- **Register passkey:** (This is a button to register a passkey)",
+  "response": "**Page Title or Main Heading:** Job Seeker\n\n**Navigation Links:** \n- Not explicitly visible in the screenshot.\n\n**Buttons or Form Fields:**\n- **Sign in with your passkey:** \n  - Text: \"SIGN IN WITH PASSKEY\"\n- **First passkey:** \n  - Text: \"Bootstrap token\"\n  - Text: \"REGISTER PASSKEY\"",
   "matched_facts": 2,
   "expected_count": 2,
   "hallucinated": false,
   "pass": true,
   "expect_fail": false,
   "case_result": true,
-  "latency_ms": 222307,
+  "latency_ms": 33827,
   "http_status": 200,
   "prompt_tokens": 1530,
-  "completion_tokens": 179
+  "completion_tokens": 77
 }

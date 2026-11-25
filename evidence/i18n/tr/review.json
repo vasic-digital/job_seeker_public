@@ -1,0 +1,28 @@
+{
+ "verdict": "PASS",
+ "accuracy": 5,
+ "fluency": 4,
+ "completeness": 5,
+ "naturalness": 4,
+ "register_appropriate": 5,
+ "terminology": 4,
+ "format": 5,
+ "spirit_ok": true,
+ "script_ok": true,
+ "untranslated_leftovers": false,
+ "issues": [
+  {"key": "override.recruiter_invited", "problem": "Awkward phrasing", "fix": "Bu başvuru, işe alım uzmanının daveti üzerine yapılıyor", "severity": "minor", "applied": true},
+  {"key": "mode.dry / draft.wouldsend / draft.wouldsend.help", "problem": "'Deneme çalıştırması' is a calque of 'dry run'", "fix": "Deneme modu", "severity": "minor", "applied": true},
+  {"key": "report.coverage.counts", "problem": "Wording heavy; argument order matched, total, missing, unclaimable verified against web/templates/draft.html:55", "fix": "Lighter wording, order kept", "severity": "minor", "applied": true}
+ ],
+ "terms_preserved": true,
+ "target_script_ok": true,
+ "blocking_mistranslation": false,
+ "placeholders_ok": true,
+ "russian_leakage": false,
+ "hint_parentheticals_leaked": false,
+ "reviewer": "claude:fresh-reviewer",
+ "translator": "claude:sonnet-5.5",
+ "_lang": "tr",
+ "_standard": "11.4.236"
+}

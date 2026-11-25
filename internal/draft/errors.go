@@ -3,6 +3,7 @@ package draft
 import (
 	"errors"
 
+	"github.com/vasic-digital/job_seeker/internal/position"
 	"github.com/vasic-digital/job_seeker/internal/templates"
 )
 
@@ -29,6 +30,18 @@ var (
 	ErrPostingClosed        = errors.New("draft: posting is closed or expired")
 	ErrGateUndetermined     = errors.New("draft: hard gates could not be determined")
 	ErrGateRegressed        = errors.New("draft: a hard scoring gate no longer passes")
+	// Apply-policy refusals (JSK-T205); the position package's errors are the single source.
+	ErrPolicyNotEligible       = position.ErrPolicyNotEligible
+	ErrPolicyPositionTaken     = position.ErrPolicyPositionTaken
+	ErrPolicyEmployerLimit     = position.ErrPolicyEmployerLimit
+	ErrDuplicateUnacknowledged = position.ErrDuplicateUnacknowledged
+	ErrPolicyChanged           = position.ErrPolicyChanged
+	ErrPDFBlocked              = errors.New("draft: the draft PDFs have a blocking structure finding")
+	ErrUploadRefused           = errors.New("draft: the draft files exceed the provider's upload profile")
+	ErrManualOnly              = errors.New("draft: apply method is manual-only (mailto:)")
+	ErrPostingRisk             = errors.New("draft: posting carries a hard scam-risk flag")
+	ErrComplianceBlocked       = errors.New("draft: blocked by a compliance gate")
+	ErrKnockoutUnconfirmed     = errors.New("draft: a knockout question is unconfirmed or unfavourable")
 )
 
 // CodeOf returns the contract error code for err ("internal" for anything unknown).
@@ -46,6 +59,10 @@ func CodeOf(err error) string {
 		return "language_confirmation_required"
 	case errors.Is(err, ErrApprovalHashMismatch):
 		return "approval_hash_mismatch"
+	case errors.Is(err, ErrReportRequired):
+		return "report_required"
+	case errors.Is(err, ErrAreaConfirmRequired):
+		return "area_confirmation_required"
 	case errors.Is(err, ErrApprovalRequired):
 		return "approval_required"
 	case errors.Is(err, ErrLiveModeOff):
@@ -78,6 +95,28 @@ func CodeOf(err error) string {
 		return "gate_undetermined"
 	case errors.Is(err, ErrGateRegressed):
 		return "gate_regressed"
+	case errors.Is(err, ErrPolicyNotEligible):
+		return "policy_not_eligible"
+	case errors.Is(err, ErrPolicyPositionTaken):
+		return "policy_position_taken"
+	case errors.Is(err, ErrPolicyEmployerLimit):
+		return "policy_employer_limit"
+	case errors.Is(err, ErrDuplicateUnacknowledged):
+		return "duplicate_unacknowledged"
+	case errors.Is(err, ErrPolicyChanged):
+		return "policy_changed"
+	case errors.Is(err, ErrPDFBlocked):
+		return "pdf_blocked"
+	case errors.Is(err, ErrUploadRefused):
+		return "upload_refused"
+	case errors.Is(err, ErrManualOnly):
+		return "manual_only"
+	case errors.Is(err, ErrPostingRisk):
+		return "posting_risk"
+	case errors.Is(err, ErrComplianceBlocked):
+		return "compliance_blocked"
+	case errors.Is(err, ErrKnockoutUnconfirmed):
+		return "knockout_unconfirmed"
 	}
 	return "internal"
 }

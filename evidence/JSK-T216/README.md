@@ -1,0 +1,5 @@
+# JSK-T216 HTTP API contract additions (FR-093)
+- specs/001-job-seeker-mvp/contracts/http-api.md gains section "Position and provider routes": every route of the epic with a status cell. New 409 codes position_busy and merge_blocked are in the closed set (added by JSK-T209, test-checked by internal/api).
+- internal/console TestPositionRoutesContractMatchesRouter checks the TABLE against the real router (table to router only; a mounted route with no row is NOT detected, reviewer note): IMPLEMENTED rows must be mounted, PLANNED rows must NOT be mounted, any other status text fails. A PLANNED route that gets mounted fails the test until its row is updated. Token-policy enumeration (internal/auth) still passes with the new rows.
+- 3 mutation pairs t216-* KILLED (implemented marked planned, planned marked implemented, status cell not IMPLEMENTED/PLANNED).
+- Not claimed: PLANNED routes (GET /positions, apply-override, apply-policy, employer policy, status counters) are listed as PLANNED, not as done.

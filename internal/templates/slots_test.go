@@ -81,3 +81,24 @@ func TestLeaksGoldenBadAndGoldenGood(t *testing.T) {
 		t.Errorf("a word that merely contains TODO is not a placeholder: %v", l)
 	}
 }
+
+func TestLeaksIsCaseInsensitive(t *testing.T) {
+	v := SlotValues{Company: "Acme Robotics", Role: "Engineer", Date: "2026-11-24"}
+	has := func(l []string, w string) bool {
+		for _, x := range l {
+			if x == w {
+				return true
+			}
+		}
+		return false
+	}
+	if l := Leaks("Dear ACME ROBOTICS team and BOREALIS LABS too", v, []string{"Borealis Labs"}); !has(l, "other_company") {
+		t.Errorf("an upper-cased other company must still be a leak: %v", l)
+	}
+	if l := Leaks("Dear Acme Robotics team, and acme robotics again", v, nil); !has(l, "company_count") {
+		t.Errorf("a differently cased second mention must count: %v", l)
+	}
+	if l := Leaks("Dear ACME ROBOTICS team", v, nil); len(l) != 0 {
+		t.Errorf("one mention in any case is clean: %v", l)
+	}
+}

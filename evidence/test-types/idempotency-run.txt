@@ -1,0 +1,36 @@
+=== RUN   TestReplayIngestSamePostingTwice
+    ingest_test.go:72: IDEMPOTENCY ingest-same-posting-twice  run2.New=0 run2.Unchanged=1 changed=[posting content changed (1 rows) run rows 1 -> 2] audit=2->2
+--- PASS: TestReplayIngestSamePostingTwice (0.40s)
+=== RUN   TestReplayLifecycleRoutesChangeNothing
+    replay_test.go:42: IDEMPOTENCY dismiss                            first=303 replay=409 store-changed-by-replay=[] audit=3->3
+    replay_test.go:45: IDEMPOTENCY shortlist                          first=303 replay=409 store-changed-by-replay=[] audit=5->5
+    replay_test.go:52: IDEMPOTENCY start-application                  first=303 replay=303 store-changed-by-replay=[] audit=5->5
+    replay_test.go:55: IDEMPOTENCY prepare                            first=303 replay=409 store-changed-by-replay=[] audit=7->7
+    replay_test.go:61: IDEMPOTENCY approve                            first=303 replay=409 store-changed-by-replay=[] audit=8->8
+    replay_test.go:70: IDEMPOTENCY reject-after-approve               first=409 replay=409 store-changed-by-replay=[] audit=8->8
+    replay_test.go:72: IDEMPOTENCY handoff-complete                   first=409 replay=409 store-changed-by-replay=[] audit=8->8
+--- PASS: TestReplayLifecycleRoutesChangeNothing (0.34s)
+=== RUN   TestReplayRejectChangesNothing
+    replay_test.go:128: IDEMPOTENCY reject                             first=303 replay=409 store-changed-by-replay=[] audit=7->7
+--- PASS: TestReplayRejectChangesNothing (0.34s)
+=== RUN   TestReplayTrackerWritesChangeNothing
+    replay_test.go:140: IDEMPOTENCY tracking-record                    first=303 replay=409 store-changed-by-replay=[] audit=8->8
+    replay_test.go:141: IDEMPOTENCY tracking-record-unpinned           first=409 replay=409 store-changed-by-replay=[] audit=8->8
+    replay_test.go:142: IDEMPOTENCY follow-up                          first=303 replay=303 store-changed-by-replay=[audit_log rows 9 -> 10] audit=9->10 (documented: audit-only)
+--- PASS: TestReplayTrackerWritesChangeNothing (0.18s)
+=== RUN   TestReplayManualIntakeChangesNothing
+    replay_test.go:164: IDEMPOTENCY manual-intake                      first=303 replay=303 store-changed-by-replay=[audit_log rows 4 -> 5] audit=4->5 (documented: audit-only)
+--- PASS: TestReplayManualIntakeChangesNothing (0.17s)
+=== RUN   TestReplaySettingsChangeNothing
+    replay_test.go:173: IDEMPOTENCY kill-switch-on                     first=303 replay=303 store-changed-by-replay=[audit_log rows 3 -> 4] audit=3->4 (documented: audit-only)
+    replay_test.go:174: IDEMPOTENCY caps                               first=303 replay=303 store-changed-by-replay=[] audit=4->4
+    replay_test.go:175: IDEMPOTENCY language                           first=303 replay=303 store-changed-by-replay=[] audit=4->4
+    replay_test.go:176: IDEMPOTENCY apply-mode                         first=303 replay=303 store-changed-by-replay=[audit_log rows 5 -> 6] audit=5->6 (documented: audit-only)
+--- PASS: TestReplaySettingsChangeNothing (0.17s)
+=== RUN   TestConcurrentReplayExactlyOneWinner
+--- PASS: TestConcurrentReplayExactlyOneWinner (0.59s)
+=== RUN   TestDigestSeesRowsAndCells
+--- PASS: TestDigestSeesRowsAndCells (0.59s)
+PASS
+ok  	github.com/vasic-digital/job_seeker/tests/idempotency	2.896s
+exit=0

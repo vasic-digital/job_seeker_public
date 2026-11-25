@@ -1,0 +1,7 @@
+RED: tests written first against the not-yet-existing extractor (compile failure = RED)
+# github.com/vasic-digital/job_seeker/internal/match [github.com/vasic-digital/job_seeker/internal/match.test]
+internal/match/terms_test.go:10:30: undefined: Dictionary
+internal/match/terms_test.go:12:12: undefined: LoadDictionary
+internal/match/terms_test.go:104:16: undefined: LoadDictionary
+internal/match/terms_test.go:108:15: undefined: LoadDictionary
+FAIL	github.com/vasic-digital/job_seeker/internal/match [build failed]

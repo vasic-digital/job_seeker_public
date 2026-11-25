@@ -23,7 +23,7 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/goccy/go-yaml"
+	"github.com/vasic-digital/job_seeker/internal/yamlsafe"
 )
 
 // ErrNoOverlay means the overlay could not be loaded: the gate cannot determine, it never passes.
@@ -64,7 +64,7 @@ func LoadNeedles(dir string) ([]needle, error) {
 		return nil, ErrNoOverlay
 	}
 	var raw map[string]any
-	if err := yaml.Unmarshal(b, &raw); err != nil {
+	if err := yamlsafe.Unmarshal(b, &raw); err != nil {
 		return nil, errors.New("pdgate: overlay is not valid YAML")
 	}
 	var out []needle

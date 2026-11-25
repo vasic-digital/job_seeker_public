@@ -1,0 +1,52 @@
+PASS  foreign commit-msg refuses install
+PASS  foreign hook left untouched
+PASS  install succeeds (replaces dangling link)
+PASS  commit-msg installed as executable marked wrapper, not a link
+PASS  pre-commit installed as executable marked wrapper, not a link
+PASS  pre-push installed as executable marked wrapper, not a link
+PASS  re-install idempotent
+PASS  bad message refused via installed wrapper
+PASS  good message accepted via installed wrapper
+PASS  pre-commit refuses staged un-normalised evidence
+PASS  pre-commit accepts normalised evidence
+PASS  worktree commit accepted by ITS OWN commit-msg
+PASS  worktree's own hook is the one that ran
+PASS  main checkout unaffected by worktree hook
+PASS  worktree without scripts/hooks falls back to main (bad refused)
+PASS  worktree without scripts/hooks falls back to main (good accepted)
+PASS  no hook anywhere => fail closed
+PASS  install in hostile-path repo succeeds
+PASS  hostile path: no hook => fail closed
+PASS  hostile path executed nothing
+PASS  hostile path: hook present, good message accepted
+PASS  separate-gitdir repo: fallback is the work tree
+PASS  uninstall exits 0
+PASS  uninstall removed our wrappers
+PASS  uninstall kept the foreign pre-push
+OK: all install-hooks cases behaved
+PROVE-FAILURE OK: wrapper ignores the worktree toplevel caught (rc=1)
+PROVE-FAILURE OK: wrapper has no main-checkout fallback caught (rc=1)
+PROVE-FAILURE OK: wrapper fails open when hook missing caught (rc=1)
+PROVE-FAILURE OK: no marker written caught (rc=1)
+PROVE-FAILURE OK: pre-commit not installed caught (rc=1)
+PROVE-FAILURE OK: uninstall removes foreign hooks caught (rc=1)
+PROVE-FAILURE OK: path embedded unquoted (injection) caught (rc=1)
+PROVE-FAILURE OK: fallback left as the git dir caught (rc=1)
+PROVE-FAILURE OK: install overwrites foreign hook caught (rc=1)
+PROVE-FAILURE OK: all 9 mutations caught
+PASS  control: no hook => trailerless commit accepted
+PASS  no Roadmap-Item refused
+PASS  bad item id refused
+PASS  two Roadmap-Item refused
+PASS  two tasks without reason refused
+PASS  two tasks with reason accepted
+PASS  allocated epic JSK-017 accepted (range is 001..027)
+PASS  epic JSK-028 (unallocated) refused
+PASS  single task accepted
+PASS  out-of-scope path without reason refused
+PASS  out-of-scope with bogus reason refused
+PASS  out-of-scope with closed-list reason accepted
+PASS  CI/CD file refused even with trailers
+PASS  fast-forward/new ref push accepted
+PASS  forced non-fast-forward push refused
+OK: all hook cases behaved

@@ -1,0 +1,6 @@
+# github.com/vasic-digital/job_seeker/internal/ext [github.com/vasic-digital/job_seeker/internal/ext.test]
+internal/ext/policy_matrix_test.go:17:14: p.CheckMatrix undefined (type *Policy has no field or method CheckMatrix)
+internal/ext/policy_matrix_test.go:33:17: p.CheckMatrix undefined (type *Policy has no field or method CheckMatrix)
+internal/ext/policy_matrix_test.go:41:17: p.CheckMatrix undefined (type *Policy has no field or method CheckMatrix)
+FAIL	github.com/vasic-digital/job_seeker/internal/ext [build failed]
+FAIL

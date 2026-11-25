@@ -43,6 +43,8 @@ type Decision struct {
 type Outcome struct {
 	Verdict Verdict
 	Trail   []Trail
+	// Warnings are the neutral no-data Unknowns CombineNeutral let through (empty for Combine).
+	Warnings []Trail
 }
 
 // Trail records which rule said what, in evaluation order.
@@ -77,3 +79,47 @@ func Combine(ts []Trail) Outcome {
 type ErrFailClosed struct{ Why string }
 
 func (e *ErrFailClosed) Error() string { return fmt.Sprintf("ext: fail closed: %s", e.Why) }
+
+// neutralCodes is the closed set of reason codes that mean "this rule had no data to decide on", as opposed to a
+// fault (plugin_panic, plugin_timeout) or a missing reason. Only these may be neutral.
+var neutralCodes = map[string]bool{"rule_no_data": true, "remote_mode_unknown": true, "work_auth_unknown": true}
+
+// NoData reports whether d is an Unknown caused only by absent data: every reason is a no-data code and there is at
+// least one reason. A reasonless Unknown, a fault, or a mixed set is not no-data.
+func (d Decision) NoData() bool {
+	if d.Verdict != Unknown || len(d.Reasons) == 0 {
+		return false
+	}
+	for _, r := range d.Reasons {
+		if !neutralCodes[r.Code] {
+			return false
+		}
+	}
+	return true
+}
+
+// CombineNeutral is Combine with the legacy neutrality of absent data (operator decision 2026-11-25, JSK-T244): a
+// no-data Unknown does not block (the legacy decider silently passes the same case) and is returned in Warnings so
+// the missing data is still reported. Any No wins; any other Unknown (fault, reasonless, out-of-range) still blocks;
+// an empty set is still Unknown. Locked-gate policy is untouched: that is decided before rules run.
+func CombineNeutral(ts []Trail) Outcome {
+	o := Outcome{Verdict: Yes, Trail: ts}
+	if len(ts) == 0 {
+		o.Verdict = Unknown
+		return o
+	}
+	for _, t := range ts {
+		switch t.Verdict {
+		case Yes:
+		case No:
+			o.Verdict = No
+		default:
+			if t.Decision.NoData() {
+				o.Warnings = append(o.Warnings, t)
+			} else if o.Verdict != No {
+				o.Verdict = Unknown
+			}
+		}
+	}
+	return o
+}

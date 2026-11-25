@@ -1,0 +1,82 @@
+ok  	github.com/vasic-digital/job_seeker/cmd/evnorm	0.172s	coverage: 65.0% of statements
+	github.com/vasic-digital/job_seeker/cmd/i18naudit		coverage: 0.0% of statements
+ok  	github.com/vasic-digital/job_seeker/cmd/jobseekerd	0.078s	coverage: 33.3% of statements
+	github.com/vasic-digital/job_seeker/cmd/jsctl		coverage: 0.0% of statements
+	github.com/vasic-digital/job_seeker/cmd/jsdrill		coverage: 0.0% of statements
+	github.com/vasic-digital/job_seeker/cmd/jsgate-serve		coverage: 0.0% of statements
+	github.com/vasic-digital/job_seeker/cmd/jsgold		coverage: 0.0% of statements
+	github.com/vasic-digital/job_seeker/cmd/jsobserve		coverage: 0.0% of statements
+	github.com/vasic-digital/job_seeker/cmd/jspdscan		coverage: 0.0% of statements
+ok  	github.com/vasic-digital/job_seeker/gates/egressban	1.143s	coverage: 88.5% of statements
+ok  	github.com/vasic-digital/job_seeker/gates/txcheck	0.916s	coverage: 96.2% of statements
+ok  	github.com/vasic-digital/job_seeker/internal/api	2.026s	coverage: 80.7% of statements
+ok  	github.com/vasic-digital/job_seeker/internal/app	6.835s	coverage: 46.4% of statements
+ok  	github.com/vasic-digital/job_seeker/internal/audit	2.735s	coverage: 82.4% of statements
+ok  	github.com/vasic-digital/job_seeker/internal/auth	3.809s	coverage: 84.0% of statements
+	github.com/vasic-digital/job_seeker/internal/benchutil		coverage: 0.0% of statements
+ok  	github.com/vasic-digital/job_seeker/internal/boot	4.598s	coverage: 76.9% of statements
+ok  	github.com/vasic-digital/job_seeker/internal/buildinfo	0.024s	coverage: 75.0% of statements
+ok  	github.com/vasic-digital/job_seeker/internal/careersnap	0.225s	coverage: 82.5% of statements
+ok  	github.com/vasic-digital/job_seeker/internal/certs	0.072s	coverage: 79.2% of statements
+ok  	github.com/vasic-digital/job_seeker/internal/config	0.398s	coverage: 91.3% of statements
+ok  	github.com/vasic-digital/job_seeker/internal/console	7.727s	coverage: 57.6% of statements
+ok  	github.com/vasic-digital/job_seeker/internal/crypto	0.032s	coverage: 85.1% of statements
+ok  	github.com/vasic-digital/job_seeker/internal/designsync	0.793s	coverage: 89.6% of statements
+ok  	github.com/vasic-digital/job_seeker/internal/draft	51.642s	coverage: 84.4% of statements
+ok  	github.com/vasic-digital/job_seeker/internal/egress	0.445s	coverage: 66.4% of statements
+ok  	github.com/vasic-digital/job_seeker/internal/evnorm	0.331s	coverage: 100.0% of statements
+ok  	github.com/vasic-digital/job_seeker/internal/ext	0.148s	coverage: 78.4% of statements
+ok  	github.com/vasic-digital/job_seeker/internal/ext/ats/parsersim	5.037s	coverage: 92.1% of statements
+ok  	github.com/vasic-digital/job_seeker/internal/ext/ats/profile	0.165s	coverage: 93.3% of statements
+ok  	github.com/vasic-digital/job_seeker/internal/ext/builtin	0.105s	coverage: 94.9% of statements
+ok  	github.com/vasic-digital/job_seeker/internal/ext/channel	0.099s	coverage: [no statements]
+ok  	github.com/vasic-digital/job_seeker/internal/ext/channel/mailgate	0.501s	coverage: 94.2% of statements
+ok  	github.com/vasic-digital/job_seeker/internal/ext/channel/mailto	0.050s	coverage: 93.0% of statements
+ok  	github.com/vasic-digital/job_seeker/internal/ext/channel/openurl	0.081s	coverage: 100.0% of statements
+ok  	github.com/vasic-digital/job_seeker/internal/ext/channel/smtpcompose	0.136s	coverage: 86.3% of statements
+ok  	github.com/vasic-digital/job_seeker/internal/ext/compliance	0.056s	coverage: 92.2% of statements
+ok  	github.com/vasic-digital/job_seeker/internal/ext/deliver	0.132s	coverage: 96.2% of statements
+ok  	github.com/vasic-digital/job_seeker/internal/ext/eligibility	2.771s	coverage: 97.6% of statements
+	github.com/vasic-digital/job_seeker/internal/ext/exttest		coverage: 0.0% of statements
+ok  	github.com/vasic-digital/job_seeker/internal/ext/match/keyword	0.363s	coverage: 86.4% of statements
+ok  	github.com/vasic-digital/job_seeker/internal/ext/reader/jsonld	0.130s	coverage: 89.3% of statements
+ok  	github.com/vasic-digital/job_seeker/internal/ext/render/pdflinks	2.432s	coverage: 100.0% of statements
+ok  	github.com/vasic-digital/job_seeker/internal/ext/render/txt	0.148s	coverage: 97.3% of statements
+ok  	github.com/vasic-digital/job_seeker/internal/ext/source	0.020s	coverage: 100.0% of statements
+ok  	github.com/vasic-digital/job_seeker/internal/ext/track	0.253s	coverage: 98.8% of statements
+ok  	github.com/vasic-digital/job_seeker/internal/ext/verdictstore	1.438s	coverage: 83.6% of statements
+ok  	github.com/vasic-digital/job_seeker/internal/extwire	4.107s	coverage: 90.1% of statements
+ok  	github.com/vasic-digital/job_seeker/internal/fsm	0.054s	coverage: 100.0% of statements
+ok  	github.com/vasic-digital/job_seeker/internal/i18n	0.225s	coverage: 84.2% of statements
+ok  	github.com/vasic-digital/job_seeker/internal/ingest	6.499s	coverage: 81.3% of statements
+	github.com/vasic-digital/job_seeker/internal/ingest/ingesttest		coverage: 0.0% of statements
+ok  	github.com/vasic-digital/job_seeker/internal/jobops	0.029s	coverage: 100.0% of statements
+ok  	github.com/vasic-digital/job_seeker/internal/jsctl	17.783s	coverage: 54.4% of statements
+ok  	github.com/vasic-digital/job_seeker/internal/limiter	1.492s	coverage: 81.3% of statements
+ok  	github.com/vasic-digital/job_seeker/internal/llm	1.748s	coverage: 84.2% of statements
+ok  	github.com/vasic-digital/job_seeker/internal/match	5.188s	coverage: 90.7% of statements
+ok  	github.com/vasic-digital/job_seeker/internal/match/gold	0.053s	coverage: 48.1% of statements
+ok  	github.com/vasic-digital/job_seeker/internal/matchstore	13.905s	coverage: 80.0% of statements
+ok  	github.com/vasic-digital/job_seeker/internal/metrics	0.086s	coverage: 93.7% of statements
+	github.com/vasic-digital/job_seeker/internal/pdgate		coverage: 0.0% of statements
+ok  	github.com/vasic-digital/job_seeker/internal/pipeline	5.229s	coverage: 81.7% of statements
+ok  	github.com/vasic-digital/job_seeker/internal/position	263.544s	coverage: 82.3% of statements
+ok  	github.com/vasic-digital/job_seeker/internal/privacy	21.397s	coverage: 84.0% of statements
+ok  	github.com/vasic-digital/job_seeker/internal/privtool	3.653s	coverage: 91.3% of statements
+ok  	github.com/vasic-digital/job_seeker/internal/providers	2.667s	coverage: 91.1% of statements
+ok  	github.com/vasic-digital/job_seeker/internal/ratelimit	0.173s	coverage: 93.4% of statements
+ok  	github.com/vasic-digital/job_seeker/internal/redact	0.072s	coverage: 91.0% of statements
+ok  	github.com/vasic-digital/job_seeker/internal/scheduler	0.296s	coverage: 83.3% of statements
+ok  	github.com/vasic-digital/job_seeker/internal/server	1.884s	coverage: 90.8% of statements
+ok  	github.com/vasic-digital/job_seeker/internal/store	4.017s	coverage: 69.2% of statements
+ok  	github.com/vasic-digital/job_seeker/internal/templates	0.081s	coverage: 98.2% of statements
+	github.com/vasic-digital/job_seeker/internal/testauthn		coverage: 0.0% of statements
+ok  	github.com/vasic-digital/job_seeker/internal/tracker	0.819s	coverage: 82.9% of statements
+ok  	github.com/vasic-digital/job_seeker/tests/atomicity	2.826s	coverage: [no statements]
+ok  	github.com/vasic-digital/job_seeker/tests/chaos	99.184s	coverage: [no statements]
+ok  	github.com/vasic-digital/job_seeker/tests/e2e	516.511s	coverage: [no statements]
+ok  	github.com/vasic-digital/job_seeker/tests/full	7.369s	coverage: [no statements]
+ok  	github.com/vasic-digital/job_seeker/tests/integration	0.519s	coverage: [no statements]
+ok  	github.com/vasic-digital/job_seeker/tests/ungated	0.448s	coverage: [no statements]
+	github.com/vasic-digital/job_seeker/tools/jobops/cmd/jobops-spike		coverage: 0.0% of statements
+?   	github.com/vasic-digital/job_seeker/web	[no test files]

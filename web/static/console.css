@@ -31,3 +31,16 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 .console-main { min-width: 0; overflow-wrap: anywhere; }
 .od-header, .od-nav { flex-wrap: wrap; }
 @media (max-width: 40rem) { .od-table { display: block; max-width: 100%; overflow-x: auto; } }
+.console-plain{list-style:none;margin:0;padding:0}
+/* A card that moves on :hover while the pointer sits in the band the move uncovers flips :hover on and off forever (the card slides out from under the
+   pointer, loses :hover, slides back); the buttons inside it are then never stable and no click can land. The console cards hold interactive content,
+   so they keep the shadow lift of the brand card and drop its translate. */
+.console-main .od-card:hover { transform: none; }
+
+/* i18n glyph coverage (FONT-001). Measured with Chromium CDP CSS.getPlatformFontsForNode (tests/e2e/i18n_render_test.go):
+ * (1) native form controls ignore the page font and draw with the system font (Arial), so option text in ja ko zh hi was not set in
+ *     the shipped Noto face; (2) the brand's mono-styled labels (buttons, table heads, chips) name only JetBrains Mono + generic
+ *     monospace, so Kazakh Cyrillic and every Arabic/Devanagari/CJK label fell to the system mono font. Both rules only ADD
+ *     the shipped body/script stack behind the brand face; no token is defined or redefined here. */
+select, input, textarea, button, optgroup, option { font-family: inherit; }
+.od-btn, .od-chip, .od-nav__link, .od-footer, .od-stat__label, .od-section__eyebrow, .od-product-card__tech, .od-badge--status, .od-tag--license, .od-menu__label, .od-table th { font-family: "JetBrains Mono", var(--od-font-body); }

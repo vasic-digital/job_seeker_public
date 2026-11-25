@@ -1,0 +1,2 @@
+real OllamaEmbedder against a loopback Ollama
+model=nomic-embed-text dim=768 cos_self=1.0000 cos_near=0.9447 cos_far=0.4986

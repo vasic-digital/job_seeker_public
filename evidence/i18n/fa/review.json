@@ -1,0 +1,20 @@
+{
+ "verdict": "PASS",
+ "reviewer": "claude:fresh-reviewer",
+ "translator": "claude:sonnet-5.5",
+ "accuracy": 5,
+ "fluency": 5,
+ "completeness": 5,
+ "naturalness": 4,
+ "register_appropriate": 4,
+ "terminology": 5,
+ "format": 5,
+ "spirit_ok": true,
+ "script_ok": true,
+ "target_script_ok": true,
+ "untranslated_leftovers": false,
+ "keys_reviewed": 312,
+ "issues": [],
+ "judgment_calls": "Round-2 re-review at 7d34ed9. override family = جایگزینی (position.ov/override/ov.mode/ov.save, job.override.none; error.duplicate_company reads sensibly). gate = دروازه consistently (error.gate_regressed, gate_undetermined, score.gates, compliance_blocked, templates_stale); فیلتر only in filter.apply and kbd.hint. Recommended edits applied. Measured: 312/312 keys equal en, printf verb sequences identical per key, report.coverage.counts order (matched,terms,missing,unclaimable) and report.diff.counts (added,removed,sentAt) match web/templates/draft.html, no hint-text leakage vs scripts/i18n_hints.json, no Arabic yeh/kaf, no tatweel, no mi+space, no Han.",
+ "review_rc": 0
+}

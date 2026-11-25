@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>Example Corp careers (synthetic)</title>
+    <link>https://careers.example.org/</link>
+    <item>
+      <title>Backend Engineer (Go)</title>
+      <link>https://careers.example.org/jobs/1001</link>
+      <guid>job-1001</guid>
+      <description>&lt;p&gt;Build services in Go. Remote within Europe.&lt;/p&gt;</description>
+      <pubDate>Mon, 23 Nov 2026 09:00:00 +0000</pubDate>
+      <category>engineering</category>
+      <author>nobody@example.invalid</author>
+    </item>
+    <item>
+      <title>Insecure link item</title>
+      <link>http://careers.example.org/jobs/1002</link>
+      <guid>job-1002</guid>
+    </item>
+    <item>
+      <title></title>
+      <link>https://careers.example.org/jobs/1003</link>
+    </item>
+    <item>
+      <title>Credentialed link item</title>
+      <link>https://user:secret@careers.example.org/jobs/1004</link>
+    </item>
+  </channel>
+</rss>

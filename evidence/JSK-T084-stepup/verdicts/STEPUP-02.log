@@ -1,0 +1,1 @@
+PASS: STEPUP-02 matched=2/2 hallucinated=false expect_fail=false raw_pass=true response="**Page Title:** Settings and provider health\n\n**Labelled Values:**\n- **Kill switch:** On\n- **Live mode:** Off\n- **Daily cap:** 5\n- **Per-host daily cap:** 2\n\n**Error Message:**\n- **Live approval and some settings need a passkey check no older than five minutes.**"

@@ -2,6 +2,7 @@ package live
 
 import (
 	"fmt"
+	"github.com/vasic-digital/job_seeker/internal/evnorm"
 	"os"
 	"path/filepath"
 	"strings"
@@ -55,6 +56,6 @@ func TestJsctlAgainstRealServerData(t *testing.T) {
 	run(1, "JOBSEEKER_", "migrate")
 	s.Env = cmd
 	if dir := os.Getenv("JSK_EVIDENCE_DIR"); dir != "" {
-		_ = os.WriteFile(filepath.Join(dir, "jsctl-live.txt"), []byte(redactTokens(strings.Join(lines, "\n"), s.Secrets)+"\n"), 0o644)
+		_ = evnorm.WriteFile(filepath.Join(dir, "jsctl-live.txt"), []byte(redactTokens(strings.Join(lines, "\n"), s.Secrets)+"\n"), 0o644)
 	}
 }

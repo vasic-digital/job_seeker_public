@@ -1,0 +1,175 @@
+{
+ "caught_by_chain_walk": 11,
+ "caught_only_by_anchor": 9,
+ "controls": 20,
+ "controls_tamper_free": 20,
+ "entries_per_chain": 40,
+ "mutation_anchor_withheld_undetected_by_kind": {
+  "delete-and-recompute-forward": 3,
+  "edit-and-recompute-forward": 3,
+  "tail-truncation": 3
+ },
+ "seed": 1795552861813518700,
+ "trials": [
+  {
+   "Trial": 0,
+   "Kind": "edit-row",
+   "Where": "entry 36",
+   "CaughtByWalk": true,
+   "AnchorOnly": false,
+   "State": "TAMPERED"
+  },
+  {
+   "Trial": 1,
+   "Kind": "delete-row",
+   "Where": "entry 15",
+   "CaughtByWalk": true,
+   "AnchorOnly": false,
+   "State": "TAMPERED"
+  },
+  {
+   "Trial": 2,
+   "Kind": "delete-and-recompute-forward",
+   "Where": "entry 31",
+   "CaughtByWalk": false,
+   "AnchorOnly": true,
+   "State": "TAMPERED"
+  },
+  {
+   "Trial": 3,
+   "Kind": "reorder",
+   "Where": "entry 22",
+   "CaughtByWalk": true,
+   "AnchorOnly": false,
+   "State": "TAMPERED"
+  },
+  {
+   "Trial": 4,
+   "Kind": "tail-truncation",
+   "Where": "truncate last 4",
+   "CaughtByWalk": false,
+   "AnchorOnly": true,
+   "State": "TAMPERED"
+  },
+  {
+   "Trial": 5,
+   "Kind": "edit-and-recompute-forward",
+   "Where": "entry 23",
+   "CaughtByWalk": false,
+   "AnchorOnly": true,
+   "State": "TAMPERED"
+  },
+  {
+   "Trial": 6,
+   "Kind": "edit-row",
+   "Where": "entry 19",
+   "CaughtByWalk": true,
+   "AnchorOnly": false,
+   "State": "TAMPERED"
+  },
+  {
+   "Trial": 7,
+   "Kind": "delete-row",
+   "Where": "entry 20",
+   "CaughtByWalk": true,
+   "AnchorOnly": false,
+   "State": "TAMPERED"
+  },
+  {
+   "Trial": 8,
+   "Kind": "delete-and-recompute-forward",
+   "Where": "entry 13",
+   "CaughtByWalk": false,
+   "AnchorOnly": true,
+   "State": "TAMPERED"
+  },
+  {
+   "Trial": 9,
+   "Kind": "reorder",
+   "Where": "entry 22",
+   "CaughtByWalk": true,
+   "AnchorOnly": false,
+   "State": "TAMPERED"
+  },
+  {
+   "Trial": 10,
+   "Kind": "tail-truncation",
+   "Where": "truncate last 1",
+   "CaughtByWalk": false,
+   "AnchorOnly": true,
+   "State": "TAMPERED"
+  },
+  {
+   "Trial": 11,
+   "Kind": "edit-and-recompute-forward",
+   "Where": "entry 13",
+   "CaughtByWalk": false,
+   "AnchorOnly": true,
+   "State": "TAMPERED"
+  },
+  {
+   "Trial": 12,
+   "Kind": "edit-row",
+   "Where": "entry 27",
+   "CaughtByWalk": true,
+   "AnchorOnly": false,
+   "State": "TAMPERED"
+  },
+  {
+   "Trial": 13,
+   "Kind": "delete-row",
+   "Where": "entry 26",
+   "CaughtByWalk": true,
+   "AnchorOnly": false,
+   "State": "TAMPERED"
+  },
+  {
+   "Trial": 14,
+   "Kind": "delete-and-recompute-forward",
+   "Where": "entry 24",
+   "CaughtByWalk": false,
+   "AnchorOnly": true,
+   "State": "TAMPERED"
+  },
+  {
+   "Trial": 15,
+   "Kind": "reorder",
+   "Where": "entry 31",
+   "CaughtByWalk": true,
+   "AnchorOnly": false,
+   "State": "TAMPERED"
+  },
+  {
+   "Trial": 16,
+   "Kind": "tail-truncation",
+   "Where": "truncate last 2",
+   "CaughtByWalk": false,
+   "AnchorOnly": true,
+   "State": "TAMPERED"
+  },
+  {
+   "Trial": 17,
+   "Kind": "edit-and-recompute-forward",
+   "Where": "entry 18",
+   "CaughtByWalk": false,
+   "AnchorOnly": true,
+   "State": "TAMPERED"
+  },
+  {
+   "Trial": 18,
+   "Kind": "edit-row",
+   "Where": "entry 17",
+   "CaughtByWalk": true,
+   "AnchorOnly": false,
+   "State": "TAMPERED"
+  },
+  {
+   "Trial": 19,
+   "Kind": "delete-row",
+   "Where": "entry 6",
+   "CaughtByWalk": true,
+   "AnchorOnly": false,
+   "State": "TAMPERED"
+  }
+ ]
+}

@@ -1,0 +1,14 @@
+# github.com/vasic-digital/job_seeker/internal/ext/eligibility [github.com/vasic-digital/job_seeker/internal/ext/eligibility.test]
+internal/ext/eligibility/soak_test.go:36:9: undefined: Soak
+internal/ext/eligibility/soak_test.go:36:52: undefined: DefaultSoakOverlays
+internal/ext/eligibility/soak_test.go:37:53: undefined: DefaultSoakOverlays
+internal/ext/eligibility/soak_test.go:40:37: undefined: SoakPass
+internal/ext/eligibility/soak_test.go:47:9: undefined: Soak
+internal/ext/eligibility/soak_test.go:47:51: undefined: DefaultSoakOverlays
+internal/ext/eligibility/soak_test.go:48:38: undefined: SoakUndetermined
+internal/ext/eligibility/soak_test.go:51:11: undefined: Soak
+internal/ext/eligibility/soak_test.go:51:41: undefined: DefaultSoakOverlays
+internal/ext/eligibility/soak_test.go:52:36: undefined: SoakUndetermined
+internal/ext/eligibility/soak_test.go:52:36: too many errors
+FAIL	github.com/vasic-digital/job_seeker/internal/ext/eligibility [build failed]
+FAIL

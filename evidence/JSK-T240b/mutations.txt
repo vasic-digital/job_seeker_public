@@ -1,0 +1,22 @@
+KILLED       ext-mailgate-absent-setting-not-off
+KILLED       ext-mailgate-malformed-setting-accepted
+KILLED       ext-mailgate-unreadable-setting-ignored
+KILLED       ext-mailgate-nil-settings-passes-guard
+KILLED       ext-mailgate-enable-on-unknown
+KILLED       ext-mailgate-unaudited-allow-passes
+KILLED       ext-mailgate-missing-auditor-ok
+KILLED       ext-mailgate-compose-keeps-caller-hook
+KILLED       ext-mailgate-check-panic-escapes
+KILLED       ext-mailgate-yes-with-refusal-reason-ok
+KILLED       ext-mailgate-out-of-range-verdict-ok
+KILLED       ext-mailgate-set-skips-audit-row
+KILLED       ext-mailgate-audit-evidence-leaks-domain
+KILLED       ext-mailgate-disable-writes-one
+KILLED       ext-mailgate-refused-enable-audited-as-allowed
+KILLED       ext-deliver-spf-ip-empty-cidr-ok
+KILLED       ext-deliver-spf-ahost-empty-cidr-ok
+KILLED       ext-deliver-spf-dual-empty-v6-ok
+KILLED       ext-mailgate-compose-trusts-gate-domain
+mutations: 1 killed of 1
+KILLED       ext-mailgate-compose-trusts-gate-domain
+KILLED       ext-mailgate-compose-from-pinned-at-compose

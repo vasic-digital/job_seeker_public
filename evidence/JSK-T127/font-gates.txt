@@ -1,0 +1,13 @@
+OK languages=de,en,ru shipped_codepoints=11325 checked_chars=30076
+rc=0
+  ok   control: unmutated copy passes (rc=0)
+  ok   M1 Thai string with no glyphs (rc=1)
+  ok   M2 required woff2 deleted (rc=1)
+  ok   M3 unclassified language -> 2, not a pass (rc=2)
+  ok   M4 @font-face of a required family removed (rc=1)
+PROVE-FAILURE OK
+rc=0
+OK 24 font file(s), every one with a licence record, a present OFL text and a matching sha256
+rc=0
+OK fonts section matches the 24 shipped font file(s)
+rc=0

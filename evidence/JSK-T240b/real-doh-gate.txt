@@ -1,0 +1,8 @@
+# real read 2026-11-24T16:29:28Z: JSK_LIVE_DOH=1 go test ./internal/ext/channel/mailgate -run Live -v
+=== RUN   TestLiveGateAgainstRealDoH
+    live_test.go:30: setting=map[] -> verdict=no reasons=mail_channel_disabled audited=1
+    live_test.go:30: setting=map[ext.channel.allow_mailto:1] -> verdict=no reasons=mail_spf_redirect,mail_dmarc_weak,mail_dkim_unconfigured audited=1
+--- PASS: TestLiveGateAgainstRealDoH (0.21s)
+PASS
+ok  	github.com/vasic-digital/job_seeker/internal/ext/channel/mailgate	0.277s
+# Provenance: one bounded real read of public domain gmail.com (3 GETs when the setting is on, 0 when off) through the real egress client with policy hosts=[dns.google]. Point-in-time; not a statement about the operator's own sending domain (UNCONFIRMED). No mail was sent.

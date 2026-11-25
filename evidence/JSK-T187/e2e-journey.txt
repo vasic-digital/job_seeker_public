@@ -1,0 +1,8 @@
+real jobseekerd + real Chromium, synthetic persona vault (tests/e2e, go test ./tests/e2e -v), rc=0
+40:        PASS the approval report is rendered on the approval page (T187)
+44:        PASS HTTP 409 report_required at POST /applications/{id}/approve without the report digest (T187) :: 409
+86:        PASS the approval report is unavailable for a changed draft and Approve is disabled (T187)
+135:--- PASS: TestConsoleJourney (343.00s)
+168:--- PASS: TestPositionPageLive (17.84s)
+170:ok  	github.com/vasic-digital/job_seeker/tests/e2e	360.854s
+171:rc=0

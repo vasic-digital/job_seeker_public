@@ -1,0 +1,5 @@
+--- FAIL: TestStaleRulesetVerdictRefusesApproval (0.18s)
+    pdfcheck_test.go:171: a Yes verdict from another ruleset must refuse approval, got err <nil>
+FAIL
+FAIL	github.com/vasic-digital/job_seeker/internal/draft	0.207s
+FAIL

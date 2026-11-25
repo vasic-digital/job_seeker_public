@@ -1,0 +1,6 @@
+# JSK-T210 `jsctl resolve --dry-run/--apply` (FR-092)
+- position.Resolver.Plan (read-only view) / Apply (one write tx). Dry run is the DEFAULT; naming both flags is a usage error (rc 2). Dry-run runs in a read-only transaction that is rolled back; tests assert audit/position/candidate/link counts are identical before and after.
+- Conservative reading (recorded): the rerun is ADDITIVE. It reports would-merge (ATS identity, apply URL, soft score >= t_auto with the resolver guards) and would-queue (review band, not already queued) over Position pairs, under the current resolver version. would_split is always 0 by design: a split is a human decision and is never proposed or performed. Pairs under any human constraint (must_link or cannot_link) are never re-evaluated. Apply merges through position.Merge (so live_approved, cannot_link, both-locked refusals apply per pair and are listed, not fatal), inserts merge_candidate rows, and writes one position_rerun_applied audit row only when something changed. A second apply is a no-op.
+- Tests: internal/position/rerun_test.go, internal/jsctl/resolve_test.go (real CLI entry). run.txt.
+- Mutation pairs t210-* (6): all KILLED (two first INVALID because the mutant did not compile; mutants corrected).
+- Not done: real-corpus run of the rerun (needs the operator's database; synthetic fixtures only here).

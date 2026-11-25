@@ -1,7 +1,8 @@
 // Package eligibility holds the first-party EligibilityRule plugins that mirror the legacy hard gates of
 // match.ScorePosting (JSK-T228, JSK-T235). Each rule is three-valued; where the legacy gate silently did nothing
-// for lack of data the rule answers Unknown (which blocks like No), so the plugin set is never more permissive
-// than the legacy blocks. Parity (SC-034) is: plugin No <=> legacy gate present.
+// for lack of data the rule answers Unknown. In the decider path Unknown caused only by absent data is NEUTRAL like
+// the legacy decider (ext.CombineNeutral, operator decision 2026-11-25) and reported as a warning; faults stay
+// fail-closed. Parity (SC-034) is: plugin No <=> legacy gate present, and the blocked outcome equal row by row.
 package eligibility
 
 import (
@@ -43,6 +44,27 @@ func (p OverlayProfile) SalaryFloor() (ext.Floor, bool) {
 	return ext.Floor{Min: p.O.SalaryMin, Currency: p.O.SalaryCurrency, Period: p.O.SalaryPeriod}, true
 }
 func (OverlayProfile) WorkMode() (string, bool) { return "", false }
+
+// WorkAuthCountries and Languages come from the overlay keys work_auth_countries and languages (JSK-T177/T242). An
+// absent key answers ok=false so the rules say Unknown rather than guess.
+func (p OverlayProfile) WorkAuthCountries() ([]string, bool) {
+	if !p.O.HasWorkAuth() {
+		return nil, false
+	}
+	return p.O.WorkAuthCountries, true
+}
+func (p OverlayProfile) TZWindow() (int, int, bool) {
+	if !p.O.HasTZ() {
+		return 0, 0, false
+	}
+	return p.O.TZStart, p.O.TZEnd, true
+}
+func (p OverlayProfile) Languages() ([]string, bool) {
+	if !p.O.HasLanguages() {
+		return nil, false
+	}
+	return p.O.Languages, true
+}
 
 func noData(rule, field string) ext.Decision {
 	return ext.Decision{Verdict: ext.Unknown, Reasons: []ext.Reason{{Code: "rule_no_data", Refs: map[string]string{"rule": rule, "field": field}}}}
@@ -189,7 +211,12 @@ type Entry struct {
 }
 
 // Set is the first-party eligibility rule set and its parity map.
-type Set struct{ Rules []Entry }
+type Set struct {
+	Rules []Entry
+	// StrictUnknown makes the shadow fold with ext.Combine (Unknown blocks) instead of ext.CombineNeutral. It exists only
+	// so the parity gate's paired proof can show the old behaviour is caught; production never sets it.
+	StrictUnknown bool
+}
 
 // NewSet builds the four rules; factors come from rules/score.yaml (match.Rules.AnnualFactors).
 func NewSet(factors map[string]float64) *Set {
@@ -201,16 +228,23 @@ func NewSet(factors map[string]float64) *Set {
 	}}
 }
 
+// ToExtMapped is ToExt plus the classifier exclusion of the mapping, which the legacy scorer also treats as a gate.
+func ToExtMapped(p match.Posting, m match.Mapping) providers.Posting {
+	ep := ToExt(p)
+	ep.ClassifierExclusion = m.Exclusion
+	return ep
+}
+
 // ToExt converts the scorer's posting to the canonical one.
 func ToExt(p match.Posting) providers.Posting {
-	return providers.Posting{Title: p.Title, Body: p.Body, Tags: p.Tags, Company: p.Company, LocationRaw: p.Location, RemoteMode: p.RemoteMode,
+	return providers.Posting{IsDuplicate: p.IsDuplicate, Title: p.Title, Body: p.Body, Tags: p.Tags, Company: p.Company, LocationRaw: p.Location, RemoteMode: p.RemoteMode,
 		Countries: p.Countries, TZHint: p.TZHint, SalaryMin: p.SalaryMin, SalaryMax: p.SalaryMax, SalaryCur: p.SalaryCur, SalaryPeriod: p.SalaryPeriod, PostedAt: p.PostedAt}
 }
 
 // Shadow returns a match.Rules.Shadow hook: it evaluates every rule beside the legacy gates and reports
 // (rule id, plugin verdict, legacy gate present). It changes nothing.
-func (s *Set) Shadow(report func(rule string, plugin ext.Verdict, legacyGate bool)) func(match.Posting, *match.Overlay, []string, time.Time) {
-	return func(p match.Posting, ov *match.Overlay, gates []string, now time.Time) {
+func (s *Set) Shadow(report func(rule string, plugin ext.Verdict, legacyGate bool)) func(match.Posting, match.Mapping, *match.Overlay, []string, time.Time) {
+	return func(p match.Posting, m match.Mapping, ov *match.Overlay, gates []string, now time.Time) {
 		have := map[string]bool{}
 		for _, g := range gates {
 			have[g] = true
@@ -219,7 +253,7 @@ func (s *Set) Shadow(report func(rule string, plugin ext.Verdict, legacyGate boo
 		if ov != nil {
 			pr = OverlayProfile{ov}
 		}
-		ep := ToExt(p)
+		ep := ToExtMapped(p, m)
 		for _, e := range s.Rules {
 			d := safeEval(e.Rule, ep, pr, now)
 			report(e.Rule.Info().ID, d.Verdict, have[e.LegacyGate])
@@ -230,7 +264,7 @@ func (s *Set) Shadow(report func(rule string, plugin ext.Verdict, legacyGate boo
 func safeEval(r ext.EligibilityRule, p providers.Posting, pr ext.Profile, now time.Time) (d ext.Decision) {
 	defer func() {
 		if recover() != nil {
-			d = ext.Decision{Verdict: ext.Unknown}
+			d = ext.Decision{Verdict: ext.Unknown, Reasons: []ext.Reason{{Code: "plugin_panic"}}}
 		}
 	}()
 	return r.Evaluate(p, pr, now)

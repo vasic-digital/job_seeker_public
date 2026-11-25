@@ -1,0 +1,24 @@
+JSK-T169 / G-07 re-investigation, 2026-11-24 (11.4.102: root cause before any claim). NOT TICKED.
+
+Measured on fresh WeasyPrint PDFs (ai-engineering cv-ar, cv-fa, cover-ar), table in measure-fresh-pdfs.txt:
+  pdftotext -raw reverses the word order of right-to-left lines; pdftotext -layout, MuPDF and pypdf keep logical order for pure
+  Arabic/Persian lines (cv-ar: raw forward 1 / reversed 6; layout 8 / 0; mupdf 10 / 0; pypdf 3 / 1).
+  One line of cv-ar compared word by word: layout = logical; mupdf and pypdf = logical within a pure-Arabic run but with the embedded Latin
+  run (LLM) moved to the line edge; raw = word sequence reversed, letters inside each word logical.
+Root cause, narrowed: WeasyPrint writes the glyph runs of a line in the order Pango returns them (visual); only pdftotext -layout, which sorts by
+  position and applies its own bidi pass, restores logical order for every case. "-raw" assumes a visual-order stream and reverses RTL words;
+  MuPDF/pypdf read the stream order as is. An experiment wrapping the line in marked content /ActualText did NOT help: poppler honours it but
+  applies its RTL reversal to the ActualText string again (output reversed), MuPDF ignored it on this file.
+What a renderer fix would be: re-emit the words of every RTL line in logical order with explicit per-word text matrices (a content-stream
+  post-processor needing font advance widths), which would satisfy -raw/MuPDF/pypdf at the price of changing what the position-sorting extractors and
+  pdftotext -layout see. A PDF cannot be in visual order for poppler -raw and logical order for MuPDF/pypdf at once, so a choice of target parser is needed.
+Why it is left unticked: (1) not achievable by a gate alone: a blocking gate on "forward in all of mupdf, pypdf, raw" is RED on the 3 measured PDFs and
+  would block every build until the post-processor exists; (2) the post-processor is an XL engine change whose acceptance (which extractor family
+  is the target; pdfminer.six, the usual position-sorting reader, is NOT installed here so it cannot be measured) is a product choice, not an agent choice.
+Operator step to unblock: name the target parser set for RTL (e.g. "logical in MuPDF+pypdf, raw excluded" which is already true today for pure-Arabic lines
+  and needs only the gate; or "also pdftotext -raw", which needs the post-processor), and install pdfminer.six if position-sorting readers must be measured.
+The gate half for the first choice already exists non-blocking: extract_gates.check_rtl_logical_order (umbrella).
+
+RESOLVED 2026-11-24 (operator decision): the target reader set is MuPDF + pdftotext -layout; pdftotext -raw, pypdf and position-less readers are not supported ATS readers for ar/fa.
+The "operator step to unblock" above is therefore answered by the first option; no content-stream post-processor is built and pdfminer.six is not required.
+The gate shipped in umbrella PR milos85vasic/vasic#97 (extract_gates.check_rtl_document, wired into gates.validate_pdf). RED, GREEN, per-PDF table, mutation proof and the 300-cell verify are in this directory.

@@ -34,6 +34,7 @@ cleanup() {
   if [ "$stacks_up" -eq 1 ]; then # never leave a stack running, whatever aborted the gate
     for f in deploy/compose.yml deploy/compose.tcp-only.yml; do "$bin/jsstack" down -file "$f" -project js-live-h3 >/dev/null 2>&1; done
   fi
+  if [ -n "${out:-}" ] && [ -f "$out" ]; then bash "$root/scripts/evnorm.sh" -w "$out" || echo "WARNING: evidence normaliser failed; run: bash scripts/evnorm.sh -w $out" >&2; fi   # shared evidence normaliser
   rm -rf "$tmp"
 }
 trap cleanup EXIT

@@ -1,0 +1,25 @@
+KILLED ext-comp-nil-settings-pass
+KILLED ext-comp-off-switch-ignored
+KILLED ext-comp-5xx-allowed
+KILLED ext-comp-4xx-blocks
+KILLED ext-comp-disallow-ignored
+KILLED ext-comp-allow-tie-loses
+KILLED ext-comp-tos-changed-passes
+KILLED ext-comp-tos-unreviewed-passes
+KILLED ext-comp-unknown-stage-ok
+# first run surfaced 2 SURVIVED + 3 INVALID rows; tests and patterns were fixed and all 9 re-run KILLED
+KILLED       ext-comp-ua-substring
+
+KILLED       ext-comp-rule-not-normalized
+KILLED       ext-comp-body-uncapped
+KILLED       ext-comp-glob-no-backtrack
+KILLED       ext-comp-path-not-normalized (after adding a direct-call test; review round 1 added 5 rows: ua exact, path/rule normalisation, body cap, linear glob)
+CONTROL-RED  ext-comp-robots-ua-uncut: ./internal/ext/compliance does not pass unmodified
+CONTROL-RED  ext-comp-path-uncapped: ./internal/ext/compliance does not pass unmodified
+CONTROL-RED  ext-comp-truncated-disallow-skipped: ./internal/ext/compliance does not pass unmodified
+KILLED       ext-comp-robots-ua-uncut
+KILLED       ext-comp-path-uncapped
+KILLED       ext-comp-truncated-disallow-skipped
+CONTROL-RED  ext-comp-group-overflow-ignored: ./internal/ext/compliance does not pass unmodified
+KILLED       ext-comp-group-overflow-ignored
+NOTE: a mutant of cutEscape is equivalent (prefix matching makes a cut inside an escape harmless once normalisation precedes the cut); the regression test TestTruncationDoesNotSplitAnEscape pins the round-3 input, no mutation row claimed

@@ -1,0 +1,16 @@
+== mode: dry-run default; process: jobseekerd (real); provider: remotive; outbound: robots.txt only
+tracker_hook/reply_detect enabled
+== phase 1: terms NOT accepted
+-- audit rows (compliance_blocked):
+5|system|compliance_blocked|{"gates":["provider_tos:tos_unreviewed","robots:robots_disallow"],"provider":"remotive","stage":"ingest","url_index":0,"verdict":"no"}
+-- daemon log (fetch lines):
+  time=2026-11-24T19:09:22.817+01:00 level=ERROR msg="scheduled job failed" job=fetch.remotive
+== operator: jsctl ext terms accept --provider remotive
+terms accepted for remotive
+== phase 2: terms accepted, live robots.txt judges the exact path /api/remote-jobs
+-- audit rows (compliance_blocked):
+5|system|compliance_blocked|{"gates":["provider_tos:tos_unreviewed","robots:robots_disallow"],"provider":"remotive","stage":"ingest","url_index":0,"verdict":"no"}
+7|system|compliance_blocked|{"gates":["robots:robots_disallow"],"provider":"remotive","stage":"ingest","url_index":0,"verdict":"no"}
+-- posting rows fetched (must be 0): 0
+-- compliance_blocked rows: phase1=1 total_after_phase2=2
+RESULT: ingest blocked before terms (provider_tos), and after terms by the live robots.txt (robots)

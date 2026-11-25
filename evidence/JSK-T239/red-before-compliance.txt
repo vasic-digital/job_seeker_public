@@ -1,0 +1,8 @@
+# github.com/vasic-digital/job_seeker/internal/ext/compliance [github.com/vasic-digital/job_seeker/internal/ext/compliance.test]
+internal/ext/compliance/compliance_test.go:13:46: undefined: RobotsSource
+internal/ext/compliance/compliance_test.go:25:9: undefined: RobotsSource
+internal/ext/compliance/compliance_test.go:45:8: undefined: Robots
+internal/ext/compliance/compliance_test.go:59:7: undefined: Robots
+internal/ext/compliance/compliance_test.go:60:9: undefined: ProviderTOS
+internal/ext/compliance/compliance_test.go:60:43: undefined: TermsState
+internal/ext/compliance/compliance_test.go:84:8: undefined: TermsState

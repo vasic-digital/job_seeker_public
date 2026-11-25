@@ -27,6 +27,12 @@ type Profile interface {
 	BlockedCompanies() ([]string, bool)    // ok=false: not configured
 	SalaryFloor() (Floor, bool)            // ok=false: no floor configured
 	WorkMode() (mode string, ok bool)
+	// WorkAuthCountries are the ISO 3166 codes where the operator may legally work; ok=false: not configured (JSK-T242).
+	WorkAuthCountries() ([]string, bool)
+	// TZWindow is the operator's working window in UTC hours [start,end]; ok=false: not configured.
+	TZWindow() (start, end int, ok bool)
+	// Languages are the primary language subtags (ISO 639-1) the operator can work in; ok=false: not configured.
+	Languages() ([]string, bool)
 }
 
 // Floor is the operator's salary floor. It is a value type returned by an accessor; it never reaches a log or a reason.

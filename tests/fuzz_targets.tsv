@@ -1,0 +1,32 @@
+# JSK fuzz target registry: every Fuzz* function in the module must have a row (package<TAB>name); every row must name an existing target.
+# Rows are only ever added: gates/hardening_fuzz.sh refuses a target that is not listed here and a listed target that no longer exists.
+internal/careersnap	FuzzDeriveDrift
+internal/egress	FuzzCheckURL
+internal/egress	FuzzIsDeniedIP
+internal/egress	FuzzParseAllowList
+internal/ext	FuzzLoadPolicy
+internal/ext/ats/parsersim	FuzzParseAnchors
+internal/ext/ats/parsersim	FuzzStructScan
+internal/ext/ats/profile	FuzzParse
+internal/ext/channel/mailto	FuzzParse
+internal/ext/match/keyword	FuzzLoadSynonymsSnapshot
+internal/ext/reader/jsonld	FuzzRead
+internal/ext/render/pdflinks	FuzzCheckDecide
+internal/ingest	FuzzReadATSJobRefusals
+internal/ingest	FuzzResolveATSJobURL
+internal/ingest	FuzzTitleRatio
+internal/match	FuzzDetectLanguage
+internal/match	FuzzLoadYAMLConfigs
+internal/match	FuzzNormalize
+internal/pdgate	FuzzLoadNeedles
+internal/privacy	FuzzImport
+internal/providers	FuzzArbeitnowJobicyOne
+internal/providers	FuzzAshbyOne
+internal/providers	FuzzBundesagenturOne
+internal/providers	FuzzGreenhouseOne
+internal/providers	FuzzHNOne
+internal/providers	FuzzJSONLD
+internal/providers	FuzzLeverOne
+internal/providers	FuzzLoadWatchlist
+internal/providers	FuzzPersonioXML
+internal/redact	FuzzScrub

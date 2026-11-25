@@ -1,0 +1,13 @@
+case	step	frame_sha256	frame_file	vision_provider	vision_status	result
+JSK-STATE-001	Open the pending application	a9a4696e3b39a65f5a964f8060d744d10e0c11bf18ffd538d55772e7b651dfbf	a9a4696e3b39.png	vision-endpoint	verified	PASS
+JSK-STATE-001	Prepare template draft	43c78c655dcd26df3721c612cc64eda76bf7f0db66ff39573b497625049985e7	43c78c655dcd.png	vision-endpoint	verified	PASS
+JSK-STATE-002	Open the Borealis application	d89ffd6e4672794c0fb21750af85088c974da0e69e5492572e23eaecfa23c143	d89ffd6e4672.png	vision-endpoint	verified	PASS
+JSK-STATE-002	Type the reason	e67029bcf516a5004f0f28db298392efe34b24548c31e7210ac9a0dabc2c8d67	e67029bcf516.png	vision-endpoint	verified	PASS
+JSK-STATE-002	Press Reject	6cbae37f16f9f50d68850265e6d38ea6a98b54c6f70cf868d45bdca31e008315	6cbae37f16f9.png	vision-endpoint	verified	PASS
+JSK-STATE-003	Open the Acme application	a0d0620825c46592fee3107ecde4db83100785d2d6a05f7a071a22a47abe8f54	a0d0620825c4.png	vision-endpoint	verified	PASS
+JSK-STATE-003	Type the company name	aa60293cc02cf775ec0bec748b03297abe18c75c33ca3f67b82c9b37a4ab2bf6	aa60293cc02c.png	vision-endpoint	verified	PASS
+JSK-STATE-003	Press Approve	a9c15cbcb832ff043c3311370b195dfe4062bb4f9b315510e4a2c5f00edfeda0	a9c15cbcb832.png	vision-endpoint	verified	PASS
+JSK-STATE-004	Open the Review queue	2bdab6ca3db119dc1508c811e37f146ce8942a63699895a892f05b5e99247462	2bdab6ca3db1.png	vision-endpoint	verified	PASS
+JSK-STATE-004	Press Map to area	b9726475a06c11528dd5d5aad6c4126b39f767b4cb2d17f9f453728ba412d856	b9726475a06c.png	vision-endpoint	verified	PASS
+JSK-STATE-005	Open the posting	2a9e6e272cbc8b5b6b16300e59721cd599e87a5b3a76539392101ea34718a3f3	2a9e6e272cbc.png	vision-endpoint	verified	PASS
+JSK-STATE-005	Press Dismiss	0e8e3b07c0b7342d59ec8ffc616b23ed148ef99d9a2e3ff6a806cb54ba13355d	0e8e3b07c0b7.png	vision-endpoint	verified	PASS

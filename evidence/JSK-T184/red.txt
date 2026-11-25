@@ -1,0 +1,24 @@
+--- FAIL: TestMailtoApplyURLIsManualOnly (0.36s)
+    --- FAIL: TestMailtoApplyURLIsManualOnly/mailto:jobs@example.org (0.15s)
+        handoff_hygiene_test.go:22: err <nil> want ErrManualOnly
+    --- FAIL: TestMailtoApplyURLIsManualOnly/MAILTO:jobs@example.org?subject=x (0.10s)
+        handoff_hygiene_test.go:22: err <nil> want ErrManualOnly
+    --- FAIL: TestMailtoApplyURLIsManualOnly/_mailto:jobs@example.org (0.11s)
+        handoff_hygiene_test.go:22: err <nil> want ErrManualOnly
+--- FAIL: TestBusinessHoursWarning (0.54s)
+    --- FAIL: TestBusinessHoursWarning/03:00_local_at_+9 (0.09s)
+        handoff_hygiene_test.go:90: warnings [] want outside_business_hours=true
+    --- FAIL: TestBusinessHoursWarning/weekend_local (0.10s)
+        handoff_hygiene_test.go:90: warnings [] want outside_business_hours=true
+    --- FAIL: TestBusinessHoursWarning/negative_offset_08:00_local (0.10s)
+        handoff_hygiene_test.go:90: warnings [] want outside_business_hours=true
+--- FAIL: TestDownloadName (0.00s)
+    handoff_hygiene_test.go:120: "Jane Q. Doe" "cv" "Senior Go Engineer": got "" ok=false want "Jane-Q-Doe_CV_Senior-Go-Engineer_20261124.pdf"
+    handoff_hygiene_test.go:120: "Jane Doe" "cover" "Engineer (Platform) / Remote": got "" ok=false want "Jane-Doe_Cover_Engineer-Platform-Remote_20261124.pdf"
+    handoff_hygiene_test.go:120: "Zoë Müller" "cv" "Dev": got "" ok=false want "Zoe-Muller_CV_Dev_20261124.pdf"
+    handoff_hygiene_test.go:120: "Jane Doe" "cv" "../../etc/passwd\r\nX: y": got "" ok=false want "Jane-Doe_CV_etc-passwd-X-y_20261124.pdf"
+--- FAIL: TestServiceDownloadNameUsesPostingRoleAndDraftDate (0.08s)
+    handoff_hygiene_test.go:139: "" <nil>
+FAIL
+FAIL	github.com/vasic-digital/job_seeker/internal/draft	1.222s
+FAIL

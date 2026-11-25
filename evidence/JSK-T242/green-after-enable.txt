@@ -1,0 +1,42 @@
+# GREEN after enabling (2026-11-25)
+$ go test -count=1 -v -run "Shipped|Enabled|Enabling" ./internal/ext/builtin/
+--- PASS: TestShippedPolicyLoadsAndChecks
+--- PASS: TestLoadATSRegistersShippedProfilesAndScopesValidate
+--- PASS: TestShippedPolicyEnablesWorkAuthTimezoneLanguage
+--- PASS: TestEnabledNewRulesAreNotLockedGates
+--- PASS: TestWorkAuthEnabledDecidesFromRealOverlay
+--- PASS: TestTimezoneEnabledDecidesFromRealOverlay
+--- PASS: TestLanguageEnabledDecidesFromRealOverlay
+PASS
+ok  	github.com/vasic-digital/job_seeker/internal/ext/builtin
+$ go test -count=1 ./internal/ext/... ./internal/match/... ./internal/jsctl/... ./internal/pipeline/... ./internal/extwire/...
+ok  	github.com/vasic-digital/job_seeker/internal/ext
+ok  	github.com/vasic-digital/job_seeker/internal/ext/ats/parsersim
+ok  	github.com/vasic-digital/job_seeker/internal/ext/ats/profile
+ok  	github.com/vasic-digital/job_seeker/internal/ext/builtin
+ok  	github.com/vasic-digital/job_seeker/internal/ext/channel
+ok  	github.com/vasic-digital/job_seeker/internal/ext/channel/mailgate
+ok  	github.com/vasic-digital/job_seeker/internal/ext/channel/mailto
+ok  	github.com/vasic-digital/job_seeker/internal/ext/channel/openurl
+ok  	github.com/vasic-digital/job_seeker/internal/ext/channel/smtpcompose
+ok  	github.com/vasic-digital/job_seeker/internal/ext/compliance
+ok  	github.com/vasic-digital/job_seeker/internal/ext/deliver
+ok  	github.com/vasic-digital/job_seeker/internal/ext/eligibility
+?   	github.com/vasic-digital/job_seeker/internal/ext/exttest	[no test files]
+ok  	github.com/vasic-digital/job_seeker/internal/ext/match/keyword
+ok  	github.com/vasic-digital/job_seeker/internal/ext/reader/jsonld
+ok  	github.com/vasic-digital/job_seeker/internal/ext/render/pdflinks
+ok  	github.com/vasic-digital/job_seeker/internal/ext/render/txt
+ok  	github.com/vasic-digital/job_seeker/internal/ext/source
+ok  	github.com/vasic-digital/job_seeker/internal/ext/track
+ok  	github.com/vasic-digital/job_seeker/internal/ext/verdictstore
+ok  	github.com/vasic-digital/job_seeker/internal/match
+ok  	github.com/vasic-digital/job_seeker/internal/match/gold
+ok  	github.com/vasic-digital/job_seeker/internal/jsctl
+ok  	github.com/vasic-digital/job_seeker/internal/pipeline
+ok  	github.com/vasic-digital/job_seeker/internal/extwire
+$ go run ./cmd/jsctl policy check --rules rules
+policy check: ok (23 plugin keys known, 4 locked gates)
+rc=0
+$ bash gates/verify_plugins.sh --static
+OK: 13 plugin package(s), 18 registered plugin(s): tests, mutation pairs, closed reason codes, ids and versions

@@ -1,0 +1,12 @@
+--- FAIL: TestShadowPanicNeverReachesScorePosting (0.02s)
+panic: hostile shadow [recovered, repanicked]
+
+goroutine 19 [running]:
+testing.tRunner.func1.2({0x659b40, 0x6cb160})
+	$HOME/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.11.linux-amd64/src/testing/testing.go:1974 +0x232
+testing.tRunner.func1()
+	$HOME/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.11.linux-amd64/src/testing/testing.go:1977 +0x349
+panic({0x659b40?, 0x6cb160?})
+	$HOME/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.11.linux-amd64/src/runtime/panic.go:860 +0x13a
+github.com/vasic-digital/job_seeker/internal/match.TestShadowPanicNeverReachesScorePosting.func1({0x1, {0x6b5c53, 0x17}, {0x0, 0x0}, {0x0, 0x0, 0x0}, {0x0, 0x0}, ...}, ...)
+	<repo>/internal/match/shadow_panic_test.go:19 +0x25

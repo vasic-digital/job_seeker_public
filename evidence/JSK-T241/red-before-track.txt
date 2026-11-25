@@ -1,0 +1,12 @@
+# github.com/vasic-digital/job_seeker/internal/ext/track [github.com/vasic-digital/job_seeker/internal/ext/track.test]
+internal/ext/track/track_test.go:38:8: undefined: Dispatcher
+internal/ext/track/track_test.go:62:8: undefined: Dispatcher
+internal/ext/track/track_test.go:70:54: undefined: Dispatcher
+internal/ext/track/track_test.go:73:7: undefined: NewBufferedSink
+internal/ext/track/track_test.go:94:7: undefined: NewBufferedSink
+internal/ext/track/track_test.go:110:7: undefined: NewBufferedSink
+internal/ext/track/track_test.go:111:12: undefined: ReplyDetect
+internal/ext/track/track_test.go:111:34: undefined: Ghosting
+internal/ext/track/track_test.go:133:13: undefined: ReplyDetect
+internal/ext/track/track_test.go:136:13: undefined: Ghosting
+internal/ext/track/track_test.go:136:13: too many errors

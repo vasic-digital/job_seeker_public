@@ -1,0 +1,2 @@
+RED (github/main at 93dbf79+, before this PR): bash gates/verify_channels_nosend.sh --static -> FAIL: 1 finding(s): NewApproved called outside the approval service: internal/draft/token.go, rc=1 (the allow-list still named internal/draft/service.go; the gate regressed when JSK-T229 landed).
+Also before: a net/smtp import nested one level deeper (internal/ext/channel/mailto/deep/er/) and go-smtp/gomail/sendgrid imports passed the gate; now rejected by --prove-failure defects d8..d11.

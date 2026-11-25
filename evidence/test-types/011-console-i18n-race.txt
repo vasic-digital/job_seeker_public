@@ -1,0 +1,2 @@
+ok  	github.com/vasic-digital/job_seeker/internal/i18n	2.829s
+ok  	github.com/vasic-digital/job_seeker/internal/console	35.766s

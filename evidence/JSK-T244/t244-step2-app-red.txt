@@ -1,0 +1,3 @@
+# github.com/vasic-digital/job_seeker/internal/app
+# [github.com/vasic-digital/job_seeker/internal/app]
+vet: internal/app/fetch_test.go:261:32: p.ShadowSummary undefined (type *pipeline.Pipeline has no field or method ShadowSummary)

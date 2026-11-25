@@ -1,0 +1,8 @@
+RED (before fix, saved fuzz corpus replayed against the unwrapped callers):
+  internal/ext/match/keyword  FuzzLoadSynonymsSnapshot  FAIL  panic: nil pointer dereference (goccy/go-yaml v1.19.2 decode.go:1593 decodeSlice)
+    input: "schema: synonyms.v1\nte\x94ms: {a: [b]}\nskills: !00 "
+  internal/careersnap         FuzzDeriveDrift            FAIL  same panic
+    input: "id: A\nkeywords: !00\n000000"
+  internal/match, internal/pdgate, internal/ext: 30-45s fuzz, no panic found (routed through yamlsafe anyway: same library, same class).
+GREEN: all YAML call sites now go through internal/yamlsafe (recover scoped to the library call, returns ErrMalformed);
+  go test of the 8 touched packages ok; keyword re-fuzz 40s ok; careersnap re-fuzz 40s PASS.

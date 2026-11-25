@@ -19,6 +19,7 @@ import (
 
 	"github.com/vasic-digital/job_seeker/internal/egress"
 	"github.com/vasic-digital/job_seeker/internal/ingest"
+	"github.com/vasic-digital/job_seeker/internal/ingest/ingesttest"
 	"github.com/vasic-digital/job_seeker/internal/limiter"
 	"github.com/vasic-digital/job_seeker/internal/match"
 	"github.com/vasic-digital/job_seeker/internal/pipeline"
@@ -133,7 +134,7 @@ func TestNetworkFaults(t *testing.T) {
 	now := time.Date(2026, 11, 24, 8, 0, 0, 0, time.UTC)
 	clock := func() time.Time { return now }
 	rm := providers.NewRemotive()
-	r := &ingest.Runner{DB: db, Keys: kr, Client: cl, Limiter: &limiter.Limiter{DB: db, Now: clock}, Providers: []providers.Provider{rm}, Now: clock,
+	r := &ingest.Runner{Compliance: ingesttest.AllowAll{}, DB: db, Keys: kr, Client: cl, Limiter: &limiter.Limiter{DB: db, Now: clock}, Providers: []providers.Provider{rm}, Now: clock,
 		Sleep: func(context.Context, time.Duration) error { return nil }, CircuitThreshold: 3}
 	p := &pipeline.Pipeline{DB: db, Keys: kr, Runner: r, Rules: rules, Now: clock}
 	report := map[string]any{}

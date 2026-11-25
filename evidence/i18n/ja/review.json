@@ -1,0 +1,36 @@
+{
+ "verdict": "PASS",
+ "reviewer": "claude:fresh-reviewer",
+ "translator": "claude:sonnet-5.5",
+ "lang": "ja",
+ "scores": {
+  "accuracy": 5,
+  "fluency": 4,
+  "completeness": 5,
+  "naturalness": 4,
+  "register_appropriate": 5,
+  "terminology": 5,
+  "format": 5
+ },
+ "issues": [
+  {
+   "key": "report.coverage.counts",
+   "severity": "resolved",
+   "problem": "round-1: verb order mismatched draft.html:55",
+   "fix": "applied in 84b701e; order matched,total,missing,unclaimable verified"
+  },
+  {
+   "key": "report.diff.counts",
+   "severity": "info",
+   "problem": "none",
+   "fix": "order added,removed,sentAt matches draft.html:50"
+  }
+ ],
+ "round": 2,
+ "checks": {
+  "keys": 312,
+  "key_set_equals_en": true,
+  "verbs_match_en_all_keys": true,
+  "hint_leakage": false
+ }
+}

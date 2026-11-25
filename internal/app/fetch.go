@@ -11,6 +11,8 @@ import (
 	"github.com/vasic-digital/job_seeker/internal/crypto"
 	"github.com/vasic-digital/job_seeker/internal/draft"
 	"github.com/vasic-digital/job_seeker/internal/egress"
+	"github.com/vasic-digital/job_seeker/internal/ext/compliance"
+	"github.com/vasic-digital/job_seeker/internal/ext/eligibility"
 	"github.com/vasic-digital/job_seeker/internal/ingest"
 	"github.com/vasic-digital/job_seeker/internal/limiter"
 	"github.com/vasic-digital/job_seeker/internal/match"
@@ -82,8 +84,55 @@ func BuildProviders(cfg *config.Config, lookup config.Lookup, errw io.Writer) ([
 			default:
 				ps = append(ps, providers.NewAshby(ts))
 			}
+		case "workable", "smartrecruiters", "recruitee", "personio", "teamtailor":
+			w, err := loadWL()
+			if err != nil {
+				return nil, nil, err
+			}
+			ts := map[string][]providers.Tenant{"workable": w.Workable, "smartrecruiters": w.SmartRecruiters, "recruitee": w.Recruitee,
+				"personio": w.Personio, "teamtailor": w.Teamtailor}[n]
+			if len(ts) == 0 {
+				fmt.Fprintf(errw, "fetch: %s listed but the watchlist has no %s employers; it will not be contacted\n", n, n)
+				continue
+			}
+			switch n {
+			case "workable":
+				ps = append(ps, providers.NewWorkable(ts, compliance.Allowed))
+			case "smartrecruiters":
+				ps = append(ps, providers.NewSmartRecruiters(ts, compliance.Allowed))
+			case "recruitee":
+				ps = append(ps, providers.NewRecruitee(ts, compliance.Allowed))
+			case "personio":
+				ps = append(ps, providers.NewPersonio(ts, compliance.Allowed))
+			default:
+				ps = append(ps, providers.NewTeamtailor(ts, compliance.Allowed))
+			}
+		case "feed":
+			w, err := loadWL()
+			if err != nil {
+				return nil, nil, err
+			}
+			if len(w.Feeds) == 0 {
+				fmt.Fprintln(errw, "fetch: feed listed but the watchlist has no feeds; it will not be contacted")
+				continue
+			}
+			ps = append(ps, providers.NewFeed(w.Feeds, compliance.Allowed))
+		case "jsonld":
+			w, err := loadWL()
+			if err != nil {
+				return nil, nil, err
+			}
+			if len(w.Pages) == 0 {
+				fmt.Fprintln(errw, "fetch: jsonld listed but the watchlist has no pages; it will not be contacted")
+				continue
+			}
+			ps = append(ps, providers.NewPages(w.Pages, compliance.Allowed))
 		case "hackernews":
 			ps = append(ps, providers.NewHackerNews())
+		case "arbeitnow":
+			ps = append(ps, providers.NewArbeitnow())
+		case "jobicy":
+			ps = append(ps, providers.NewJobicy())
 		case "bundesagentur":
 			v, ok := lookup(BAKeyVar)
 			switch {
@@ -103,10 +152,13 @@ func BuildProviders(cfg *config.Config, lookup config.Lookup, errw io.Writer) ([
 	return ps, keys, nil
 }
 
+// attachDecider wires the JSK-T244 plugin decider hooks; a variable so a test can prove the startup assertion bites.
+var attachDecider = eligibility.AttachDecider
+
 // BuildPipeline assembles the fetch, classify, score pipeline from configuration, or returns (nil, nil) when it is
 // not configured (JOBSEEKER_RULES_DIR or JOBSEEKER_PROVIDERS empty): nothing is then contacted. Himalayas is only
 // built when the operator flag JOBSEEKER_HIMALAYAS_OK is set; an unknown provider name is a configuration error.
-func BuildPipeline(cfg *config.Config, db *store.DB, kr *crypto.Keyring, lookup config.Lookup, errw io.Writer) (*pipeline.Pipeline, error) {
+func BuildPipeline(cfg *config.Config, db *store.DB, kr *crypto.Keyring, guard ingest.ComplianceGuard, lookup config.Lookup, errw io.Writer) (*pipeline.Pipeline, error) {
 	if cfg.RulesDir == "" || len(cfg.Providers) == 0 {
 		return nil, nil
 	}
@@ -124,6 +176,17 @@ func BuildPipeline(cfg *config.Config, db *store.DB, kr *crypto.Keyring, lookup 
 	if err := keyword.Attach(rules, cfg.RulesDir); err != nil { // JSK-T236: feeds the skills component; absent synonyms = off
 		return nil, fmt.Errorf("keyword rules invalid")
 	}
+	// JSK-T244: the plugin eligibility path runs in SHADOW beside the legacy gate blocks, which stay the only decider.
+	// Divergences are logged (WARN) and counted; nothing here changes a score, a band or an approval.
+	logger := slog.New(slog.NewTextHandler(errw, nil))
+	shadow := eligibility.NewRecorder(eligibility.NewLegacySet(rules), logger)
+	rules.Shadow = shadow.Hook()
+	// JSK-T244 step 2: the plugin decider hooks are wired always but consulted only when rules/eligibility.yaml says
+	// "decider: plugin" (default legacy). Plugin mode without wired hooks is a startup error, never a silent legacy run.
+	attachDecider(rules)
+	if err := rules.AssertDecider(); err != nil {
+		return nil, fmt.Errorf("eligibility decider: %w", err)
+	}
 	f, err := os.Open(cfg.EgressAllowlist)
 	if err != nil {
 		return nil, fmt.Errorf("egress allow-list unreadable")
@@ -138,10 +201,16 @@ func BuildPipeline(cfg *config.Config, db *store.DB, kr *crypto.Keyring, lookup 
 		return nil, fmt.Errorf("egress client rejected")
 	}
 	gate := draft.NewGate(db, cfg.KillSwitch)
-	r := &ingest.Runner{DB: db, Keys: kr, Client: cl, Limiter: &limiter.Limiter{DB: db}, Providers: ps, APIKeys: keys, SnapshotDir: SnapshotDir(cfg), Positions: &position.Resolver{P: position.DefaultParams()}}
+	// JSK-T239: the compliance guard is a constructor argument, so a pipeline without one cannot exist.
+	r, err := ingest.NewRunner(guard, ingest.RunnerOptions{DB: db, Keys: kr, Client: cl, Limiter: &limiter.Limiter{DB: db}, Providers: ps, APIKeys: keys, SnapshotDir: SnapshotDir(cfg), Positions: &position.Resolver{P: position.DefaultParams(), Keys: kr}})
+	if err != nil {
+		return nil, fmt.Errorf("ingest runner: %w", err)
+	}
 	return &pipeline.Pipeline{DB: db, Keys: kr, Runner: r, Rules: rules, Killed: gate.KillSwitch,
 		Overlay: func() (*match.Overlay, error) { return match.LoadOverlay(cfg.CareerPrivate) },
-		Log:     slog.New(slog.NewTextHandler(errw, nil))}, nil
+		Log:     logger, ShadowSummary: func() []any {
+			return append(shadow.Attrs(), "decider_mode", rules.DeciderMode, "decider_divergent", match.DeciderDivergences())
+		}}, nil
 }
 
 // FetchJobs returns the scheduler jobs of a pipeline (none for nil).

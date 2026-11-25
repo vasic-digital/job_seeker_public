@@ -1,0 +1,1 @@
+PROVE-FAILURE OK: control rc=0; 4 static defects (mutation pair removed, test file removed, unknown reason code, duplicate id) rejected rc=1, unreadable tree rc=2; kill check: control KILLED rc=0, surviving mutant rc=1, invalid mutant rc=1, mutation gate absent rc=2

@@ -47,9 +47,9 @@ Wave 4 (P2 / decisions)
 - [ ] JSK-T166 [P] [UMBRELLA] [US3] Replace squash-substring `_has_keyword` with token-aware matching; golden-bad: Django must not match Go (G-04)
 - [ ] JSK-T167 [US3] Language detector for all 15 template languages; confirmation on every fallback_en with non-English body; unify minLangConf with LangMinConfidence; Serbian Latin vs Cyrillic decision (G-05, G-13, F-01)
 - [ ] JSK-T168 [P] [UMBRELLA] [US3] Word-boundary variance gate (hi, ko in MuPDF) and renderer remedy (G-06, F-25)
-- [ ] JSK-T169 [P] [UMBRELLA] [US3] RTL logical-order gate across extractors for ar and fa; renderer remedy (G-07, G-21, F-25)
+- [x] JSK-T169 [DONE 2026-11-24, umbrella PR #97: target MuPDF + pdftotext -layout; raw/pypdf not supported readers] [P] [UMBRELLA] [US3] RTL logical-order gate across extractors for ar and fa; renderer remedy (G-07, G-21, F-25)
 - [ ] JSK-T170 [UMBRELLA] [US3] Tagged PDF + XMP (+ PDF/UA attempt) for both engines, gated by /MarkInfo, /StructTreeRoot, /Metadata (G-08, G-22, F-26)
-- [ ] JSK-T171 [US3] DOCX and plain-text export from the same resolved model, gated by round-trip text equality (G-09)
+- [x] JSK-T171 [US3] [WON'T-DO 2026-11-24, ADR 0011: PDF-only; TXT stays under T243] DOCX and plain-text export from the same resolved model, gated by round-trip text equality (G-09)
 - [ ] JSK-T172 [US3] Manifest freshness: build epoch + overlay hash recorded; Resolve refuses stale or foreign sets; gate-verdict stamp per file (G-10, G-24, F-03)
 - [ ] JSK-T173 [P] [UMBRELLA] [US3] CV page budget headroom (target <= 2 pages for 3-page content classes) - operator decision first (G-11)
 - [ ] JSK-T174 [P] [UMBRELLA] [US3] Heading-recognition test across 15 locales with an alias table (G-12, F-24)
@@ -122,6 +122,6 @@ Tasks marked `[UMBRELLA]` modify files under `vasic/_tools/career/`. They need a
 | Q-ATS-2 | Serbian: keep Cyrillic only, or also build Latin-script `sr` templates? | T167 |
 | Q-ATS-3 | Bilingual headings (`Education / Ausbildung`) vs purely localized headings | T174 |
 | Q-ATS-4 | CV length target: stay at 3 pages or compress to 2 | T173 |
-| Q-ATS-5 | DOCX export: worth an XL task, or PDF-only until a provider demands DOCX | T171 |
+| Q-ATS-5 | DOCX export: worth an XL task, or PDF-only until a provider demands DOCX | T171 | DECIDED 2026-11-24: PDF-only, T171 WON'T-DO (ADR 0011) |
 | Q-ATS-6 | Install tesseract language models and a PDF/UA validator on the host (package installs are operator actions) | T170, T179 |
-| Q-ATS-7 | Hebrew locale: add or drop from the directive's RTL list | T180 |
+| Q-ATS-7 | Hebrew locale: add or drop from the directive's RTL list | T180 | DECIDED 2026-11-24: dropped (ADR 0010) |

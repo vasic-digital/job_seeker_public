@@ -1,0 +1,12 @@
+KILLED       sigbackfill-dry-run-writes
+mutations: 1 killed of 1
+KILLED       sigbackfill-reseals-existing
+mutations: 1 killed of 1
+KILLED       sigbackfill-unreadable-fatal
+mutations: 1 killed of 1
+KILLED       sigbackfill-audits-noop
+mutations: 1 killed of 1
+KILLED       sigbackfill-cmd-both-flags
+mutations: 1 killed of 1
+KILLED       sigbackfill-cmd-apply-default
+mutations: 1 killed of 1

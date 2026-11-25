@@ -41,16 +41,21 @@ Exit codes: 0 ok / help / version; 1 configuration or startup failure.
 }
 
 func main() {
-	if helpRequested(os.Args[1:]) {
-		printUsage(os.Stdout)
-		return
-	}
-	if len(os.Args) > 1 && os.Args[1] == "version" {
-		b, _ := json.Marshal(buildinfo.Get())
-		fmt.Println(string(b))
-		return
-	}
 	ctx, stop := signal.NotifyContext(context.Background(), syscall.SIGINT, syscall.SIGTERM)
 	defer stop()
-	os.Exit(app.Run(ctx, app.Options{Lookup: os.LookupEnv, Out: os.Stdout, Err: os.Stderr}))
+	os.Exit(run(ctx, os.Args[1:], os.LookupEnv, os.Stdout, os.Stderr))
+}
+
+// run is main with its inputs injected: 0 ok / help / version, 1 configuration or startup failure.
+func run(ctx context.Context, args []string, lookup func(string) (string, bool), out, errw io.Writer) int {
+	if helpRequested(args) {
+		printUsage(out)
+		return 0
+	}
+	if len(args) > 0 && args[0] == "version" {
+		b, _ := json.Marshal(buildinfo.Get())
+		fmt.Fprintln(out, string(b))
+		return 0
+	}
+	return app.Run(ctx, app.Options{Lookup: lookup, Out: out, Err: errw})
 }

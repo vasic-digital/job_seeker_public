@@ -1,0 +1,31 @@
+{
+ "lang": "be",
+ "source": "internal/i18n/messages/en.json",
+ "pipeline": "operator decision 2026-11-24: Claude subagent translation instead of the HelixTranslate pipeline (providers exhausted/unfit for be)",
+ "providers": [
+  "claude:sonnet-5.5"
+ ],
+ "translator": "claude:sonnet-5.5",
+ "keys": 312,
+ "hints_applied": "scripts/i18n_hints.json (82 keys) used as the disambiguated source for those keys; keep-English terms: Passkey, Job Seeker, SHA-256, bootstrap-token",
+ "notes": "Belarusian official orthography (Cyrillic, with ў and і); apostrophe U+2019. Not self-reviewed: review and verdict are PENDING and must come from a different reviewer.",
+ "delta": [
+  {
+   "task": "JSK-T177",
+   "keys": [
+    "knockout.title",
+    "knockout.help",
+    "knockout.ack",
+    "knockout.q.work_auth_required",
+    "knockout.q.sponsorship_restriction",
+    "knockout.q.other",
+    "knockout.state.confirmed",
+    "knockout.state.unfavourable",
+    "knockout.state.missing",
+    "error.knockout_unconfirmed"
+   ],
+   "translator": "claude:sonnet-5.5",
+   "note": "HelixTranslate pipeline not runnable on this host (translate-pipeline.sh exits rc 2: HT_FLEET undeclared, no engine image, fleet hosts unresolvable); the 10 new keys were translated by the Claude translator under the 2026-11-24 operator decision recorded in this file's earlier note; the independent delta review is verdict.delta.json."
+  }
+ ]
+}

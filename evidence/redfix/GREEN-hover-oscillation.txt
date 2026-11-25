@@ -1,0 +1,2 @@
+        PASS draft card holds still :: 1 positions 20.0,228.4
+        CLICK OK

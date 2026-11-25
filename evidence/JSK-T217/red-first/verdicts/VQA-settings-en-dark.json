@@ -1,0 +1,22 @@
+{
+  "image": "<repo>/evidence/JSK-T217/frames/settings-en-dark.png",
+  "prompt": "This is a screenshot of a web page. List the page title or main heading, the navigation links, and any buttons, form fields or table headings you can read. Quote the visible text exactly.",
+  "endpoint": "http://127.0.0.1:11500/v1/chat/completions",
+  "model_requested": "qwen2.5vl:3b",
+  "model_served": "qwen2.5vl:3b",
+  "expected_facts": [
+    "Settings",
+    "Apply policy"
+  ],
+  "response": "**Page Title or Main Heading:** Settings and provider health\n\n**Navigation Links:**\n- Inbox\n- Review queue\n- Applications\n- Add posting\n- Settings\n- Switch\n- Sign out\n\n**Buttons:**\n- TURN THE KILL SWITCH ON\n- TURN LIVE MODE ON\n- SAVE CAPS\n- VERIFY WITH PASSKEY\n\n**Form Fields or Table Headings:**\n- Kill switch: Off\n- Live mode: Off\n- Daily cap: 5\n- Per-host daily cap: 2",
+  "matched_facts": 1,
+  "expected_count": 2,
+  "hallucinated": false,
+  "pass": false,
+  "expect_fail": false,
+  "case_result": false,
+  "latency_ms": 4006,
+  "http_status": 200,
+  "prompt_tokens": 1533,
+  "completion_tokens": 107
+}

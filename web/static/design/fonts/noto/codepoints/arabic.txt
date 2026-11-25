@@ -1,0 +1,16 @@
+# code points of the arabic face, hex ranges; the DATA that defines the face (scripts/build_noto_subsets.py)
+0600-061C
+061E-06FF
+0750-077F
+08A0-08B4
+08B6-08BE
+08D3-08FF
+200C-2011
+25CC
+FB50-FBC1
+FBD3-FD3F
+FD50-FD8F
+FD92-FDC7
+FDF0-FDFD
+FE70-FE74
+FE76-FEFC

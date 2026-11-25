@@ -1,0 +1,8 @@
+=== RUN   TestProviderStatsOrderTieBreakAndVersion
+--- PASS: TestProviderStatsOrderTieBreakAndVersion (0.11s)
+=== RUN   TestProviderStatsCountsAndOrigin
+--- PASS: TestProviderStatsCountsAndOrigin (0.13s)
+=== RUN   TestProviderStatsReliabilityWindow
+--- PASS: TestProviderStatsReliabilityWindow (0.09s)
+PASS
+ok  	github.com/vasic-digital/job_seeker/internal/position	1.233s

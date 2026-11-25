@@ -4,13 +4,17 @@ import (
 	"bytes"
 	"context"
 	"database/sql"
+	"fmt"
+	"github.com/vasic-digital/job_seeker/internal/extwire"
 	"os"
 	"path/filepath"
 	"strings"
 	"testing"
+	"time"
 
 	"github.com/vasic-digital/job_seeker/internal/config"
 	"github.com/vasic-digital/job_seeker/internal/crypto"
+	"github.com/vasic-digital/job_seeker/internal/match"
 	"github.com/vasic-digital/job_seeker/internal/scheduler"
 )
 
@@ -69,7 +73,7 @@ func TestBuildPipelineWiring(t *testing.T) {
 				t.Fatal(err)
 			}
 			var errw bytes.Buffer
-			p, err := BuildPipeline(cfg, db, kr, func(k string) (string, bool) { return "", false }, &errw)
+			p, err := BuildPipeline(cfg, db, kr, &extwire.Guard{}, func(k string) (string, bool) { return "", false }, &errw)
 			if (err != nil) != tc.wantErr {
 				t.Fatalf("err %v", err)
 			}
@@ -103,7 +107,7 @@ func TestFetchJobRespectsPersistedKillSwitchInRealScheduler(t *testing.T) {
 	}); err != nil {
 		t.Fatal(err)
 	}
-	p, err := BuildPipeline(cfg, db, kr, func(string) (string, bool) { return "", false }, &bytes.Buffer{})
+	p, err := BuildPipeline(cfg, db, kr, &extwire.Guard{}, func(string) (string, bool) { return "", false }, &bytes.Buffer{})
 	if err != nil || p == nil {
 		t.Fatal(err)
 	}
@@ -129,7 +133,7 @@ func wireNames(t *testing.T, cfg *config.Config, lookup config.Lookup) (string, 
 	t.Cleanup(func() { db.Close() })
 	_, kr, _ := crypto.NewEnvelope([]byte("app fetch test passphrase 012345678"), crypto.Params{Time: 2, MemoryKiB: 19456, Threads: 1})
 	var errw bytes.Buffer
-	p, err := BuildPipeline(cfg, db, kr, lookup, &errw)
+	p, err := BuildPipeline(cfg, db, kr, &extwire.Guard{}, lookup, &errw)
 	return names(FetchJobs(p)), errw.String(), err
 }
 
@@ -156,6 +160,15 @@ func TestBuildPipelineWiresAtsProvidersFromWatchlist(t *testing.T) {
 	got, _, err = wireNames(t, cfg, none)
 	if err != nil || got != "fetch.greenhouse,fetch.ashby" {
 		t.Fatalf("only non-empty sections are wired: %q %v", got, err)
+	}
+	cfg, _ = fetchFixture(t, []string{"workable", "smartrecruiters", "recruitee", "personio", "teamtailor"}, false)
+	cfg.Watchlist = "../../rules/company_watchlist.yaml"
+	if got, warn, err := wireNames(t, cfg, none); err != nil || got != "" || strings.Count(warn, "will not be contacted") != 5 {
+		t.Fatalf("T212: shipped empty watchlist must wire nothing: %q %q %v", got, warn, err)
+	}
+	cfg.Watchlist = writeWatchlist(t, "version: 1\nworkable: [{slug: aa, terms_reviewed: 2026-11-24}]\npersonio: [{slug: bb}]\n")
+	if got, _, err := wireNames(t, cfg, none); err != nil || got != "fetch.workable,fetch.personio" {
+		t.Fatalf("T212: only non-empty sections are wired: %q %v", got, err)
 	}
 	cfg.Watchlist = writeWatchlist(t, "version: 1\ngreenhouse: [{slug: \"../x\"}]\n")
 	if _, _, err = wireNames(t, cfg, none); err == nil {
@@ -190,5 +203,92 @@ func TestBuildPipelineBundesagenturGate(t *testing.T) {
 	got, warn, err = wireNames(t, cfg, key)
 	if err != nil || got != "fetch.remotive,fetch.bundesagentur" || strings.Contains(warn, "k\n") {
 		t.Fatalf("flag and key: %q %q %v", got, warn, err)
+	}
+}
+
+// A pipeline cannot be built without a compliance guard (JSK-T239): the constructor refuses, so no caller can fetch ungated.
+func TestBuildPipelineRefusesANilGuard(t *testing.T) {
+	cfg, _ := fetchFixture(t, []string{"remoteok"}, false)
+	ctx := context.Background()
+	db, err := OpenStore(ctx, cfg)
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer db.Close()
+	_, k, _ := crypto.NewEnvelope([]byte("app kernel test passphrase 0123456"), crypto.Params{Time: 2, MemoryKiB: 19456, Threads: 1})
+	if p, err := BuildPipeline(cfg, db, k, nil, func(string) (string, bool) { return "", false }, &bytes.Buffer{}); err == nil || p != nil {
+		t.Fatalf("a nil guard must fail the build: %v %v", p, err)
+	}
+}
+
+// JSK-T213: the feed provider is wired only from watchlist `feeds:` entries; the shipped empty watchlist wires nothing.
+func TestBuildPipelineWiresFeedFromWatchlist(t *testing.T) {
+	none := func(string) (string, bool) { return "", false }
+	cfg, _ := fetchFixture(t, []string{"feed", "hackernews"}, false)
+	cfg.Watchlist = "../../rules/company_watchlist.yaml"
+	got, warn, err := wireNames(t, cfg, none)
+	if err != nil || got != "fetch.hackernews" || !strings.Contains(warn, "no feeds") {
+		t.Fatalf("empty feeds must wire nothing: %q %q %v", got, warn, err)
+	}
+	cfg.Watchlist = writeWatchlist(t, "version: 1\nfeeds:\n  - url: https://careers.example.org/f.xml\n    name: Example\n    terms_reviewed: 2026-11-24\n")
+	if got, _, err = wireNames(t, cfg, none); err != nil || got != "fetch.feed,fetch.hackernews" {
+		t.Fatalf("%q %v", got, err)
+	}
+	cfg.Providers = []string{"jsonld"}
+	if got, warn, err = wireNames(t, cfg, none); err != nil || got != "" || !strings.Contains(warn, "no pages") {
+		t.Fatalf("jsonld without pages must wire nothing: %q %q %v", got, warn, err)
+	}
+	cfg.Watchlist = writeWatchlist(t, "version: 1\npages:\n  - url: https://careers.example.org/jobs\n    terms_reviewed: 2026-11-24\n")
+	if got, _, err = wireNames(t, cfg, none); err != nil || got != "fetch.jsonld" {
+		t.Fatalf("%q %v", got, err)
+	}
+}
+
+// JSK-T244 step 2: the production pipeline runs the plugin eligibility path in SHADOW beside the legacy decider.
+func TestBuildPipelineInstallsEligibilityShadow(t *testing.T) {
+	ctx := context.Background()
+	cfg, _ := fetchFixture(t, []string{"remotive"}, false)
+	db, err := OpenStore(ctx, cfg)
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer db.Close()
+	_, kr, _ := crypto.NewEnvelope([]byte("app fetch test passphrase 012345678"), crypto.Params{Time: 2, MemoryKiB: 19456, Threads: 1})
+	p, err := BuildPipeline(cfg, db, kr, &extwire.Guard{}, func(string) (string, bool) { return "", false }, &bytes.Buffer{})
+	if err != nil || p == nil {
+		t.Fatal(err)
+	}
+	if p.Rules.Shadow == nil || p.ShadowSummary == nil {
+		t.Fatal("no shadow installed on the production pipeline")
+	}
+	mp := match.Posting{ID: 5, Title: "Android Intern", RemoteMode: "remote", Company: "Other"}
+	s := p.Rules.ScorePosting(mp, p.Rules.Classify(mp), nil, time.Date(2026, 11, 25, 0, 0, 0, 0, time.UTC))
+	if s.Total != 0 || len(s.Gates) == 0 {
+		t.Fatalf("legacy decision changed: %+v", s)
+	}
+	got := fmt.Sprint(p.ShadowSummary()...)
+	if !strings.Contains(got, "shadow_postings1") || !strings.Contains(got, "shadow_permissive0") {
+		t.Fatalf("summary %q", got)
+	}
+}
+
+// JSK-T244 decision 2: the console's rules carry the approve-time HardGates shadow, it logs a WARN on a divergence,
+// and it leaves the HardGates answer untouched.
+func TestConsoleRulesInstallHardGatesShadow(t *testing.T) {
+	var buf bytes.Buffer
+	r := loadConsoleRules("../../rules", &buf)
+	if r == nil || r.HardShadow == nil {
+		t.Fatal("no HardGates shadow installed")
+	}
+	ov := &match.Overlay{Present: true, BlockedCompanies: []string{"Blocked Co"}}
+	got := r.HardGates(match.Posting{ID: 1, Title: "Senior Android Engineer", Company: "Blocked Co", RemoteMode: "remote"}, ov)
+	if len(got) != 1 || got[0] != "blocked_company" {
+		t.Fatalf("legacy answer changed: %v", got)
+	}
+	if strings.Contains(buf.String(), "divergence") {
+		t.Fatalf("agreement must not warn: %s", buf.String())
+	}
+	if loadConsoleRules("", &buf) != nil {
+		t.Fatal("empty dir must give nil rules")
 	}
 }

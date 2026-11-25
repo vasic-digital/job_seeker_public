@@ -1,0 +1,14 @@
+# RED (before implementation), 2026-11-24T16:49:04Z, worktree job_seeker-wt-t176 at github/main 1c4773b
+$ go test ./internal/ext/ats/profile ./internal/draft -run "CheckUpload|MaxChars|Upload|Handoff|CharacterLimit|ProfileChosen|ReDraft"
+# github.com/vasic-digital/job_seeker/internal/ext/ats/profile [github.com/vasic-digital/job_seeker/internal/ext/ats/profile.test]
+internal/ext/ats/profile/profile_test.go:271:13: p.CheckUpload undefined (type *Profile has no field or method CheckUpload)
+internal/ext/ats/profile/profile_test.go:274:18: p.CheckUpload undefined (type *Profile has no field or method CheckUpload)
+internal/ext/ats/profile/profile_test.go:277:18: p.CheckUpload undefined (type *Profile has no field or method CheckUpload)
+internal/ext/ats/profile/profile_test.go:280:18: p.CheckUpload undefined (type *Profile has no field or method CheckUpload)
+internal/ext/ats/profile/profile_test.go:283:18: p.CheckUpload undefined (type *Profile has no field or method CheckUpload)
+FAIL	github.com/vasic-digital/job_seeker/internal/ext/ats/profile [build failed]
+# github.com/vasic-digital/job_seeker/internal/draft [github.com/vasic-digital/job_seeker/internal/draft.test]
+internal/draft/uploadprofile_test.go:57:9: e.svc.Upload undefined (type *Service has no field or method Upload)
+internal/draft/uploadprofile_test.go:57:18: undefined: NewUploadCheck
+internal/draft/uploadprofile_test.go:76:10: e.svc.Upload undefined (type *Service has no field or method Upload)
+internal/draft/uploadprofile_test.go:76:19: undefined: NewUploadCheck

@@ -1,0 +1,27 @@
+# SC-030 footprint gate, run on this tree 2026-11-25
+$ bash gates/verify_extension_footprint.sh 
+OK   2095ac8 rc=0 as pinned (JSK-T226 jsonld reader added to an existing kind: package + Register line + policy line + mutation rows)
+OK   6d3b29a rc=1 as pinned (JSK-T242 rules needed new ext.Profile accessors (internal/ext/ports.go) and internal/match/score.go: an INPUT change, not a plugin addition)
+OK   f198d73 rc=1 as pinned (JSK-T240 added a new extension KIND (new registry in builtin.go): a KERNEL change)
+rc=0
+$ bash gates/verify_extension_footprint.sh f198d73
+VIOLATION internal/ext/builtin/builtin.go: line is not an import or Register line: +	Deliverability *ext.Registry[ext.DeliverabilityCheck]
+VIOLATION internal/ext/builtin/builtin.go: line is not an import or Register line: +		Deliverability: ext.NewRegistry[ext.DeliverabilityCheck]("deliverability"),
+VIOLATION internal/ext/builtin/builtin.go: line is not an import or Register line: +	s.Deliverability.Freeze()
+VIOLATION internal/ext/builtin/builtin.go: line is not an import or Register line: -	return []ext.Discoverable{s.Eligibility, s.Score, s.Readers, s.Channels, s.Simulators, s.ATS}
+VIOLATION internal/ext/builtin/builtin.go: line is not an import or Register line: +	return []ext.Discoverable{s.Eligibility, s.Score, s.Readers, s.Channels, s.Simulators, s.ATS, s.De
+12 file(s) in f198d73^..f198d73, 5 violation(s)
+rc=1
+$ bash gates/verify_extension_footprint.sh 6d3b29a
+VIOLATION internal/ext/ports.go: production file outside the plugin package, data rows and builtin registration
+VIOLATION internal/match/score.go: production file outside the plugin package, data rows and builtin registration
+11 file(s) in 6d3b29a^..6d3b29a, 2 violation(s)
+rc=1
+$ bash gates/verify_extension_footprint.sh --prove-failure
+ok   control: package + policy line + Register line rc=0
+ok   M1 production file outside the allowed set rc=1
+ok   M2 builtin.go gains non-registration code rc=1
+ok   M4 kernel directory internal/ext/verdictstore rc=1
+ok   M3 unknown commit is rc 2, not a pass rc=2
+PROVE-FAILURE OK: control rc=0; 3 defects rejected rc=1; unknown commit rc=2
+rc=0

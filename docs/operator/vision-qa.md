@@ -44,7 +44,7 @@ not local). The script refuses an endpoint that is not on 127.0.0.1/localhost.
 
 ## Evidence (2026-11-24, `evidence/JSK-T084/`, copy of the verdicts in `evidence/JSK-T111/vision-*`)
 
-`summary.tsv` has six rows, all as expected (exit 0): four must-pass frames (raw `pass: true`, `hallucinated: false`) and two
+`summary.tsv` has eight rows, all as expected (exit 0; the two live-auth rows came with the passkey leg): six must-pass frames (raw `pass: true`, `hallucinated: false`) and two
 mutants (raw `pass: false`, `matched_facts: 0`, so `case_result: true`). `frames/` holds the screenshots, `verdicts/` the verdict
 JSON plus the model's full reply, `SHA256SUMS` covers everything, `MODEL.txt` the model and resource figures. The whole run took
 4m23s including a cold model load.
@@ -61,7 +61,21 @@ JSON plus the model's full reply, `SHA256SUMS` covers everything, `MODEL.txt` th
 - Frames and verdicts for `console-*` were captured by the e2e journey, not by this script; `live-login` and `mutant-*` were
   captured here. TLS trust for the screenshot step is `--ignore-certificate-errors` (Chromium ignores `SSL_CERT_FILE`); the
   private-CA chain is proved separately by `helixqa http` (docs/operator/helixqa.md).
-- `helixqa autonomous` (curiosity phase, video) was NOT run: this change wires and proves the per-frame vision analyzer, which is
-  the leg `HELIX_VISION_ENDPOINT` unblocks. The autonomous driver and video evidence remain separate work.
+- `helixqa autonomous` WAS run (2026-11-24, bounded, `evidence/JSK-T111/autonomous/`) and is BLOCKED, so it is not claimed. With
+  `HELIX_VISION_ENDPOINT` set and a minimal environment (`env -i`: helixqa otherwise auto-registers every cloud provider whose key
+  is in the environment and every bridged CLI, which would send frames off the host), the plan phase ran on the local model, but
+  (a) the web bridge (`scripts/playwright-bridge.js`, resolved relative to the cwd, so run from the qa checkout) launches Chromium
+  with no `ignoreHTTPSErrors` and no CA trust, so every screenshot of the TLS-only private-CA daemon was blank and skipped (32
+  skips, no frame analysed); (b) its structured phase reads `challenges/helixqa-banks`, absent here (exit 2); (c) it printed
+  "5/5 tests, 100.0% coverage" over zero analysed frames, a figure that is not evidence; (d) helixqa started an ffmpeg `x11grab` of the display and it failed to open it (no X authorization under `env -i`), so no video exists; recording the operator's real display was intentionally not enabled. Unblocking needs a trust or ignore-cert option upstream in HelixQA.
+- Authenticated live frames: `scripts/vision-login-capture.cjs` performs the real passkey register and sign-in with a CDP virtual
+  authenticator against the same daemon and screenshots the inbox and settings (the DB is empty, so the inbox shows its empty
+  state). The authenticator is software, not a hardware key. `JSK_CHROMIUM_EXECUTABLE` selects a Chromium build when the installed
+  Playwright expects a browser revision that is not on the host.
+- The mutant server is now awaited with a connection poll instead of a fixed sleep.
 - Larger model: `qwen2.5vl:7b` (6 GB) was started and stopped at 15% because the link ran at about 1.5 MB/s and 3B already passed
   every check. `VISION_MODEL=qwen2.5vl:7b scripts/vision-ollama.sh pull` switches when more accuracy is needed (about 8 GB VRAM).
+
+## Per-language, per-scheme page frames (JSK-T217)
+
+`go test ./tests/e2e -run TestVisionProviderPagesLive -v` (needs `HELIX_VISION_ENDPOINT`, `JSK_VERIFY_VISION_BIN`, Playwright via `E2E_NODE_MODULES`; `E2E_EVIDENCE_DIR` keeps the frames) screenshots settings, manual intake, merge queue and the Position page from the real daemon for every language the catalogue ships, light and dark, and verifies each with the local vision model. Languages not yet shipped are listed in `summary.tsv` as NOT-SHIPPED; the test covers them automatically once their catalogue lands, and for ar and fa it requires `dir=rtl` in the live DOM. Without the endpoint or binary it SKIPs (topology), never passes.

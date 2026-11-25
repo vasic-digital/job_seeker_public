@@ -1,0 +1,19 @@
+--- FAIL: TestEachLegFailureIsNotYes (0.00s)
+    deliver_test.go:149: spf two /1: got yes [], want no [mail_spf_weak]
+    deliver_test.go:149: spf a/0: got yes [], want no [mail_spf_weak]
+    deliver_test.go:149: spf mx/0: got yes [], want no [mail_spf_weak]
+    deliver_test.go:149: spf dual a: got yes [], want no [mail_spf_weak]
+    deliver_test.go:149: spf unknown mech: got yes [], want no [mail_spf_invalid]
+    deliver_test.go:149: spf bad ip: got yes [], want no [mail_spf_invalid]
+    deliver_test.go:149: spf empty include: got yes [], want no [mail_spf_invalid]
+    deliver_test.go:149: spf bad cidr: got yes [], want no [mail_spf_invalid]
+    deliver_test.go:149: dmarc dup p: got yes [], want no [mail_dmarc_invalid]
+    deliver_test.go:149: dmarc dup pct: got yes [], want no [mail_dmarc_invalid]
+    deliver_test.go:149: dkim dup p: got yes [], want no [mail_dkim_missing]
+    deliver_test.go:149: dkim not base64: got yes [], want no [mail_dkim_missing]
+    deliver_test.go:149: dkim unknown k: got yes [], want no [mail_dkim_missing]
+--- FAIL: TestWellFormedSPFVariantsStillPass (0.00s)
+    deliver_test.go:211: "v=spf1 a:mail.example.com/24 mx/28 ~all exp=why.example.com": got no [mail_spf_weak]
+FAIL
+FAIL	github.com/vasic-digital/job_seeker/internal/ext/deliver	0.014s
+FAIL

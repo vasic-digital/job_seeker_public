@@ -1,0 +1,32 @@
+        PASS signed in
+        PASS /postings/{id} of a resolved listing redirects to its Position :: https://js.lan:33047/positions/1#listing-2
+        PASS merged title is shown :: Senior Go Engineer
+        PASS title provenance names BOTH providers with their differing values
+        PASS salary comes from the provider that reports it :: SALARY	70000-90000 EUR	
+        PASS both listings are listed
+        PASS https source gets an attribution link, http source gets none
+        PASS no missing i18n key
+        PASS axe position light :: 28 rules passed
+        PASS axe position dark :: 28 rules passed
+        PASS mobile: no horizontal page scroll
+        PASS keyboard Enter on a listing link opens /listings/1 with a link back :: https://js.lan:33047/listings/1
+        PASS a posting without a Position keeps its own page (no redirect)
+        PASS empty Position shows the empty state
+        PASS corrupt provider_favourites is reported as invalid with its stored value
+        PASS axe settings light :: 26 rules passed
+        PASS axe settings dark :: 26 rules passed
+        PASS saving a valid list repairs it (alert gone, order kept)
+        PASS disabling provB shows Off and offers Enable :: Off
+        PASS re-enabling provB shows On
+        PASS employer policy persists and is shown
+        PASS a cap without a window is refused (400) :: 400
+        PASS override none is stored and shown :: none · live check
+        PASS axe position-override light :: 28 rules passed
+        PASS axe position-override dark :: 28 rules passed
+        PASS inherit clears the override
+        PASS override all is accepted right after sign-in (a fresh step-up; the stale-step-up 403 is covered by the console tests) :: 303
+        PASS no page errors in the browser console
+        PASS unknown Position is 404 :: 404
+--- PASS: TestPositionPageLive (12.16s)
+PASS
+ok  	github.com/vasic-digital/job_seeker/tests/e2e	12.179s

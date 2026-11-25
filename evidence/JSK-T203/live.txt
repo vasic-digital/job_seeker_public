@@ -1,0 +1,5 @@
+    live_test.go:46: LIVE arbeitnow: postings=20 skipped=0 host=www.arbeitnow.com ip=104.26.8.32 tls="arbeitnow.com" status=200 req_id="a5f974ce1c5f55ad-BEG" latency_ms=591 sha=5891321f446a5cebb774ecc96cf0d0816a3953e6d7d02f8c804fa2535274bda4
+--- PASS: TestLiveArbeitnow (1.26s)
+    live_test.go:46: LIVE jobicy: postings=20 skipped=0 host=jobicy.com ip=172.67.183.237 tls="jobicy.com" status=200 req_id="a5f974d4185296e0-BEG" latency_ms=261 sha=4953cbd998c17016a5a8386947f4638ab3e14dc688ded872519ae26c3dc7aaee
+--- PASS: TestLiveJobicy (0.36s)
+ok  	github.com/vasic-digital/job_seeker/internal/providers	1.627s

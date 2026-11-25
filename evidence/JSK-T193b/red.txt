@@ -1,0 +1,7 @@
+# github.com/vasic-digital/job_seeker/internal/position [github.com/vasic-digital/job_seeker/internal/position.test]
+internal/position/sigbackfill_test.go:37:26: undefined: SigBackfillReport
+internal/position/sigbackfill_test.go:38:11: undefined: SigBackfillReport
+internal/position/sigbackfill_test.go:39:67: undefined: BackfillSignatures
+internal/position/sigbackfill_test.go:73:61: undefined: BackfillSignatures
+FAIL	github.com/vasic-digital/job_seeker/internal/position [build failed]
+FAIL

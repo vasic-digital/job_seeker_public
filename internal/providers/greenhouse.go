@@ -96,3 +96,8 @@ func greenhouseOne(slug, company string, raw json.RawMessage) (Posting, string) 
 	}
 	return p, ""
 }
+
+// RequestURLs implements Requester: the exact URL Fetch builds for each tenant.
+func (g *Greenhouse) RequestURLs() []string {
+	return tenantURLs(g.Tenants, func(s string) string { return g.Endpoint + "/v1/boards/" + s + "/jobs?content=true" })
+}

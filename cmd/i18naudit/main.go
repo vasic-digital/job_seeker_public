@@ -70,11 +70,13 @@ func run(dir, evid string, requireAll bool) int {
 	for _, k := range inv {
 		invariant[k] = true
 	}
+	var cog i18n.Cognates // per-language identical-spelling allowlist; every entry carries a mandatory reason
+	_ = readJSON(filepath.Join(dir, "_cognates.json"), &cog)
 	st := map[string]status{}
 	_ = readJSON(filepath.Join(dir, "_status.json"), &st)
 	c := i18n.FromMaps(maps)
 	bad := 0
-	for _, f := range c.Audit(invariant) {
+	for _, f := range c.AuditCognates(invariant, cog) {
 		fmt.Println("FAIL", f)
 		bad++
 	}

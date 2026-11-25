@@ -1,0 +1,11 @@
+shipped_subset	official_url	official_sha256	official_bytes	shipped_codepoints	codepoints_absent_from_official
+noto-sans-arabic-400.woff2	https://github.com/notofonts/noto-fonts/raw/main/unhinted/ttf/NotoSansArabic/NotoSansArabic-Regular.ttf	95952171cbc85c19cbb7b22684c595b521e780134d45ea508c34ba872681731d	170196	1136	0
+noto-sans-arabic-700.woff2	https://github.com/notofonts/noto-fonts/raw/main/unhinted/ttf/NotoSansArabic/NotoSansArabic-Bold.ttf	db2f902747ebc4007e324f5d1f113f2d74539e34369953738955c60ff5789ec8	169796	1136	0
+noto-sans-devanagari-400.woff2	https://github.com/notofonts/noto-fonts/raw/main/unhinted/ttf/NotoSansDevanagari/NotoSansDevanagari-Regular.ttf	62484c0da3a4e3cbf62ca98c25c92596f640486e154dfbec8b333a6150bbf985	157068	215	0
+noto-sans-devanagari-700.woff2	https://github.com/notofonts/noto-fonts/raw/main/unhinted/ttf/NotoSansDevanagari/NotoSansDevanagari-Bold.ttf	046ae364827052d146898fa1cdd95d4557af7b3d9a724598a550063f1548f136	156024	215	0
+noto-sans-jp-400-core.woff2	https://github.com/notofonts/noto-cjk/raw/main/Sans/OTF/Japanese/NotoSansCJKjp-Regular.otf	68a3fc98800b2a27b371f2fb79991daf3633bd89309d4ffaa6946fd587f375b5	16467736	1100	0
+noto-sans-jp-400-rest.woff2	https://github.com/notofonts/noto-cjk/raw/main/Sans/OTF/Japanese/NotoSansCJKjp-Regular.otf	68a3fc98800b2a27b371f2fb79991daf3633bd89309d4ffaa6946fd587f375b5	16467736	2854	0
+noto-sans-kr-400-core.woff2	https://github.com/notofonts/noto-cjk/raw/main/Sans/OTF/Korean/NotoSansCJKkr-Regular.otf	6bcb2a0703aa137e874fc2dffa85f6c21ba9a67fa329e81b8c801663af7e992a	16433112	771	0
+noto-sans-kr-400-rest.woff2	https://github.com/notofonts/noto-cjk/raw/main/Sans/OTF/Korean/NotoSansCJKkr-Regular.otf	6bcb2a0703aa137e874fc2dffa85f6c21ba9a67fa329e81b8c801663af7e992a	16433112	2580	0
+noto-sans-sc-400-core.woff2	https://github.com/notofonts/noto-cjk/raw/main/Sans/OTF/SimplifiedChinese/NotoSansCJKsc-Regular.otf	2c76254f6fc379fddfce0a7e84fb5385bb135d3e399294f6eeb6680d0365b74b	16437364	1335	0
+noto-sans-sc-400-rest.woff2	https://github.com/notofonts/noto-cjk/raw/main/Sans/OTF/SimplifiedChinese/NotoSansCJKsc-Regular.otf	2c76254f6fc379fddfce0a7e84fb5385bb135d3e399294f6eeb6680d0365b74b	16437364	3539	0

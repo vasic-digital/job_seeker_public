@@ -1,0 +1,67 @@
+{
+  "applications": [
+    {
+      "id": 1,
+      "posting_id": 1,
+      "state": "dry_run_recorded",
+      "approval_rows": 1,
+      "submission_rows": 1,
+      "submission_kinds": "would_send"
+    },
+    {
+      "id": 2,
+      "posting_id": 2,
+      "state": "rejected_by_human",
+      "approval_rows": 1,
+      "submission_rows": 0,
+      "submission_kinds": ""
+    },
+    {
+      "id": 3,
+      "posting_id": 6,
+      "state": "awaiting_human_approval",
+      "approval_rows": 0,
+      "submission_rows": 0,
+      "submission_kinds": ""
+    }
+  ],
+  "posting_states": {
+    "1": "shortlisted",
+    "2": "shortlisted",
+    "5": "mapped",
+    "6": "shortlisted",
+    "7": "discarded"
+  },
+  "posting5_mapping_status": "mapped",
+  "audit_transitions": [
+    "posting5 discovered-\u003eunmapped [unmapped_by_rules]",
+    "",
+    "",
+    "",
+    "posting1 scored-\u003eshortlisted [shortlisted_by_human]",
+    "app1 -\u003epending_draft [shortlisted_by_human]",
+    "app1 pending_draft-\u003edraft_prepared [draft_prepared]",
+    "app1 draft_prepared-\u003eawaiting_human_approval [approval_requested]",
+    "posting2 scored-\u003eshortlisted [shortlisted_by_human]",
+    "app2 -\u003epending_draft [shortlisted_by_human]",
+    "app2 pending_draft-\u003edraft_prepared [draft_prepared]",
+    "app2 draft_prepared-\u003eawaiting_human_approval [approval_requested]",
+    "posting6 scored-\u003eshortlisted [shortlisted_by_human]",
+    "app3 -\u003epending_draft [shortlisted_by_human]",
+    "",
+    "",
+    "",
+    "app3 pending_draft-\u003edraft_prepared [draft_prepared]",
+    "app3 draft_prepared-\u003eawaiting_human_approval [approval_requested]",
+    "app2 awaiting_human_approval-\u003erejected_by_human [rejected_by_human]",
+    "app1 awaiting_human_approval-\u003edry_run_recorded [dry_run_recorded]",
+    "app1 awaiting_human_approval-\u003eawaiting_human_approval [warned_posting_risk]",
+    "posting5 unmapped-\u003emapped [mapped_by_human]",
+    "posting7 scored-\u003ediscarded [dismissed_by_human]"
+  ],
+  "audit_chain_ok": true,
+  "audit_chain_error": "UNVERIFIED: chain walk OK (24 entries); anchor cross-check NOT POSSIBLE (no anchor); anchor file unreadable",
+  "live_mode_setting": "0",
+  "kill_switch_setting": "",
+  "handoff_rows": 0
+}

@@ -1,0 +1,4 @@
+# github.com/vasic-digital/job_seeker/internal/position [github.com/vasic-digital/job_seeker/internal/position.test]
+internal/position/policy_test.go:40:21: undefined: Policy
+internal/position/policy_test.go:41:10: undefined: Policy
+internal/position/policy_test.go:71:10: undefined: PolicyRefusal

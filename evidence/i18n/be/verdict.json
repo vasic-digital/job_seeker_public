@@ -1,0 +1,22 @@
+{
+ "verdict": "PASS",
+ "translator": "claude:sonnet-5.5",
+ "reviewer": "claude:fresh-reviewer",
+ "scores": {
+  "accuracy": 5,
+  "fluency": 4,
+  "completeness": 5,
+  "naturalness": 4,
+  "register_appropriate": 5,
+  "terminology": 4,
+  "format": 5
+ },
+ "issues": [
+  "kbd.hint: Euphony (чаргаванне) error: 'у ўваходныя' - a consonant-final 'у' may not precede a word starting with ў",
+  "inbox.caption/intake.title/nav.intake/job.title/job.text: Terminology: 'posting' rendered as both 'вакансія' (intake.*, nav.intake, queue.*) and 'аб’ява пра вакансію' (inbox.*, job.*, error.*); 'listing' is also 'аб’ява'",
+  "score.breakdown: 'Разбіўка' is a Russianism-flavoured calque (разбивка)"
+ ],
+ "script_ok": true,
+ "target_script_ok": true,
+ "review_rc": 0
+}

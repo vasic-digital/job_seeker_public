@@ -1,0 +1,21 @@
+{
+  "image": "<repo>/evidence/JSK-T217/frames/position-en-dark.png",
+  "prompt": "This is a screenshot of a web page. List the page title or main heading, the navigation links, and any buttons, form fields or table headings you can read. Quote the visible text exactly.",
+  "endpoint": "http://127.0.0.1:11500/v1/chat/completions",
+  "model_requested": "qwen2.5vl:3b",
+  "model_served": "qwen2.5vl:3b",
+  "expected_facts": [
+    "Position"
+  ],
+  "response": "**Page Title or Main Heading:** Position\n\n**Navigation Links:**\n- Inbox\n- Review queue\n- Applications\n- Add posting\n- Settings\n- Switch\n- Sign out\n\n**Form Fields or Table Headings:**\n- Company\n- Position state\n- Seniority\n- Merged view\n\n**Visible Text:**\n- **Position:** Senior Go Engineer\n- **Company:** Acme\n- **Position state:** open\n- **Seniority:** senior\n- **Merged view:** Each field shows the value used for this Position and which providers report which value.\n- **Title:** Senior Go Engineer\n- **Company:** Acme\n- **Location:** Berlin",
+  "matched_facts": 1,
+  "expected_count": 1,
+  "hallucinated": false,
+  "pass": true,
+  "expect_fail": false,
+  "case_result": true,
+  "latency_ms": 2381,
+  "http_status": 200,
+  "prompt_tokens": 1533,
+  "completion_tokens": 140
+}

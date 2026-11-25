@@ -1,0 +1,16 @@
+KILLED       t207-load-unknown-mode-accepted
+KILLED       t207-load-bad-favourites-ignored
+KILLED       t207-load-stored-mode-ignored
+KILLED       t207-load-strict-ignored
+KILLED       t207-fav-invalid-shown-as-empty
+KILLED       t207-parsefav-lenient
+SURVIVED     t207-provider-toggle-unaudited  (first row was malformed: it left the audit call running; replaced below)
+KILLED       t207-employer-cap-without-window
+KILLED       t207-employer-limit-unbounded
+KILLED       t207-employer-empty-keeps-row
+KILLED       t207-override-all-no-stepup
+KILLED       t207-override-single-foreign-listing
+KILLED       t207-override-reason-optional
+KILLED       t207-override-inherit-keeps-reason
+KILLED       t207-override-merged-position-editable
+KILLED       t207-provider-toggle-unaudited (corrected row: records the wrong reason code)

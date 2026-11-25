@@ -1,0 +1,17 @@
+{
+ "verdict": "PASS",
+ "translator": "claude:sonnet-5.5",
+ "reviewer": "groq:qwen/qwen3.8-27b",
+ "scores": {
+  "accuracy": 5,
+  "fluency": 5,
+  "completeness": 5,
+  "naturalness": 5,
+  "register_appropriate": 5
+ },
+ "issues": [],
+ "scope": "keys:error.knockout_unconfirmed,knockout.ack,knockout.help,knockout.q.other,knockout.q.sponsorship_restriction,knockout.q.work_auth_required,knockout.state.confirmed,knockout.state.missing,knockout.state.unfavourable,knockout.title",
+ "script_ok": true,
+ "target_script_ok": true,
+ "review_rc": 0
+}

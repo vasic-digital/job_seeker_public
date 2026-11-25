@@ -1,0 +1,9 @@
+# code points of the devanagari face, hex ranges; the DATA that defines the face (scripts/build_noto_subsets.py)
+0900-097F
+1CD0-1CF6
+1CF8-1CF9
+200C-200D
+20B9
+25CC
+A830-A839
+A8E0-A8FF

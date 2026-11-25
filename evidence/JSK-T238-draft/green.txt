@@ -1,0 +1,7 @@
+--- PASS: TestPrepareStoresPDFVerdict (0.20s)
+--- PASS: TestBlockFindingRefusesApproval (0.42s)
+--- PASS: TestCleanAndUnknownPDFVerdictDoNotBlock (0.28s)
+--- PASS: TestMissingPDFVerdictRefusesApproval (0.15s)
+--- PASS: TestNoPDFCheckConfiguredStoresNothing (0.16s)
+--- PASS: TestPopplerPDFCheckRealTools (0.31s)
+ok  	github.com/vasic-digital/job_seeker/internal/draft	1.598s

@@ -1,0 +1,4 @@
+# commit	expected rc	why (real commits of this repository, measured by this gate)
+2095ac8	0	JSK-T226 jsonld reader added to an existing kind: package + Register line + policy line + mutation rows
+6d3b29a	1	JSK-T242 rules needed new ext.Profile accessors (internal/ext/ports.go) and internal/match/score.go: an INPUT change, not a plugin addition
+f198d73	1	JSK-T240 added a new extension KIND (new registry in builtin.go): a KERNEL change

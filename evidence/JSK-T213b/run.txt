@@ -1,0 +1,34 @@
+=== RUN   TestParseFeedRSSAndAtom
+--- PASS: TestParseFeedRSSAndAtom (0.00s)
+=== RUN   TestParseFeedHostile
+--- PASS: TestParseFeedHostile (0.01s)
+=== RUN   TestFeedFetchHonoursRobotsAndTerms
+=== RUN   TestFeedFetchHonoursRobotsAndTerms/allowed
+=== RUN   TestFeedFetchHonoursRobotsAndTerms/disallowed_path_is_never_fetched
+=== RUN   TestFeedFetchHonoursRobotsAndTerms/robots_404_means_no_restrictions
+=== RUN   TestFeedFetchHonoursRobotsAndTerms/robots_5xx_fails_closed
+=== RUN   TestFeedFetchHonoursRobotsAndTerms/no_evaluator_fails_closed
+=== RUN   TestFeedFetchHonoursRobotsAndTerms/terms_not_reviewed_contacts_nothing
+=== RUN   TestFeedFetchHonoursRobotsAndTerms/cursor_walks_the_list
+=== RUN   TestFeedFetchHonoursRobotsAndTerms/empty_list_contacts_nothing
+--- PASS: TestFeedFetchHonoursRobotsAndTerms (0.01s)
+    --- PASS: TestFeedFetchHonoursRobotsAndTerms/allowed (0.00s)
+    --- PASS: TestFeedFetchHonoursRobotsAndTerms/disallowed_path_is_never_fetched (0.00s)
+    --- PASS: TestFeedFetchHonoursRobotsAndTerms/robots_404_means_no_restrictions (0.00s)
+    --- PASS: TestFeedFetchHonoursRobotsAndTerms/robots_5xx_fails_closed (0.00s)
+    --- PASS: TestFeedFetchHonoursRobotsAndTerms/no_evaluator_fails_closed (0.00s)
+    --- PASS: TestFeedFetchHonoursRobotsAndTerms/terms_not_reviewed_contacts_nothing (0.00s)
+    --- PASS: TestFeedFetchHonoursRobotsAndTerms/cursor_walks_the_list (0.00s)
+    --- PASS: TestFeedFetchHonoursRobotsAndTerms/empty_list_contacts_nothing (0.00s)
+=== RUN   TestPagesReadJSONLDBehindTheSameGates
+--- PASS: TestPagesReadJSONLDBehindTheSameGates (0.00s)
+=== RUN   TestHNCursorProtocolDiscoveryThenPages
+--- PASS: TestHNCursorProtocolDiscoveryThenPages (0.01s)
+=== RUN   TestWatchlistFeedsValidate
+--- PASS: TestWatchlistFeedsValidate (0.00s)
+PASS
+ok  	github.com/vasic-digital/job_seeker/internal/providers	0.042s
+=== RUN   TestBuildPipelineWiresFeedFromWatchlist
+--- PASS: TestBuildPipelineWiresFeedFromWatchlist (0.39s)
+PASS
+ok  	github.com/vasic-digital/job_seeker/internal/app	0.412s

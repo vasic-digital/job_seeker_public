@@ -14,6 +14,7 @@ import (
 	"time"
 
 	"github.com/vasic-digital/job_seeker/internal/audit"
+	"github.com/vasic-digital/job_seeker/internal/crypto"
 )
 
 //go:embed resolver_weights.tsv
@@ -84,7 +85,7 @@ type Listing struct {
 	employerKind                string
 }
 
-// Signature is a body-derived signature used for f_body_mh (see minhash.go once present).
+// Signature is a body-derived signature used for f_body_mh (see minhash.go).
 type Signature struct{ MinHash []uint32 }
 
 // Outcome is what Resolve decided.
@@ -101,6 +102,8 @@ type Resolver struct {
 	P     Params
 	Now   func() time.Time
 	Actor string // audit actor for automatic decisions (default "system")
+	// Keys opens the sealed body signatures (JSK-T193). Nil means f_body_mh is absent for every pair, which is neutral (never an auto-merge on its own).
+	Keys *crypto.Keyring
 }
 
 func (r *Resolver) now() string {
@@ -264,6 +267,7 @@ func (r *Resolver) candidates(ctx context.Context, tx *sql.Tx, l Listing, where 
 		if err != nil {
 			return nil, err
 		}
+		c.Sig = LoadSignature(ctx, tx, r.Keys, id)
 		out = append(out, cand{c, c.PositionID})
 	}
 	return out, rs.Err()
@@ -436,6 +440,7 @@ func (r *Resolver) Resolve(ctx context.Context, tx *sql.Tx, id int64) (Outcome, 
 	if err != nil {
 		return Outcome{}, err
 	}
+	l.Sig = LoadSignature(ctx, tx, r.Keys, id)
 	var cur int64
 	switch err := tx.QueryRowContext(ctx, `SELECT position_id FROM position_link WHERE listing_id=? AND is_current=1`, id).Scan(&cur); {
 	case err == nil:

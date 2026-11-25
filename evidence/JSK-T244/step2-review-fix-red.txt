@@ -1,0 +1,5 @@
+--- FAIL: TestEligibilityYAMLUnreadableIsAnError (0.04s)
+    decider_test.go:215: an eligibility.yaml that exists but cannot be read must fail LoadRules
+FAIL
+FAIL	github.com/vasic-digital/job_seeker/internal/match	0.110s
+FAIL

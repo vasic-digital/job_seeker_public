@@ -1,0 +1,5 @@
+        PASS the approval form offers the area-overlap confirmation the report demands (T187b)
+        PASS HTTP 409 area_confirmation_required at POST /applications/{id}/approve with the digest but without area_confirm (T187b) :: 409
+        PASS keyboard only: the area-overlap confirmation can be ticked with Tab and Space (T187b)
+        FATAL page.click: Timeout 30000ms exceeded.
+real jobseekerd + real Chromium; journey PASS count: 176; the only FATAL is the pre-existing no-JS 'Prepare template draft' click (element not stable) being fixed on main by another agent, reached after every T187b step

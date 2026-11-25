@@ -1,0 +1,48 @@
+{
+  "steps": [
+    {
+      "id": "01-settings-initial",
+      "t": "2026-11-25T00:55:58.422Z",
+      "frame": "frames/01-settings-initial.png",
+      "kill": "Off",
+      "live": "Off"
+    },
+    {
+      "id": "02-kill-on",
+      "t": "2026-11-25T00:55:59.503Z",
+      "frame": "frames/02-kill-on.png",
+      "http": 303,
+      "kill": "On",
+      "step_up_needed": false
+    },
+    {
+      "id": "waited",
+      "t": "2026-11-25T01:01:05.314Z",
+      "ms_since_signin": 308100
+    },
+    {
+      "id": "03-off-refused",
+      "t": "2026-11-25T01:01:06.052Z",
+      "frame": "frames/03-off-refused.png",
+      "http": 403,
+      "error_code": "step_up_required",
+      "kill": "On"
+    },
+    {
+      "id": "04-stepup",
+      "t": "2026-11-25T01:01:06.724Z",
+      "frame": "frames/04-stepup.png",
+      "passkey_status": "ok"
+    },
+    {
+      "id": "05-kill-off",
+      "t": "2026-11-25T01:01:07.498Z",
+      "frame": "frames/05-kill-off.png",
+      "http": 303,
+      "kill": "Off",
+      "live": "Off"
+    }
+  ],
+  "video": "stepup-flow.webm",
+  "video_bytes": 6456968
+}

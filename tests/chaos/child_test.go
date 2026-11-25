@@ -27,6 +27,8 @@ func TestMain(m *testing.M) {
 		os.Exit(childDiskFull())
 	case "lock":
 		os.Exit(childLock())
+	case "audittrans":
+		os.Exit(childAuditTrans())
 	}
 	os.Exit(m.Run())
 }
@@ -126,4 +128,29 @@ func childLock() int {
 	time.Sleep(time.Duration(hold) * time.Millisecond)
 	_, _ = c.ExecContext(ctx, "ROLLBACK")
 	return 0
+}
+
+// childAuditTrans (JSK-T069): walk postings 1..N through mapped -> scored -> shortlisted with the REAL audit.Transition, one
+// transaction per edge, forever, creating a marker file after the first commit so the parent can SIGKILL it mid-run.
+func childAuditTrans() int {
+	dir := os.Getenv("JSK_CHAOS_DIR")
+	ctx := context.Background()
+	db, err := store.Open(ctx, store.Options{Path: filepath.Join(dir, "js.db"), BackupDir: filepath.Join(dir, "backups")})
+	if err != nil {
+		return fatal("open: %v", err)
+	}
+	defer db.Close()
+	for id := int64(1); ; id++ {
+		for _, e := range [][2]string{{"mapped", "mapped_by_rules"}, {"scored", "scored"}, {"shortlisted", "shortlisted_by_score"}} {
+			err := db.Write(ctx, func(tx *sql.Tx) error {
+				return audit.Transition(ctx, tx, audit.Spec{Kind: "posting", ID: id, To: e[0], Actor: "system", Reason: e[1], Evidence: map[string]any{"ruleset": "abcdef0123456789"}})
+			})
+			if err != nil {
+				return fatal("transition %d -> %s: %v", id, e[0], err)
+			}
+			if id == 1 && e[0] == "mapped" {
+				_ = os.WriteFile(filepath.Join(dir, "started"), []byte("1"), 0o600)
+			}
+		}
+	}
 }

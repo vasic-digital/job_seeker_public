@@ -15,6 +15,48 @@
   </form>
   <p class="console-hint">{{t .Lang "draft.stepup.hint"}} <button class="od-btn od-btn--ghost" type="button" id="stepup">{{t .Lang "draft.stepup.button"}}</button> <span id="passkey-status" role="status" aria-live="polite"></span></p>
 </section>
+<section class="od-card console-card" aria-labelledby="ap-h">
+  <h2 id="ap-h" class="console-h2">{{t .Lang "settings.apply"}}</h2>
+  <p>{{t .Lang "settings.apply.mode"}}: <strong data-testid="apply-mode">{{if .Policy.Mode}}{{.Policy.Mode}}{{else}}{{t .Lang "settings.apply.invalid"}}{{end}}</strong>{{if not .Policy.Stored}} ({{t .Lang "settings.apply.default"}}){{end}}</p>
+  {{if .Policy.Invalid}}<p role="alert" data-testid="apply-mode-invalid">{{t .Lang "settings.apply.invalid.help"}}</p>{{end}}
+  <form method="post" action="/settings/apply-mode">
+    <input type="hidden" name="_csrf" value="{{.CSRF}}">
+    <div class="od-field"><label class="od-label" for="ap-m">{{t .Lang "settings.apply.mode"}}</label>
+      <select class="od-input" id="ap-m" name="mode">{{range .Policy.Modes}}<option value="{{.}}"{{if eq . $.Policy.Mode}} selected{{end}}>{{.}}</option>{{end}}</select></div>
+    <button class="od-btn od-btn--secondary" type="submit">{{t .Lang "settings.apply.save"}}</button>
+  </form>
+  <form method="post" action="/settings/favourites">
+    <input type="hidden" name="_csrf" value="{{.CSRF}}">
+    {{if .Policy.FavInvalid}}<p role="alert" data-testid="fav-invalid">{{t .Lang "settings.fav.invalid"}} <code>{{.Policy.FavInvalid}}</code></p>{{end}}
+    <div class="od-field"><label class="od-label" for="fav-l">{{t .Lang "settings.fav.list"}}</label><input class="od-input" id="fav-l" name="favourites" value="{{.Policy.Favourites}}"></div>
+    <div class="od-field"><label class="od-label" for="fav-s"><input type="checkbox" id="fav-s" name="strict" value="1"{{if .Policy.Strict}} checked{{end}}> {{t .Lang "settings.fav.strict"}}</label></div>
+    <button class="od-btn od-btn--secondary" type="submit">{{t .Lang "settings.fav.save"}}</button>
+  </form>
+</section>
+<section class="od-card console-card" aria-labelledby="pm-h">
+  <h2 id="pm-h" class="console-h2">{{t .Lang "settings.pm"}}</h2>
+  {{if .ProviderRows}}<table class="od-table" data-testid="provider-table"><caption class="od-visually-hidden">{{t .Lang "settings.pm"}}</caption>
+  <thead><tr><th scope="col">{{t .Lang "col.source"}}</th><th scope="col">{{t .Lang "settings.pm.kind"}}</th><th scope="col">{{t .Lang "settings.circuit"}}</th><th scope="col">{{t .Lang "settings.pm.enabled"}}</th></tr></thead>
+  <tbody>{{range .ProviderRows}}<tr data-testid="provrow-{{.Name}}"><th scope="row">{{.Name}}</th><td>{{.Kind}}</td><td>{{.Circuit}}</td>
+    <td><span data-testid="provstate-{{.Name}}">{{if .Enabled}}{{t $.Lang "on"}}{{else}}{{t $.Lang "off"}}{{end}}</span>
+      <form method="post" action="/settings/providers/{{.ID}}/enabled" class="console-inline"><input type="hidden" name="_csrf" value="{{$.CSRF}}"><input type="hidden" name="on" value="{{if .Enabled}}0{{else}}1{{end}}">
+      <button class="od-btn od-btn--secondary" type="submit" data-testid="provtoggle-{{.Name}}">{{if .Enabled}}{{t $.Lang "settings.pm.disable"}}{{else}}{{t $.Lang "settings.pm.enable"}}{{end}}<span class="od-visually-hidden"> {{.Name}}</span></button></form></td></tr>{{end}}</tbody></table>
+  {{else}}<p>{{t .Lang "settings.providers.none"}}</p>{{end}}
+</section>
+<section class="od-card console-card" aria-labelledby="ep-h">
+  <h2 id="ep-h" class="console-h2">{{t .Lang "settings.ep"}}</h2>
+  <p class="console-hint">{{t .Lang "settings.ep.hint"}}</p>
+  {{range .EmployerRows}}<form method="post" action="/settings/employers/{{.ID}}/policy" class="console-card" data-testid="emp-{{.ID}}" aria-labelledby="emp-h-{{.ID}}">
+    <h3 id="emp-h-{{.ID}}" class="console-h3">{{.Name}}</h3>
+    <input type="hidden" name="_csrf" value="{{$.CSRF}}">
+    <div class="od-field"><label class="od-label" for="ep1-{{.ID}}"><input type="checkbox" id="ep1-{{.ID}}" name="one_per_position" value="1"{{if .One}} checked{{end}}> {{t $.Lang "settings.ep.one"}}</label></div>
+    <div class="od-field"><label class="od-label" for="ep2-{{.ID}}">{{t $.Lang "settings.ep.max"}}</label><input class="od-input" id="ep2-{{.ID}}" name="max_per_window" inputmode="numeric" pattern="[0-9]*" value="{{.MaxPer}}"></div>
+    <div class="od-field"><label class="od-label" for="ep3-{{.ID}}">{{t $.Lang "settings.ep.window"}}</label><input class="od-input" id="ep3-{{.ID}}" name="window_days" inputmode="numeric" pattern="[0-9]*" value="{{.Window}}"></div>
+    <div class="od-field"><label class="od-label" for="ep4-{{.ID}}">{{t $.Lang "settings.ep.cooldown"}}</label><input class="od-input" id="ep4-{{.ID}}" name="cooldown_days" inputmode="numeric" pattern="[0-9]*" value="{{.Cooldown}}"></div>
+    <div class="od-field"><label class="od-label" for="ep5-{{.ID}}">{{t $.Lang "settings.ep.note"}}</label><input class="od-input" id="ep5-{{.ID}}" name="note" maxlength="200" value="{{.Note}}"></div>
+    <button class="od-btn od-btn--secondary" type="submit">{{t $.Lang "settings.ep.save"}}<span class="od-visually-hidden"> {{.Name}}</span></button>
+  </form>{{else}}<p data-testid="no-employers">{{t .Lang "settings.ep.none"}}</p>{{end}}
+</section>
 <section class="od-card console-card" aria-labelledby="p-h">
   <h2 id="p-h" class="console-h2">{{t .Lang "settings.providers"}}</h2>
   {{if .Health}}<table class="od-table"><caption class="od-visually-hidden">{{t .Lang "settings.providers"}}</caption>

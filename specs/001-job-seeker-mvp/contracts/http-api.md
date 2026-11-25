@@ -8,7 +8,7 @@ Covers FR-037..FR-048. All browser routes require a valid session except `GET /h
 { "error": { "code": "provider_limit", "message": "i18n key id", "request_id": "r_01H...", "next_allowed_at": "optional RFC 3339" } }
 ```
 
-Closed code set (extended only by amending this file): `company_confirmation_failed`, `approval_expired`, `duplicate_send`, `language_confirmation_required`, `live_mode_off`, `overlay_absent`, `unauthenticated`, `forbidden_origin`, `bad_host`, `csrf_failed`, `rate_limited`, `step_up_required`, `validation`, `not_found`, `illegal_transition`, `approval_required`, `approval_hash_mismatch`, `kill_switch_on`, `cap_exceeded`, `slot_missing`, `provider_limit`, `egress_denied`, `not_supported`, `cover_stale`, `duplicate_company`, `templates_stale`, `posting_closed`, `gate_undetermined`, `gate_regressed`, `internal`.
+Closed code set (extended only by amending this file): `company_confirmation_failed`, `approval_expired`, `duplicate_send`, `language_confirmation_required`, `live_mode_off`, `overlay_absent`, `unauthenticated`, `forbidden_origin`, `bad_host`, `csrf_failed`, `rate_limited`, `step_up_required`, `validation`, `not_found`, `illegal_transition`, `approval_required`, `approval_hash_mismatch`, `kill_switch_on`, `cap_exceeded`, `slot_missing`, `provider_limit`, `egress_denied`, `not_supported`, `cover_stale`, `duplicate_company`, `templates_stale`, `manual_only`, `upload_refused`, `pdf_blocked`, `posting_closed`, `gate_undetermined`, `gate_regressed`, `policy_not_eligible`, `policy_position_taken`, `policy_employer_limit`, `duplicate_unacknowledged`, `policy_changed`, `position_busy`, `merge_blocked`, `posting_risk`, `compliance_blocked`, `report_required`, `area_confirmation_required`, `knockout_unconfirmed`, `internal`.
 
 ## Routes
 
@@ -38,6 +38,32 @@ Closed code set (extended only by amending this file): `company_confirmation_fai
 | GET `/api/v1/status` | script status (scope `read`) | Bearer token, no session |
 | GET `/metrics` | **separate internal listener only** | no personal labels |
 | GET `/static/*` | tokens, components, htmx, fonts, Brotli pre-compressed siblings | |
+
+## Position and provider routes (JSK-016, FR-093)
+
+Every route added by the provider-expansion epic. The last column starts with **IMPLEMENTED** (mounted by `internal/console` and checked against the router by `TestPositionRoutesContractMatchesRouter`) or **PLANNED** (not mounted yet; the same test asserts it is NOT mounted, so a row cannot silently drift). New 409 codes are in the closed set above: `policy_not_eligible`, `policy_position_taken`, `policy_employer_limit`, `duplicate_unacknowledged`, `policy_changed`, `position_busy`, `merge_blocked`.
+
+| Method + path | Purpose | Status and notes |
+|---|---|---|
+| GET `/queue/merges` | merge-candidate review queue | IMPLEMENTED (JSK-T209) |
+| POST `/queue/merges/{id}/{action}` | decide one candidate; `{action}` is `merge`, `keep-apart` or `skip` (any other value is 404) | IMPLEMENTED (JSK-T209); merge writes `must_link`, keep-apart writes `cannot_link`; 409 `position_busy` while an application on either Position is `live_approved`; 409 `merge_blocked` on a `cannot_link` or two apply locks; 409 `illegal_transition` on an already decided candidate |
+| POST `/positions/{id}/merge` | correction: absorb Position {id} into form field `into`, form field `reason` | IMPLEMENTED (JSK-T209); audited `position_merge_human`; same 409 codes |
+| POST `/listings/{id}/split` | correction: move one Listing to a new Position, form field `reason` | IMPLEMENTED (JSK-T209); audited `position_split_human`; 409 `position_busy`; 409 `illegal_transition` when the Listing is alone |
+| POST `/applications/{id}/approve` | gains optional `ack_duplicate=1` | IMPLEMENTED (JSK-T205, JSK-T208); 409 `duplicate_unacknowledged` without it when another open application exists for the Position (all-aware mode) |
+| POST `/applications/{id}/approve` | gains `report=<digest>` (JSK-T187) and `area_confirm=1` (JSK-T187b) | IMPLEMENTED; 409 `report_required` without the digest of the approval report currently shown; 409 `area_confirmation_required` when that report demands the CV area overlap be confirmed (chosen area not the best fit, or leading the runner-up by no more than the margin) and `area_confirm=1` is absent |
+| POST `/applications/{id}/approve` | gains repeatable `ack_knockout=<question id>` (JSK-T177) | IMPLEMENTED; 403 `knockout_unconfirmed` on a live approval while a recognised knockout question is neither confirmed in the private overlay nor acknowledged; dry-run never blocks |
+| POST `/applications/{id}/handoff-complete` | re-checks the apply policy | IMPLEMENTED (JSK-T205); 409 `policy_changed` |
+| GET `/positions` | list of Positions | PLANNED |
+| GET `/positions/{id}` | detail of one Position | IMPLEMENTED (JSK-T196) |
+| POST `/positions/{id}/apply-override` | per-Position override `{mode: inherit/all/single/none, listing_id?, reason}` | IMPLEMENTED (JSK-T207); audited `position_override_set`; `all` needs a fresh step-up (403 `step_up_required`), `single` needs a live Listing of the Position, a reason is required except for `inherit`; 404 for a merged or unknown Position |
+| GET `/intake`, POST `/intake` | operator paste form for one posting (`url`, `title`, `company`, `text`); same validation as `jsctl intake` (https DNS host, no userinfo/port/IP/reserved suffix, text <= 200000), no network request, provider `manual:<host>` | IMPLEMENTED (JSK-T200); session + CSRF; 303 to `/positions/{id}` (or `/listings/{id}` when unresolved); 400 `validation` re-renders the form without echoing the text and stores nothing |
+| POST `/settings/apply-mode` | set `apply_mode` | IMPLEMENTED (JSK-T207; merged, mounted route) |
+| POST `/settings/favourites` | ordered provider favourites | IMPLEMENTED (JSK-T207; merged, mounted route) |
+| POST `/settings/apply-policy` | favourites strictness and employer defaults | PLANNED (JSK-T207) |
+| POST `/settings/employers/{id}/policy` | per-employer policy (`one_per_position`, `max_per_window`, `window_days`, `cooldown_days`, `note`; all empty removes it) | IMPLEMENTED (JSK-T207); audited `employer_policy_changed`; 400 `validation` |
+| POST `/settings/providers/{id}/enabled` | enable or disable fetching for a provider (`on=1/0`) | IMPLEMENTED (JSK-T207); audited `provider_enabled_changed`; 404 for an unknown provider |
+
+`jsctl resolve --dry-run|--apply` (JSK-T210) is a CLI command, not an HTTP route; `GET /api/v1/status` gaining `{positions, listings, merge_queue_open}` is PLANNED and is not claimed here.
 
 ## Transport
 

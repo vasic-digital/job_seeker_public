@@ -1,0 +1,27 @@
+=== RUN   TestOpenCandidatesListsBothSides
+--- PASS: TestOpenCandidatesListsBothSides (0.14s)
+=== RUN   TestDecideMergeKeepApartSkip
+=== RUN   TestDecideMergeKeepApartSkip/merge
+=== RUN   TestDecideMergeKeepApartSkip/keep_apart
+=== RUN   TestDecideMergeKeepApartSkip/skip_writes_nothing
+=== RUN   TestDecideMergeKeepApartSkip/unknown_action_and_missing_candidate
+--- PASS: TestDecideMergeKeepApartSkip (0.83s)
+    --- PASS: TestDecideMergeKeepApartSkip/merge (0.16s)
+    --- PASS: TestDecideMergeKeepApartSkip/keep_apart (0.21s)
+    --- PASS: TestDecideMergeKeepApartSkip/skip_writes_nothing (0.25s)
+    --- PASS: TestDecideMergeKeepApartSkip/unknown_action_and_missing_candidate (0.20s)
+=== RUN   TestDecideMergeBlockedWhileLiveApproved
+--- PASS: TestDecideMergeBlockedWhileLiveApproved (0.17s)
+=== RUN   TestDecideMergeBlockedByCannotLink
+--- PASS: TestDecideMergeBlockedByCannotLink (0.14s)
+=== RUN   TestAuditReasonTableIsWrittenAndKnown
+--- PASS: TestAuditReasonTableIsWrittenAndKnown (0.00s)
+PASS
+ok  	github.com/vasic-digital/job_seeker/internal/position	1.300s
+=== RUN   TestMergeQueuePageAndDecisions
+--- PASS: TestMergeQueuePageAndDecisions (0.23s)
+=== RUN   TestMergeAndSplitRefusedWhileLiveApproved
+--- PASS: TestMergeAndSplitRefusedWhileLiveApproved (0.17s)
+PASS
+ok  	github.com/vasic-digital/job_seeker/internal/console	0.462s
+ok  	github.com/vasic-digital/job_seeker/internal/api	1.132s

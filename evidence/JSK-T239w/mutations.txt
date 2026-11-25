@@ -1,0 +1,20 @@
+KILLED       wire-ingest-gate-ignored
+KILLED       wire-draft-gate-ignored
+KILLED       wire-prepare-not-gated
+KILLED       wire-approve-not-gated
+KILLED       wire-robots-follows-redirect
+KILLED       wire-robots-failure-cached-long
+KILLED       wire-robots-body-uncapped
+KILLED       wire-robots-cache-off
+KILLED       wire-terms-no-adoption
+KILLED       wire-settings-default-off
+KILLED       wire-settings-off-ignored
+SURVIVED(first run; the panic test asserted only the verdict, now also asserts the plugin_panic reason)  wire-guard-panic-unrecovered
+KILLED       wire-guard-nil-passes
+KILLED       wire-terms-review-unaudited
+KILLED       wire-guard-panic-unrecovered (re-run after the test was strengthened)
+KILLED       wire-draft-gate-ignored
+KILLED       wire-prepare-not-gated
+KILLED       wire-approve-not-gated
+KILLED       wire-prepare-not-gated
+KILLED       wire-approve-not-gated

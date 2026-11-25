@@ -1,0 +1,47 @@
+{
+ "verdict": "PASS",
+ "translator": "claude:sonnet-5.5",
+ "reviewer": "claude:fresh-reviewer",
+ "scores": {
+  "accuracy": 5,
+  "fluency": 5,
+  "completeness": 5,
+  "naturalness": 4,
+  "register_appropriate": 4
+ },
+ "issues": [
+  {
+   "key": "job.shortlist / error.gate_regressed",
+   "problem": "'선별 시점'(error.gate_regressed) vs '관심 목록'(job.shortlist) render shortlist differently",
+   "fix": "Unify on one term, e.g. job.shortlist '선별 목록에 추가하고 지원 시작' (or change error.gate_regressed to '관심 목록에 추가한 시점')",
+   "severity": "minor"
+  },
+  {
+   "key": "job.position",
+   "problem": "'보기 열기' redundant",
+   "fix": "'병합된 포지션 보기'",
+   "severity": "minor"
+  },
+  {
+   "key": "dup.ack / report.area.confirm",
+   "problem": "Formal 합니다체 inside an otherwise 해요체 UI (checkbox labels)",
+   "fix": "'이 지원 내역을 알고 있으며 다시 지원할게요' / '이 공고에 CV 분야가 맞는지 확인했어요'",
+   "severity": "minor"
+  },
+  {
+   "key": "draft.stepup.hint",
+   "problem": "'5분 이내에 한 Passkey 확인' stilted",
+   "fix": "'실제 승인과 일부 설정에는 5분 이내에 완료한 Passkey 인증이 필요해요.'",
+   "severity": "minor"
+  },
+  {
+   "key": "settings.retention.never",
+   "problem": "'없음' for 'never' (last prune) reads as 'none'",
+   "fix": "'안 함' or '정리한 적 없음'",
+   "severity": "minor"
+  }
+ ],
+ "script_ok": true,
+ "target_script_ok": true,
+ "review_rc": 0
+}

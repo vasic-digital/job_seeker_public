@@ -1,0 +1,24 @@
+# lang	script	required @font-face families (all must be declared in fonts.css AND have their file on disk)
+# A catalogue language missing from this table makes gates/verify_font_coverage.sh exit 2 (a person classifies it).
+en	latin	Inter
+de	latin	Inter
+fr	latin	Inter
+es	latin	Inter
+it	latin	Inter
+pt	latin	Inter
+nl	latin	Inter
+pl	latin	Inter
+cs	latin	Inter
+tr	latin	Inter
+ru	cyrillic	Inter
+sr	cyrillic	Inter
+be	cyrillic	Inter
+kk	cyrillic	Inter
+uk	cyrillic	Inter
+bg	cyrillic	Inter
+zh	han-sc	Noto Sans SC
+ja	han-jp	Noto Sans JP
+ko	hangul	Noto Sans KR
+hi	devanagari	Noto Sans Devanagari
+ar	arabic	Noto Sans Arabic
+fa	arabic	Noto Sans Arabic

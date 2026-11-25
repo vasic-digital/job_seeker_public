@@ -1,0 +1,10 @@
+case	name	frame_sha256	frame_file	vision_provider	vision_status	result
+JSK-AUTH-001	Inbox lists the synthetic postings	0e97cad8697ff1b53c4a5b34ebe52e2f46a09d676117d70a66a9eac974197fe1	0e97cad8697f.png	vision-endpoint	verified	PASS
+JSK-AUTH-002	Open the Review queue	2bdab6ca3db119dc1508c811e37f146ce8942a63699895a892f05b5e99247462	2bdab6ca3db1.png	vision-endpoint	verified	PASS
+JSK-AUTH-003	Open Applications	74dc2ee89a58238ef6fec80a667d2cd649b26162dd73f2551ade1f9c26f1cfa8	74dc2ee89a58.png	vision-endpoint	verified	PASS
+JSK-AUTH-004	Open Add posting	a5d4eb170a7c43ee57aadd89ec026c6bee786d18d6597db963f007879ce3923a	a5d4eb170a7c.png	vision-endpoint	verified	PASS
+JSK-AUTH-005	Open Settings	f4fdf0ff6c30d346374c96ed6bbd0ee7317f16ecbe0e64f66fc269c6661c7cd6	f4fdf0ff6c30.png	vision-endpoint	verified	PASS
+JSK-AUTH-005	Open Settings	73dd8cdad15fa1fbd6b6d158f03c7ea0bbcfb11742dca16d7fd6f2fac3efdfa7	73dd8cdad15f.png	vision-endpoint	verified	PASS
+JSK-AUTH-006	Open Audit log	385e2747962df0bb1a209fb1f086c6ed45dfa3afbcb638cbc75a2e8796810d82	385e2747962d.png	vision-endpoint	verified	PASS
+JSK-AUTH-007	Back to Inbox	0e97cad8697ff1b53c4a5b34ebe52e2f46a09d676117d70a66a9eac974197fe1	0e97cad8697f.png	vision-endpoint	verified	PASS
+JSK-AUTH-008	Open a posting (Position page)	f58de4e47a3b275628796b0658e4960795b7e603a04e2b28a9e54726347ba346	f58de4e47a3b.png	vision-endpoint	verified	PASS

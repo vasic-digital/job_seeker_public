@@ -1,0 +1,12 @@
+# github.com/vasic-digital/job_seeker/internal/providers
+# [github.com/vasic-digital/job_seeker/internal/providers]
+vet: internal/providers/singlejob_test.go:81:26: undefined: ATSJobRef
+# github.com/vasic-digital/job_seeker/internal/ingest
+# [github.com/vasic-digital/job_seeker/internal/ingest]
+vet: internal/ingest/atsjob_test.go:41:18: r.ReadATSJob undefined (type *Runner has no field or method ReadATSJob)
+# github.com/vasic-digital/job_seeker/internal/app
+# [github.com/vasic-digital/job_seeker/internal/app]
+vet: internal/app/atsjob_test.go:137:14: r.ReadATSJob undefined (type *ingest.Runner has no field or method ReadATSJob)
+# github.com/vasic-digital/job_seeker/internal/jsctl
+# [github.com/vasic-digital/job_seeker/internal/jsctl]
+vet: internal/jsctl/ops.go:21:46: undefined: readJobUsage

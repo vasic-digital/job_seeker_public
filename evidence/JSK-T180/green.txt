@@ -1,0 +1,15 @@
+# JSK-T180 closure evidence, 2026-11-24 (decision 0010: Hebrew dropped from the RTL list, Q-ATS-7)
+## umbrella _tools/career/gates.py RTL set (read-only):
+78:_RTL_LANGS = frozenset({"ar", "fa"})
+## umbrella RTL_LOCALES / LOCALES mention of he (expect none):
+38:RTL_LOCALES: frozenset[str] = frozenset({"ar", "fa"})
+147:    return "rtl" if lang in RTL_LOCALES else "ltr"
+272:    if lang in RTL_LOCALES and bundle.dir != "rtl":
+274:    if lang not in RTL_LOCALES and bundle.dir != "ltr":
+he-matches=0
+## Hebrew mentions left in job_seeker non-evidence sources, expected only decision records and the rtl probe note:
+specs/001-job-seeker-mvp/tasks.md
+docs/research/protocols/11-ats-gap-analysis.md
+docs/research/protocols/26-roadmap-and-task-map.md
+docs/research/protocols/13-remediation-backlog.md
+docs/operator/attended-T120-T173-T180.md

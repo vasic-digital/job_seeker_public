@@ -1,0 +1,5 @@
+# JSK-T214 (PARTIAL) WWR / Working Nomads display-only read-through
+- Done: internal/providers/readthrough.go. Not a Provider (ingest cannot wire it), DisplayItem has no body/raw field (snippet <= 280 bytes), memory-only cache, TTL default 1 h clamped to [1 min, 24 h], expired entries purged and never served (a failed refresh serves nothing), attribution + https source link on every item. Per-source operator-recorded terms_reviewed date (empty/future = never contacted), robots.txt at the exact path, same-host fetch. Watchlist section `readthrough:` ships EMPTY.
+- Fixtures SYNTHETIC; Working Nomads JSON shape is from third-party reports only (UNCONFIRMED); no host contacted; no source operator-selected.
+- red.txt: before implementation. green.txt: -race. mutations.txt: 9 pairs KILLED (two added after review: tags and title sanitised and capped) (a redundant https check on the JSON path is an equivalent mutant and has no row).
+- NOT done: console route/page showing the items; operator must add each source host to deploy/egress-allowlist.txt. Task stays PARTIAL.

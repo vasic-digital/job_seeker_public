@@ -1,0 +1,5 @@
+=== RUN   TestStoreLevelDeterminismThreeRuns
+    matchstore_test.go:346: store digests over 115 score rows: 7bcaea90b9ff109577c074e9613ead13742bd4ebd32e73a878f3d950d73cb0d7 7bcaea90b9ff109577c074e9613ead13742bd4ebd32e73a878f3d950d73cb0d7 7bcaea90b9ff109577c074e9613ead13742bd4ebd32e73a878f3d950d73cb0d7
+--- PASS: TestStoreLevelDeterminismThreeRuns (2.62s)
+PASS
+ok  	github.com/vasic-digital/job_seeker/internal/matchstore	2.654s

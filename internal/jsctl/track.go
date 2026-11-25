@@ -10,6 +10,8 @@ import (
 
 	"github.com/vasic-digital/job_seeker/internal/boot"
 	"github.com/vasic-digital/job_seeker/internal/config"
+	"github.com/vasic-digital/job_seeker/internal/ext/builtin"
+	"github.com/vasic-digital/job_seeker/internal/extwire"
 	"github.com/vasic-digital/job_seeker/internal/store"
 	"github.com/vasic-digital/job_seeker/internal/tracker"
 )
@@ -43,6 +45,14 @@ func trackCmd(ctx context.Context, args []string, e Env, stdin io.Reader) int {
 		}
 		defer kr.Close()
 		svc := &tracker.Service{DB: db, Keys: kr, Now: e.Now}
+		// the enabled reference hooks (default off) see the status; this process is short-lived, so the evidence they emit is
+		// persisted before it exits instead of waiting for a consumer loop (JSK-T241)
+		var flush func()
+		if set, err := builtin.New(); err == nil {
+			pl := extwire.NewPipeline(set, db)
+			svc.OnStatus = pl.OnStatus
+			flush = func() { _, _ = pl.Flush(ctx) }
+		}
 		switch sub {
 		case "record":
 			if *app == 0 || *status == "" {
@@ -75,6 +85,9 @@ func trackCmd(ctx context.Context, args []string, e Env, stdin io.Reader) int {
 			if err != nil {
 				fmt.Fprintf(e.Err, "track: %v\n", err)
 				return 1
+			}
+			if flush != nil {
+				flush()
 			}
 			if followAt != nil {
 				if err := svc.SetFollowUp(ctx, *app, followAt, "operator"); err != nil {

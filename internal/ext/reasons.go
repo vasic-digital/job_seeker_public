@@ -67,3 +67,16 @@ func trunc(s string) string {
 	}
 	return s
 }
+
+// ValidateRefs applies the evidence rule to a bare Refs map (EvidenceEvent): identifier keys, id/hash/enum values.
+func ValidateRefs(refs map[string]string) error {
+	for k, v := range refs {
+		if !refKeyRe.MatchString(k) {
+			return fmt.Errorf("ext: ref key %q not an identifier", trunc(k))
+		}
+		if !refValRe.MatchString(v) {
+			return fmt.Errorf("ext: ref %q is not an id, hash or enum", k)
+		}
+	}
+	return nil
+}

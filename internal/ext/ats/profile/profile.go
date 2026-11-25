@@ -13,6 +13,7 @@ import (
 	"regexp"
 	"sort"
 	"strings"
+	"unicode/utf8"
 
 	"github.com/goccy/go-yaml"
 
@@ -51,6 +52,7 @@ type file struct {
 		MaxBytes int64    `yaml:"max_bytes"`
 		MaxFiles int      `yaml:"max_files"`
 		MaxPages int      `yaml:"max_pages"`
+		MaxChars int      `yaml:"max_chars"` // optional: characters (runes) of the extracted text; 0 = no limit (JSK-T176)
 	} `yaml:"upload"`
 	Checks []string `yaml:"checks"`
 	Quirks []struct {
@@ -63,8 +65,15 @@ type file struct {
 type Profile struct{ f file }
 
 // Parse validates one profile document. Errors name keys, never values.
-func Parse(b []byte) (*Profile, error) {
+func Parse(b []byte) (p *Profile, err error) {
 	var f file
+	// goccy/go-yaml v1.19.2 panics (nil dereference in decodeSlice) on some malformed documents, found by FuzzParse
+	// (evidence/test-types/fuzz-red-profile-parse-yaml-panic.txt). A hostile or corrupt profile must be a refusal, never a crash.
+	defer func() {
+		if r := recover(); r != nil {
+			p, err = nil, errors.New("ats profile: document does not match schema "+Schema)
+		}
+	}()
 	if err := yaml.UnmarshalWithOptions(b, &f, yaml.Strict()); err != nil {
 		return nil, errors.New("ats profile: document does not match schema " + Schema)
 	}
@@ -86,6 +95,8 @@ func Parse(b []byte) (*Profile, error) {
 		return bad("upload.max_files", "must be positive")
 	case f.Upload.MaxPages < 0:
 		return bad("upload.max_pages", "must not be negative")
+	case f.Upload.MaxChars < 0:
+		return bad("upload.max_chars", "must not be negative")
 	case len(f.AppliesHosts) == 0 && !f.Fallback:
 		return bad("applies_hosts", "a profile without hosts must be the fallback")
 	case len(f.AppliesHosts) > 0 && f.Fallback:
@@ -192,7 +203,7 @@ func (p *Profile) Applies(host string) bool {
 
 // Limits implements ext.ATSProfile.
 func (p *Profile) Limits() ext.UploadLimits {
-	return ext.UploadLimits{Types: append([]string(nil), p.f.Upload.Types...), MaxBytes: p.f.Upload.MaxBytes, MaxFiles: p.f.Upload.MaxFiles}
+	return ext.UploadLimits{Types: append([]string(nil), p.f.Upload.Types...), MaxBytes: p.f.Upload.MaxBytes, MaxFiles: p.f.Upload.MaxFiles, MaxChars: p.f.Upload.MaxChars}
 }
 
 func fnd(sev, check string) ext.Finding {
@@ -203,8 +214,10 @@ func fnd(sev, check string) ext.Finding {
 	return ext.Finding{Reason: ext.Reason{Code: code, Refs: map[string]string{"check": check}}, Severity: sev}
 }
 
-// Check implements ext.ATSProfile: upload type and size always, then the checks the profile names.
-func (p *Profile) Check(d ext.ExtractedDoc, a ext.Artifact) []ext.Finding {
+// CheckUpload judges one file against the provider's upload limits: type, size and (when count > 0) how many files
+// the application uploads in total (JSK-T176). count == 0 means the caller does not know, which is reported as an
+// advisory finding rather than silently passing.
+func (p *Profile) CheckUpload(a ext.Artifact, count int) []ext.Finding {
 	var out []ext.Finding
 	okType := false
 	for _, t := range p.f.Upload.Types {
@@ -220,6 +233,27 @@ func (p *Profile) Check(d ext.ExtractedDoc, a ext.Artifact) []ext.Finding {
 		out = append(out, fnd("warn", "upload_size_unknown"))
 	case a.Bytes > p.f.Upload.MaxBytes:
 		out = append(out, fnd("block", "upload_size"))
+	}
+	switch {
+	case count <= 0:
+		out = append(out, fnd("warn", "upload_count_unknown"))
+	case count > p.f.Upload.MaxFiles:
+		out = append(out, fnd("block", "upload_count"))
+	}
+	return out
+}
+
+// Check implements ext.ATSProfile: upload type and size always, then the checks the profile names. The file count is
+// not known here (one artifact), so use CheckUpload for it; this method does not report it.
+func (p *Profile) Check(d ext.ExtractedDoc, a ext.Artifact) []ext.Finding {
+	out := p.CheckUpload(a, 1) // one artifact: MaxFiles >= 1 by construction, so the count cannot block here
+	if p.f.Upload.MaxChars > 0 {
+		switch n := utf8.RuneCountInString(d.Text); {
+		case n == 0:
+			out = append(out, fnd("warn", "upload_chars_unknown"))
+		case n > p.f.Upload.MaxChars:
+			out = append(out, fnd("block", "upload_chars"))
+		}
 	}
 	for _, c := range p.f.Checks {
 		switch c {
@@ -237,6 +271,9 @@ func (p *Profile) Check(d ext.ExtractedDoc, a ext.Artifact) []ext.Finding {
 				out = append(out, fnd("warn", "page_count_unknown"))
 			case p.f.Upload.MaxPages > 0 && d.Pages > p.f.Upload.MaxPages:
 				out = append(out, fnd("block", "page_budget"))
+			case p.f.Upload.MaxPages > 0 && d.Pages == p.f.Upload.MaxPages:
+				// JSK-T173 (docs/decisions/0009): the maximum is kept; reaching it means zero headroom, advisory only.
+				out = append(out, fnd("warn", "page_budget_at_limit"))
 			}
 		case "filename_policy":
 			if !reName.MatchString(a.Name) || !hasType(a.Name, p.f.Upload.Types) {

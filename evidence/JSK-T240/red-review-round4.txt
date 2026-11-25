@@ -1,0 +1,8 @@
+--- FAIL: TestNoMechanismSPFAndJunkDKIMKeyAreNotYes (0.00s)
+    deliver_test.go:301: spf "v=spf1 -all": got yes [], want No
+    deliver_test.go:301: spf "v=spf1 ~all": got yes [], want No
+    deliver_test.go:301: spf "v=spf1 foo=bar -all": got yes [], want No
+    deliver_test.go:308: dkim junk key "AA==" gave Yes
+    deliver_test.go:308: dkim junk key "QQ==" gave Yes
+FAIL
+FAIL	github.com/vasic-digital/job_seeker/internal/ext/deliver	0.018s

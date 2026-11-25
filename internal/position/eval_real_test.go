@@ -10,6 +10,7 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/vasic-digital/job_seeker/internal/evnorm"
 	"github.com/vasic-digital/job_seeker/internal/match/gold"
 	"github.com/vasic-digital/job_seeker/internal/store"
 )
@@ -112,7 +113,7 @@ func TestRealCorpusEvaluation(t *testing.T) {
 		t.Fatal("real-corpus run is not deterministic")
 	}
 	if out := os.Getenv("JSK_EVIDENCE_DIR"); out != "" {
-		if err := os.WriteFile(filepath.Join(out, "resolver-real-corpus.txt"), []byte(a), 0o644); err != nil {
+		if err := evnorm.WriteFile(filepath.Join(out, "resolver-real-corpus.txt"), []byte(a), 0o644); err != nil {
 			t.Fatal(err)
 		}
 	}

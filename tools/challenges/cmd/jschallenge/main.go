@@ -14,6 +14,7 @@ import (
 	"errors"
 	"flag"
 	"fmt"
+	"github.com/vasic-digital/job_seeker/internal/ingest/ingesttest"
 	"log/slog"
 	"os"
 	"os/exec"
@@ -96,7 +97,7 @@ func newEnv(rulesDir string) (*env, func(), error) {
 		return nil, nil, err
 	}
 	e := &env{dir: dir, tpl: tdir, db: db, logs: &bytes.Buffer{}, now: time.Date(2026, 11, 24, 12, 0, 0, 0, time.UTC)}
-	e.svc = &draft.Service{DB: db, Keys: kr, Tpl: tpl, Gate: draft.NewGate(db, false), OverlayPresent: func() bool { return true }, Rules: rules,
+	e.svc = &draft.Service{Compliance: ingesttest.AllowAll{}, DB: db, Keys: kr, Tpl: tpl, Gate: draft.NewGate(db, false), OverlayPresent: func() bool { return true }, Rules: rules,
 		Overlay: func() (*match.Overlay, error) { return &match.Overlay{Present: true}, nil },
 		Now:     func() time.Time { return e.now }, Log: slog.New(slog.NewTextHandler(e.logs, nil))}
 	if err := e.exec(`INSERT INTO provider(id,name,base_url,kind) VALUES (1,'p','https://p.example','json')`); err != nil {

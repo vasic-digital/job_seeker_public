@@ -9,15 +9,17 @@ import (
 	"github.com/vasic-digital/job_seeker/internal/designsync"
 )
 
-// syncDesign implements `jsctl sync-design [--check] [--dst DIR]` (FR-041, JSK-T070). Without --check it copies from
+// syncDesign implements `jsctl sync-design [--check | --pin-noto] [--dst DIR]` (FR-041, JSK-T070). Without --check it copies from
 // DESIGN_SYSTEM_DIR; with --check it reads nothing outside the repository: it verifies web/static/design against its
 // manifest and that the console stylesheet defines no token. Exit 0 clean, 1 drift, 2 could not determine.
 func syncDesign(args []string, e Env) int {
-	dst, check := filepath.Join("web", "static", "design"), false
+	dst, check, pin := filepath.Join("web", "static", "design"), false, false
 	for i := 0; i < len(args); i++ {
 		switch args[i] {
 		case "--check":
 			check = true
+		case "--pin-noto":
+			pin = true
 		case "--dst":
 			if i+1 >= len(args) {
 				fmt.Fprintln(e.Err, "sync-design: --dst needs a directory")
@@ -29,6 +31,14 @@ func syncDesign(args []string, e Env) int {
 			fmt.Fprintln(e.Err, "sync-design: unknown argument")
 			return 2
 		}
+	}
+	if pin {
+		if err := designsync.PinNoto(dst); err != nil {
+			fmt.Fprintln(e.Err, "sync-design:", err)
+			return 2
+		}
+		fmt.Fprintln(e.Out, "pinned the Noto set in", designsync.NotoManifest)
+		return 0
 	}
 	if check {
 		d, err := designsync.Check(dst)

@@ -1,0 +1,187 @@
+warning: could not load env file .env: open .env: no such file or directory
+HelixQA Autonomous QA Session
+
+Project:          <repo>
+Platforms:        web
+Env file:         .env
+Timeout:          40m0s
+Coverage target:  90%
+Output:           <TMP>/jsk-state-qa.XxoDer
+Report formats:   json,markdown
+Curiosity:        false (timeout: 3m0s)
+Verbose:          true
+Hosted providers: off (opt-in)
+Bridged CLIs:     off (opt-in)
+Host video:       off (opt-in)
+Data validation:  off (no login or API probe is sent to the target)
+
+Resolved platforms: [web]
+
+Hosted providers NOT registered (no opt-in; -allow-cloud-providers): cerebras, chutes, cloudflare, codestral, cohere, deepseek, fireworks, githubmodels, google, groq, huggingface, hyperbolic, kimi, mistral, modal, nia, novita, nvidia, openrouter, publicai, replicate, sambanova, sarvam, siliconflow, upstage, venice, vulavula, zai, zen, zhipu
+Vision endpoint:  http://127.0.0.1:11500/v1/chat/completions (model: qwen2.5vl:3b, api key: unset)
+Bridged CLI:      claude found but NOT registered (no opt-in; -allow-bridged-cli)
+Bridged CLI:      opencode found but NOT registered (no opt-in; -allow-bridged-cli)
+  [llm] registered provider: vision-endpoint (model: qwen2.5vl:3b)
+  [llm] registered provider: vision-endpoint (model: qwen2.5vl:3b)
+Pass number:      1
+LLM provider:     adaptive-enhanced
+Platforms:        [web]
+Memory DB:        <repo>/HelixQA/data/memory.db
+
+Vision provider:  adaptive-enhanced
+Phase selector:   1 providers
+Process ctrl:     enabled (90s stale threshold)
+Conduit stream:   <TMP>/jsk-state-qa.XxoDer/session-1795569825/conduit.events.jsonl
+Conduit status:   <TMP>/jsk-state-qa.XxoDer/session-1795569825/conduit.status.json
+
+[pipeline] Replay buffer: <TMP>/jsk-state-qa.XxoDer/session-1795569825/replay.db (0 sequences)
+[pipeline] Phase 1/4: Learn
+[pipeline]   KnowledgeBase[job_seeker-wt-hqstate]: screens=0 endpoints=0 docs=88 changes=11 components=0 constraints=0 known_issues=0
+[pipeline]   Learn completed in 145ms
+[pipeline] Phase 2/4: Plan
+  [phase-selector] plan -> [vision-endpoint(0.500)]
+[pipeline] Phase plan: adaptive fallback with 1 providers
+[pipeline]   5 tests planned in 4.593s
+[pipeline] Phase 3/4: Execute
+  [exec] host-display video recording OFF for web (opt in with -record-video)
+  [1/5] Login Test (functional) ...
+  [playwright] browser launched: {"status":"launched","pid":1904860}
+    [web] screenshot OK (100KB, 5.105s)
+  [1/5] done in 6.627s
+  [2/5] Register Test (functional) ...
+    [web] screenshot OK (100KB, 2.097s)
+  [2/5] done in 3.617s
+  [3/5] Search Jobs Test (functional) ...
+    [web] screenshot OK (100KB, 2.096s)
+  [3/5] done in 3.63s
+  [4/5] Apply Job Test (functional) ...
+    [web] screenshot OK (100KB, 2.123s)
+  [4/5] done in 3.644s
+  [5/5] Logout Test (functional) ...
+    [web] screenshot OK (100KB, 2.096s)
+  [5/5] done in 3.618s
+[pipeline]   5 tests executed, 0 skipped, Execute took 21.138s
+[pipeline] Phase 3.5: Structured test bank execution
+  [phase-selector] structured -> [vision-endpoint(0.500)]
+[pipeline] Phase structured: adaptive fallback with 1 providers
+  [structured] Loaded 1 test banks from <repo>/qa/web-state
+  [structured] Loaded bank: job_seeker authenticated console state-changing flows (5 test cases)
+  [structured] [JSK-STATE-001] Prepare the pending draft (draft flow) (priority: high, steps: 3)
+    [step 1] Open Applications
+      [action] tap: 424,36
+    [step 2] Open the pending application
+      [action] tap: 150,247
+    [step 3] Prepare template draft
+      [action] tap: 193,593
+  [structured] [JSK-STATE-001] ✓ PASSED (3 steps)
+  [structured] [JSK-STATE-002] Reject a prepared draft with a reason (priority: high, steps: 6)
+    [step 1] Open Applications
+      [action] tap: 424,36
+    [step 2] Open the Borealis application
+      [action] tap: 150,301
+    [step 3] Scroll to the end
+      [action] keypress: End
+    [step 4] Focus the reason box
+      [action] tap: 961,748
+    [step 5] Type the reason
+      [action] text: QA reject synthetic persona
+    [step 6] Press Reject
+      [action] tap: 103,852
+  [structured] [JSK-STATE-002] ✓ PASSED (6 steps)
+  [structured] [JSK-STATE-003] Approve a prepared draft in dry-run (nothing is sent) (priority: high, steps: 7)
+    [step 1] Open Applications
+      [action] tap: 424,36
+    [step 2] Open the Acme application
+      [action] tap: 150,355
+    [step 3] Scroll to the end
+      [action] keypress: End
+    [step 4] Tick the area confirmation
+      [action] tap: 54,545
+    [step 5] Focus the company box
+      [action] tap: 961,479
+    [step 6] Type the company name
+      [action] text: Acme Robotics
+    [step 7] Press Approve
+      [action] tap: 491,546
+  [structured] [JSK-STATE-003] ✓ PASSED (7 steps)
+  [structured] [JSK-STATE-004] Map the review-queue posting to an area (priority: high, steps: 5)
+    [step 1] Open the Review queue
+      [action] tap: 288,36
+    [step 2] Focus the area list
+      [action] tap: 1157,299
+    [step 3] Choose go
+      [action] text: go
+    [step 4] Confirm the choice
+      [action] keypress: Enter
+    [step 5] Press Map to area
+      [action] tap: 1342,299
+  [structured] [JSK-STATE-004] ✓ PASSED (5 steps)
+  [structured] [JSK-STATE-005] Dismiss a posting from the inbox (priority: high, steps: 3)
+    [step 1] Open the Inbox
+      [action] tap: 180,36
+    [step 2] Open the posting
+      [action] tap: 107,425
+    [step 3] Press Dismiss
+      [action] tap: 610,897
+  [structured] [JSK-STATE-005] ✓ PASSED (3 steps)
+  [structured] Completed: 5 passed, 0 failed, 0 blocked (could not determine), 0 skipped (bank placeholders), 5 total, 24 steps executed in 3m17.253s
+[pipeline] Phase 4/4: Analyze
+  [phase-selector] analyze -> [vision-endpoint(0.800)]
+[pipeline] Phase analyze: adaptive fallback with 1 providers
+  [analyze] analysing 15/53 screenshots via LLM vision
+    [resize] 1920x937 -> 480x234 (100KB -> 11KB)
+  [llm] vision providers (ranked): [vision-endpoint]
+  [analyze] vision web-001-login-screen.png: 0 findings (146ms)
+    [resize] 1920x937 -> 480x234 (100KB -> 11KB)
+  [llm] vision providers (ranked): [vision-endpoint]
+  [analyze] vision web-004-job-application-screen.png: 0 findings (55ms)
+    [resize] 1920x937 -> 480x234 (56KB -> 6KB)
+  [llm] vision providers (ranked): [vision-endpoint]
+  [analyze] vision structured-003-web.png: 1 findings (755ms)
+    [resize] 1920x937 -> 480x234 (115KB -> 12KB)
+  [llm] vision providers (ranked): [vision-endpoint]
+  [analyze] vision structured-006-web.png: 2 findings (1.37s)
+    [resize] 1920x937 -> 480x234 (115KB -> 12KB)
+  [llm] vision providers (ranked): [vision-endpoint]
+  [analyze] vision structured-010-web.png: 2 findings (1.514s)
+    [resize] 1920x937 -> 480x234 (82KB -> 9KB)
+  [llm] vision providers (ranked): [vision-endpoint]
+  [analyze] vision structured-013-web.png: 2 findings (1.482s)
+    [resize] 1920x937 -> 480x234 (86KB -> 10KB)
+  [llm] vision providers (ranked): [vision-endpoint]
+  [analyze] vision structured-017-web.png: 2 findings (1.536s)
+    [resize] 1920x937 -> 480x234 (57KB -> 6KB)
+  [llm] vision providers (ranked): [vision-endpoint]
+  [analyze] vision structured-020-web.png: 1 findings (805ms)
+    [resize] 1920x937 -> 480x234 (82KB -> 9KB)
+  [llm] vision providers (ranked): [vision-endpoint]
+  [analyze] vision structured-024-web.png: 1 findings (796ms)
+    [resize] 1920x937 -> 480x234 (82KB -> 10KB)
+  [llm] vision providers (ranked): [vision-endpoint]
+  [analyze] vision structured-027-web.png: 2 findings (1.626s)
+    [resize] 1920x937 -> 480x234 (85KB -> 10KB)
+  [llm] vision providers (ranked): [vision-endpoint]
+  [analyze] vision structured-031-web.png: 2 findings (1.492s)
+    [resize] 1920x937 -> 480x234 (43KB -> 5KB)
+  [llm] vision providers (ranked): [vision-endpoint]
+  [analyze] vision structured-034-web.png: 0 findings (105ms)
+    [resize] 1920x937 -> 480x234 (57KB -> 7KB)
+  [llm] vision providers (ranked): [vision-endpoint]
+  [analyze] vision structured-038-web.png: 0 findings (124ms)
+    [resize] 1920x937 -> 480x234 (43KB -> 5KB)
+  [llm] vision providers (ranked): [vision-endpoint]
+  [analyze] vision structured-041-web.png: 1 findings (732ms)
+    [resize] 1920x937 -> 480x234 (97KB -> 11KB)
+  [llm] vision providers (ranked): [vision-endpoint]
+  [analyze] vision structured-045-web.png: 0 findings (105ms)
+  [phase-selector] analyze -> [vision-endpoint(0.800)]
+[pipeline] Phase analyze: adaptive fallback with 1 providers
+  [dedup] skipped 8 duplicate findings
+  Created 8 issue tickets
+[pipeline]   16 issues found, Analyze took 13.087s
+[pipeline] Complete: 5/5 tests, 100.0% coverage, 15 frames analysed, 3m56.295s total
+[pipeline] LLM cost: $0.000000 (40 calls, 76208 input tokens, 6723 output tokens)
+[pipeline]   vision-endpoint: $0.000000 (40 calls)
+Web video:        {"status":"closed","video":{"status":"ok","reason":"sigterm","frames":414,"bytes":2013507}}
+[pipeline] Report written: <TMP>/jsk-state-qa.XxoDer/session-1795569825/pipeline-report.json
+[pipeline] Updated latest -> session-1795569825

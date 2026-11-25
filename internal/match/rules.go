@@ -3,13 +3,15 @@ package match
 import (
 	"crypto/sha256"
 	"encoding/hex"
+	"errors"
 	"fmt"
+	"io/fs"
 	"os"
 	"path/filepath"
 	"sort"
 	"time"
 
-	"github.com/goccy/go-yaml"
+	"github.com/vasic-digital/job_seeker/internal/yamlsafe"
 )
 
 type Thresholds struct {
@@ -99,7 +101,16 @@ type Rules struct {
 	KeywordHits func(p Posting) int `yaml:"-"`
 	// Shadow, when non-nil, observes the legacy hard gates after ScorePosting has collected them. It never
 	// changes the outcome (JSK-T228: extension plugins run in parity beside the legacy blocks).
-	Shadow     func(p Posting, ov *Overlay, legacyGates []string, now time.Time) `yaml:"-"`
+	Shadow func(p Posting, m Mapping, ov *Overlay, legacyGates []string, now time.Time) `yaml:"-"`
+	// HardShadow observes the approve-time re-check (HardGates) the same way; it never changes the result.
+	HardShadow func(p Posting, ov *Overlay, legacyGates []string, now time.Time) `yaml:"-"`
+	// DeciderMode selects who decides the hard gates: "legacy" (default) or "plugin" (JSK-T244 step 2). It comes from the
+	// optional rules/eligibility.yaml. In plugin mode Decide and DecideHard MUST be wired (AssertDecider).
+	DeciderMode string `yaml:"-"`
+	// Decide returns the gate ids that block the posting, in GateOrder, or an error on a fault. Plugin mode only.
+	Decide func(p Posting, m Mapping, ov *Overlay, now time.Time) ([]string, error) `yaml:"-"`
+	// DecideHard is Decide for the approve-time HardGates re-check (the four overlay gates, mapping empty).
+	DecideHard func(p Posting, ov *Overlay, now time.Time) ([]string, error) `yaml:"-"`
 	areaIDs    []string
 	nonEngNorm []string
 	seniorNorm []string
@@ -119,10 +130,10 @@ func LoadRules(dir string) (*Rules, error) {
 		return nil, fmt.Errorf("rules: %w", err)
 	}
 	r := &Rules{}
-	if err := yaml.Unmarshal(ab, r); err != nil {
+	if err := yamlsafe.Unmarshal(ab, r); err != nil {
 		return nil, fmt.Errorf("rules: area_rules.yaml: %w", err)
 	}
-	if err := yaml.Unmarshal(sb, &r.Score); err != nil {
+	if err := yamlsafe.Unmarshal(sb, &r.Score); err != nil {
 		return nil, fmt.Errorf("rules: score.yaml: %w", err)
 	}
 	h := sha256.New()
@@ -137,6 +148,25 @@ func LoadRules(dir string) (*Rules, error) {
 			h.Write([]byte{0})
 			h.Write(yb)
 		}
+	}
+	// rules/eligibility.yaml is optional: its bytes feed the ruleset SHA only when present, so every existing SHA is unchanged.
+	r.DeciderMode = DeciderLegacy
+	eb, eerr := os.ReadFile(filepath.Join(dir, "eligibility.yaml"))
+	if eerr != nil && !errors.Is(eerr, fs.ErrNotExist) { // present but unreadable: never fall back to legacy silently
+		return nil, fmt.Errorf("rules: eligibility.yaml unreadable")
+	}
+	if eerr == nil {
+		var el struct {
+			Decider string `yaml:"decider"`
+		}
+		if err := yamlsafe.UnmarshalWithOptions(eb, &el, yamlsafe.Strict()); err != nil || (el.Decider != DeciderLegacy && el.Decider != DeciderPlugin) {
+			return nil, fmt.Errorf("rules: eligibility.yaml invalid (want decider: legacy|plugin)")
+		}
+		r.DeciderMode = el.Decider
+		h.Write([]byte{0})
+		h.Write([]byte("eligibility.yaml"))
+		h.Write([]byte{0})
+		h.Write(eb)
 	}
 	r.SHA = hex.EncodeToString(h.Sum(nil))
 	for _, id := range legalAreas {
@@ -180,7 +210,7 @@ func (r *Rules) SnapshotDrift(path string) ([]string, error) {
 		Areas  map[string][]string `yaml:"areas"`
 		Skills []string            `yaml:"skills"`
 	}
-	if err := yaml.Unmarshal(b, &snap); err != nil {
+	if err := yamlsafe.Unmarshal(b, &snap); err != nil {
 		return nil, err
 	}
 	have := map[string]bool{}

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>Synthetic remote board</title>
+    <link>https://feeds.example.org/</link>
+    <item>
+      <title>Examplecorp: Senior Go Engineer</title>
+      <link>https://feeds.example.org/jobs/9100001-senior-go-engineer</link>
+      <guid>9100001</guid>
+      <description>&lt;p&gt;Synthetic listing text. &lt;script&gt;alert(1)&lt;/script&gt;Build services. Synthetic filler sentence for the cap. Synthetic filler sentence for the cap. Synthetic filler sentence for the cap. Synthetic filler sentence for the cap. Synthetic filler sentence for the cap. Synthetic filler sentence for the cap. Synthetic filler sentence for the cap. Synthetic filler sentence for the cap. Synthetic filler sentence for the cap. Synthetic filler sentence for the cap. Synthetic filler sentence for the cap. Synthetic filler sentence for the cap. LONGTAIL</description>
+      <pubDate>Mon, 23 Nov 2026 09:00:00 +0000</pubDate>
+      <category>Programming</category>
+    </item>
+    <item>
+      <title>Insecure link</title>
+      <link>http://feeds.example.org/jobs/9100002</link>
+      <guid>9100002</guid>
+    </item>
+  </channel>
+</rss>

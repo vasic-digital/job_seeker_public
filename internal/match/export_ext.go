@@ -17,3 +17,7 @@ func (r *Rules) AnnualFactors() map[string]float64 {
 	}
 	return out
 }
+
+// JuniorTokens returns the normalised title tokens of the legacy junior_or_intern gate (a copy), so the plugin rule
+// matches exactly what ScorePosting matches (JSK-T244).
+func (r *Rules) JuniorTokens() []string { return append([]string(nil), r.juniorNorm...) }

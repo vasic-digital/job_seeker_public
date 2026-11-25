@@ -1,0 +1,29 @@
+        PASS signed in
+        PASS posting 2 reaches awaiting_human_approval :: awaiting_human_approval
+        PASS the knockout checklist is on the approval page
+        PASS the work-authorisation row is listed as not met :: Authorised to work in the posting's country: your profile does not meet it 
+        PASS the sponsorship row is listed as not met
+        PASS each open row has an unticked acknowledgement checkbox named ack_knockout
+        PASS checkbox labels are bound (each input sits in a label)
+        PASS no missing i18n key
+        PASS axe approval-knockout light :: 32 rules passed
+        PASS axe approval-knockout dark :: 32 rules passed
+        PASS mobile: no horizontal page scroll
+        PASS keyboard only: a knockout acknowledgement is reached with Tab and ticked with Space
+        PASS dry-run approval with both acknowledgements records dry_run_recorded :: dry_run_recorded
+        PASS posting 3 reaches awaiting_human_approval :: awaiting_human_approval
+        PASS an unknown posting country is shown as cannot be checked :: Authorised to work in the posting's country: cannot be checked 
+        PASS draft page renders in ar (html lang/dir ar/rtl) without horizontal scroll :: {"lang":"ar","dir":"rtl","w":true}
+        PASS no untranslated knockout key shown in ar
+        PASS draft page renders in sr (html lang/dir sr/ltr) without horizontal scroll :: {"lang":"sr","dir":"ltr","w":true}
+        PASS no untranslated knockout key shown in sr
+        PASS dry-run approval WITHOUT acknowledgement is not blocked (advisory only) :: dry_run_recorded
+        PASS posting 1 reaches awaiting_human_approval :: awaiting_human_approval
+        PASS a confirmed question is listed as confirmed :: Authorised to work in the posting's country: confirmed in your profile
+        PASS a confirmed question carries no acknowledgement checkbox
+        PASS no page errors in the browser console
+    knockout_live_test.go:146: knockout audit rows after the walk:
+        app=1 warned_knockout {"questions":["sponsorship_restriction:unfavourable:not_authorised","work_auth_required:unfavourable:not_authorised"]}
+        app=2 warned_knockout {"questions":["sponsorship_restriction:missing:posting_country_unknown","work_auth_required:missing:posting_country_unknown"]}
+--- PASS: TestKnockoutChecklistLive (11.33s)
+PASS

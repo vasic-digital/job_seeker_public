@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Example Corp jobs (synthetic)</title>
+  <entry>
+    <title>Data Engineer</title>
+    <id>tag:careers.example.org,2026:2001</id>
+    <link rel="self" href="https://careers.example.org/feed/2001"/>
+    <link rel="alternate" href="https://careers.example.org/jobs/2001"/>
+    <summary>Short summary</summary>
+    <content type="html">&lt;p&gt;Full text&lt;/p&gt;</content>
+    <published>2026-11-20T10:00:00Z</published>
+    <category term="data"/>
+    <author><name>Nobody</name></author>
+  </entry>
+  <entry>
+    <title>No link entry</title>
+    <id>tag:careers.example.org,2026:2002</id>
+  </entry>
+</feed>

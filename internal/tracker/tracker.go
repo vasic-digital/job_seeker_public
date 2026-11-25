@@ -17,6 +17,7 @@ import (
 
 	"github.com/vasic-digital/job_seeker/internal/audit"
 	"github.com/vasic-digital/job_seeker/internal/crypto"
+	"github.com/vasic-digital/job_seeker/internal/ext"
 	"github.com/vasic-digital/job_seeker/internal/limiter"
 	"github.com/vasic-digital/job_seeker/internal/store"
 )
@@ -44,6 +45,9 @@ type Service struct {
 	DB   *store.DB
 	Keys *crypto.Keyring
 	Now  func() time.Time
+	// OnStatus, when set, is called after a record COMMITS (JSK-T241). It cannot fail or roll back the write: a panic
+	// is swallowed here and the return value is ignored.
+	OnStatus func(ctx context.Context, ev ext.StatusEvent)
 }
 
 func (s *Service) now() time.Time {
@@ -150,6 +154,12 @@ func (s *Service) Record(ctx context.Context, in Input) (Entry, error) {
 		out = Entry{ID: id, Status: in.Status, Source: in.Source, Note: in.Note, TS: now}
 		return nil
 	})
+	if err == nil && s.OnStatus != nil {
+		func() {
+			defer func() { _ = recover() }()
+			s.OnStatus(ctx, ext.StatusEvent{AppID: in.ApplicationID, Status: out.Status, At: out.TS})
+		}()
+	}
 	return out, err
 }
 

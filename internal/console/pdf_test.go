@@ -42,7 +42,7 @@ func TestServePDFStagesOnTmpfsServesRangesAndCleansUp(t *testing.T) {
 	g, _ := gin.CreateTestContext(rec)
 	g.Request = httptest.NewRequest(http.MethodGet, "/f", nil)
 	g.Request.Header.Set("Range", "bytes=0-3")
-	if err := c.servePDF(g, f, sha); err != nil {
+	if err := c.servePDF(g, f, sha, f.Name); err != nil {
 		t.Fatal(err)
 	}
 	if rec.Code != http.StatusPartialContent || rec.Body.String() != "%PDF" || rec.Header().Get("Cache-Control") != "no-store" || rec.Header().Get("X-Content-SHA256") != sha {
@@ -56,7 +56,28 @@ func TestServePDFStagesOnTmpfsServesRangesAndCleansUp(t *testing.T) {
 	rec = httptest.NewRecorder()
 	g, _ = gin.CreateTestContext(rec)
 	g.Request = httptest.NewRequest(http.MethodGet, "/f", nil)
-	if err := c.servePDF(g, f, "00"+sha[2:]); err == nil || rec.Body.Len() != 0 || leftovers(t) != before {
+	if err := c.servePDF(g, f, "00"+sha[2:], f.Name); err == nil || rec.Body.Len() != 0 || leftovers(t) != before {
 		t.Fatalf("hash mismatch was not refused cleanly: %v", err)
+	}
+}
+
+// JSK-T175 (F-21): the served filename is the download name, not the slot name; a hostile name never reaches the header raw.
+func TestServePDFUsesDownloadName(t *testing.T) {
+	p := filepath.Join(t.TempDir(), "cv-go-en.pdf")
+	body := []byte("%PDF-1.4 x")
+	if err := os.WriteFile(p, body, 0o600); err != nil {
+		t.Fatal(err)
+	}
+	sum := sha256.Sum256(body)
+	sha := hex.EncodeToString(sum[:])
+	f := templates.File{Name: "cv-go-en.pdf", Path: p, SHA256: sha}
+	rec := httptest.NewRecorder()
+	g, _ := gin.CreateTestContext(rec)
+	g.Request = httptest.NewRequest(http.MethodGet, "/f", nil)
+	if err := (&Console{}).servePDF(g, f, sha, "Jane-Doe_CV_Dev_20261124.pdf"); err != nil {
+		t.Fatal(err)
+	}
+	if got := rec.Header().Get("Content-Disposition"); got != `inline; filename="Jane-Doe_CV_Dev_20261124.pdf"` {
+		t.Fatalf("Content-Disposition %q", got)
 	}
 }

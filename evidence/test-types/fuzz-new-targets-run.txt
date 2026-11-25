@@ -1,0 +1,66 @@
+# go test -fuzz, 15 s per new target, run once locally (first pass; the two FAIL blocks are the real defects found, RED evidence in fuzz-red-*.txt)
+== ./internal/egress FuzzCheckURL
+PASS
+ok  	github.com/vasic-digital/job_seeker/internal/egress	16.192s
+== ./internal/egress FuzzParseAllowList
+PASS
+ok  	github.com/vasic-digital/job_seeker/internal/egress	16.472s
+== ./internal/egress FuzzIsDeniedIP
+PASS
+ok  	github.com/vasic-digital/job_seeker/internal/egress	15.325s
+== ./internal/ext/channel/mailto FuzzParse
+PASS
+ok  	github.com/vasic-digital/job_seeker/internal/ext/channel/mailto	16.156s
+== ./internal/redact FuzzScrub
+PASS
+ok  	github.com/vasic-digital/job_seeker/internal/redact	16.256s
+== ./internal/ext/reader/jsonld FuzzRead
+PASS
+ok  	github.com/vasic-digital/job_seeker/internal/ext/reader/jsonld	16.345s
+== ./internal/match FuzzNormalize
+fuzz: minimizing 37-byte failing input file
+--- FAIL: FuzzNormalize (5.19s)
+    --- FAIL: FuzzNormalize (0.00s)
+        fuzz_test.go:23: not idempotent (lower=true): "\xf4Ώ" -> " ώ " -> " ω "
+    
+    Failing input written to testdata/fuzz/FuzzNormalize/f3240b2cfed53b3b
+    To re-run:
+    go test -run=FuzzNormalize/f3240b2cfed53b3b
+FAIL
+exit status 1
+FAIL	github.com/vasic-digital/job_seeker/internal/match	5.370s
+== ./internal/match FuzzDetectLanguage
+PASS
+ok  	github.com/vasic-digital/job_seeker/internal/match	16.546s
+== ./internal/ext/ats/parsersim FuzzStructScan
+PASS
+ok  	github.com/vasic-digital/job_seeker/internal/ext/ats/parsersim	16.250s
+== ./internal/ext/ats/parsersim FuzzParseAnchors
+PASS
+ok  	github.com/vasic-digital/job_seeker/internal/ext/ats/parsersim	16.112s
+== ./internal/ext/render/pdflinks FuzzCheckDecide
+PASS
+ok  	github.com/vasic-digital/job_seeker/internal/ext/render/pdflinks	16.373s
+== ./internal/ext/ats/profile FuzzParse
+            testing.tRunner(0x3b254ab6bd48, 0x3b254ab667e0)
+            	$HOME/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.11.linux-amd64/src/testing/testing.go:2036 +0xea
+            created by testing.(*F).Fuzz.func1 in goroutine 21
+            	$HOME/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.11.linux-amd64/src/testing/fuzz.go:328 +0x668
+            
+    
+    Failing input written to testdata/fuzz/FuzzParse/fdad2135e098e607
+    To re-run:
+    go test -run=FuzzParse/fdad2135e098e607
+FAIL
+exit status 1
+FAIL	github.com/vasic-digital/job_seeker/internal/ext/ats/profile	3.353s
+== ./internal/ingest FuzzTitleRatio
+PASS
+ok  	github.com/vasic-digital/job_seeker/internal/ingest	16.253s
+== ./internal/ingest FuzzReadATSJobRefusals
+PASS
+ok  	github.com/vasic-digital/job_seeker/internal/ingest	16.346s
+== ./internal/ingest FuzzResolveATSJobURL
+PASS
+ok  	github.com/vasic-digital/job_seeker/internal/ingest	15.947s
+# after the two fixes: FuzzNormalize 20 s PASS, FuzzParse(profile) 20 s PASS (re-run with the minimised crashers now committed as seeds)

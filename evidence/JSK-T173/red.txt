@@ -1,0 +1,8 @@
+--- FAIL: TestPageHeadroomWarning (0.00s)
+    profile_test.go:340: greenhouse: 3 pages (the limit) must warn and not block: []
+    profile_test.go:340: lever: 3 pages (the limit) must warn and not block: []
+    profile_test.go:340: ashby: 3 pages (the limit) must warn and not block: []
+    profile_test.go:340: generic: 3 pages (the limit) must warn and not block: []
+FAIL
+FAIL	github.com/vasic-digital/job_seeker/internal/ext/ats/profile	0.017s
+FAIL

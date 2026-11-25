@@ -1,0 +1,11 @@
+# GREEN on branch pr/t242-consumers
+ok  	github.com/vasic-digital/job_seeker/internal/match	(cached)
+ok  	github.com/vasic-digital/job_seeker/internal/ext/eligibility	(cached)
+ok  	github.com/vasic-digital/job_seeker/internal/ext/builtin	(cached)
+ok  	github.com/vasic-digital/job_seeker/internal/draft	(cached)
+  run 1 digest d0cc8b49357046a1ada29b27a0a02193c585d3dc9a63ff19563dbff79c1c5a04
+  run 2 digest d0cc8b49357046a1ada29b27a0a02193c585d3dc9a63ff19563dbff79c1c5a04
+  run 3 digest d0cc8b49357046a1ada29b27a0a02193c585d3dc9a63ff19563dbff79c1c5a04
+OK: three identical runs
+OK: 13 plugin package(s), 19 registered plugin(s): tests, mutation pairs, closed reason codes, ids and versions
+OK: 13 mutant(s), one per plugin package, KILLED

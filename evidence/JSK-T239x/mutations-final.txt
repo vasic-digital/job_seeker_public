@@ -1,0 +1,18 @@
+KILLED       ungated-newrunner-nil-guard-ok
+KILLED       ungated-typed-nil-guard-ok
+KILLED       ungated-maintenance-can-fetch  (after the test gave the maintenance runner a permissive guard)
+KILLED       ungated-requester-ignored
+KILLED       ungated-only-first-url-checked
+KILLED       ungated-tenant-url-bad-slug
+KILLED       ungated-greenhouse-url-drops-board
+KILLED       ungated-lever-url-drops-site
+KILLED       ungated-ashby-url-drops-board
+KILLED       ungated-scanner-misses-outside-literal
+KILLED       ungated-scanner-misses-draft-no-guard
+KILLED       ungated-scanner-misses-stray-inpkg
+KILLED       ungated-newrunner-drops-guard
+KILLED       ungated-nil-guard-is-permissive
+KILLED       ungated-scanner-ignores-alias
+KILLED       ungated-scanner-allows-ingesttest
+KILLED       ungated-scanner-allows-value-use
+KILLED       ungated-feed-url-unvalidated

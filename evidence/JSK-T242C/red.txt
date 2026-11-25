@@ -1,0 +1,9 @@
+# RED: new tests against base 1fba273 (LangTrusted, LocalHours, OutsideBusinessHours absent)
+# github.com/vasic-digital/job_seeker/internal/match [github.com/vasic-digital/job_seeker/internal/match.test]
+internal/match/langtrusted_test.go:14:13: undefined: LangTrusted
+FAIL	github.com/vasic-digital/job_seeker/internal/match [build failed]
+# github.com/vasic-digital/job_seeker/internal/ext/eligibility [github.com/vasic-digital/job_seeker/internal/ext/eligibility.test]
+internal/ext/eligibility/hours_test.go:28:8: undefined: LocalHours
+internal/ext/eligibility/hours_test.go:42:13: undefined: OutsideBusinessHours
+FAIL	github.com/vasic-digital/job_seeker/internal/ext/eligibility [build failed]
+FAIL

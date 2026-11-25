@@ -1,0 +1,88 @@
+=== RUN   TestAuditCleanControl
+--- PASS: TestAuditCleanControl (0.00s)
+=== RUN   TestAuditCatchesEachDefect
+--- PASS: TestAuditCatchesEachDefect (0.00s)
+=== RUN   TestRequiredAndDir
+--- PASS: TestRequiredAndDir (0.04s)
+=== RUN   TestCognateAllowlist
+--- PASS: TestCognateAllowlist (0.00s)
+=== RUN   TestEnglishLoadsAndFallsBack
+--- PASS: TestEnglishLoadsAndFallsBack (0.04s)
+=== RUN   TestTemplatesUseOnlyKnownKeysAndNoBareText
+--- PASS: TestTemplatesUseOnlyKnownKeysAndNoBareText (0.09s)
+=== RUN   TestEveryShippedCatalogueHasExactlyEnglishKeys
+--- PASS: TestEveryShippedCatalogueHasExactlyEnglishKeys (0.05s)
+=== RUN   TestNegotiate
+--- PASS: TestNegotiate (0.00s)
+=== RUN   TestNamesCoverRequired
+--- PASS: TestNamesCoverRequired (0.00s)
+=== RUN   TestFormat
+--- PASS: TestFormat (0.01s)
+PASS
+ok  	github.com/vasic-digital/job_seeker/internal/i18n	0.234s
+=== RUN   TestEveryApprovalRefusalMapsTo4xxWithItsOwnCode
+--- PASS: TestEveryApprovalRefusalMapsTo4xxWithItsOwnCode (0.00s)
+=== RUN   TestVendoredHtmxMatchesItsPinAndPagesParse
+--- PASS: TestVendoredHtmxMatchesItsPinAndPagesParse (0.10s)
+=== RUN   TestDraftPageRendersAdvisories
+--- PASS: TestDraftPageRendersAdvisories (0.21s)
+=== RUN   TestDraftPageRendersDuplicateWarningAndAck
+--- PASS: TestDraftPageRendersDuplicateWarningAndAck (0.06s)
+=== RUN   TestDraftPageApprovalReport
+--- PASS: TestDraftPageApprovalReport (0.07s)
+=== RUN   TestPositionRoutesContractMatchesRouter
+--- PASS: TestPositionRoutesContractMatchesRouter (0.02s)
+=== RUN   TestDueFollowUpsReachTheInboxModel
+--- PASS: TestDueFollowUpsReachTheInboxModel (0.17s)
+=== RUN   TestIntakeFormRendersAccessibleAndNeedsSession
+--- PASS: TestIntakeFormRendersAccessibleAndNeedsSession (0.29s)
+=== RUN   TestIntakePostStoresListingResolvesPositionIdempotent
+--- PASS: TestIntakePostStoresListingResolvesPositionIdempotent (0.26s)
+=== RUN   TestIntakeRefusalsAre400StoreNothingNoEcho
+--- PASS: TestIntakeRefusalsAre400StoreNothingNoEcho (0.30s)
+=== RUN   TestIntakeNeedsCSRF
+--- PASS: TestIntakeNeedsCSRF (0.18s)
+=== RUN   TestLanguageNegotiationRTLAndNoSilentFallback
+--- PASS: TestLanguageNegotiationRTLAndNoSilentFallback (0.27s)
+=== RUN   TestLanguagePersistsAndRefusesUnshipped
+--- PASS: TestLanguagePersistsAndRefusesUnshipped (0.42s)
+=== RUN   TestMergeQueuePageAndDecisions
+--- PASS: TestMergeQueuePageAndDecisions (0.23s)
+=== RUN   TestMergeAndSplitRefusedWhileLiveApproved
+--- PASS: TestMergeAndSplitRefusedWhileLiveApproved (0.53s)
+=== RUN   TestServePDFStagesOnTmpfsServesRangesAndCleansUp
+--- PASS: TestServePDFStagesOnTmpfsServesRangesAndCleansUp (0.00s)
+=== RUN   TestServePDFUsesDownloadName
+--- PASS: TestServePDFUsesDownloadName (0.00s)
+=== RUN   TestPositionPageMergedViewWithProvenance
+--- PASS: TestPositionPageMergedViewWithProvenance (0.28s)
+=== RUN   TestPositionPageEmptyAndMissingAndMerged
+--- PASS: TestPositionPageEmptyAndMissingAndMerged (0.36s)
+=== RUN   TestPostingRedirectsToItsPositionLegacyStillRenders
+--- PASS: TestPostingRedirectsToItsPositionLegacyStillRenders (0.22s)
+=== RUN   TestPositionPageNeedsSession
+--- PASS: TestPositionPageNeedsSession (0.31s)
+=== RUN   TestBuildFieldsMergedValueAndProvenance
+--- PASS: TestBuildFieldsMergedValueAndProvenance (0.00s)
+=== RUN   TestCorruptFavouritesShownAsInvalidNotEmpty
+--- PASS: TestCorruptFavouritesShownAsInvalidNotEmpty (0.47s)
+=== RUN   TestProviderEnableDisableAudited
+--- PASS: TestProviderEnableDisableAudited (0.28s)
+=== RUN   TestEmployerPolicySaveClearAndValidation
+--- PASS: TestEmployerPolicySaveClearAndValidation (0.31s)
+=== RUN   TestPositionOverrideRulesAndAudit
+--- PASS: TestPositionOverrideRulesAndAudit (0.21s)
+=== RUN   TestApplyModeSettingStoredWinsAndIsAudited
+--- PASS: TestApplyModeSettingStoredWinsAndIsAudited (0.29s)
+=== RUN   TestApplyModeUnknownRefusedNothingStored
+--- PASS: TestApplyModeUnknownRefusedNothingStored (0.48s)
+=== RUN   TestApplyModeInvalidStoredShownAsInvalid
+--- PASS: TestApplyModeInvalidStoredShownAsInvalid (0.56s)
+=== RUN   TestFavouritesValidatedOrderedAndAudited
+--- PASS: TestFavouritesValidatedOrderedAndAudited (0.37s)
+=== RUN   TestKillSwitchOffNeedsStepUpOnDoesNot
+--- PASS: TestKillSwitchOffNeedsStepUpOnDoesNot (0.44s)
+=== RUN   TestLiveModeOnNeedsStepUpOffDoesNot
+--- PASS: TestLiveModeOnNeedsStepUpOffDoesNot (0.33s)
+PASS
+ok  	github.com/vasic-digital/job_seeker/internal/console	8.119s

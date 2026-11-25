@@ -1,0 +1,10 @@
+--- PASS: TestDiffLines (0.00s)
+--- PASS: TestApprovalReportContents (0.17s)
+--- PASS: TestApprovalReportDiffAgainstLastSend (0.16s)
+--- PASS: TestApprovalReportUnavailable (0.16s)
+--- PASS: TestCheckReportSeen (0.13s)
+--- PASS: TestCheckReportSeenLeavesHashMismatchToApprove (0.14s)
+--- PASS: TestCheckReportSeenOnlyGuardsTheApprovalScreen (0.14s)
+ok  	github.com/vasic-digital/job_seeker/internal/draft	0.921s
+--- PASS: TestDraftPageApprovalReport (0.02s)
+ok  	github.com/vasic-digital/job_seeker/internal/console	0.037s

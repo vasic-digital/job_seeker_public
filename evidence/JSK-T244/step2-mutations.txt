@@ -1,0 +1,87 @@
+== t244-decider-nil-hook-not-unavailable
+INVALID      t244-decider-nil-hook-not-unavailable: pattern does not match exactly once in internal/match/decider.go
+mutations: 0 genuinely killed of 1
+== t244-decider-hard-nil-hook-not-unavailable
+KILLED       t244-decider-hard-nil-hook-not-unavailable
+mutations: 1 genuinely killed of 1
+== t244-decider-unknown-mode-runs-legacy
+KILLED       t244-decider-unknown-mode-runs-legacy
+mutations: 1 genuinely killed of 1
+== t244-decider-legacy-mode-consults-hook
+KILLED       t244-decider-legacy-mode-consults-hook
+mutations: 1 genuinely killed of 1
+== t244-decider-error-passes
+INVALID      t244-decider-error-passes: mutant does not compile
+mutations: 0 genuinely killed of 1
+== t244-decider-hard-error-passes
+INVALID      t244-decider-hard-error-passes: mutant does not compile
+mutations: 0 genuinely killed of 1
+== t244-decider-panic-not-contained
+CRASH        t244-decider-panic-not-contained: only an unrecovered panic/fatal error, no assertion failed (not a genuine kill)
+mutations: 0 genuinely killed of 1
+== t244-decider-hard-panic-not-contained
+CRASH        t244-decider-hard-panic-not-contained: only an unrecovered panic/fatal error, no assertion failed (not a genuine kill)
+mutations: 0 genuinely killed of 1
+== t244-decider-divergence-not-counted
+KILLED       t244-decider-divergence-not-counted
+mutations: 1 genuinely killed of 1
+== t244-decider-assert-ignores-missing-hook
+KILLED       t244-decider-assert-ignores-missing-hook
+mutations: 1 genuinely killed of 1
+== t244-decider-plugin-result-ignored-score
+KILLED       t244-decider-plugin-result-ignored-score
+mutations: 1 genuinely killed of 1
+== t244-decider-plugin-result-ignored-hard
+KILLED       t244-decider-plugin-result-ignored-hard
+mutations: 1 genuinely killed of 1
+== t244-decider-eligibility-yaml-not-in-sha
+KILLED       t244-decider-eligibility-yaml-not-in-sha
+mutations: 1 genuinely killed of 1
+== t244-decider-eligibility-yaml-not-strict
+KILLED       t244-decider-eligibility-yaml-not-strict
+mutations: 1 genuinely killed of 1
+== t244-decider-eligibility-yaml-mode-ignored
+KILLED       t244-decider-eligibility-yaml-mode-ignored
+mutations: 1 genuinely killed of 1
+== t244-decider-gate-order-swapped
+KILLED       t244-decider-gate-order-swapped
+mutations: 1 genuinely killed of 1
+== t244-decider-rule-fault-passes
+KILLED       t244-decider-rule-fault-passes
+mutations: 1 genuinely killed of 1
+== t244-decider-empty-set-passes
+KILLED       t244-decider-empty-set-passes
+mutations: 1 genuinely killed of 1
+== t244-decider-goldparity-mismatch-not-counted
+KILLED       t244-decider-goldparity-mismatch-not-counted
+mutations: 1 genuinely killed of 1
+== t244-decider-equivalent-ignores-plugin-mode
+KILLED       t244-decider-equivalent-ignores-plugin-mode
+mutations: 1 genuinely killed of 1
+== t244-decider-fetch-assert-skipped
+KILLED       t244-decider-fetch-assert-skipped
+mutations: 1 genuinely killed of 1
+== t244-decider-console-assert-skipped
+KILLED       t244-decider-console-assert-skipped
+mutations: 1 genuinely killed of 1
+== t244-decider-fetch-hooks-not-attached
+KILLED       t244-decider-fetch-hooks-not-attached
+mutations: 1 genuinely killed of 1
+== t244-decider-nil-hook-not-unavailable (rerun after fixing the mutation row)
+KILLED       t244-decider-nil-hook-not-unavailable
+mutations: 1 genuinely killed of 1
+== t244-decider-error-passes (rerun after fixing the mutation row)
+KILLED       t244-decider-error-passes
+mutations: 1 genuinely killed of 1
+== t244-decider-hard-error-passes (rerun after fixing the mutation row)
+UNDETERMINED t244-decider-hard-error-passes: survived without -race and the race pass cannot run (gcc missing or MUT_NO_RACE=1)
+mutations: 0 genuinely killed of 1
+== t244-decider-panic-not-contained (rerun after fixing the mutation row)
+KILLED       t244-decider-panic-not-contained
+mutations: 1 genuinely killed of 1
+== t244-decider-hard-panic-not-contained (rerun after fixing the mutation row)
+KILLED       t244-decider-hard-panic-not-contained
+mutations: 1 genuinely killed of 1
+== t244-decider-hard-error-passes (rerun after adding the hard-error assertion)
+KILLED       t244-decider-hard-error-passes
+mutations: 1 genuinely killed of 1

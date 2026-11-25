@@ -1,0 +1,133 @@
+version: "1.0"
+name: "job_seeker authenticated console navigation"
+description: "Signed-in walk of the console pages (Inbox, Review queue, Applications, Add posting, Settings, Audit log, Position page). Every step is vision-gated: it passes only when a local vision model reads the exact after-action frame and the expected page text is present as a whole element. Coordinates are for the 1920x937 frame the HelixQA web bridge captures."
+metadata: {author: vasic-digital, app: job_seeker}
+test_cases:
+  - id: JSK-AUTH-001
+    name: "Inbox lists the synthetic postings"
+    category: functional
+    priority: high
+    platforms: [web]
+    steps:
+      - name: "Inbox lists the synthetic postings"
+        action: "screenshot"
+        expected: "Inbox with eight postings"
+        vision_verify: true
+        recognize: ["Inbox", "Apply filters", "Acme Robotics"]
+        forbid: ["Traceback", "panic"]
+    tags: [authenticated, navigation]
+    estimated_duration: "20s"
+    expected_result: "Inbox with eight postings"
+  - id: JSK-AUTH-002
+    name: "Open the Review queue"
+    category: functional
+    priority: high
+    platforms: [web]
+    steps:
+      - name: "Open the Review queue"
+        action: "tap: 288,36"
+        expected: "Review queue listing the unmapped posting"
+        vision_verify: true
+        recognize: ["Review queue", "Unclear Role", "Map to area"]
+        forbid: ["Traceback", "panic"]
+    tags: [authenticated, navigation]
+    estimated_duration: "20s"
+    expected_result: "Review queue listing the unmapped posting"
+  - id: JSK-AUTH-003
+    name: "Open Applications"
+    category: functional
+    priority: high
+    platforms: [web]
+    steps:
+      - name: "Open Applications"
+        action: "tap: 424,36"
+        expected: "Applications page, empty state"
+        vision_verify: true
+        recognize: ["Applications", "No applications yet"]
+        forbid: ["Traceback", "panic"]
+    tags: [authenticated, navigation]
+    estimated_duration: "20s"
+    expected_result: "Applications page, empty state"
+  - id: JSK-AUTH-004
+    name: "Open Add posting"
+    category: functional
+    priority: high
+    platforms: [web]
+    steps:
+      - name: "Open Add posting"
+        action: "tap: 552,36"
+        expected: "Add a posting by hand form"
+        vision_verify: true
+        recognize: ["Add a posting by hand", "Job title"]
+        forbid: ["Traceback", "panic"]
+    tags: [authenticated, navigation]
+    estimated_duration: "20s"
+    expected_result: "Add a posting by hand form"
+  - id: JSK-AUTH-005
+    name: "Open Settings"
+    category: functional
+    priority: high
+    platforms: [web]
+    steps:
+      - name: "Open Settings"
+        action: "tap: 661,36"
+        expected: "Settings page with the kill switch and live mode state"
+        vision_verify: true
+        recognize: ["Settings", "Kill switch", "Live mode"]
+        recognize_contains: true
+        forbid: ["Traceback", "panic"]
+      - name: "Scroll Settings to its lower sections"
+        action: "keypress: End"
+        expected: "Settings page scrolled to the retention and legal notice sections"
+        vision_verify: true
+        recognize: ["Retention", "Legal notice"]
+        recognize_contains: true
+        forbid: ["Traceback", "panic"]
+    tags: [authenticated, navigation]
+    estimated_duration: "20s"
+    expected_result: "Settings page"
+  - id: JSK-AUTH-006
+    name: "Open Audit log"
+    category: functional
+    priority: high
+    platforms: [web]
+    steps:
+      - name: "Open Audit log"
+        action: "tap: 758,36"
+        expected: "Audit log with entries"
+        vision_verify: true
+        recognize: ["Audit log", "Export as JSON lines"]
+        forbid: ["Traceback", "panic"]
+    tags: [authenticated, navigation]
+    estimated_duration: "20s"
+    expected_result: "Audit log with entries"
+  - id: JSK-AUTH-007
+    name: "Back to Inbox"
+    category: functional
+    priority: high
+    platforms: [web]
+    steps:
+      - name: "Back to Inbox"
+        action: "tap: 180,36"
+        expected: "Inbox again"
+        vision_verify: true
+        recognize: ["Inbox", "Apply filters"]
+        forbid: ["Traceback", "panic"]
+    tags: [authenticated, navigation]
+    estimated_duration: "20s"
+    expected_result: "Inbox again"
+  - id: JSK-AUTH-008
+    name: "Open a posting (Position page)"
+    category: functional
+    priority: high
+    platforms: [web]
+    steps:
+      - name: "Open a posting (Position page)"
+        action: "tap: 160,371"
+        expected: "Posting detail page"
+        vision_verify: true
+        recognize: ["ACME Robotics, Inc."]
+        forbid: ["Traceback", "panic"]
+    tags: [authenticated, navigation]
+    estimated_duration: "20s"
+    expected_result: "Posting detail page"

@@ -15,6 +15,8 @@ Source: file `career_private/overlay.yaml` resolved from env `CAREER_PRIVATE_DIR
 | `blocked_companies` | list of strings | hard gate `blocked_company` | normalised compare, no regex from the file |
 | `salary_period` | `year|month|hour` | normalises posting salary before comparing with `salary_min` | |
 | `eligible_countries` | list of ISO 3166 codes | hard gate `excluded_region` against a posting's country restrictions | |
+| `work_auth_countries` | list of ISO 3166-1 alpha-2, upper case; empty list = explicit "none" | `eligibility.WorkAuth` via `OverlayProfile.WorkAuthCountries` (JSK-T177/T242) | scoring-only; absent key = not configured (rule says Unknown); never in the DB |
+| `languages` | non-empty list of ISO 639-1 codes, lower case | `eligibility.Language` via `OverlayProfile.Languages` (JSK-T177/T242) | scoring-only; absent key = not configured; an empty list is rejected |
 
 The umbrella `overlay.py` allow-list receives `salary_min`, `salary_currency`, `salary_period`, `tz_window`, `allowed_onsite_cities`, `blocked_companies`, `eligible_countries` in a separate reviewed umbrella change (JSK-T011); the two readers are kept in step by a cross-check test that loads both against a throwaway overlay file containing only synthetic values.
 
@@ -28,7 +30,7 @@ The umbrella `overlay.py` allow-list receives `salary_min`, `salary_currency`, `
 | `JOBSEEKER_DB_KEY` | KEK secret (or 0600 file via `JOBSEEKER_DB_KEY_FILE`) |
 | `JOBSEEKER_SESSION_KEY` | session MAC key |
 | `JOBSEEKER_BOOTSTRAP_TOKEN` | first-passkey registration |
-| `JOBSEEKER_KILL_SWITCH`, `JOBSEEKER_METRICS_ADDR`, `JOBSEEKER_BACKUP_DIR`, `JOBSEEKER_TEMPLATE_DIR`, `JOBSEEKER_EXPORT_PASSPHRASE` | kill switch, metrics listener, backup target, template slots dir, export archive key (separate from the DEK) |
+| `JOBSEEKER_KILL_SWITCH`, `JOBSEEKER_METRICS_ADDR`, `JOBSEEKER_BACKUP_DIR`, `JOBSEEKER_TEMPLATE_DIR`, `JOBSEEKER_CANDIDATE_NAME`, `JOBSEEKER_EXPORT_PASSPHRASE` | kill switch, metrics listener, backup target, template slots dir, candidate display name for download filenames (JSK-T175), export archive key (separate from the DEK) |
 | `JOBSEEKER_ALLOWED_HOSTS`, `JOBSEEKER_ORIGINS` | Host and Origin allow-lists |
 | `JOBSEEKER_EGRESS_ALLOWLIST` | path to allow-list file |
 | `CAREER_PRIVATE_DIR`, `CAREER_CONTENT_DIR`, `DESIGN_SYSTEM_DIR` | private overlay, public career content, design system |

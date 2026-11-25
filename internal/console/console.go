@@ -12,6 +12,7 @@ import (
 	"encoding/hex"
 	"errors"
 	"fmt"
+	"github.com/vasic-digital/job_seeker/internal/ext/knockout"
 	"html/template"
 	"io/fs"
 	"net/http"
@@ -31,6 +32,7 @@ import (
 	"github.com/vasic-digital/job_seeker/internal/ingest"
 	"github.com/vasic-digital/job_seeker/internal/match"
 	"github.com/vasic-digital/job_seeker/internal/matchstore"
+	"github.com/vasic-digital/job_seeker/internal/position"
 	"github.com/vasic-digital/job_seeker/internal/privacy"
 	"github.com/vasic-digital/job_seeker/internal/store"
 	"github.com/vasic-digital/job_seeker/internal/templates"
@@ -56,6 +58,8 @@ type Deps struct {
 	Tracker *tracker.Service
 	// Retention is the configuration in force (zero fields select the C9 defaults); shown on the settings page.
 	Retention ingest.Retention
+	// DefaultApplyMode is JOBSEEKER_APPLY_MODE: the apply mode used until an apply_mode setting is stored (a stored one wins). Empty means all_aware.
+	DefaultApplyMode string
 }
 
 // Console holds parsed templates and dependencies.
@@ -66,7 +70,7 @@ type Console struct {
 	static  http.Handler
 }
 
-var pageNames = []string{"login", "inbox", "queue", "job", "draft", "applications", "tracking", "settings", "audit"}
+var pageNames = []string{"login", "inbox", "queue", "job", "position", "draft", "applications", "tracking", "settings", "audit", "merges", "intake"}
 
 // New parses every page against the layout and verifies the vendored htmx hash.
 func New(d Deps) (*Console, error) {
@@ -105,7 +109,7 @@ type navItem struct {
 	Current   bool
 }
 
-var navAll = []navItem{{"/", "nav.inbox", false}, {"/queue", "nav.queue", false}, {"/applications", "nav.applications", false}, {"/settings", "nav.settings", false}, {"/audit", "nav.audit", false}}
+var navAll = []navItem{{"/", "nav.inbox", false}, {"/queue", "nav.queue", false}, {"/applications", "nav.applications", false}, {"/intake", "nav.intake", false}, {"/settings", "nav.settings", false}, {"/audit", "nav.audit", false}}
 
 type page struct {
 	Lang, Dir, TitleKey, CSRF, HtmxSRI, Error, Notice string
@@ -122,6 +126,10 @@ type page struct {
 	Areas               []string
 	Langs               []string
 	P                   *postingView
+	Pos                 *positionView
+	Intake              *intakeView
+	OverrideModes       []string
+	PosID               int64 // the Position a listing belongs to, 0 when none
 	Score               *scoreView
 	Body                []string
 	CanShortlist        bool
@@ -132,8 +140,17 @@ type page struct {
 	Files               []fileView
 	NeedsLang           bool
 	LiveMode            bool
+	Merges              []position.CandidateView // JSK-T209: open merge candidates
+	Knockout            []knockoutRow            // JSK-T177: the knockout pre-flight checklist of the posting; empty when nothing is asked
+	Dups                []draft.DupView          // JSK-T208: other open applications to the same Position, with the acknowledgement checkbox
+	Report              *draft.ApprovalReport    // JSK-T187: the approval report; nil when it could not be produced (Approve stays disabled)
+	ReportOff           bool                     // true when the report layer is not configured (tests, tools): nothing is required
+	Advisories          []string                 // JSK-T183/T185: risk flags and the business-hours warning, shown at approval
 	Kill, EnvKill, Live bool
 	CapDaily, CapHost   int
+	Policy              PolicyView
+	ProviderRows        []providerRow
+	EmployerRows        []employerRow
 	Health              []Health
 	// tracker page, inbox due block, retention display, review queue detail
 	Due                       []dueView
@@ -196,9 +213,9 @@ func statusOf(err error) (int, string) {
 		return http.StatusNotFound, code
 	case "validation", "language_confirmation_required":
 		return http.StatusBadRequest, code
-	case "step_up_required", "live_mode_off", "overlay_absent", "kill_switch_on", "cap_exceeded", "company_confirmation_failed", "approval_required", "gate_regressed", "gate_undetermined":
+	case "step_up_required", "live_mode_off", "overlay_absent", "kill_switch_on", "cap_exceeded", "company_confirmation_failed", "approval_required", "gate_regressed", "gate_undetermined", "policy_not_eligible", "compliance_blocked", "knockout_unconfirmed":
 		return http.StatusForbidden, code
-	case "illegal_transition", "approval_hash_mismatch", "slot_missing", "duplicate_send", "approval_expired", "posting_closed", "cover_stale", "duplicate_company", "templates_stale":
+	case "position_busy", "merge_blocked", "illegal_transition", "approval_hash_mismatch", "slot_missing", "duplicate_send", "approval_expired", "posting_closed", "cover_stale", "duplicate_company", "templates_stale", "manual_only", "upload_refused", "posting_risk", "policy_position_taken", "policy_employer_limit", "duplicate_unacknowledged", "policy_changed", "report_required", "area_confirmation_required":
 		return http.StatusConflict, code
 	}
 	return http.StatusInternalServerError, "internal"
@@ -214,12 +231,21 @@ func (c *Console) Register(e *gin.Engine) {
 	})
 	e.GET("/", c.inbox)
 	e.GET("/queue", c.queue)
+	e.GET("/queue/merges", c.mergesPage)
+	e.POST("/queue/merges/:id/:action", c.mergeDecide)
+	e.POST("/positions/:id/merge", c.positionMerge)
+	e.POST("/listings/:id/split", c.listingSplit)
 	e.POST("/queue/:id/map", c.mapPosting)
 	e.POST("/postings/:id/dismiss", c.dismiss)
 	e.GET("/applications/:id/tracking", c.trackingPage)
 	e.POST("/applications/:id/tracking", c.trackingRecord)
 	e.POST("/applications/:id/follow-up", c.followUp)
-	e.GET("/postings/:id", c.job)
+	e.GET("/postings/:id", c.postingEntry)
+	e.GET("/listings/:id", c.listing)
+	e.GET("/positions/:id", c.positionPage)
+	e.POST("/positions/:id/apply-override", c.setPositionOverride)
+	e.POST("/settings/providers/:id/enabled", c.setProviderEnabled)
+	e.POST("/settings/employers/:id/policy", c.setEmployerPolicy)
 	e.POST("/postings/:id/shortlist", c.shortlist)
 	e.POST("/postings/:id/start-application", c.startApplication)
 	e.GET("/applications", c.applications)
@@ -236,6 +262,10 @@ func (c *Console) Register(e *gin.Engine) {
 	e.POST("/settings/live-mode", c.setLive)
 	e.POST("/settings/caps", c.setCaps)
 	e.POST("/settings/language", c.setLanguage)
+	e.POST("/settings/apply-mode", c.setApplyMode)
+	e.POST("/settings/favourites", c.setFavourites)
+	e.GET("/intake", c.intakeGet)
+	e.POST("/intake", c.intakePost)
 	e.GET("/audit", c.auditPage)
 	e.GET("/audit.jsonl", c.auditJSONL)
 }
@@ -459,6 +489,7 @@ func (c *Console) job(g *gin.Context) {
 			}
 		}
 	}
+	_ = c.DB.Read().QueryRowContext(ctx, `SELECT coalesce(position_id,0) FROM posting WHERE id=?`, id).Scan(&p.PosID)
 	p.Score = c.scoreOf(ctx, id)
 	p.CanShortlist = pv.State == "scored"
 	p.CanDismiss = pv.State == "scored"
@@ -614,7 +645,43 @@ func (c *Console) renderDraft(g *gin.Context, status int, errCode, notice string
 	p.A, p.Files, p.Error, p.Notice = a, files, errCode, notice
 	p.NeedsLang = strings.HasPrefix(a.LangRule, "confirm_")
 	p.Langs, p.LiveMode = draft.SupportedLangs, c.Draft.Gate.LiveMode()
+	if adv, aerr := c.Draft.Advisories(g.Request.Context(), id); aerr == nil {
+		p.Advisories = adv
+	}
+	if d, derr := c.Draft.Duplicates(g.Request.Context(), id); derr == nil {
+		p.Dups = d
+	}
+	if a.State == "awaiting_human_approval" {
+		if items, kerr := c.Draft.KnockoutChecklist(g.Request.Context(), id); kerr == nil {
+			p.Knockout = koRows(items)
+		}
+	}
+	p.ReportOff = c.Draft.Coverage == nil
+	if !p.ReportOff && a.State == "awaiting_human_approval" {
+		if r, rerr := c.Draft.ApprovalReport(g.Request.Context(), id); rerr == nil {
+			p.Report = &r
+		}
+	}
 	c.render(g, status, "draft", p)
+}
+
+// knockoutRow is one line of the approval screen's knockout checklist (JSK-T177). Ids and closed codes only: no posting text.
+type knockoutRow struct {
+	ID, LabelKey, State string
+	Open                bool // not confirmed: the operator must acknowledge it before a live approval
+}
+
+// koRows maps the pre-flight checklist to display rows; a row id with no dedicated wording uses the generic label.
+func koRows(items []knockout.Item) []knockoutRow {
+	out := make([]knockoutRow, 0, len(items))
+	for _, it := range items {
+		key := "knockout.q.other"
+		if it.ID == "work_auth_required" || it.ID == "sponsorship_restriction" {
+			key = "knockout.q." + it.ID
+		}
+		out = append(out, knockoutRow{ID: it.ID, LabelKey: key, State: string(it.State), Open: it.State != knockout.Confirmed})
+	}
+	return out
 }
 
 // act runs one draft-service action from a form post. Errors re-render the draft page with the closed code; success
@@ -633,11 +700,13 @@ func (c *Console) act(kind string) gin.HandlerFunc {
 		case "language":
 			err = c.Draft.ConfirmLanguage(ctx, id, g.PostForm("lang"), "operator")
 		case "approve":
-			in := draft.ApproveInput{AppID: id, Actor: "operator", Live: g.PostForm("live") == "1", CompanyConfirm: g.PostForm("company")}
+			in := draft.ApproveInput{AppID: id, Actor: "operator", Live: g.PostForm("live") == "1", CompanyConfirm: g.PostForm("company"), AckDuplicate: g.PostForm("ack_duplicate") == "1", AckKnockouts: g.PostFormArray("ack_knockout")}
 			if s := api.SessionFrom(g.Request); s != nil {
 				in.StepUpAt = s.StepUpAt
 			}
-			_, err = c.Draft.Approve(ctx, in)
+			if err = c.Draft.CheckReportSeen(ctx, id, g.PostForm("report"), g.PostForm("area_confirm") == "1"); err == nil {
+				_, err = c.Draft.Approve(ctx, in)
+			}
 		case "reject":
 			err = c.Draft.Reject(ctx, id, "operator", g.PostForm("reason"))
 		case "request-live":
@@ -666,7 +735,11 @@ func (c *Console) file(g *gin.Context) {
 	}
 	f, sha, err := c.Draft.File(g.Request.Context(), id, kind)
 	if err == nil {
-		err = c.servePDF(g, f, sha)
+		dl, derr := c.Draft.DownloadName(g.Request.Context(), id, kind)
+		if derr != nil {
+			dl = f.Name
+		}
+		err = c.servePDF(g, f, sha, dl)
 	}
 	if err != nil && !g.Writer.Written() {
 		st, code := statusOf(err)
@@ -677,36 +750,41 @@ func (c *Console) file(g *gin.Context) {
 // servePDF stages the hash-verified bytes in a 0600 file on tmpfs (JSK-T094, FR-054), serves them from there so the
 // viewer gets range requests, and zeroes and removes the file before returning. A host without tmpfs falls back to
 // the in-memory stream, which never touches a disk either.
-func (c *Console) servePDF(g *gin.Context, f templates.File, sha string) error {
+func (c *Console) servePDF(g *gin.Context, f templates.File, sha, dl string) error {
 	data, err := templates.ReadVerified(f, sha)
 	if err != nil {
 		return err
 	}
 	tmp, terr := privacy.NewTemp("", f.Name, data)
 	if terr != nil {
-		return templates.WriteVerified(g.Writer, f, sha, data)
+		return templates.WriteVerified(g.Writer, named(f, dl), sha, data)
 	}
 	defer tmp.Close()
 	fh, err := os.Open(tmp.Path)
 	if err != nil {
-		return templates.WriteVerified(g.Writer, f, sha, data)
+		return templates.WriteVerified(g.Writer, named(f, dl), sha, data)
 	}
 	defer fh.Close()
 	h := g.Writer.Header()
 	h.Set("Content-Type", "application/pdf")
-	h.Set("Content-Disposition", `inline; filename="`+f.Name+`"`)
+	h.Set("Content-Disposition", `inline; filename="`+dl+`"`)
 	h.Set("Cache-Control", "no-store")
 	h.Set("X-Content-Type-Options", "nosniff")
 	h.Set("X-Content-SHA256", sha)
-	http.ServeContent(g.Writer, g.Request, f.Name, time.Time{}, fh)
+	http.ServeContent(g.Writer, g.Request, dl, time.Time{}, fh)
 	return nil
 }
+
+// named returns f with its served name replaced by dl (the JSK-T175 download name); the slot and its hash are unchanged.
+func named(f templates.File, dl string) templates.File { f.Name = dl; return f }
 
 // ---- settings
 
 func (c *Console) fillSettings(ctx context.Context, p *page) {
 	p.Kill, p.EnvKill, p.Live = c.Draft.Gate.KillSwitch(ctx), c.Draft.Gate.EnvKill, c.Draft.Gate.LiveMode()
 	p.CapDaily, p.CapHost = c.Draft.Gate.Caps(ctx)
+	p.Policy = c.policyView(ctx)
+	p.ProviderRows, p.EmployerRows = c.providerRows(ctx), c.employerRows(ctx)
 	rt := c.Retention.Effective()
 	p.PostingDays, p.SnapshotDays = rt.PostingDays, rt.SnapshotDays
 	_ = c.DB.Read().QueryRowContext(ctx, `SELECT ts FROM audit_log WHERE reason_code='retention_prune' ORDER BY id DESC LIMIT 1`).Scan(&p.LastPrune)

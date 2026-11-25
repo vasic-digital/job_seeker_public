@@ -1,0 +1,22 @@
+{
+  "image": "evidence/JSK-T084/frames/live-auth-inbox.png",
+  "prompt": "This is a screenshot of a web page. List the page title or main heading, the navigation links, and any buttons or form fields you can read. Quote the visible text exactly.",
+  "endpoint": "http://127.0.0.1:11500/v1/chat/completions",
+  "model_requested": "qwen2.5vl:3b",
+  "model_served": "qwen2.5vl:3b",
+  "expected_facts": [
+    "Inbox",
+    "Settings"
+  ],
+  "response": "Page Title: Inbox\n\nNavigation Links:\n- Inbox\n- Review queue\n- Applications\n- Settings\n- Audit log\n\nButtons and Form Fields:\n- APPLY FILTERS",
+  "matched_facts": 2,
+  "expected_count": 2,
+  "hallucinated": false,
+  "pass": true,
+  "expect_fail": false,
+  "case_result": true,
+  "latency_ms": 2363,
+  "http_status": 200,
+  "prompt_tokens": 1530,
+  "completion_tokens": 35
+}

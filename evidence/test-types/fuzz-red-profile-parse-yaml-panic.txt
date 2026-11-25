@@ -1,0 +1,48 @@
+--- FAIL: FuzzParse (0.01s)
+    --- FAIL: FuzzParse/fdad2135e098e607 (0.00s)
+panic: runtime error: invalid memory address or nil pointer dereference [recovered, repanicked]
+[signal SIGSEGV: segmentation violation code=0x1 addr=0x8 pc=0x63169d]
+
+goroutine 18 [running]:
+testing.tRunner.func1.2({0x700b60, 0xa2baf0})
+	$HOME/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.11.linux-amd64/src/testing/testing.go:1974 +0x232
+testing.tRunner.func1()
+	$HOME/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.11.linux-amd64/src/testing/testing.go:1977 +0x349
+panic({0x700b60?, 0xa2baf0?})
+	$HOME/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.11.linux-amd64/src/runtime/panic.go:860 +0x13a
+github.com/goccy/go-yaml/ast.(*ArrayNodeIter).Len(...)
+	$HOME/go/pkg/mod/github.com/goccy/go-yaml@v1.19.2/ast/ast.go:1543
+github.com/goccy/go-yaml.(*Decoder).decodeSlice(0x3f64942af700, {0x782fa8, 0xa5c880}, {0x6e9ae0?, 0x3f649448f488?, 0x6de3ac?}, {0x788880?, 0x3f64945c0780?})
+	$HOME/go/pkg/mod/github.com/goccy/go-yaml@v1.19.2/decode.go:1593 +0x15d
+github.com/goccy/go-yaml.(*Decoder).decodeValue(0x3f64942af700, {0x782fa8, 0xa5c880}, {0x6e9ae0?, 0x3f649448f488?, 0x0?}, {0x788880, 0x3f64945c0780})
+	$HOME/go/pkg/mod/github.com/goccy/go-yaml@v1.19.2/decode.go:961 +0x1898
+github.com/goccy/go-yaml.(*Decoder).createDecodedNewValue(0x3f64942af700, {0x782fa8, 0xa5c880}, {0x78b198, 0x6e9ae0}, {0x6e9ae0?, 0x3f649456f070?, 0x78ffd8?}, {0x788880, 0x3f64945c0780})
+	$HOME/go/pkg/mod/github.com/goccy/go-yaml@v1.19.2/decode.go:1118 +0x37a
+github.com/goccy/go-yaml.(*Decoder).decodeStruct(0x3f64942af700, {0x782fa8, 0xa5c880}, {0x742320?, 0x3f649456f040?, 0x0?}, {0x788500, 0x3f6494577080})
+	$HOME/go/pkg/mod/github.com/goccy/go-yaml@v1.19.2/decode.go:1429 +0xd85
+github.com/goccy/go-yaml.(*Decoder).decodeValue(0x3f64942af700, {0x782fa8, 0xa5c880}, {0x742320?, 0x3f649456f040?, 0x3f64942b46a8?}, {0x788500, 0x3f6494577080})
+	$HOME/go/pkg/mod/github.com/goccy/go-yaml@v1.19.2/decode.go:966 +0x1998
+github.com/goccy/go-yaml.(*Decoder).decode(0x3f64942af700, {0x782fa8, 0xa5c880}, {0x6e2ba0?, 0x3f649456f040?, 0x48b34f?})
+	$HOME/go/pkg/mod/github.com/goccy/go-yaml@v1.19.2/decode.go:1975 +0x22b
+github.com/goccy/go-yaml.(*Decoder).DecodeContext(0x3f64942af700, {0x782fa8, 0xa5c880}, {0x6e2ba0?, 0x3f649456f040?})
+	$HOME/go/pkg/mod/github.com/goccy/go-yaml@v1.19.2/decode.go:2007 +0x151
+github.com/goccy/go-yaml.UnmarshalContext({0x782fa8, 0xa5c880}, {0x3f649454b340, 0x34, 0x40}, {0x6e2ba0, 0x3f649456f040}, {0x3f64942b4670, 0x1, 0x1})
+	$HOME/go/pkg/mod/github.com/goccy/go-yaml@v1.19.2/yaml.go:207 +0x219
+github.com/goccy/go-yaml.UnmarshalWithOptions(...)
+	$HOME/go/pkg/mod/github.com/goccy/go-yaml@v1.19.2/yaml.go:201
+github.com/vasic-digital/job_seeker/internal/ext/ats/profile.Parse({0x3f649454b340, 0x34, 0x40})
+	$HOME/Projects/vasic/job_seeker-wt-tcov/internal/ext/ats/profile/profile.go:70 +0xb3
+github.com/vasic-digital/job_seeker/internal/ext/ats/profile.FuzzParse.func1(0x3f649449c908, {0x3f649454b340?, 0x0?, 0x48d2b3?})
+	$HOME/Projects/vasic/job_seeker-wt-tcov/internal/ext/ats/profile/fuzz_test.go:23 +0x3b
+reflect.Value.call({0x6f3420?, 0x77c160?, 0x13?}, {0x75ab0a, 0x4}, {0x3f64945c0300, 0x2, 0x2?})
+	$HOME/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.11.linux-amd64/src/reflect/value.go:586 +0xf0c
+reflect.Value.Call({0x6f3420?, 0x77c160?, 0x51dd20?}, {0x3f64945c0300?, 0x7594a0?, 0x3f6494556870?})
+	$HOME/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.11.linux-amd64/src/reflect/value.go:369 +0xb9
+testing.(*F).Fuzz.func1.1(0x3f649449c908?)
+	$HOME/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.11.linux-amd64/src/testing/fuzz.go:341 +0x365
+testing.tRunner(0x3f649449c908, 0x3f6494448750)
+	$HOME/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.11.linux-amd64/src/testing/testing.go:2036 +0xea
+created by testing.(*F).Fuzz.func1 in goroutine 8
+	$HOME/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.11.linux-amd64/src/testing/fuzz.go:328 +0x668
+FAIL	github.com/vasic-digital/job_seeker/internal/ext/ats/profile	0.068s
+FAIL

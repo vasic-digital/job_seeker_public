@@ -15,7 +15,7 @@
   "pass": false,
   "expect_fail": true,
   "case_result": true,
-  "latency_ms": 1797,
+  "latency_ms": 2081,
   "http_status": 200,
   "prompt_tokens": 1530,
   "completion_tokens": 10

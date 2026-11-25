@@ -1,0 +1,24 @@
+0 0s gates/verify_carriers.sh | lockstep OK (4 carriers, normalised digest c83be1fba7b03764)
+0 2s gates/verify_channels_nosend.sh | OK: 4 channel package(s), NewApproved callers ['internal/draft/token.go', 'internal/ext/ports.go'], no send su
+0 4s gates/verify_design.sh | OK design copy matches its manifest; console.css defines no token and carries no literal colour
+0 7s gates/verify_evidence_normalised.sh | OK: evidence normalised (shared normaliser cmd/evnorm)
+0 1s gates/verify_font_coverage.sh | OK languages=be,de,en,kk,ru,sr shipped_codepoints=11325 checked_chars=59279
+0 0s gates/verify_font_licences.sh | OK 24 font file(s), every one with a licence record, a present OFL text and a matching sha256
+0 0s gates/verify_gitignore.sh | OK: all probes ignored, .env.example names-only
+0 2s gates/verify_gold.sh | OK: three identical runs
+0 1s gates/verify_hooks.sh | OK: all hook cases behaved
+0 2s gates/verify_i18n_review_normalised.sh | PASS: i18n_review.sh output is normalised
+0 1s gates/verify_i18n.sh | RESULT PASS (shipped catalogues are complete; pending languages are NOT claimed)
+0 2s gates/verify_install_hooks.sh | OK: all install-hooks cases behaved
+0 0s gates/verify_ledger.sh | OK: all 13 test types accounted for (0 operator_attended SKIP-justified, never an automated PASS; 9 PRESENT, 4
+0 3s gates/verify_manual_intake.sh | OK: manual-intake refusal table green (library and jsctl intake, nothing stored on refusal)
+0 2s gates/verify_match.sh | OK: internal/match suite green against committed rules
+0 3s gates/verify_nosend.sh | OK: no-send-bypass suite green (8 FR-026 attempts, handoff re-checks, sent-writer enumeration, no generative i
+0 1s gates/verify_page_headroom.sh | OK: page-headroom warning suite green
+0 0s gates/verify_pins.sh | OK: no gitlinks; every manifest ref is contained in its resolved checkout
+0 13s gates/verify_plugins.sh | OK: 13 mutant(s), one per plugin package, KILLED
+1 2s gates/verify_public_readiness.sh | FAIL: 8 public-readiness finding(s) in 4 file(s)
+0 0s gates/verify_rawpage.sh | OK: E columns are ciphertext in db, wal and backups; needle control hit
+2 0s gates/verify_runner_flag.sh | cmd/jsstack/main.go:40:2: digital.vasic.containers@v0.0.0: replacement directory ../../.deps/containers does n
+0 1s gates/verify_tiebreak.sh | OK: internal/llm tiebreak suite green
+0 15s gates/verify_upstream_guard.sh | suite: 18 passed, 0 failed

@@ -1,0 +1,53 @@
+{{define "content"}}
+<article class="od-card console-card" aria-labelledby="pos-h">
+  <h2 id="pos-h" class="console-h2" data-testid="position-title">{{(index .Pos.Fields 0).Merged}}{{if not (index .Pos.Fields 0).Merged}}{{t .Lang "position.untitled"}}{{end}}</h2>
+  <dl class="console-dl">
+    <dt>{{t .Lang "col.company"}}</dt><dd>{{if .Pos.Employer}}{{.Pos.Employer}}{{else}}{{with (index .Pos.Fields 1).Merged}}{{.}}{{else}}–{{end}}{{end}}</dd>
+    <dt>{{t .Lang "position.state"}}</dt><dd data-testid="position-state">{{.Pos.State}}</dd>
+    {{if .Pos.Seniority}}<dt>{{t .Lang "position.seniority"}}</dt><dd>{{.Pos.Seniority}}</dd>{{end}}
+    {{if ne .Pos.Override "inherit"}}<dt>{{t .Lang "position.override"}}</dt><dd data-testid="position-override">{{.Pos.Override}}{{if .Pos.Reason}} · {{.Pos.Reason}}{{end}}</dd>{{end}}
+  </dl>
+  <p class="console-hint">{{t .Lang "job.lang.original"}}</p>
+</article>
+{{if .Pos.Listings}}
+<section class="od-card console-card" aria-labelledby="merged-h">
+  <h2 id="merged-h" class="console-h2">{{t .Lang "position.merged"}}</h2>
+  <p class="console-hint">{{t .Lang "position.merged.hint"}}</p>
+  <table class="od-table"><caption class="od-visually-hidden">{{t .Lang "position.merged"}}</caption>
+  <thead><tr><th scope="col">{{t .Lang "position.field"}}</th><th scope="col">{{t .Lang "position.value"}}</th><th scope="col">{{t .Lang "position.reported_by"}}</th></tr></thead>
+  <tbody>
+  {{range $f := .Pos.Fields}}
+    <tr data-testid="field-{{$f.Key}}"><th scope="row">{{t $.Lang (printf "position.field.%s" $f.Key)}}</th>
+      <td>{{if $f.Merged}}{{$f.Merged}}{{else}}<span aria-label="{{t $.Lang "position.none"}}">–</span>{{end}}</td>
+      <td><ul class="console-plain">{{range $f.Values}}<li>{{.Value}}{{if not .Merged}} <em>({{t $.Lang "position.differs"}})</em>{{end}} ·{{range .Providers}} <span data-testid="prov-{{$f.Key}}-{{.}}">{{.}}</span>{{end}}</li>{{else}}<li>{{t $.Lang "position.none"}}</li>{{end}}</ul></td></tr>
+  {{end}}
+  </tbody></table>
+</section>
+<section class="od-card console-card" aria-labelledby="lst-h">
+  <h2 id="lst-h" class="console-h2">{{t .Lang "position.listings"}}</h2>
+  <table class="od-table"><caption class="od-visually-hidden">{{t .Lang "position.listings"}}</caption>
+  <thead><tr><th scope="col">{{t .Lang "col.source"}}</th><th scope="col">{{t .Lang "col.title"}}</th><th scope="col">{{t .Lang "col.state"}}</th><th scope="col">{{t .Lang "position.link"}}</th><th scope="col">{{t .Lang "position.attribution"}}</th></tr></thead>
+  <tbody>{{range .Pos.Listings}}
+    <tr id="listing-{{.ID}}" data-testid="listing-{{.ID}}"><th scope="row">{{.Provider}}{{if .Representative}} <em>({{t $.Lang "position.representative"}})</em>{{end}}</th>
+      <td><a href="/listings/{{.ID}}">{{.Title}}</a></td><td>{{.State}}</td>
+      <td>{{.Decision}}{{if .HasScore}} · {{printf "%.2f" .Score}}{{end}}</td>
+      <td>{{if .URL}}<a href="{{.URL}}" rel="noreferrer noopener" target="_blank">{{t $.Lang "job.attribution"}}</a>{{else}}–{{end}}</td></tr>
+  {{end}}</tbody></table>
+</section>
+<section class="od-card console-card" aria-labelledby="ov-h">
+  <h2 id="ov-h" class="console-h2">{{t .Lang "position.ov"}}</h2>
+  <p class="console-hint">{{t .Lang "position.ov.hint"}}</p>
+  <form method="post" action="/positions/{{.Pos.ID}}/apply-override" data-testid="override-form">
+    <input type="hidden" name="_csrf" value="{{.CSRF}}">
+    <div class="od-field"><label class="od-label" for="ov-m">{{t .Lang "position.ov.mode"}}</label>
+      <select class="od-input" id="ov-m" name="override">{{range $m := .OverrideModes}}<option value="{{$m}}"{{if eq $m $.Pos.Override}} selected{{end}}>{{t $.Lang (printf "position.ov.%s" $m)}}</option>{{end}}</select></div>
+    <div class="od-field"><label class="od-label" for="ov-l">{{t .Lang "position.ov.listing"}}</label>
+      <select class="od-input" id="ov-l" name="listing"><option value="">–</option>{{range .Pos.Listings}}<option value="{{.ID}}"{{if eq .ID $.Pos.OverrideListing}} selected{{end}}>{{.Provider}} · {{.Title}}</option>{{end}}</select></div>
+    <div class="od-field"><label class="od-label" for="ov-r">{{t .Lang "position.ov.reason"}}</label><input class="od-input" id="ov-r" name="reason" maxlength="200" value="{{.Pos.Reason}}"></div>
+    <button class="od-btn od-btn--secondary" type="submit" data-testid="override-save">{{t .Lang "position.ov.save"}}</button>
+  </form>
+</section>
+{{else}}
+<section class="od-card console-card"><p data-testid="no-listings">{{t .Lang "position.empty"}}</p></section>
+{{end}}
+{{end}}

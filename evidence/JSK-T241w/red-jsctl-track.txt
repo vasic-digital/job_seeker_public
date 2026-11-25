@@ -1,0 +1,4 @@
+    terms_test.go:139: enabled: rc=0 rows=0 
+FAIL
+FAIL	github.com/vasic-digital/job_seeker/internal/jsctl	0.664s
+FAIL

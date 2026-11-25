@@ -1,0 +1,8 @@
+# github.com/vasic-digital/job_seeker/internal/providers [github.com/vasic-digital/job_seeker/internal/providers.test]
+internal/providers/arbeitnow_jobicy_test.go:24:12: undefined: NewArbeitnow
+internal/providers/arbeitnow_jobicy_test.go:42:23: undefined: NewArbeitnow
+internal/providers/arbeitnow_jobicy_test.go:45:7: undefined: NewArbeitnow
+internal/providers/arbeitnow_jobicy_test.go:53:15: undefined: NewArbeitnow
+internal/providers/arbeitnow_jobicy_test.go:62:15: undefined: NewArbeitnow
+internal/providers/arbeitnow_jobicy_test.go:72:15: undefined: NewArbeitnow
+internal/providers/arbeitnow_jobicy_test.go:79:12: undefined: NewJobicy

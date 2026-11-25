@@ -1,0 +1,6 @@
+# github.com/vasic-digital/job_seeker/internal/ext/render/txt [github.com/vasic-digital/job_seeker/internal/ext/render/txt.test]
+internal/ext/render/txt/txt_test.go:13:12: undefined: Model
+internal/ext/render/txt/txt_test.go:13:30: undefined: Section
+internal/ext/render/txt/txt_test.go:19:17: undefined: Model
+internal/ext/render/txt/txt_test.go:20:29: undefined: Model
+internal/ext/render/txt/txt_test.go:24:7: undefined: Renderer

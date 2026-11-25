@@ -1,0 +1,16 @@
+=== RUN   TestRerunDryRunWritesNothingAndApplyMerges
+--- PASS: TestRerunDryRunWritesNothingAndApplyMerges (0.12s)
+=== RUN   TestRerunRespectsHumanConstraintsAndBusyPositions
+=== RUN   TestRerunRespectsHumanConstraintsAndBusyPositions/cannot_link_is_never_re-evaluated
+=== RUN   TestRerunRespectsHumanConstraintsAndBusyPositions/live_approved_refuses_the_pair,_others_still_proceed
+--- PASS: TestRerunRespectsHumanConstraintsAndBusyPositions (0.23s)
+    --- PASS: TestRerunRespectsHumanConstraintsAndBusyPositions/cannot_link_is_never_re-evaluated (0.12s)
+    --- PASS: TestRerunRespectsHumanConstraintsAndBusyPositions/live_approved_refuses_the_pair,_others_still_proceed (0.11s)
+=== RUN   TestRerunQueuesReviewBandPairsOnce
+--- PASS: TestRerunQueuesReviewBandPairsOnce (0.12s)
+PASS
+ok  	github.com/vasic-digital/job_seeker/internal/position	0.500s
+=== RUN   TestResolveDryRunIsTheDefaultAndWritesNothing
+--- PASS: TestResolveDryRunIsTheDefaultAndWritesNothing (0.24s)
+PASS
+ok  	github.com/vasic-digital/job_seeker/internal/jsctl	0.256s

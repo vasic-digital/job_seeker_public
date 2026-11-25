@@ -9,14 +9,17 @@
 # Exit 0 pass, 1 finding, 2 cannot determine (missing/unreadable tree, python3 missing).
 # --prove-failure: builds throwaway copies of the tree and requires the control to pass and each of five defects
 # (mutation rows removed, test file removed, unknown reason code, duplicate id, unreadable tree) to be caught.
-# --root DIR checks another tree (used by the proof).
+# Unless --static is given, the gate also RUNS one mutation row per plugin package through gates/hardening_mutation.sh of the
+# checked tree and requires KILLED (a surviving, invalid or non-compiling mutant fails the package; a row that cannot run is rc 2).
+# --kill-filter REGEX limits that run to matching package paths (used by the proof). --root DIR checks another tree.
 set -u
 here="$(cd "$(dirname "$0")/.." && pwd)"
 root="$here"; prove=0
-while [ $# -gt 0 ]; do case "$1" in --root) root="${2:-}"; shift;; --prove-failure) prove=1;; esac; shift; done
+static=0; killfilter=""
+while [ $# -gt 0 ]; do case "$1" in --root) root="${2:-}"; shift;; --prove-failure) prove=1;; --static) static=1;; --kill-filter) killfilter="${2:-}"; shift;; esac; shift; done
 command -v python3 >/dev/null || { echo "UNDETERMINED: python3 missing"; exit 2; }
 
-check() { python3 - "$1" <<'PY'
+check() { KILLFILE="$(mktemp)"; export KILLFILE; python3 - "$1" <<'PY'
 import os, re, sys
 root = sys.argv[1]
 def die(msg, rc=2):
@@ -87,8 +90,37 @@ if findings:
     print("FAIL: %d finding(s)" % len(findings))
     for f in findings: print("  - " + f)
     sys.exit(1)
+with open(os.environ["KILLFILE"], "w") as kf:
+    for rel in sorted(pkgs):
+        row = next((m[0] for m in muts if len(m) >= 3 and m[2].startswith(rel + "/")), None)
+        if row: kf.write("%s\t%s\n" % (rel, row))
 print("OK: %d plugin package(s), %d registered plugin(s): tests, mutation pairs, closed reason codes, ids and versions" % (len(pkgs), len(regs)))
 PY
+rc=$?; if [ $rc -ne 0 ]; then rm -f "$KILLFILE"; return $rc; fi
+if [ "$static" -eq 0 ]; then kill_rows "$1" "$KILLFILE"; rc=$?; fi
+rm -f "$KILLFILE"; return $rc
+}
+
+# kill_rows ROOT FILE: run one mutation row per plugin package (3 at a time) and require KILLED. rc 0 all killed, 1 a mutant
+# survived / was invalid, 2 the mutation gate could not run.
+kill_rows() {
+  local r="$1" f="$2" out n=0 bad=0 und=0 line rel id
+  [ -x "$r/gates/hardening_mutation.sh" ] || [ -f "$r/gates/hardening_mutation.sh" ] || { echo "UNDETERMINED: gates/hardening_mutation.sh missing, mutants cannot be run"; return 2; }
+  out="$(mktemp -d)"
+  while IFS=$'\t' read -r rel id; do
+    [ -n "$killfilter" ] && ! printf '%s' "$rel" | grep -Eq "$killfilter" && continue
+    n=$((n+1)); printf '%s\t%s\n' "$rel" "$id"
+  done < "$f" | xargs -P 3 -L 1 bash -c 'rel="$0"; id="$1"; bash "'"$r"'/gates/hardening_mutation.sh" --only "$id" 2>&1 | head -1 > "'"$out"'/$id.res"' 
+  for line in "$out"/*.res; do
+    [ -e "$line" ] || continue
+    id="$(basename "$line" .res)"; v="$(cat "$line")"
+    case "$v" in KILLED*) ;; SURVIVED*|INVALID*|CONTROL-RED*|CRASH*|TIMEOUT*|NOASSERT*|MALFORMED*) echo "FAIL: mutant $id not killed: $v"; bad=1;; *) echo "UNDETERMINED: mutant $id could not run: $v"; und=1;; esac
+  done
+  n=$(ls "$out" | wc -l); rm -rf "$out"
+  [ "$n" -gt 0 ] || { echo "UNDETERMINED: no mutation row was run (kill check would be vacuous)"; return 2; }
+  [ $bad -eq 0 ] || return 1
+  [ $und -eq 0 ] || return 2
+  echo "OK: $n mutant(s), one per plugin package, KILLED"; return 0
 }
 
 if [ "$prove" -eq 0 ]; then check "$root"; exit $?; fi
@@ -96,7 +128,7 @@ if [ "$prove" -eq 0 ]; then check "$root"; exit $?; fi
 t="$(mktemp -d)"; trap 'rm -rf -- "$t"' EXIT
 mk() { mkdir -p "$t/$1"; (cd "$here" && tar --exclude=.git --exclude=evidence --exclude=web --exclude=docs --exclude=specs -cf - internal/ext tests/mutations.tsv) | tar -xf - -C "$t/$1"; }
 bad=""
-mk control; check "$t/control" >/dev/null; c=$?
+mk control; static=1; check "$t/control" >/dev/null; c=$?
 mk m1; python3 - "$t/m1/tests/mutations.tsv" <<'PY'
 import sys
 p=sys.argv[1]; open(p,"w").write("".join(l for l in open(p) if "internal/ext/match/keyword/" not in l))
@@ -111,5 +143,30 @@ mk m4; sed -i 's/ID: "openurl"/ID: "mailto"/;s/ID: "provider_url"/ID: "mailto"/'
 check "$t/m4" >/dev/null; [ $? -eq 1 ] || bad="$bad duplicate-id"
 mk m5; rm -f "$t/m5/internal/ext/builtin/builtin.go"
 check "$t/m5" >/dev/null; [ $? -eq 2 ] || bad="$bad unreadable-tree-not-2"
-if [ "$c" -eq 0 ] && [ -z "$bad" ]; then echo "PROVE-FAILURE OK: control rc=0; 5 defects (mutation pair removed, test file removed, unknown reason code, duplicate id) rejected rc=1, unreadable tree rc=2"; exit 0; fi
+# kill-check defects run on full copies of the tree, limited to one cheap package
+mkfull() { mkdir -p "$t/$1"; (cd "$here" && tar --exclude=.git --exclude=evidence --exclude=web --exclude=docs --exclude=specs -cf - .) | tar -xf - -C "$t/$1"; }
+static=0; killfilter='ext/match/keyword'
+mkfull k0; check "$t/k0" >/dev/null; [ $? -eq 0 ] || bad="$bad kill-control"
+mkfull k1; python3 - "$t/k1/tests/mutations.tsv" <<'PY'
+import sys
+p=sys.argv[1]; out=[]
+for l in open(p):
+    f=l.rstrip("\n").split("\t")
+    if len(f)>=5 and f[2].startswith("internal/ext/match/keyword/"): f[4]=f[3]   # neutral mutant: must SURVIVE
+    out.append("\t".join(f)+"\n")
+open(p,"w").write("".join(out))
+PY
+check "$t/k1" >/dev/null; [ $? -eq 1 ] || bad="$bad surviving-mutant"
+mkfull k2; python3 - "$t/k2/tests/mutations.tsv" <<'PY'
+import sys
+p=sys.argv[1]; out=[]
+for l in open(p):
+    f=l.rstrip("\n").split("\t")
+    if len(f)>=5 and f[2].startswith("internal/ext/match/keyword/"): f[3]="THIS-PATTERN-DOES-NOT-EXIST-ANYWHERE"
+    out.append("\t".join(f)+"\n")
+open(p,"w").write("".join(out))
+PY
+check "$t/k2" >/dev/null; [ $? -eq 1 ] || bad="$bad invalid-mutant"
+mkfull k3; rm -f "$t/k3/gates/hardening_mutation.sh"; check "$t/k3" >/dev/null; [ $? -eq 2 ] || bad="$bad mutation-gate-missing-not-2"
+if [ "$c" -eq 0 ] && [ -z "$bad" ]; then echo "PROVE-FAILURE OK: control rc=0; 4 static defects (mutation pair removed, test file removed, unknown reason code, duplicate id) rejected rc=1, unreadable tree rc=2; kill check: control KILLED rc=0, surviving mutant rc=1, invalid mutant rc=1, mutation gate absent rc=2"; exit 0; fi
 echo "PROVE-FAILURE BAD: control=$c survivors:$bad"; exit 1

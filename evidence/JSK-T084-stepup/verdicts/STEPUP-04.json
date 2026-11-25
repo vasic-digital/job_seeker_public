@@ -1,0 +1,21 @@
+{
+  "image": "<repo>/evidence/JSK-T084-stepup/frames/04-stepup.png",
+  "prompt": "This is a screenshot of a web page. List the page title, the labelled values and any error message. Quote the visible text exactly.",
+  "endpoint": "http://127.0.0.1:11500/v1/chat/completions",
+  "model_requested": "qwen2.5vl:3b",
+  "model_served": "qwen2.5vl:3b",
+  "expected_facts": [
+    "Verify with passkey"
+  ],
+  "response": "**Page Title:** Settings and provider health\n\n**Labelled Values:**\n- Kill switch: On\n- Live mode: Off\n- Daily cap: 5\n- Per-host daily cap: 2\n\n**Error Message:**\n- The action was refused. Verify with your passkey first (it must be newer than five minutes).\n\n**Visible Text:**\n- Settings\n- Sign Out\n- English\n- Switch\n- Turn the Kill Switch Off\n- Turn Live Mode On\n- Verify with passkey\n- ok",
+  "matched_facts": 1,
+  "expected_count": 1,
+  "hallucinated": false,
+  "pass": true,
+  "expect_fail": false,
+  "case_result": true,
+  "latency_ms": 4013,
+  "http_status": 200,
+  "prompt_tokens": 2326,
+  "completion_tokens": 109
+}

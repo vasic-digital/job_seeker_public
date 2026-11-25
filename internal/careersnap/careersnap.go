@@ -12,6 +12,7 @@ import (
 	"strings"
 
 	"github.com/goccy/go-yaml"
+	"github.com/vasic-digital/job_seeker/internal/yamlsafe"
 )
 
 const Schema = "jobseeker.career_snapshot.v1"
@@ -42,7 +43,7 @@ func Derive(dir string) (*Snapshot, error) {
 			ID       string   `yaml:"id"`
 			Keywords []string `yaml:"keywords"`
 		}
-		if err := yaml.Unmarshal(b, &a); err != nil || a.ID == "" {
+		if err := yamlsafe.Unmarshal(b, &a); err != nil || a.ID == "" {
 			return nil, fmt.Errorf("careersnap: %s: not a valid area file", filepath.Base(f))
 		}
 		s.Areas[a.ID] = a.Keywords
@@ -56,7 +57,7 @@ func Derive(dir string) (*Snapshot, error) {
 			Items []string `yaml:"items"`
 		} `yaml:"skills"`
 	}
-	if err := yaml.Unmarshal(pb, &prof); err != nil {
+	if err := yamlsafe.Unmarshal(pb, &prof); err != nil {
 		return nil, fmt.Errorf("careersnap: profile.yaml: %w", err)
 	}
 	seen := map[string]bool{}
@@ -93,7 +94,7 @@ func Drift(committedPath string, fresh *Snapshot) ([]string, error) {
 		return nil, err
 	}
 	var cur Snapshot
-	if err := yaml.Unmarshal(b, &cur); err != nil {
+	if err := yamlsafe.Unmarshal(b, &cur); err != nil {
 		return nil, fmt.Errorf("careersnap: committed snapshot unreadable: %w", err)
 	}
 	var d []string

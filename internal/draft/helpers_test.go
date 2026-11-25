@@ -6,6 +6,7 @@ import (
 	"database/sql"
 	"encoding/hex"
 	"encoding/json"
+	"github.com/vasic-digital/job_seeker/internal/ingest/ingesttest"
 	"os"
 	"path/filepath"
 	"testing"
@@ -85,7 +86,7 @@ func newEnv(t *testing.T) *env {
 	if err != nil {
 		t.Fatal(err)
 	}
-	e.svc = &Service{Rules: rules, Overlay: func() (*match.Overlay, error) { return e.ov, e.ovErr }, DB: db, Keys: kr, Tpl: tpl, Gate: NewGate(db, false), OverlayPresent: func() bool { return e.over }, Now: func() time.Time { return e.now }}
+	e.svc = &Service{Compliance: ingesttest.AllowAll{}, Rules: rules, Overlay: func() (*match.Overlay, error) { return e.ov, e.ovErr }, DB: db, Keys: kr, Tpl: tpl, Gate: NewGate(db, false), OverlayPresent: func() bool { return e.over }, Now: func() time.Time { return e.now }}
 	if _, err := db.Read().ExecContext(ctx, `SELECT 1`); err != nil {
 		t.Fatal(err)
 	}

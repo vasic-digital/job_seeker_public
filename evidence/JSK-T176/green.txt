@@ -1,0 +1,17 @@
+# GREEN 2026-11-24T16:59:16Z
+ok  	github.com/vasic-digital/job_seeker/internal/draft	24.894s	coverage: 81.1% of statements
+ok  	github.com/vasic-digital/job_seeker/internal/ext/ats/profile	0.044s	coverage: 93.2% of statements
+ok  	github.com/vasic-digital/job_seeker/internal/api	1.085s	coverage: 80.7% of statements
+ok  	github.com/vasic-digital/job_seeker/internal/console	1.678s	coverage: 35.9% of statements
+ok  	github.com/vasic-digital/job_seeker/internal/audit	1.538s	coverage: 82.4% of statements
+ok  	github.com/vasic-digital/job_seeker/internal/i18n	0.022s	coverage: 82.0% of statements
+ok  	github.com/vasic-digital/job_seeker/internal/app	2.213s	coverage: 31.3% of statements
+    uploadprofile_test.go:248: profile ashby      types=[pdf docx] max_bytes=1048576 max_files=2 max_chars=0
+    uploadprofile_test.go:248: profile generic    types=[pdf docx txt] max_bytes=1048576 max_files=2 max_chars=0
+    uploadprofile_test.go:248: profile greenhouse types=[pdf doc docx txt rtf] max_bytes=1048576 max_files=2 max_chars=0
+    uploadprofile_test.go:248: profile lever      types=[pdf docx] max_bytes=1048576 max_files=2 max_chars=0
+--- PASS: TestShippedProfilesTableAndTypicalDraft (0.00s)
+PASS
+ok  	github.com/vasic-digital/job_seeker/internal/draft	0.018s
+internal/pipeline/bad_body_cap_test.go
+OK: public-readiness scan clean (1186 tracked files, rules H E K C A)

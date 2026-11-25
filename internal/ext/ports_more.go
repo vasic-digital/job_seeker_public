@@ -146,6 +146,7 @@ type UploadLimits struct {
 	Types    []string
 	MaxBytes int64
 	MaxFiles int
+	MaxChars int // characters of the extracted text; 0 = no limit
 }
 
 // Question is one knockout question found in a posting or form.

@@ -1,0 +1,2 @@
+cases=8 steps=9 distinct_step_frames=8 frames_distinct=8
+PASS: every requirement met

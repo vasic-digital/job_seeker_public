@@ -8,6 +8,7 @@
     <dt>{{t .Lang "draft.outbound"}}</dt><dd>{{t .Lang "draft.outbound.text" .A.Host}}</dd>
     <dt>{{t .Lang "draft.mode"}}</dt><dd>{{if .LiveMode}}{{t .Lang "mode.live"}}{{else}}{{t .Lang "mode.dry"}}{{end}}</dd>
   </dl>
+  {{if .Advisories}}<div class="console-advisories" data-testid="advisories" role="note"><h3 class="console-h3">{{t .Lang "advisory.title"}}</h3><ul>{{range .Advisories}}<li data-testid="advisory-{{.}}">{{t $.Lang (printf "advisory.%s" .)}}</li>{{end}}</ul></div>{{end}}
   {{if or (eq .A.State "pending_draft") (eq .A.State "draft_prepared")}}
   <form method="post" action="/applications/{{.A.ID}}/prepare"><input type="hidden" name="_csrf" value="{{.CSRF}}"><button class="od-btn od-btn--primary" type="submit">{{t .Lang "draft.prepare"}}</button></form>
   {{end}}
@@ -34,6 +35,28 @@
   </form>
 </section>
 {{end}}
+{{if .Report}}
+<section class="od-card console-card" aria-labelledby="r-h" data-testid="approval-report">
+  <h2 id="r-h" class="console-h2">{{t .Lang "report.title"}}</h2>
+  <dl class="console-dl">
+    <dt>{{t .Lang "report.company"}}</dt><dd data-testid="report-company">{{.Report.Company}}</dd>
+    <dt>{{t .Lang "report.date"}}</dt><dd data-testid="report-date">{{.Report.Date}}</dd>
+  </dl>
+  <h3 class="console-h3">{{t .Lang "report.links"}}</h3>
+  {{if .Report.Links}}<table class="od-table" data-testid="report-links"><thead><tr><th>{{t .Lang "report.file"}}</th><th>{{t .Lang "report.label"}}</th><th>{{t .Lang "report.target"}}</th><th>{{t .Lang "report.link_ok"}}</th></tr></thead><tbody>
+  {{range .Report.Links}}<tr><td>{{.File}}</td><td>{{.Label}}</td><td><code>{{.Target}}</code></td><td>{{if .OK}}{{t $.Lang "report.yes"}}{{else}}{{t $.Lang "report.no"}}{{end}}</td></tr>{{end}}</tbody></table>
+  {{else}}<p data-testid="report-links-none">{{t .Lang "report.links.none"}}</p>{{end}}
+  <h3 class="console-h3">{{t .Lang "report.diff"}}</h3>
+  {{if .Report.Diff.Available}}<p data-testid="report-diff">{{t .Lang "report.diff.counts" .Report.Diff.AddedN .Report.Diff.RemovedN .Report.Diff.SentAt}}</p>
+  {{if .Report.Diff.Added}}<ul data-testid="report-diff-added">{{range .Report.Diff.Added}}<li>+ {{.}}</li>{{end}}</ul>{{end}}
+  {{if .Report.Diff.Removed}}<ul data-testid="report-diff-removed">{{range .Report.Diff.Removed}}<li>- {{.}}</li>{{end}}</ul>{{end}}
+  {{else}}<p data-testid="report-diff-unavailable">{{t .Lang (printf "report.diff.%s" .Report.Diff.Reason)}}</p>{{end}}
+  <h3 class="console-h3">{{t .Lang "report.coverage"}}</h3>
+  <p data-testid="report-coverage">{{t .Lang "report.coverage.counts" .Report.Coverage.Matched .Report.Coverage.Terms .Report.Coverage.Missing .Report.Coverage.Unclaimable}}</p>
+  {{if .Report.Coverage.Lines}}<ul data-testid="report-coverage-lines">{{range .Report.Coverage.Lines}}<li data-testid="cov-{{.Status}}">{{.Term}} · {{t $.Lang (printf "report.cov.%s" .Status)}}</li>{{end}}</ul>{{end}}
+  {{if .Report.Coverage.Area.ConfirmRequired}}<p class="console-advisories" role="alert" data-testid="report-area-confirm">{{t .Lang (printf "report.area.%s" .Report.Coverage.Area.Reason)}}</p>{{end}}
+</section>
+{{else if not .ReportOff}}<p class="console-advisories" role="alert" data-testid="report-unavailable">{{t .Lang "report.unavailable"}}</p>{{end}}
 {{if eq .A.State "awaiting_human_approval"}}
 <section class="od-card console-card" aria-labelledby="a-h">
   <h2 id="a-h" class="console-h2">{{t .Lang "draft.approve"}}</h2>
@@ -42,9 +65,17 @@
     <fieldset class="console-fieldset"><legend>{{t .Lang "draft.approve.mode"}}</legend>
       <label class="od-radio"><input type="radio" name="live" value="" checked> {{t .Lang "mode.dry"}}</label>
       <label class="od-radio"><input type="radio" name="live" value="1"> {{t .Lang "mode.live"}}</label></fieldset>
+    {{if .Dups}}<div class="console-advisories" data-testid="duplicates" role="alert"><h3 class="console-h3">{{t .Lang "dup.title"}}</h3><p>{{t .Lang "dup.help"}}</p>
+      <ul>{{range .Dups}}<li data-testid="dup-{{.AppID}}">{{.Title}} ({{.Provider}}, {{.State}})</li>{{end}}</ul>
+      <label class="od-checkbox"><input type="checkbox" name="ack_duplicate" value="1" data-testid="ack-duplicate"> {{t .Lang "dup.ack"}}</label></div>{{end}}
+    {{if .Knockout}}<div class="console-advisories" data-testid="knockout" role="group" aria-labelledby="ko-h"><h3 id="ko-h" class="console-h3">{{t .Lang "knockout.title"}}</h3><p>{{t .Lang "knockout.help"}}</p>
+      <ul>{{range .Knockout}}<li data-testid="ko-{{.ID}}">{{t $.Lang .LabelKey}}: <strong>{{t $.Lang (printf "knockout.state.%s" .State)}}</strong>
+        {{if .Open}}<label class="od-checkbox"><input type="checkbox" name="ack_knockout" value="{{.ID}}" data-testid="ack-knockout-{{.ID}}"> {{t $.Lang "knockout.ack"}}</label>{{end}}</li>{{end}}</ul></div>{{end}}
     <div class="od-field"><label class="od-label" for="company">{{t .Lang "draft.company"}} ({{.A.Company}})</label>
     <input class="od-input" id="company" name="company" autocomplete="off"></div>
-    <button class="od-btn od-btn--primary" type="submit" data-testid="approve">{{t .Lang "draft.approve.button"}}</button>
+    {{if .Report}}<input type="hidden" name="report" value="{{.Report.Digest}}">
+    {{if .Report.Coverage.Area.ConfirmRequired}}<label class="od-checkbox"><input type="checkbox" name="area_confirm" value="1" data-testid="area-confirm"> {{t .Lang "report.area.confirm"}}</label>{{end}}{{end}}
+    <button class="od-btn od-btn--primary" type="submit" data-testid="approve"{{if and (not .ReportOff) (not .Report)}} disabled aria-disabled="true"{{end}}>{{t .Lang "draft.approve.button"}}</button>
   </form>
   <p class="console-hint">{{t .Lang "draft.stepup.hint"}} <button class="od-btn od-btn--ghost" type="button" id="stepup">{{t .Lang "draft.stepup.button"}}</button> <span id="passkey-status" role="status" aria-live="polite"></span></p>
   <form method="post" action="/applications/{{.A.ID}}/reject">

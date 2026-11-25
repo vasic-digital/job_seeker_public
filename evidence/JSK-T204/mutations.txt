@@ -1,0 +1,5 @@
+KILLED       stats-outcome-below-n
+KILLED       stats-tiebreak-name
+KILLED       stats-reliability-window
+KILLED       stats-origin-share
+PROVE-FAILURE OK: a neutral mutant is reported SURVIVED and an unmatched pattern INVALID

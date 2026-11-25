@@ -1,0 +1,9 @@
+$ bash gates/verify_stale_verdict.sh
+OK: stale PDF verdicts are refused on the approve path (Stale + Usable, cause verdict_stale)
+rc=0
+$ bash gates/verify_stale_verdict.sh --prove-failure
+rejected: remove-stale
+rejected: remove-usable
+rejected: invert-cause
+PROVE-FAILURE OK: control passes; 3 mutations all rejected
+rc=0

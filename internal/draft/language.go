@@ -83,10 +83,10 @@ func DecideLanguageText(detected string, conf float64, explicit string, letters 
 		}
 		return Decision{Lang: "en", Rule: RuleConfirmOver}
 	}
-	if detected == "de" && conf >= minLangConf {
+	if detected == "de" && match.LangTrusted(detected, conf) {
 		return Decision{Lang: "de", Rule: RuleConfirmDE}
 	}
-	if supported(detected) && conf >= minLangConf {
+	if supported(detected) && match.LangTrusted(detected, conf) {
 		return Decision{Lang: detected, Rule: RuleDetected}
 	}
 	if (detected != "" && detected != "und") || letters >= minTextLetters {

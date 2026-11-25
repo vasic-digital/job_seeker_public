@@ -3,6 +3,7 @@ package config
 import (
 	"errors"
 	"net"
+	"net/url"
 	"os"
 	"sort"
 	"strings"
@@ -63,6 +64,7 @@ type Config struct {
 	CertDir         string
 	BackupDir       string
 	TemplateDir     string
+	CandidateName   string // display name used in download filenames (JSK-T175); empty keeps the slot name
 	DBKey           Secret
 	SessionKey      Secret
 	BootstrapToken  Secret
@@ -77,11 +79,15 @@ type Config struct {
 	AllowedHosts    []string
 	Origins         []string
 	EgressAllowlist string
-	CareerPrivate   string
-	CareerContent   string
-	DesignSystem    string
-	JevGate         string
-	LLMTiebreak     bool
+	// TestRobotsURL (JOBSEEKER_TEST_ROBOTS_URL) points the robots gate at a loopback http robots.txt for hermetic
+	// end-to-end runs. It exists ONLY when JOBSEEKER_ENV=test; set in any other environment, or to anything but a
+	// loopback http URL, it is a configuration error (the daemon refuses to start), never a quiet override.
+	TestRobotsURL string
+	CareerPrivate string
+	CareerContent string
+	DesignSystem  string
+	JevGate       string
+	LLMTiebreak   bool
 }
 
 type loader struct {
@@ -235,6 +241,7 @@ func Load(get Lookup) (*Config, error) {
 	c.CertDir = l.required("JOBSEEKER_CERT_DIR")
 	c.BackupDir = l.str("JOBSEEKER_BACKUP_DIR")
 	c.TemplateDir = l.str("JOBSEEKER_TEMPLATE_DIR")
+	c.CandidateName = l.str("JOBSEEKER_CANDIDATE_NAME")
 	c.DBKey = l.secret("JOBSEEKER_DB_KEY", true)
 	c.SessionKey = l.secret("JOBSEEKER_SESSION_KEY", true)
 	c.BootstrapToken = l.secret("JOBSEEKER_BOOTSTRAP_TOKEN", false)
@@ -257,6 +264,15 @@ func Load(get Lookup) (*Config, error) {
 	c.AllowedHosts = l.list("JOBSEEKER_ALLOWED_HOSTS")
 	c.Origins = l.list("JOBSEEKER_ORIGINS")
 	c.EgressAllowlist = l.required("JOBSEEKER_EGRESS_ALLOWLIST")
+	if v := l.str("JOBSEEKER_TEST_ROBOTS_URL"); v != "" {
+		if env != EnvTest {
+			l.add("JOBSEEKER_TEST_ROBOTS_URL", "test_hook_outside_test_env")
+		} else if !loopbackHTTP(v) {
+			l.add("JOBSEEKER_TEST_ROBOTS_URL", "must_be_loopback_http_url")
+		} else {
+			c.TestRobotsURL = v
+		}
+	}
 	c.CareerPrivate = l.str("CAREER_PRIVATE_DIR")
 	c.CareerContent = l.str("CAREER_CONTENT_DIR")
 	c.DesignSystem = l.str("DESIGN_SYSTEM_DIR")
@@ -293,4 +309,18 @@ func splitList(v string) []string {
 		}
 	}
 	return out
+}
+
+// loopbackHTTP reports whether v is an http URL whose host is a loopback IP literal or localhost.
+func loopbackHTTP(v string) bool {
+	u, err := url.Parse(v)
+	if err != nil || u.Scheme != "http" {
+		return false
+	}
+	h := u.Hostname()
+	if h == "localhost" {
+		return true
+	}
+	ip := net.ParseIP(h)
+	return ip != nil && ip.IsLoopback()
 }

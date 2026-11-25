@@ -1,0 +1,12 @@
+== verify_plugins (static)
+OK: 14 plugin package(s), 21 registered plugin(s): tests, mutation pairs, closed reason codes, ids and versions
+rc=0
+== verify_gold
+PARTIAL: area ai-engineering: 7 real gold item(s) < 30: PARTIAL, SC-003 thresholds not enforceable
+PARTIAL: area go: 2 real gold item(s) < 30: PARTIAL, SC-003 thresholds not enforceable
+PARTIAL: area web-frontend: 2 real gold item(s) < 30: PARTIAL, SC-003 thresholds not enforceable
+determinism: 115 item(s), 3 runs, differing items=0
+  run 1 digest d0cc8b49357046a1ada29b27a0a02193c585d3dc9a63ff19563dbff79c1c5a04
+  run 2 digest d0cc8b49357046a1ada29b27a0a02193c585d3dc9a63ff19563dbff79c1c5a04
+  run 3 digest d0cc8b49357046a1ada29b27a0a02193c585d3dc9a63ff19563dbff79c1c5a04
+OK: three identical runs

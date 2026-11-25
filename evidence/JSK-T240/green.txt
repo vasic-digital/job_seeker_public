@@ -1,0 +1,35 @@
+ok  	github.com/vasic-digital/job_seeker/internal/ext/deliver	(cached)
+ok  	github.com/vasic-digital/job_seeker/internal/ext/deliver	0.020s
+--- FAIL: TestAllLegsPassIsYes (0.00s)
+    deliver_test.go:77: want Yes, got no mail_dkim_missing
+--- FAIL: TestEachLegFailureIsNotYes (0.01s)
+    deliver_test.go:149: spf redirect: got no [mail_spf_redirect,mail_dkim_missing], want unknown [mail_spf_redirect]
+    deliver_test.go:149: empty json body: got no [mail_lookup_failed,mail_dkim_missing], want unknown [mail_lookup_failed]
+    deliver_test.go:149: null json body: got no [mail_lookup_failed,mail_dkim_missing], want unknown [mail_lookup_failed]
+    deliver_test.go:149: truncated answer: got no [mail_lookup_failed,mail_dkim_missing], want unknown [mail_lookup_failed]
+--- FAIL: TestLookupErrorsFailClosed (0.00s)
+    deliver_test.go:175: example.com/transport: got no [mail_lookup_failed,mail_dkim_missing], want Unknown mail_lookup_failed
+    deliver_test.go:175: example.com/servfail: got no [mail_lookup_failed,mail_dkim_missing], want Unknown mail_lookup_failed
+    deliver_test.go:175: example.com/garbage: got no [mail_lookup_failed,mail_dkim_missing], want Unknown mail_lookup_failed
+    deliver_test.go:175: example.com/oversize: got no [mail_lookup_failed,mail_dkim_missing], want Unknown mail_lookup_failed
+    deliver_test.go:175: _dmarc.example.com/transport: got no [mail_lookup_failed,mail_dkim_missing], want Unknown mail_lookup_failed
+    deliver_test.go:175: _dmarc.example.com/servfail: got no [mail_lookup_failed,mail_dkim_missing], want Unknown mail_lookup_failed
+    deliver_test.go:175: _dmarc.example.com/garbage: got no [mail_lookup_failed,mail_dkim_missing], want Unknown mail_lookup_failed
+    deliver_test.go:175: _dmarc.example.com/oversize: got no [mail_lookup_failed,mail_dkim_missing], want Unknown mail_lookup_failed
+--- FAIL: TestDKIMAnySelectorWithKeyIsEnough (0.00s)
+    deliver_test.go:195: second selector with a key must suffice, got no [mail_dkim_missing]
+--- FAIL: TestWellFormedSPFVariantsStillPass (0.00s)
+    deliver_test.go:211: "v=spf1 include:_spf.example.net a mx ip4:192.0.2.0/24 ip6:2001:db8::/32 -all": got no [mail_dkim_missing]
+    deliver_test.go:211: "V=SPF1\tip4:1.2.3.4\t-ALL": got no [mail_dkim_missing]
+    deliver_test.go:211: "v=spf1 a:mail.example.com/24 mx/28 ~all exp=why.example.com": got no [mail_dkim_missing]
+--- FAIL: TestMultiStringTXTIsJoined (0.00s)
+    deliver_test.go:225: got no [mail_dkim_missing]
+--- FAIL: TestThroughEgressPolicy (0.01s)
+    deliver_test.go:266: got no [mail_spf_weak,mail_dkim_missing]
+FAIL
+FAIL	github.com/vasic-digital/job_seeker/internal/ext/deliver	0.038s
+FAIL
+ok  	github.com/vasic-digital/job_seeker/internal/ext/deliver	(cached)
+ok  	github.com/vasic-digital/job_seeker/internal/ext/deliver	(cached)
+ok  	github.com/vasic-digital/job_seeker/internal/ext/deliver	(cached)
+ok  	github.com/vasic-digital/job_seeker/internal/ext/deliver	(cached)

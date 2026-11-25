@@ -1,0 +1,7 @@
+# JSK-T203 Arbeitnow and Jobicy adapters (FR-085)
+- red.txt: RED first (undefined NewArbeitnow). green: `go test ./...` full run (see PR). FuzzArbeitnowJobicyOne 15 s, 450k execs, no findings.
+- live.txt: ONE live read per provider through the production egress client, both 200, complete CallProof (host, IP, TLS subject, sha).
+- mutations.txt: 5 pairs t203-* KILLED; two first SURVIVED (non-https URL on Arbeitnow, unqualified Jobicy salary) and were closed with TestArbeitnowRejectsNonHTTPSAndJobicyDropsUnqualifiedSalary. `--prove-failure` OK.
+- Terms (read 2026-11-24, docs/research/providers/02): Arbeitnow asks for a link back (LegalNotice = meta.terms, attribution entry); rate limit UNCONFIRMED, so the adapter is conservative: one page per cycle, 6 h, 4/day, never `page=`. Jobicy: credit Jobicy (LegalNotice = friendlyNotice), count <= 100, >= 1 s between requests (6 h interval satisfies it), free feed only.
+- Conservative readings recorded: no Jobicy commercial key support (no Authorization header ever); apply = handoff to the provider page (no direct-link upgrade); Arbeitnow remote=false leaves RemoteMode empty (not guessed); Jobicy salary kept only when currency AND a known period are both present.
+- Fixtures are synthetic (docs/public-readiness/FIXTURE-TERMS.md rows added). Egress allow-list: www.arbeitnow.com, jobicy.com. Opt-in: JOBSEEKER_PROVIDERS=arbeitnow,jobicy (nothing is contacted by default).

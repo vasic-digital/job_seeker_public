@@ -1,0 +1,1 @@
+PROVE-FAILURE OK: control rc=0; 11 mutants (10 refusal rules and the too-strict accept side; every one fails on a test assertion, a mutant that does not compile is BAD) all rejected

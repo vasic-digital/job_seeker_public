@@ -1,7 +1,7 @@
 === RUN   TestFullLiveDiscovery
-    full_test.go:101: SKIP topology: set JSK_FULL_LIVE=1 for the live leg
---- SKIP: TestFullLiveDiscovery (0.02s)
+    full_test.go:103: SKIP topology: set JSK_FULL_LIVE=1 for the live leg
+--- SKIP: TestFullLiveDiscovery (0.47s)
 === RUN   TestFullDeterministicDownstream
---- PASS: TestFullDeterministicDownstream (1.81s)
+--- PASS: TestFullDeterministicDownstream (5.33s)
 PASS
-ok  	github.com/vasic-digital/job_seeker/tests/full	1.843s
+ok  	github.com/vasic-digital/job_seeker/tests/full	5.910s

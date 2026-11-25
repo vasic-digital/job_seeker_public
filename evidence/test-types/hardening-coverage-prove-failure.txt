@@ -1,0 +1,2 @@
+PROVE-FAILURE OK: real floors and ratchet pass; a floor raised to 99, a removed floor row (NO FLOOR), a floor lowered below its ratchet row, a floor row removed while its ratchet row stays, and a deleted ratchet row are each refused
+rc=0

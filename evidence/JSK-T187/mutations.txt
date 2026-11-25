@@ -1,0 +1,6 @@
+KILLED       t187-digest-unchecked
+KILLED       t187-hash-mismatch-masked
+KILLED       t187-diff-ignores-removed
+KILLED       t187-last-send-sha-unchecked
+KILLED       t187-link-ok-any-scheme
+KILLED       t187-guard-any-state

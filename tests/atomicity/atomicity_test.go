@@ -22,6 +22,7 @@ import (
 	"github.com/vasic-digital/job_seeker/internal/crypto"
 	"github.com/vasic-digital/job_seeker/internal/egress"
 	"github.com/vasic-digital/job_seeker/internal/ingest"
+	"github.com/vasic-digital/job_seeker/internal/ingest/ingesttest"
 	"github.com/vasic-digital/job_seeker/internal/limiter"
 	"github.com/vasic-digital/job_seeker/internal/providers"
 	"github.com/vasic-digital/job_seeker/internal/store"
@@ -273,7 +274,7 @@ func runner(t *testing.T, d *store.DB, dir string, p providers.Provider) *ingest
 	if err != nil {
 		t.Fatal(err)
 	}
-	return &ingest.Runner{DB: d, Keys: kr, Limiter: &limiter.Limiter{DB: d}, Providers: []providers.Provider{p},
+	return &ingest.Runner{Compliance: ingesttest.AllowAll{}, DB: d, Keys: kr, Limiter: &limiter.Limiter{DB: d}, Providers: []providers.Provider{p},
 		Sleep: func(context.Context, time.Duration) error { return nil }}
 }
 

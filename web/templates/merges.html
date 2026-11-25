@@ -1,0 +1,16 @@
+{{define "content"}}
+{{if .Merges}}
+<table class="od-table">
+  <caption class="od-visually-hidden">{{t .Lang "queue.merges.caption"}}</caption>
+  <thead><tr><th scope="col">{{t .Lang "col.title"}}</th><th scope="col">{{t .Lang "col.company"}}</th><th scope="col">{{t .Lang "col.source"}}</th><th scope="col">{{t .Lang "queue.merges.score"}}</th><th scope="col"><span class="od-visually-hidden">{{t .Lang "queue.merges.merge"}}</span></th></tr></thead>
+  <tbody>{{range .Merges}}
+  <tr data-testid="cand-{{.ID}}"><th scope="row"><a href="/postings/{{.AListing}}">{{.ATitle}}</a><br><a href="/postings/{{.BListing}}">{{.BTitle}}</a></th>
+    <td>{{.ACompany}}<br>{{.BCompany}}</td><td>{{.AProvider}}<br>{{.BProvider}}</td><td>{{printf "%.2f" .Score}}</td>
+    <td>{{$id := .ID}}
+      <form method="post" action="/queue/merges/{{$id}}/merge" class="console-inline"><input type="hidden" name="_csrf" value="{{$.CSRF}}"><button class="od-btn od-btn--primary" type="submit" data-testid="merge-{{$id}}">{{t $.Lang "queue.merges.merge"}}</button></form>
+      <form method="post" action="/queue/merges/{{$id}}/keep-apart" class="console-inline"><input type="hidden" name="_csrf" value="{{$.CSRF}}"><button class="od-btn od-btn--secondary" type="submit" data-testid="keep-{{$id}}">{{t $.Lang "queue.merges.keep"}}</button></form>
+      <form method="post" action="/queue/merges/{{$id}}/skip" class="console-inline"><input type="hidden" name="_csrf" value="{{$.CSRF}}"><button class="od-btn od-btn--ghost" type="submit" data-testid="skip-{{$id}}">{{t $.Lang "queue.merges.skip"}}</button></form></td>
+  </tr>{{end}}</tbody>
+</table>
+{{else}}<div class="od-empty-state"><p class="od-empty-state__title">{{t .Lang "queue.merges.empty"}}</p></div>{{end}}
+{{end}}

@@ -1,0 +1,8 @@
+        PASS the approval form offers the area-overlap confirmation the report demands (T187b)
+        PASS HTTP 409 area_confirmation_required at POST /applications/{id}/approve with the digest but without area_confirm (T187b) :: 409
+        PASS keyboard only: the area-overlap confirmation can be ticked with Tab and Space (T187b)
+        PASS the second application of the journey is awaiting approval with its report (T187b)
+        PASS report link table lists the real https and mailto links of both frozen files, all accepted (T187b) :: cv | Portfolio example.com/p | https://example.com/p | yes | cv | Mail a@example.com | mailto:a@example.com | yes | cover | Portfolio example.com/p | https://example.com/p | yes | cover | Mail a@example.com | mailto:a@example.com | yes
+        PASS report text diff is computed against the CV of the most recent send (cv-go-en vs cv-android-en) with exact counts (T187b) :: 1 lines added, 1 removed compared with the CV sent on 2026-11-24T21:01:45.360330066Z.
+real jobseekerd + real Chromium + real poppler link extraction, re-captured after the link-table step was changed to join cells with ' | ' (the earlier capture lost the cell separators); full journey: 137 PASS, 0 FAIL, no FATAL (the earlier no-JS Prepare click timeout did not recur); PDFs and the prior send are synthetic persona data (the prior send is a real journey application taken to sent through the console)
+note: the count 137 is TestConsoleJourney alone (-run TestConsoleJourney); the 176 recorded in evidence/JSK-T187b counted the whole tests/e2e package output including the intake and position live tests

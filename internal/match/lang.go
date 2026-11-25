@@ -16,6 +16,12 @@ import (
 
 const LangMinConfidence = 0.8
 
+// LangTrusted reports whether a detection may be acted on: a real code (not empty, not "und") at or above LangMinConfidence.
+// It is the single trust predicate shared by the draft language rule and the eligibility language rule (JSK-T167 / JSK-T242).
+func LangTrusted(lang string, conf float64) bool {
+	return lang != "" && lang != "und" && conf >= LangMinConfidence
+}
+
 func wordSet(s string) map[string]bool {
 	m := map[string]bool{}
 	for _, w := range strings.Fields(s) {

@@ -1,0 +1,27 @@
+{
+  "applications": null,
+  "posting_states": {
+    "1": "scored",
+    "2": "scored",
+    "5": "unmapped",
+    "6": "scored",
+    "7": "scored"
+  },
+  "posting5_mapping_status": "unmapped",
+  "audit_transitions": [
+    "posting5 discovered-\u003eunmapped [unmapped_by_rules]",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    ""
+  ],
+  "audit_chain_ok": true,
+  "audit_chain_error": "UNVERIFIED: chain walk OK (9 entries); anchor cross-check NOT POSSIBLE (no anchor); anchor file unreadable",
+  "live_mode_setting": "0",
+  "kill_switch_setting": "0",
+  "handoff_rows": 0
+}

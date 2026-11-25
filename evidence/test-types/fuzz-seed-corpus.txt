@@ -1,0 +1,26 @@
+registry ok: 25 target(s)
+PASS  internal/egress FuzzCheckURL
+PASS  internal/egress FuzzIsDeniedIP
+PASS  internal/egress FuzzParseAllowList
+PASS  internal/ext/ats/parsersim FuzzParseAnchors
+PASS  internal/ext/ats/parsersim FuzzStructScan
+PASS  internal/ext/ats/profile FuzzParse
+PASS  internal/ext/channel/mailto FuzzParse
+PASS  internal/ext/reader/jsonld FuzzRead
+PASS  internal/ext/render/pdflinks FuzzCheckDecide
+PASS  internal/ingest FuzzReadATSJobRefusals
+PASS  internal/ingest FuzzResolveATSJobURL
+PASS  internal/ingest FuzzTitleRatio
+PASS  internal/match FuzzDetectLanguage
+PASS  internal/match FuzzNormalize
+PASS  internal/privacy FuzzImport
+PASS  internal/providers FuzzArbeitnowJobicyOne
+PASS  internal/providers FuzzAshbyOne
+PASS  internal/providers FuzzBundesagenturOne
+PASS  internal/providers FuzzGreenhouseOne
+PASS  internal/providers FuzzHNOne
+PASS  internal/providers FuzzJSONLD
+PASS  internal/providers FuzzLeverOne
+PASS  internal/providers FuzzLoadWatchlist
+PASS  internal/providers FuzzPersonioXML
+PASS  internal/redact FuzzScrub

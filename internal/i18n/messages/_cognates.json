@@ -1,0 +1,39 @@
+{
+ "de": {
+  "tracking.status": "German spells the word 'Status' identically to English (standard German noun, Duden)"
+ },
+ "kk": {
+  "kind.cv": "'CV' is the international abbreviation used unchanged in Kazakh (Latin letters; deliberate keep-English term, also kept inside other kk strings)"
+ },
+ "sr": {
+  "kind.cv": "'CV' is the standard abbreviation used unchanged in Serbian (Latin letters, as in the surrounding UI strings report.area.* that decline it as CV-а)"
+ },
+ "tr": {
+  "kind.cv": "'CV' is the abbreviation used unchanged in Turkish (Latin letters; deliberate keep-English term, also kept inside other tr strings)"
+ },
+ "es": {
+  "kind.cv": "'CV' is the standard abbreviation used unchanged in Spanish (curriculum vitae; also kept inside other es strings)",
+  "report.no": "Spanish 'no' is spelled identically to English 'no' (the standard negative answer)"
+ },
+ "ko": {
+  "kind.cv": "'CV' is the international abbreviation used unchanged in Korean (Latin letters; deliberate keep-English term, also kept inside other ko strings)"
+ },
+ "zh": {
+  "kind.cv": "'CV' is the international abbreviation used unchanged in Chinese UI text (Latin letters; deliberate keep-English term, also kept inside other zh strings)"
+ },
+ "fr": {
+  "audit.transition": "'Transition' is the standard French noun for a state change, spelled identically to English",
+  "col.score": "'Score' is the established French term for a numeric rating (used identically in score.total and the surrounding UI)",
+  "kind.cv": "'CV' is the standard French abbreviation of curriculum vitae, used unchanged",
+  "position.attribution": "'Attribution' is the standard French noun for crediting a source, spelled identically to English",
+  "tracking.source": "'Source' is a standard French noun spelled identically to English",
+  "col.source": "'Source' is a standard French noun spelled identically to English",
+  "inbox.filter.provider": "'Source' is a standard French noun spelled identically to English"
+ },
+ "ja": {
+  "kind.cv": "'CV' is the abbreviation used unchanged in Japanese UI text (Latin letters; deliberate keep-English term, also kept inside other ja strings)"
+ },
+ "hi": {
+  "kind.cv": "'CV' is the standard abbreviation used unchanged in Hindi (Latin letters, as in the surrounding UI strings report.* that keep CV; deliberate keep-English term)"
+ }
+}

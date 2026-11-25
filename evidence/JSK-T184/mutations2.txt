@@ -1,0 +1,6 @@
+SURVIVED     draft-hours-weekend-ignored
+KILLED       draft-hours-end-boundary
+KILLED       draft-hours-offset-sign
+KILLED       templates-downloadname-kind-case
+KILLED       templates-downloadname-diacritics
+KILLED       draft-hours-weekend-ignored

@@ -1,0 +1,22 @@
+{
+  "image": "<repo>/evidence/JSK-T084-stepup/frames/02-kill-on.png",
+  "prompt": "This is a screenshot of a web page. List the page title, the labelled values and any error message. Quote the visible text exactly.",
+  "endpoint": "http://127.0.0.1:11500/v1/chat/completions",
+  "model_requested": "qwen2.5vl:3b",
+  "model_served": "qwen2.5vl:3b",
+  "expected_facts": [
+    "Kill switch",
+    "On"
+  ],
+  "response": "**Page Title:** Settings and provider health\n\n**Labelled Values:**\n- **Kill switch:** On\n- **Live mode:** Off\n- **Daily cap:** 5\n- **Per-host daily cap:** 2\n\n**Error Message:**\n- **Live approval and some settings need a passkey check no older than five minutes.**",
+  "matched_facts": 2,
+  "expected_count": 2,
+  "hallucinated": false,
+  "pass": true,
+  "expect_fail": false,
+  "case_result": true,
+  "latency_ms": 3749,
+  "http_status": 200,
+  "prompt_tokens": 2326,
+  "completion_tokens": 72
+}

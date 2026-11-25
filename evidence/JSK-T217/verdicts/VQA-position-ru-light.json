@@ -1,0 +1,21 @@
+{
+  "image": "<repo>/evidence/JSK-T217/frames/position-ru-light.png",
+  "prompt": "This is a screenshot of a web page. List the page title or main heading, the navigation links, and any buttons, form fields or table headings you can read. Quote the visible text exactly.",
+  "endpoint": "http://127.0.0.1:11500/v1/chat/completions",
+  "model_requested": "qwen2.5vl:3b",
+  "model_served": "qwen2.5vl:3b",
+  "expected_facts": [
+    "Должность"
+  ],
+  "response": "The visible text on the screenshot is:\n\n1. **Page Title or Main Heading:**\n   - Должность\n\n2. **Navigation Links:**\n   - Заявки на трудоустройство\n   - Добавить вакансию\n   - Настройки\n   - Журнал аудита\n\n3. **Buttons, Form Fields, or Table Headings:**\n   - Переключатель\n   - Выйти\n\n4. **Visible Text:**\n   - **Senior Go Engineer**\n     - **Компания:** Асте\n     - **Состояние должности:** open\n     - **Уровень стажа:** senior\n     - **Текст публикации отображается в оригинальном языке; он никогда не переводится машинным способом.**\n\n   - **Объединённый вид**\n     - **ПОЛЕ ДАННЫХ:** должность\n     - **СОБЩАЕМОЕ ЗНАЧЕНИЕ:** Senior Go Engineer\n     - **СОБСТВИЛ(А):** Senior Go Engineer · provA\n     - **КОМПАНИЯ:** Асте\n     - **СОБЩАЕМОЕ ЗНАЧЕНИЕ:** Асте · provA provB",
+  "matched_facts": 1,
+  "expected_count": 1,
+  "hallucinated": false,
+  "pass": true,
+  "expect_fail": false,
+  "case_result": true,
+  "latency_ms": 2802,
+  "http_status": 200,
+  "prompt_tokens": 1533,
+  "completion_tokens": 287
+}

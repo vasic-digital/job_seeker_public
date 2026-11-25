@@ -1,0 +1,6 @@
+ok  	github.com/vasic-digital/job_seeker/internal/position	38.946s
+ok  	github.com/vasic-digital/job_seeker/internal/providers	0.877s
+ok  	github.com/vasic-digital/job_seeker/internal/ingest	4.541s
+?   	github.com/vasic-digital/job_seeker/internal/ingest/ingesttest	[no test files]
+ok  	github.com/vasic-digital/job_seeker/internal/draft	34.777s
+ok  	github.com/vasic-digital/job_seeker/internal/console	4.733s

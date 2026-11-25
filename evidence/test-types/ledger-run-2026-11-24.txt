@@ -1,0 +1,6 @@
+# ledger run 2026-11-24 (normal)
+OK: all 13 test types accounted for in 4 feature(s), every PRESENT row checked for genuine evidence (0 operator_attended SKIP-justified, never an automated PASS; 24 PRESENT, 28 PLANNED, 0 SKIP)
+rc=0
+# --prove-failure
+PROVE-FAILURE OK: control green over 4 feature(s); 13 stripped types, per-feature missing type, 24 broken PRESENT paths, bad SKIP, operator_attended accounting (1 ok, 2 refused, wording enforced), and 18 genuineness cases (4 controls green; empty file/dir, FAIL line, panic line, un-normalised txt and json, unparseable json, ok=false json, no Test func, SKIP-only and NOT-RUN captures all refused as PRESENT) all behave
+rc=0

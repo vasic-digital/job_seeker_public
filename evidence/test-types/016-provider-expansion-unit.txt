@@ -1,0 +1,486 @@
+=== RUN   TestAPIURLHostsAreOnTheEgressAllowList
+--- PASS: TestAPIURLHostsAreOnTheEgressAllowList (0.00s)
+=== RUN   TestArbeitnowTranslatesAndAttributes
+--- PASS: TestArbeitnowTranslatesAndAttributes (0.00s)
+=== RUN   TestArbeitnowHostileAndErrors
+--- PASS: TestArbeitnowHostileAndErrors (0.01s)
+=== RUN   TestJobicyTranslatesAndAttributes
+--- PASS: TestJobicyTranslatesAndAttributes (0.00s)
+=== RUN   TestJobicyRequestIsBoundedAndKeyless
+--- PASS: TestJobicyRequestIsBoundedAndKeyless (0.01s)
+=== RUN   TestArbeitnowRejectsNonHTTPSAndJobicyDropsUnqualifiedSalary
+--- PASS: TestArbeitnowRejectsNonHTTPSAndJobicyDropsUnqualifiedSalary (0.00s)
+=== RUN   TestAshbyTranslatesCapturedGolden
+--- PASS: TestAshbyTranslatesCapturedGolden (0.01s)
+=== RUN   TestAshbyMalformedHostileAndClasses
+--- PASS: TestAshbyMalformedHostileAndClasses (0.06s)
+=== RUN   TestAshbyTenantsEmptyAndBadSlug
+--- PASS: TestAshbyTenantsEmptyAndBadSlug (0.00s)
+=== RUN   TestAtsRequestURLsAreTheExactFetchedPaths
+--- PASS: TestAtsRequestURLsAreTheExactFetchedPaths (0.00s)
+=== RUN   TestFeedRequestURLsAreTheSourceURLs
+--- PASS: TestFeedRequestURLsAreTheSourceURLs (0.00s)
+=== RUN   TestATSMoreTranslateSyntheticFixtures
+=== RUN   TestATSMoreTranslateSyntheticFixtures/workable
+=== RUN   TestATSMoreTranslateSyntheticFixtures/smartrecruiters
+=== RUN   TestATSMoreTranslateSyntheticFixtures/recruitee
+=== RUN   TestATSMoreTranslateSyntheticFixtures/personio
+=== RUN   TestATSMoreTranslateSyntheticFixtures/teamtailor
+--- PASS: TestATSMoreTranslateSyntheticFixtures (0.05s)
+    --- PASS: TestATSMoreTranslateSyntheticFixtures/workable (0.00s)
+    --- PASS: TestATSMoreTranslateSyntheticFixtures/smartrecruiters (0.00s)
+    --- PASS: TestATSMoreTranslateSyntheticFixtures/recruitee (0.02s)
+    --- PASS: TestATSMoreTranslateSyntheticFixtures/personio (0.01s)
+    --- PASS: TestATSMoreTranslateSyntheticFixtures/teamtailor (0.01s)
+=== RUN   TestATSMoreFieldMapping
+--- PASS: TestATSMoreFieldMapping (0.05s)
+=== RUN   TestATSMoreGatesFailClosed
+=== RUN   TestATSMoreGatesFailClosed/workable
+=== RUN   TestATSMoreGatesFailClosed/smartrecruiters
+=== RUN   TestATSMoreGatesFailClosed/recruitee
+=== RUN   TestATSMoreGatesFailClosed/personio
+=== RUN   TestATSMoreGatesFailClosed/teamtailor
+--- PASS: TestATSMoreGatesFailClosed (0.17s)
+    --- PASS: TestATSMoreGatesFailClosed/workable (0.06s)
+    --- PASS: TestATSMoreGatesFailClosed/smartrecruiters (0.02s)
+    --- PASS: TestATSMoreGatesFailClosed/recruitee (0.03s)
+    --- PASS: TestATSMoreGatesFailClosed/personio (0.04s)
+    --- PASS: TestATSMoreGatesFailClosed/teamtailor (0.03s)
+=== RUN   TestATSMoreEmptyWatchlistContactsNothingAndBadSlugRefused
+--- PASS: TestATSMoreEmptyWatchlistContactsNothingAndBadSlugRefused (0.01s)
+=== RUN   TestATSMoreMalformedBodiesAreSchemaErrors
+--- PASS: TestATSMoreMalformedBodiesAreSchemaErrors (0.17s)
+=== RUN   TestATSMoreRedirectToOtherHostRefused
+--- PASS: TestATSMoreRedirectToOtherHostRefused (0.02s)
+=== RUN   TestATSMoreCursorWalksTenants
+--- PASS: TestATSMoreCursorWalksTenants (0.00s)
+=== RUN   TestATSMoreHostBasedSlugMustBeDNSLabel
+--- PASS: TestATSMoreHostBasedSlugMustBeDNSLabel (0.00s)
+=== RUN   TestATSMoreRobotsJudgedAtExactPath
+--- PASS: TestATSMoreRobotsJudgedAtExactPath (0.07s)
+=== RUN   TestBundesagenturIsInertWithoutFlagAndKey
+--- PASS: TestBundesagenturIsInertWithoutFlagAndKey (0.00s)
+=== RUN   TestBundesagenturTranslatesDocDerivedShape
+--- PASS: TestBundesagenturTranslatesDocDerivedShape (0.00s)
+=== RUN   TestBundesagenturFailsClosed
+--- PASS: TestBundesagenturFailsClosed (0.07s)
+=== RUN   TestCaptureSample
+    capture_test.go:19: SKIP topology_unsupported: set JS_CAPTURE=name|host|url (and JS_CAPTURE_HDR=Key:Value) to record one sample
+--- SKIP: TestCaptureSample (0.00s)
+=== RUN   TestExportedHelpersAreTheSameImplementation
+--- PASS: TestExportedHelpersAreTheSameImplementation (0.00s)
+=== RUN   TestRegisterAttribution
+--- PASS: TestRegisterAttribution (0.00s)
+=== RUN   TestParseFeedRSSAndAtom
+--- PASS: TestParseFeedRSSAndAtom (0.00s)
+=== RUN   TestParseFeedHostile
+--- PASS: TestParseFeedHostile (0.04s)
+=== RUN   TestFeedFetchHonoursRobotsAndTerms
+=== RUN   TestFeedFetchHonoursRobotsAndTerms/allowed
+=== RUN   TestFeedFetchHonoursRobotsAndTerms/disallowed_path_is_never_fetched
+=== RUN   TestFeedFetchHonoursRobotsAndTerms/robots_404_means_no_restrictions
+=== RUN   TestFeedFetchHonoursRobotsAndTerms/robots_5xx_fails_closed
+=== RUN   TestFeedFetchHonoursRobotsAndTerms/no_evaluator_fails_closed
+=== RUN   TestFeedFetchHonoursRobotsAndTerms/terms_not_reviewed_contacts_nothing
+=== RUN   TestFeedFetchHonoursRobotsAndTerms/cursor_walks_the_list
+=== RUN   TestFeedFetchHonoursRobotsAndTerms/empty_list_contacts_nothing
+--- PASS: TestFeedFetchHonoursRobotsAndTerms (0.06s)
+    --- PASS: TestFeedFetchHonoursRobotsAndTerms/allowed (0.01s)
+    --- PASS: TestFeedFetchHonoursRobotsAndTerms/disallowed_path_is_never_fetched (0.03s)
+    --- PASS: TestFeedFetchHonoursRobotsAndTerms/robots_404_means_no_restrictions (0.01s)
+    --- PASS: TestFeedFetchHonoursRobotsAndTerms/robots_5xx_fails_closed (0.00s)
+    --- PASS: TestFeedFetchHonoursRobotsAndTerms/no_evaluator_fails_closed (0.00s)
+    --- PASS: TestFeedFetchHonoursRobotsAndTerms/terms_not_reviewed_contacts_nothing (0.01s)
+    --- PASS: TestFeedFetchHonoursRobotsAndTerms/cursor_walks_the_list (0.00s)
+    --- PASS: TestFeedFetchHonoursRobotsAndTerms/empty_list_contacts_nothing (0.00s)
+=== RUN   TestPagesReadJSONLDBehindTheSameGates
+--- PASS: TestPagesReadJSONLDBehindTheSameGates (0.00s)
+=== RUN   TestFeedRefusesCrossHostRedirects
+--- PASS: TestFeedRefusesCrossHostRedirects (0.07s)
+=== RUN   TestGreenhouseRealCaptureGolden
+--- PASS: TestGreenhouseRealCaptureGolden (0.01s)
+=== RUN   TestGreenhouseTranslatesGolden
+--- PASS: TestGreenhouseTranslatesGolden (0.00s)
+=== RUN   TestGreenhouseTenantCursorWalksTheWatchlist
+--- PASS: TestGreenhouseTenantCursorWalksTheWatchlist (0.00s)
+=== RUN   TestGreenhouseEmptyWatchlistContactsNothing
+--- PASS: TestGreenhouseEmptyWatchlistContactsNothing (0.00s)
+=== RUN   TestGreenhouseMalformedAndHostile
+--- PASS: TestGreenhouseMalformedAndHostile (0.03s)
+=== RUN   TestGreenhouseHTTPClasses
+--- PASS: TestGreenhouseHTTPClasses (0.02s)
+=== RUN   TestAttributionCoversATSProviders
+--- PASS: TestAttributionCoversATSProviders (0.00s)
+=== RUN   TestGreenhouseRefusesUnvalidatedSlugBeforeAnyRequest
+--- PASS: TestGreenhouseRefusesUnvalidatedSlugBeforeAnyRequest (0.00s)
+=== RUN   TestHNParserMatchesLabelledGold
+--- PASS: TestHNParserMatchesLabelledGold (0.00s)
+=== RUN   TestHNCursorProtocolDiscoveryThenPages
+--- PASS: TestHNCursorProtocolDiscoveryThenPages (0.03s)
+=== RUN   TestHNRefusesWrongThreadAndMalformed
+--- PASS: TestHNRefusesWrongThreadAndMalformed (0.16s)
+=== RUN   TestHNInjectionCorpus
+--- PASS: TestHNInjectionCorpus (0.24s)
+=== RUN   TestHNAttribution
+--- PASS: TestHNAttribution (0.00s)
+=== RUN   TestHNHeaderShapeGuards
+--- PASS: TestHNHeaderShapeGuards (0.00s)
+=== RUN   TestHNCursorBoundMakesNoRequest
+--- PASS: TestHNCursorBoundMakesNoRequest (0.00s)
+=== RUN   TestJSONLDExtractsJobPostings
+--- PASS: TestJSONLDExtractsJobPostings (0.00s)
+=== RUN   TestJSONLDRefusesNonHTTPSPageAndHostileFields
+--- PASS: TestJSONLDRefusesNonHTTPSPageAndHostileFields (0.00s)
+=== RUN   TestJSONLDBoundsWork
+--- PASS: TestJSONLDBoundsWork (0.11s)
+=== RUN   TestLeverTranslatesCapturedGolden
+--- PASS: TestLeverTranslatesCapturedGolden (0.01s)
+=== RUN   TestLeverMalformedHostileAndClasses
+--- PASS: TestLeverMalformedHostileAndClasses (0.02s)
+=== RUN   TestLeverTenantsAndEmptyWatchlist
+--- PASS: TestLeverTenantsAndEmptyWatchlist (0.00s)
+=== RUN   TestLeverNegativeSalaryDropped
+--- PASS: TestLeverNegativeSalaryDropped (0.00s)
+=== RUN   TestLiveRemoteOK
+    live_test.go:29: SKIP topology_unsupported: set JS_LIVE=1 to run the live provider contract
+--- SKIP: TestLiveRemoteOK (0.00s)
+=== RUN   TestLiveRemotive
+    live_test.go:52: SKIP (rate budget): Remotive allows 4 requests per 24 h; set JS_LIVE_REMOTIVE=1 together with JS_LIVE=1
+--- SKIP: TestLiveRemotive (0.00s)
+=== RUN   TestLiveHimalayas
+    live_test.go:58: BLOCKED operator: Himalayas needs the operator's key and ToS acceptance (JSK-T040 live part); set JS_HIMALAYAS_OK=1 only after that decision
+--- SKIP: TestLiveHimalayas (0.00s)
+=== RUN   TestLiveArbeitnow
+    live_test.go:29: SKIP topology_unsupported: set JS_LIVE=1 to run the live provider contract
+--- SKIP: TestLiveArbeitnow (0.00s)
+=== RUN   TestLiveJobicy
+    live_test.go:29: SKIP topology_unsupported: set JS_LIVE=1 to run the live provider contract
+--- SKIP: TestLiveJobicy (0.00s)
+=== RUN   TestManualPostingValidAndIdempotent
+--- PASS: TestManualPostingValidAndIdempotent (0.00s)
+=== RUN   TestManualPostingRefusals
+--- PASS: TestManualPostingRefusals (0.00s)
+=== RUN   TestManualProviderNameIsPerHost
+--- PASS: TestManualProviderNameIsPerHost (0.00s)
+=== RUN   TestManualHostLengthBoundary
+--- PASS: TestManualHostLengthBoundary (0.00s)
+=== RUN   TestManualIntakeTable
+--- PASS: TestManualIntakeTable (0.00s)
+=== RUN   TestRemotiveTranslatesRecordsAndAttribution
+--- PASS: TestRemotiveTranslatesRecordsAndAttribution (0.00s)
+=== RUN   TestRemotiveLimitsAreTheDocumentedOnes
+--- PASS: TestRemotiveLimitsAreTheDocumentedOnes (0.00s)
+=== RUN   TestRemotiveTruncatesClientSideAndRejectsBadEnvelope
+--- PASS: TestRemotiveTruncatesClientSideAndRejectsBadEnvelope (0.00s)
+=== RUN   TestHTTPErrorClasses
+--- PASS: TestHTTPErrorClasses (0.01s)
+=== RUN   TestRemotiveSendsDescriptiveUserAgentAndNoCredentials
+--- PASS: TestRemotiveSendsDescriptiveUserAgentAndNoCredentials (0.00s)
+=== RUN   TestRemoteOKTranslatesAndNeverCarriesLogo
+--- PASS: TestRemoteOKTranslatesAndNeverCarriesLogo (0.00s)
+=== RUN   TestHimalayasKeepsApplicationLinkVerbatimAndExpiry
+--- PASS: TestHimalayasKeepsApplicationLinkVerbatimAndExpiry (0.00s)
+=== RUN   TestHimalayasKeyIsSentOnlyAsBearerAndNeverInErrors
+--- PASS: TestHimalayasKeyIsSentOnlyAsBearerAndNeverInErrors (0.00s)
+=== RUN   TestHimalayasNeverFetchedWithoutHostOnAllowList
+--- PASS: TestHimalayasNeverFetchedWithoutHostOnAllowList (0.00s)
+=== RUN   TestFinalizeSanitizesAndDetectsLanguage
+--- PASS: TestFinalizeSanitizesAndDetectsLanguage (0.00s)
+=== RUN   TestReadThroughRSSAndJSONDisplayItems
+--- PASS: TestReadThroughRSSAndJSONDisplayItems (0.00s)
+=== RUN   TestReadThroughCachesWithinTTLAndNeverServesExpired
+--- PASS: TestReadThroughCachesWithinTTLAndNeverServesExpired (0.00s)
+=== RUN   TestReadThroughFailureAfterExpiryServesNothingStale
+--- PASS: TestReadThroughFailureAfterExpiryServesNothingStale (0.00s)
+=== RUN   TestReadThroughTTLClamp
+--- PASS: TestReadThroughTTLClamp (0.00s)
+=== RUN   TestReadThroughGatesFailClosed
+--- PASS: TestReadThroughGatesFailClosed (0.01s)
+=== RUN   TestReadThroughUnknownSourceBadKindAndRedirect
+--- PASS: TestReadThroughUnknownSourceBadKindAndRedirect (0.01s)
+=== RUN   TestReadThroughMalformedBodiesAreSchemaErrors
+--- PASS: TestReadThroughMalformedBodiesAreSchemaErrors (0.02s)
+=== RUN   TestReadThroughHasNoStoragePath
+--- PASS: TestReadThroughHasNoStoragePath (0.00s)
+=== RUN   TestWatchlistReadThroughSection
+--- PASS: TestWatchlistReadThroughSection (0.00s)
+=== RUN   TestReadThroughFieldsSanitisedAndCapped
+--- PASS: TestReadThroughFieldsSanitisedAndCapped (0.02s)
+=== RUN   TestSanitizeStripsActiveContent
+--- PASS: TestSanitizeStripsActiveContent (0.00s)
+=== RUN   TestSanitizeBlocksAndLists
+--- PASS: TestSanitizeBlocksAndLists (0.00s)
+=== RUN   TestSanitizeFixesMojibakeAndCaps
+--- PASS: TestSanitizeFixesMojibakeAndCaps (0.01s)
+=== RUN   TestSanitizeNeverPanicsOnGarbage
+--- PASS: TestSanitizeNeverPanicsOnGarbage (0.00s)
+=== RUN   TestDetectLang
+--- PASS: TestDetectLang (0.00s)
+=== RUN   TestCanonicalURL
+--- PASS: TestCanonicalURL (0.00s)
+=== RUN   TestSanitizeEscapedAndRawTextMarkupCannotSurvive
+--- PASS: TestSanitizeEscapedAndRawTextMarkupCannotSurvive (0.00s)
+=== RUN   TestResolveATSJobURL
+--- PASS: TestResolveATSJobURL (0.00s)
+=== RUN   TestFetchATSJobGreenhouseOneGet
+--- PASS: TestFetchATSJobGreenhouseOneGet (0.00s)
+=== RUN   TestFetchATSJobLeverAndAshby
+--- PASS: TestFetchATSJobLeverAndAshby (0.01s)
+=== RUN   TestFetchATSJobRefusesWrongJobInResponse
+--- PASS: TestFetchATSJobRefusesWrongJobInResponse (0.00s)
+=== RUN   TestFetchATSJobRefusesPrivateResolution
+--- PASS: TestFetchATSJobRefusesPrivateResolution (0.00s)
+=== RUN   TestFetchATSJobRefusesMixedAnswer
+--- PASS: TestFetchATSJobRefusesMixedAnswer (0.00s)
+=== RUN   TestFetchATSJobPinsValidatedIPNoSecondLookup
+--- PASS: TestFetchATSJobPinsValidatedIPNoSecondLookup (0.00s)
+=== RUN   TestFetchATSJobRefusesRedirectToInternalHost
+--- PASS: TestFetchATSJobRefusesRedirectToInternalHost (0.01s)
+=== RUN   TestFetchATSJobRefusesRedirectToOtherAllowedHost
+--- PASS: TestFetchATSJobRefusesRedirectToOtherAllowedHost (0.00s)
+=== RUN   TestEgressHopToHostResolvingPrivateIsRefused
+--- PASS: TestEgressHopToHostResolvingPrivateIsRefused (0.00s)
+=== RUN   TestShippedWatchlistIsEmptyAndLoads
+--- PASS: TestShippedWatchlistIsEmptyAndLoads (0.00s)
+=== RUN   TestWatchlistLoadsAndValidates
+--- PASS: TestWatchlistLoadsAndValidates (0.03s)
+=== RUN   TestWatchlistFeedsValidate
+--- PASS: TestWatchlistFeedsValidate (0.00s)
+=== RUN   TestWatchlistT212SectionsCarryTermsDate
+--- PASS: TestWatchlistT212SectionsCarryTermsDate (0.00s)
+=== RUN   FuzzArbeitnowJobicyOne
+=== RUN   FuzzArbeitnowJobicyOne/seed#0
+=== RUN   FuzzArbeitnowJobicyOne/seed#1
+--- PASS: FuzzArbeitnowJobicyOne (0.00s)
+    --- PASS: FuzzArbeitnowJobicyOne/seed#0 (0.00s)
+    --- PASS: FuzzArbeitnowJobicyOne/seed#1 (0.00s)
+=== RUN   FuzzAshbyOne
+=== RUN   FuzzAshbyOne/seed#0
+=== RUN   FuzzAshbyOne/seed#1
+--- PASS: FuzzAshbyOne (0.00s)
+    --- PASS: FuzzAshbyOne/seed#0 (0.00s)
+    --- PASS: FuzzAshbyOne/seed#1 (0.00s)
+=== RUN   FuzzPersonioXML
+=== RUN   FuzzPersonioXML/seed#0
+--- PASS: FuzzPersonioXML (0.00s)
+    --- PASS: FuzzPersonioXML/seed#0 (0.00s)
+=== RUN   FuzzBundesagenturOne
+=== RUN   FuzzBundesagenturOne/seed#0
+=== RUN   FuzzBundesagenturOne/seed#1
+--- PASS: FuzzBundesagenturOne (0.00s)
+    --- PASS: FuzzBundesagenturOne/seed#0 (0.00s)
+    --- PASS: FuzzBundesagenturOne/seed#1 (0.00s)
+=== RUN   FuzzGreenhouseOne
+=== RUN   FuzzGreenhouseOne/seed#0
+=== RUN   FuzzGreenhouseOne/seed#1
+--- PASS: FuzzGreenhouseOne (0.00s)
+    --- PASS: FuzzGreenhouseOne/seed#0 (0.00s)
+    --- PASS: FuzzGreenhouseOne/seed#1 (0.00s)
+=== RUN   FuzzHNOne
+=== RUN   FuzzHNOne/seed#0
+=== RUN   FuzzHNOne/seed#1
+--- PASS: FuzzHNOne (0.00s)
+    --- PASS: FuzzHNOne/seed#0 (0.00s)
+    --- PASS: FuzzHNOne/seed#1 (0.00s)
+=== RUN   FuzzJSONLD
+=== RUN   FuzzJSONLD/seed#0
+=== RUN   FuzzJSONLD/seed#1
+--- PASS: FuzzJSONLD (0.00s)
+    --- PASS: FuzzJSONLD/seed#0 (0.00s)
+    --- PASS: FuzzJSONLD/seed#1 (0.00s)
+=== RUN   FuzzLeverOne
+=== RUN   FuzzLeverOne/seed#0
+=== RUN   FuzzLeverOne/seed#1
+--- PASS: FuzzLeverOne (0.00s)
+    --- PASS: FuzzLeverOne/seed#0 (0.00s)
+    --- PASS: FuzzLeverOne/seed#1 (0.00s)
+=== RUN   FuzzLoadWatchlist
+=== RUN   FuzzLoadWatchlist/seed#0
+=== RUN   FuzzLoadWatchlist/seed#1
+--- PASS: FuzzLoadWatchlist (0.00s)
+    --- PASS: FuzzLoadWatchlist/seed#0 (0.00s)
+    --- PASS: FuzzLoadWatchlist/seed#1 (0.00s)
+PASS
+ok  	github.com/vasic-digital/job_seeker/internal/providers	1.797s
+=== RUN   TestRealCapturesExtract
+--- PASS: TestRealCapturesExtract (0.00s)
+=== RUN   TestDefaultTableIsValid
+--- PASS: TestDefaultTableIsValid (0.00s)
+=== RUN   TestValidateRefusesEnabledPatternWithoutCapture
+--- PASS: TestValidateRefusesEnabledPatternWithoutCapture (0.00s)
+=== RUN   TestValidateRefusesCaptureThatDoesNotExtract
+--- PASS: TestValidateRefusesCaptureThatDoesNotExtract (0.00s)
+=== RUN   TestDisabledPatternsNeverMatch
+--- PASS: TestDisabledPatternsNeverMatch (0.00s)
+=== RUN   TestExtractIgnoresTrackingAndSuffixes
+--- PASS: TestExtractIgnoresTrackingAndSuffixes (0.00s)
+=== RUN   TestBackfillFromLegacyDupOf
+--- PASS: TestBackfillFromLegacyDupOf (0.16s)
+=== RUN   TestBackfillIdempotentAndResumable
+--- PASS: TestBackfillIdempotentAndResumable (0.10s)
+=== RUN   TestBackfillOrphanDupOfBecomesOwnPosition
+--- PASS: TestBackfillOrphanDupOfBecomesOwnPosition (0.07s)
+=== RUN   TestBackfillChainIsFlattenedToRoot
+--- PASS: TestBackfillChainIsFlattenedToRoot (0.08s)
+=== RUN   TestBackfillKeepsLegacyRepresentativeEvenWhenRootExpired
+--- PASS: TestBackfillKeepsLegacyRepresentativeEvenWhenRootExpired (0.07s)
+=== RUN   TestOpenCandidatesListsBothSides
+--- PASS: TestOpenCandidatesListsBothSides (0.11s)
+=== RUN   TestDecideMergeKeepApartSkip
+=== RUN   TestDecideMergeKeepApartSkip/merge
+=== RUN   TestDecideMergeKeepApartSkip/keep_apart
+=== RUN   TestDecideMergeKeepApartSkip/skip_writes_nothing
+=== RUN   TestDecideMergeKeepApartSkip/unknown_action_and_missing_candidate
+--- PASS: TestDecideMergeKeepApartSkip (0.46s)
+    --- PASS: TestDecideMergeKeepApartSkip/merge (0.17s)
+    --- PASS: TestDecideMergeKeepApartSkip/keep_apart (0.11s)
+    --- PASS: TestDecideMergeKeepApartSkip/skip_writes_nothing (0.07s)
+    --- PASS: TestDecideMergeKeepApartSkip/unknown_action_and_missing_candidate (0.10s)
+=== RUN   TestDecideMergeBlockedWhileLiveApproved
+--- PASS: TestDecideMergeBlockedWhileLiveApproved (0.14s)
+=== RUN   TestDecideMergeBlockedByCannotLink
+--- PASS: TestDecideMergeBlockedByCannotLink (0.11s)
+=== RUN   TestAuditReasonTableIsWrittenAndKnown
+--- PASS: TestAuditReasonTableIsWrittenAndKnown (0.01s)
+=== RUN   TestOllamaEmbedderLive
+    embed_live_test.go:29: SKIP topology: set JSK_OLLAMA_LOOPBACK to a loopback Ollama base URL (needs the nomic-embed-text model installed)
+--- SKIP: TestOllamaEmbedderLive (0.00s)
+=== RUN   TestObserverCopyEvaluation
+    eval_observer_test.go:24: JS_OBSERVER_DB not set: no observer database to evaluate
+--- SKIP: TestObserverCopyEvaluation (0.00s)
+=== RUN   TestRealCorpusEvaluation
+    eval_real_test.go:120: 
+        corpus_items=115 positions=115 employers=49 auto_merges=0 queued=0 new=115 resolver_version=r1
+        
+        
+--- PASS: TestRealCorpusEvaluation (1.09s)
+=== RUN   TestMinHashDeterministicAndLength
+--- PASS: TestMinHashDeterministicAndLength (0.00s)
+=== RUN   TestMinHashGolden
+--- PASS: TestMinHashGolden (0.00s)
+=== RUN   TestMinHashSimilarityOrdering
+--- PASS: TestMinHashSimilarityOrdering (0.00s)
+=== RUN   TestSealedSignatureRoundTripAndNoPlaintext
+--- PASS: TestSealedSignatureRoundTripAndNoPlaintext (0.12s)
+=== RUN   TestResolverUsesSealedSignatureOnlyWithKeys
+--- PASS: TestResolverUsesSealedSignatureOnlyWithKeys (0.24s)
+=== RUN   TestDecodeSigRejectsGarbage
+--- PASS: TestDecodeSigRejectsGarbage (0.00s)
+=== RUN   TestEmbedderLoopbackOnly
+--- PASS: TestEmbedderLoopbackOnly (0.00s)
+=== RUN   TestEmbedderAnswersAndFailsAsUnavailable
+--- PASS: TestEmbedderAnswersAndFailsAsUnavailable (0.00s)
+=== RUN   TestNormEmployerGolden
+--- PASS: TestNormEmployerGolden (0.00s)
+=== RUN   TestNormEmployerIdempotentProperty
+--- PASS: TestNormEmployerIdempotentProperty (0.08s)
+=== RUN   TestNormTitle
+--- PASS: TestNormTitle (0.00s)
+=== RUN   TestSeniorityTiersDiffer
+--- PASS: TestSeniorityTiersDiffer (0.00s)
+=== RUN   TestCanonURL
+--- PASS: TestCanonURL (0.00s)
+=== RUN   TestCanonURLIdempotentAndOrderIndependent
+--- PASS: TestCanonURLIdempotentAndOrderIndependent (0.00s)
+=== RUN   TestRemoteScopeParseAndCompat
+--- PASS: TestRemoteScopeParseAndCompat (0.00s)
+=== RUN   TestNormEmployerIdempotentOnSuffixChains
+--- PASS: TestNormEmployerIdempotentOnSuffixChains (0.00s)
+=== RUN   TestCanonURLKeepsEscapedPathAndIsIdempotent
+--- PASS: TestCanonURLKeepsEscapedPathAndIsIdempotent (0.00s)
+=== RUN   TestCanonURLRefusesUnparseableQuery
+--- PASS: TestCanonURLRefusesUnparseableQuery (0.00s)
+=== RUN   TestNormEmployerDottedLegalThenNoise
+--- PASS: TestNormEmployerDottedLegalThenNoise (0.00s)
+=== RUN   TestCanonURLRepeatedApplySuffixIdempotent
+--- PASS: TestCanonURLRepeatedApplySuffixIdempotent (0.00s)
+=== RUN   TestAllAwareDefaultWarnsOnDuplicatesAndNeverLocks
+--- PASS: TestAllAwareDefaultWarnsOnDuplicatesAndNeverLocks (0.19s)
+=== RUN   TestSingleAutoChoosesBestRankedCapableListing
+--- PASS: TestSingleAutoChoosesBestRankedCapableListing (0.24s)
+=== RUN   TestSinglePositionTakenAfterFallback
+--- PASS: TestSinglePositionTakenAfterFallback (0.13s)
+=== RUN   TestLockReleasedOnTerminalStatesOnly
+--- PASS: TestLockReleasedOnTerminalStatesOnly (0.89s)
+=== RUN   TestFavouritesOrderAndStrict
+--- PASS: TestFavouritesOrderAndStrict (0.23s)
+=== RUN   TestPerPositionOverride
+--- PASS: TestPerPositionOverride (0.10s)
+=== RUN   TestEmployerPolicyLimits
+--- PASS: TestEmployerPolicyLimits (0.10s)
+=== RUN   TestHandoffRechecksPolicy
+--- PASS: TestHandoffRechecksPolicy (0.09s)
+=== RUN   TestFailClosedOnUnreadableSettingsAndUnresolvedPosition
+--- PASS: TestFailClosedOnUnreadableSettingsAndUnresolvedPosition (0.11s)
+=== RUN   TestConcurrentApprovalsExactlyOneWins
+--- PASS: TestConcurrentApprovalsExactlyOneWins (1.33s)
+=== RUN   TestRankComponentsAndInsufficientHistory
+--- PASS: TestRankComponentsAndInsufficientHistory (0.14s)
+=== RUN   TestRankParamsMustSumToOne
+--- PASS: TestRankParamsMustSumToOne (0.00s)
+=== RUN   TestConfiguredDefaultModeAppliesUntilSettingStored
+--- PASS: TestConfiguredDefaultModeAppliesUntilSettingStored (0.14s)
+=== RUN   TestLoadSettingsDirect
+--- PASS: TestLoadSettingsDirect (0.19s)
+=== RUN   TestRerunDryRunWritesNothingAndApplyMerges
+--- PASS: TestRerunDryRunWritesNothingAndApplyMerges (0.38s)
+=== RUN   TestRerunRespectsHumanConstraintsAndBusyPositions
+=== RUN   TestRerunRespectsHumanConstraintsAndBusyPositions/cannot_link_is_never_re-evaluated
+=== RUN   TestRerunRespectsHumanConstraintsAndBusyPositions/live_approved_refuses_the_pair,_others_still_proceed
+--- PASS: TestRerunRespectsHumanConstraintsAndBusyPositions (0.33s)
+    --- PASS: TestRerunRespectsHumanConstraintsAndBusyPositions/cannot_link_is_never_re-evaluated (0.25s)
+    --- PASS: TestRerunRespectsHumanConstraintsAndBusyPositions/live_approved_refuses_the_pair,_others_still_proceed (0.08s)
+=== RUN   TestRerunQueuesReviewBandPairsOnce
+--- PASS: TestRerunQueuesReviewBandPairsOnce (0.19s)
+=== RUN   TestATSIdentityAcrossProvidersAutoAttaches
+--- PASS: TestATSIdentityAcrossProvidersAutoAttaches (0.09s)
+=== RUN   TestIdempotentAndEmployerAliasFromTenant
+--- PASS: TestIdempotentAndEmployerAliasFromTenant (0.10s)
+=== RUN   TestApplyURLHardKeyOnEmployerHostOnly
+--- PASS: TestApplyURLHardKeyOnEmployerHostOnly (0.09s)
+=== RUN   TestEdgeCasesStayDistinct
+--- PASS: TestEdgeCasesStayDistinct (0.75s)
+=== RUN   TestSameProviderRelistingSharesATSIdentity
+--- PASS: TestSameProviderRelistingSharesATSIdentity (0.16s)
+=== RUN   TestThresholdBandsAndEdge
+--- PASS: TestThresholdBandsAndEdge (0.83s)
+=== RUN   TestHumanConstraintsOutrankEvidence
+--- PASS: TestHumanConstraintsOutrankEvidence (0.19s)
+=== RUN   TestTransitiveBridgeMergesTwoPositions
+--- PASS: TestTransitiveBridgeMergesTwoPositions (0.13s)
+=== RUN   TestBridgeRefusedAcrossCannotLink
+--- PASS: TestBridgeRefusedAcrossCannotLink (0.14s)
+=== RUN   TestMergeBusyGuardAndHumanMergeSplit
+--- PASS: TestMergeBusyGuardAndHumanMergeSplit (0.21s)
+=== RUN   TestArrivalOrderIndependent
+--- PASS: TestArrivalOrderIndependent (214.29s)
+=== RUN   TestArrivalCasesMeetSC027
+--- PASS: TestArrivalCasesMeetSC027 (0.00s)
+=== RUN   TestParamsLoadAndValidate
+--- PASS: TestParamsLoadAndValidate (0.00s)
+=== RUN   TestInvariantCheckerDetectsCorruption
+--- PASS: TestInvariantCheckerDetectsCorruption (0.75s)
+=== RUN   TestInvariantCheckerSeesMemberWithoutMirror
+--- PASS: TestInvariantCheckerSeesMemberWithoutMirror (0.11s)
+=== RUN   TestGenericCareersPageIsNotAnApplyIdentity
+--- PASS: TestGenericCareersPageIsNotAnApplyIdentity (0.09s)
+=== RUN   TestBackfillSignaturesDryRunApplyIdempotentAudited
+--- PASS: TestBackfillSignaturesDryRunApplyIdempotentAudited (0.40s)
+=== RUN   TestProviderStatsInsufficientHistoryClaimsNoOutcome
+--- PASS: TestProviderStatsInsufficientHistoryClaimsNoOutcome (0.11s)
+=== RUN   TestProviderStatsOrderTieBreakAndVersion
+--- PASS: TestProviderStatsOrderTieBreakAndVersion (0.07s)
+=== RUN   TestProviderStatsCountsAndOrigin
+--- PASS: TestProviderStatsCountsAndOrigin (0.07s)
+=== RUN   TestProviderStatsReliabilityWindow
+--- PASS: TestProviderStatsReliabilityWindow (0.14s)
+=== RUN   TestSyntheticSafePerturbationsAlwaysResolve
+    synth_test.go:88: [synthetic-pair] 56 safe pairs resolved (tool logic only, not recall evidence)
+--- PASS: TestSyntheticSafePerturbationsAlwaysResolve (7.52s)
+=== RUN   TestSyntheticPairsFromRealCorpus
+    synth_test.go:133: [synthetic-pair] 84 safe pairs from the real postings (stride 10 of 115) all resolved; hard-perturbation outcomes (measured, not asserted): swap_words=map[auto:11 new:1] typo=map[auto:10 queued:2] loc_rewrite=map[auto:12] drop_word=map[new:6 queued:6] 
+--- PASS: TestSyntheticPairsFromRealCorpus (18.59s)
+=== RUN   TestEdgeCaseAgencyVsEndClientAndAliases
+--- PASS: TestEdgeCaseAgencyVsEndClientAndAliases (0.22s)
+PASS
+ok  	github.com/vasic-digital/job_seeker/internal/position	252.775s

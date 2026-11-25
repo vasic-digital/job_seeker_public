@@ -1,0 +1,41 @@
+{
+ "lang": "ar",
+ "verdict": "PASS",
+ "reviewer": "claude:fresh-reviewer",
+ "translator": "claude:sonnet-5.5",
+ "round": 2,
+ "accuracy": 4,
+ "fluency": 5,
+ "completeness": 5,
+ "naturalness": 4,
+ "register_appropriate": 5,
+ "terminology": 4,
+ "format": 5,
+ "spirit_ok": true,
+ "script_ok": true,
+ "target_script_ok": true,
+ "untranslated_leftovers": false,
+ "terms_preserved": true,
+ "issues": [
+  {
+   "key": "col.state / position.state / tracking.status",
+   "problem": "state and status both rendered 'الحالة'",
+   "fix": "optional: distinguish status as 'الوضع الحالي'",
+   "severity": "minor"
+  },
+  {
+   "key": "nav.label",
+   "problem": "'الرئيسية' can read as 'Home' for an aria-label of the main nav",
+   "fix": "optional: 'التنقل الرئيسي'",
+   "severity": "minor"
+  },
+  {
+   "key": "queue.hits / queue.map / settings.kill.turn_*",
+   "problem": "mild residual hint phrasing ('مرات تطابق القاعدة', 'مجال السيرة الذاتية', 'الطارئ') but sense-accurate",
+   "fix": "none required",
+   "severity": "minor"
+  }
+ ],
+ "notes": "round 1 FAIL (hint text leaked) fixed in 8e6b205; round 2: 312=en keys, printf verbs per key match, argument order of report.coverage.counts/report.diff.counts preserved, gate wording unified",
+ "review_rc": 0
+}

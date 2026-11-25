@@ -1,0 +1,26 @@
+=== RUN   TestIntakeFormLive
+    intake_live_test.go:79: 
+        PASS signed in
+        PASS nav link opens /intake :: https://js.lan:36435/intake
+        PASS label bound to #in-url
+        PASS label bound to #in-title
+        PASS label bound to #in-company
+        PASS label bound to #in-text
+        PASS no missing i18n key
+        PASS axe intake light :: 23 rules passed
+        PASS axe intake dark :: 23 rules passed
+        PASS mobile: no horizontal page scroll
+        PASS inward host refused with HTTP 400 :: 400
+        PASS error alert shown with the closed code validation
+        PASS pasted text is not echoed back
+        PASS link and title are kept for correction
+        PASS axe intake-refused light :: 26 rules passed
+        PASS axe intake-refused dark :: 26 rules passed
+        PASS valid paste lands on its Position :: https://js.lan:36435/positions/1
+        PASS Position shows the pasted title and the manual host as source :: Staff Go Engineer
+        PASS re-paste lands on the same Position :: https://js.lan:36435/positions/1
+        PASS no page errors in the browser console
+    intake_live_test.go:94: db after the walk: postings=1 sealed_signatures=1 manual_providers=1 intake_audit_rows=2
+--- PASS: TestIntakeFormLive (8.02s)
+PASS
+ok  	github.com/vasic-digital/job_seeker/tests/e2e	8.027s

@@ -1,0 +1,5 @@
+KILLED       draft-pdf-block-ignored
+KILLED       draft-pdf-verdict-not-recorded
+KILLED       draft-pdf-worst-inverted
+KILLED       draft-pdf-missing-verdict-passes
+done

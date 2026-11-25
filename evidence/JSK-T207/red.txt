@@ -1,0 +1,9 @@
+--- FAIL: TestApplyModeSettingStoredWinsAndIsAudited (0.45s)
+    settings_policy_test.go:42: set mode: 404
+--- FAIL: TestApplyModeUnknownRefusedNothingStored (0.29s)
+    settings_policy_test.go:63: mode "bogus": 404
+--- FAIL: TestFavouritesValidatedOrderedAndAudited (0.31s)
+    settings_policy_test.go:87: set favourites 404
+FAIL
+FAIL	github.com/vasic-digital/job_seeker/internal/console	1.551s
+FAIL

@@ -1,0 +1,7 @@
+KILLED       t203-arbeitnow-remote-flag-ignored
+SURVIVED     t203-arbeitnow-bad-url-accepted
+KILLED       t203-jobicy-count-uncapped
+SURVIVED     t203-jobicy-salary-guessed
+KILLED       t203-jobicy-bad-url-accepted
+KILLED       t203-arbeitnow-bad-url-accepted
+KILLED       t203-jobicy-salary-guessed

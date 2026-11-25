@@ -1,0 +1,5 @@
+28:lockstep OK (4 carriers, normalised digest c83be1fba7b03764)
+138:  run 1 digest d0cc8b49357046a1ada29b27a0a02193c585d3dc9a63ff19563dbff79c1c5a04
+139:  run 2 digest d0cc8b49357046a1ada29b27a0a02193c585d3dc9a63ff19563dbff79c1c5a04
+140:  run 3 digest d0cc8b49357046a1ada29b27a0a02193c585d3dc9a63ff19563dbff79c1c5a04
+397:gates verdict rc=0

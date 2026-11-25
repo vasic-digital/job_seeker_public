@@ -5,3 +5,25 @@ greenhouse: []
 #    name: Display Name (optional; the slug is shown when omitted)
 lever: []
 ashby: []
+#  - slug: your-employer-token   # JSK-T212 ATSs below: slug as in the employer's public careers URL
+#    name: Display Name
+#    terms_reviewed: 2026-11-24   # required: without it the employer is never contacted
+workable: []
+smartrecruiters: []
+recruitee: []   # host <slug>.recruitee.com must ALSO be added to deploy/egress-allowlist.txt
+personio: []    # host <slug>.jobs.personio.de must ALSO be added to deploy/egress-allowlist.txt
+teamtailor: []  # host <slug>.teamtailor.com must ALSO be added to deploy/egress-allowlist.txt
+#  - url: https://careers.example.org/feed.xml   # https RSS 2.0 or Atom feed; its host must ALSO be added to deploy/egress-allowlist.txt
+#    name: Display Name
+#    terms_reviewed: 2026-11-24   # the date YOU read the site terms; without it the feed is never contacted
+feeds: []
+#  - url: https://careers.example.org/jobs   # career page carrying schema.org JobPosting JSON-LD; same two conditions as feeds
+#    name: Display Name
+#    terms_reviewed: 2026-11-24
+pages: []
+#  - id: wwr   # wwr | workingnomads or your own lower-case id; kind: rss | json (JSK-T214, DISPLAY-ONLY, never stored, short TTL)
+#    kind: rss
+#    url: https://careers.example.org/feed.rss   # host must ALSO be added to deploy/egress-allowlist.txt
+#    name: Display Name
+#    terms_reviewed: 2026-11-24   # required: the date YOU read the site terms
+readthrough: []

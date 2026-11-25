@@ -1,0 +1,8 @@
+=== RUN   TestDuplicatesListsOtherOpenApplicationsOfOnePosition
+--- PASS: TestDuplicatesListsOtherOpenApplicationsOfOnePosition (0.16s)
+PASS
+ok  	github.com/vasic-digital/job_seeker/internal/draft	0.189s
+=== RUN   TestDraftPageRendersDuplicateWarningAndAck
+--- PASS: TestDraftPageRendersDuplicateWarningAndAck (0.01s)
+PASS
+ok  	github.com/vasic-digital/job_seeker/internal/console	0.019s

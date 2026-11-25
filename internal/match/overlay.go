@@ -10,7 +10,7 @@ import (
 	"regexp"
 	"sort"
 
-	"github.com/goccy/go-yaml"
+	"github.com/vasic-digital/job_seeker/internal/yamlsafe"
 )
 
 // Overlay is the in-memory view of the private overlay (FR-053..FR-056). It is never persisted:
@@ -25,19 +25,29 @@ type Overlay struct {
 	AllowedOnsiteCities []string
 	BlockedCompanies    []string
 	EligibleCountries   []string
+	WorkAuthCountries   []string // ISO 3166-1 alpha-2; empty-but-set means "none" (JSK-T177)
+	Languages           []string // ISO 639-1 primary subtags, never empty when set
+	waSet, langSet      bool
 }
 
 func (o *Overlay) HasSalaryFloor() bool {
 	return o != nil && o.Present && o.SalaryMin > 0 && o.SalaryCurrency != ""
 }
-func (o *Overlay) HasTZ() bool { return o != nil && o.Present && o.tz }
+
+// HasWorkAuth reports whether work_auth_countries was configured (an explicit empty list counts: "none").
+func (o *Overlay) HasWorkAuth() bool { return o != nil && o.Present && o.waSet }
+
+// HasLanguages reports whether languages was configured.
+func (o *Overlay) HasLanguages() bool { return o != nil && o.Present && o.langSet }
+func (o *Overlay) HasTZ() bool        { return o != nil && o.Present && o.tz }
 
 // identity keys are accepted for presence only and never retained (contract: templates only in v1).
 var identityKeys = map[string]bool{"schema": true, "phone": true, "address": true, "salary_expectation": true, "referees": true, "private_notes": true}
 
 var (
-	ccyRe = regexp.MustCompile(`^[A-Z]{3}$`)
-	ccRe  = regexp.MustCompile(`^[A-Z]{2}$`)
+	ccyRe  = regexp.MustCompile(`^[A-Z]{3}$`)
+	ccRe   = regexp.MustCompile(`^[A-Z]{2}$`)
+	langRe = regexp.MustCompile(`^[a-z]{2}$`)
 )
 
 // LoadOverlay reads <dir>/overlay.yaml. An empty dir means "no overlay configured" (neutral view, no error).
@@ -51,7 +61,7 @@ func LoadOverlay(dir string) (*Overlay, error) {
 		return nil, errors.New("overlay: overlay.yaml not readable in the configured directory")
 	}
 	var raw map[string]any
-	if err := yaml.Unmarshal(b, &raw); err != nil {
+	if err := yamlsafe.Unmarshal(b, &raw); err != nil {
 		return nil, errors.New("overlay: not valid YAML")
 	}
 	ov := &Overlay{Present: true}
@@ -110,6 +120,25 @@ func LoadOverlay(dir string) (*Overlay, error) {
 				bad()
 			}
 			ov.EligibleCountries = l
+		case "work_auth_countries":
+			l, ok := strList(v)
+			for _, c := range l {
+				ok = ok && ccRe.MatchString(c)
+			}
+			if !ok {
+				bad()
+			}
+			ov.WorkAuthCountries, ov.waSet = l, ok
+		case "languages":
+			l, ok := strList(v)
+			ok = ok && len(l) > 0
+			for _, c := range l {
+				ok = ok && langRe.MatchString(c)
+			}
+			if !ok {
+				bad()
+			}
+			ov.Languages, ov.langSet = l, ok
 		default:
 			if !identityKeys[k] {
 				errs = append(errs, fmt.Sprintf("unknown key %q", trunc(k)))

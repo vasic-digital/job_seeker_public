@@ -11,11 +11,14 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"reflect"
 	"strings"
 	"time"
 
+	"github.com/vasic-digital/job_seeker/internal/audit"
 	"github.com/vasic-digital/job_seeker/internal/crypto"
 	"github.com/vasic-digital/job_seeker/internal/egress"
+	"github.com/vasic-digital/job_seeker/internal/ext"
 	"github.com/vasic-digital/job_seeker/internal/limiter"
 	"github.com/vasic-digital/job_seeker/internal/match"
 	"github.com/vasic-digital/job_seeker/internal/position"
@@ -28,6 +31,15 @@ const (
 	TriggerScheduled = "scheduled"
 	TriggerManual    = "manual"
 )
+
+// ErrComplianceBlocked is returned when a ComplianceGate (robots, provider_tos) refuses the provider: any verdict
+// other than Yes, an Unknown included, stops the run before a limiter reservation, a run row or a request.
+var ErrComplianceBlocked = errors.New("ingest: blocked by a compliance gate")
+
+// ComplianceGuard is the seam to the extension kernel's compliance gates (extwire.Guard).
+type ComplianceGuard interface {
+	Check(ctx context.Context, st ext.Stage, p ext.Posting) ext.Outcome
+}
 
 // ErrDisabled is returned for a provider whose provider.enabled is 0.
 var ErrDisabled = errors.New("ingest: provider disabled")
@@ -46,7 +58,13 @@ type Runner struct {
 	Providers []providers.Provider
 	// Positions, when non-nil, replaces the legacy markDup call. markDup stays in the tree and tested until its removal is approved.
 	Positions PositionResolver
-	APIKeys   map[string]string // by provider name; values come from the environment at wiring, never logged
+	// Compliance, when non-nil, is consulted at StageIngest for every URL the provider will request, before every run.
+	// nil FAILS CLOSED: RunProvider refuses (ErrComplianceBlocked). Tests opt out explicitly with ingesttest.AllowAll;
+	// no production code may build a Runner by literal (tests/ungated scans the tree); binaries use NewRunner.
+	Compliance ComplianceGuard
+	// maintenance marks a Runner built by NewMaintenance: retention and health only, RunProvider refuses.
+	maintenance bool
+	APIKeys     map[string]string // by provider name; values come from the environment at wiring, never logged
 
 	Now   func() time.Time
 	Sleep func(context.Context, time.Duration) error
@@ -58,6 +76,54 @@ type Runner struct {
 	CircuitThreshold int           // consecutive failed runs that open the circuit (default 3)
 	BackoffBase      time.Duration // default 1m
 	BackoffMax       time.Duration // default 6h
+}
+
+// RunnerOptions are the construction inputs of a fetching Runner (the Runner fields minus the guard).
+type RunnerOptions struct {
+	DB        *store.DB
+	Keys      *crypto.Keyring
+	Client    *egress.Client
+	Limiter   *limiter.Limiter
+	Providers []providers.Provider
+	Positions PositionResolver
+	APIKeys   map[string]string
+
+	Now   func() time.Time
+	Sleep func(context.Context, time.Duration) error
+
+	GitRev, ConfigSHA string
+	SnapshotDir       string
+
+	PageDelay        time.Duration
+	CircuitThreshold int
+	BackoffBase      time.Duration
+	BackoffMax       time.Duration
+}
+
+// NewRunner is the only way production code builds a Runner that fetches: the compliance guard is mandatory, so no
+// binary can hold an ungated runner (JSK-T239). A nil guard, including a typed nil pointer, is an error.
+func NewRunner(g ComplianceGuard, o RunnerOptions) (*Runner, error) {
+	if g == nil {
+		return nil, errors.New("ingest: a compliance guard is required")
+	}
+	if v := reflect.ValueOf(g); v.Kind() == reflect.Ptr && v.IsNil() {
+		return nil, errors.New("ingest: a compliance guard is required (typed nil)")
+	}
+	return &Runner{DB: o.DB, Keys: o.Keys, Client: o.Client, Limiter: o.Limiter, Providers: o.Providers, Positions: o.Positions, Compliance: g,
+		APIKeys: o.APIKeys, Now: o.Now, Sleep: o.Sleep, GitRev: o.GitRev, ConfigSHA: o.ConfigSHA, SnapshotDir: o.SnapshotDir,
+		PageDelay: o.PageDelay, CircuitThreshold: o.CircuitThreshold, BackoffBase: o.BackoffBase, BackoffMax: o.BackoffMax}, nil
+}
+
+// NewMaintenance builds a Runner for retention, purge and health only. It has no providers and RunProvider refuses,
+// so it can never reach the network and needs no guard.
+func NewMaintenance(db *store.DB, snapshotDir string) *Runner {
+	return &Runner{DB: db, SnapshotDir: snapshotDir, maintenance: true}
+}
+
+// NewManual builds a Runner for operator-pasted intake (IngestManual) only: it has no providers, no client and no
+// limiter, and RunProvider refuses, so it can never reach the network and needs no guard.
+func NewManual(o RunnerOptions) *Runner {
+	return &Runner{DB: o.DB, Keys: o.Keys, Now: o.Now, Positions: o.Positions, maintenance: true}
 }
 
 // RunResult summarizes one provider run.
@@ -170,6 +236,10 @@ func (r *Runner) runIsolated(ctx context.Context, name, trigger string) (res Run
 // writes nothing; the same limiter guards scheduled and manual runs.
 func (r *Runner) RunProvider(ctx context.Context, name, trigger string) (res RunResult, err error) {
 	res = RunResult{Provider: name, SkipClasses: map[string]int{}}
+	if r.maintenance {
+		res.Err = fmt.Errorf("%w: maintenance runner cannot fetch", ErrComplianceBlocked)
+		return res, res.Err
+	}
 	p := r.find(name)
 	if p == nil {
 		res.Err = fmt.Errorf("ingest: unknown provider %q", name)
@@ -190,6 +260,10 @@ func (r *Runner) RunProvider(ctx context.Context, name, trigger string) (res Run
 	if enabled == 0 {
 		res.Err = ErrDisabled
 		return res, ErrDisabled
+	}
+	if err := r.checkCompliance(ctx, name); err != nil {
+		res.Err = err
+		return res, err
 	}
 	lim := p.Limits()
 	if err := r.Limiter.Reserve(ctx, pid, limiter.Limits{MinInterval: lim.MinInterval, MaxPerDay: lim.MaxPerDay}); err != nil {
@@ -500,8 +574,10 @@ func (r *Runner) sealBody(ctx context.Context, tx *sql.Tx, id int64, body string
 	if err != nil {
 		return err
 	}
-	_, err = tx.ExecContext(ctx, `UPDATE posting SET body_text=? WHERE id=?`, blob, id)
-	return err
+	if _, err = tx.ExecContext(ctx, `UPDATE posting SET body_text=? WHERE id=?`, blob, id); err != nil {
+		return err
+	}
+	return position.SealSignature(ctx, tx, r.Keys, id, body)
 }
 
 func idemKey(provider, jobID string) string { return sha256hex(provider + "\x00" + jobID) }
@@ -679,4 +755,95 @@ func (r *Runner) Inject(ctx context.Context, name string, b providers.Batch) (Ru
 		return err
 	})
 	return res, ierr
+}
+
+// IngestManual stores one operator-pasted posting (JSK-T200, FR-086) under the provider "manual:<host>" through the same upsert and Position resolution as a
+// fetched one. It performs no network request. The provider row is created on first use. A new Listing is resolved to a Position; an updated one (same link,
+// changed content) refreshes the Position it already belongs to, or is resolved when it has none. Every intake is audited with the host only.
+func (r *Runner) IngestManual(ctx context.Context, in providers.ManualInput) (id int64, status string, err error) {
+	now := r.now()
+	raw, err := providers.ManualPosting(in, now)
+	if err != nil {
+		return 0, "", err
+	}
+	p := providers.Finalize(raw)
+	if p.Title == "" { // defence in depth: ManualPosting already refuses a markup-only title
+		return 0, "", providers.ErrManualInput
+	}
+	host := strings.TrimPrefix(p.ProviderName, providers.ManualProvider)
+	err = r.DB.Write(ctx, func(tx *sql.Tx) error {
+		if _, err := tx.ExecContext(ctx, `INSERT OR IGNORE INTO provider(name, base_url, kind) VALUES (?,?,?)`, p.ProviderName, "https://"+host, "manual"); err != nil {
+			return err
+		}
+		var pid int64
+		if err := tx.QueryRowContext(ctx, `SELECT id FROM provider WHERE name=?`, p.ProviderName).Scan(&pid); err != nil {
+			return err
+		}
+		id, status, err = r.upsert(ctx, tx, pid, p, now)
+		if err != nil {
+			return err
+		}
+		if r.Positions != nil && (status == "new" || status == "updated") {
+			o, err := r.Positions.Resolve(ctx, tx, id)
+			if err != nil {
+				return err
+			}
+			if rf, ok := r.Positions.(interface {
+				Refresh(context.Context, *sql.Tx, int64) error
+			}); ok && status == "updated" && o.Position != 0 {
+				if err := rf.Refresh(ctx, tx, o.Position); err != nil {
+					return err
+				}
+			}
+		}
+		return audit.Append(ctx, tx, audit.Entry{Actor: "operator", Reason: "manual_intake", Evidence: map[string]any{"host": host, "status": status}})
+	})
+	return id, status, err
+}
+
+// checkCompliance asks the gates about the URL the provider's adapter actually requests (an allow-listed API host).
+// A refusal is audited (gate ids and reason codes only) and nothing else happens.
+func (r *Runner) checkCompliance(ctx context.Context, name string) error {
+	if r.Compliance == nil { // fail closed: the zero value, a copy or new(Runner) cannot fetch (JSK-T239)
+		return fmt.Errorf("%w: no compliance guard: %s", ErrComplianceBlocked, name)
+	}
+	// RFC 9309 matches the path actually requested, so an adapter whose URL varies (one board per tenant) declares every
+	// URL of its next cycle and each is checked; any refusal blocks the run (fail closed).
+	var urls []string
+	if rq, ok := r.find(name).(providers.Requester); ok {
+		urls = rq.RequestURLs()
+	}
+	if len(urls) == 0 {
+		api := providers.APIURLFor(name)
+		if api == "" {
+			api = providers.AttributionFor(name).HomeURL // unknown adapter: the home page is all there is
+		}
+		urls = []string{api}
+	}
+	for i, api := range urls {
+		if err := r.checkOne(ctx, name, api, i); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+func (r *Runner) checkOne(ctx context.Context, name, api string, idx int) error {
+	o := r.Compliance.Check(ctx, ext.StageIngest, ext.Posting{ProviderName: name, URL: api, SourceURL: api})
+	if o.Verdict == ext.Yes {
+		return nil
+	}
+	var codes []any
+	for _, t := range o.Trail {
+		if t.Verdict == ext.Yes {
+			continue
+		}
+		for _, rs := range t.Reasons {
+			codes = append(codes, t.RuleID+":"+rs.Code)
+		}
+	}
+	_ = r.DB.Write(context.WithoutCancel(ctx), func(tx *sql.Tx) error {
+		return audit.Append(ctx, tx, audit.Entry{Actor: "system", Reason: "compliance_blocked", Evidence: map[string]any{"provider": name, "stage": string(ext.StageIngest), "verdict": o.Verdict.String(), "gates": codes, "url_index": idx}})
+	})
+	return fmt.Errorf("%w: %s", ErrComplianceBlocked, name)
 }

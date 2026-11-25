@@ -3,6 +3,7 @@ package live
 import (
 	"bytes"
 	"encoding/pem"
+	"errors"
 	"net/http"
 	"net/http/httptest"
 	"os"
@@ -16,7 +17,7 @@ import (
 // JSK-T111 (the part that needs no vision model): HelixQA's `http` command runs qa/banks/job_seeker_console.yaml
 // against the REAL jobseekerd booted by this harness, over real TLS, trusting only the private CA. JSK_HELIXQA_BIN names
 // a helixqa binary built from the resolved qa dependency (see docs/operator/helixqa.md); without it the test SKIPs (it never passes).
-// The vision/autonomous leg needs HELIX_VISION_ENDPOINT and is recorded as BLOCKED by TestHelixQAVisionLegBlocked.
+// The per-frame vision leg is TestHelixQAVisionPerFrame; the autonomous session is not proved here.
 func TestHelixQAHTTPBankAgainstRealDaemon(t *testing.T) {
 	bin := os.Getenv("JSK_HELIXQA_BIN")
 	if bin == "" {
@@ -55,11 +56,45 @@ func errString(e error) string {
 	return e.Error()
 }
 
-func TestHelixQAVisionLegBlocked(t *testing.T) {
-	if os.Getenv("HELIX_VISION_ENDPOINT") == "" {
-		t.Skip("BLOCKED: the autonomous/vision HelixQA session needs a keyless OpenAI-compatible vision endpoint (HELIX_VISION_ENDPOINT); none on this host")
+// JSK-T084/T111 vision leg, per-frame (UNBLOCKED by scripts/vision-ollama.sh + scripts/vision-qa.sh, docs/operator/vision-qa.md).
+// Needs a LOCAL keyless vision endpoint (HELIX_VISION_ENDPOINT, e.g. scripts/vision-ollama.sh env) and JSK_VERIFY_VISION_BIN
+// (helixqa-verify-vision built from submodules/qa). It re-verifies the committed real frames in evidence/JSK-T084/frames with the
+// real model: the live login frame must PASS, and the paired mutant (a server answering 200 to everything) must be FLAGGED by
+// the same expectations. What this does NOT cover: `helixqa autonomous` (curiosity phase, video) - see docs/operator/vision-qa.md.
+func TestHelixQAVisionPerFrame(t *testing.T) {
+	ep, bin := os.Getenv("HELIX_VISION_ENDPOINT"), os.Getenv("JSK_VERIFY_VISION_BIN")
+	if ep == "" || bin == "" {
+		t.Skip("SKIP topology: set HELIX_VISION_ENDPOINT (scripts/vision-ollama.sh env) and JSK_VERIFY_VISION_BIN (helixqa-verify-vision)")
 	}
-	t.Skip("BLOCKED: vision session driver not implemented in this change")
+	if !isLocalVisionEndpoint(ep) {
+		t.Fatalf("refusing a non-local vision endpoint (no frame may leave the host): %s", ep)
+	}
+	model := os.Getenv("HELIX_VISION_MODEL")
+	if model == "" {
+		model = "qwen2.5vl:3b"
+	}
+	prompt := "This is a screenshot of a web page. List the page title or main heading, the navigation links, and any buttons or form fields you can read. Quote the visible text exactly."
+	run := func(frame string) (string, error) {
+		img, _ := filepath.Abs(filepath.Join("../../evidence/JSK-T084/frames", frame))
+		out := filepath.Join(t.TempDir(), "v.json")
+		b, err := exec.Command(bin, "-image", img, "-prompt", prompt, "-expect", "Sign in,passkey", "-endpoint", ep, "-model", model,
+			"-max-tokens", "400", "-timeout", "5m", "-out", out, "-challenge-id", "T084-"+frame).CombinedOutput()
+		return string(b), err
+	}
+	if out, err := run("live-login.png"); err != nil {
+		t.Fatalf("the real login frame was not verified: %v\n%s", err, out)
+	}
+	for _, m := range []string{"mutant-ok.png", "mutant-error.png"} {
+		out, err := run(m)
+		var ee *exec.ExitError
+		if err == nil {
+			t.Fatalf("%s (a 200-to-everything page) PASSED the login expectations; the vision check is a bluff:\n%s", m, out)
+		}
+		// exit 1 = facts did not match (flagged); exit 2 = infrastructure error, which is never a pass.
+		if !errors.As(err, &ee) || ee.ExitCode() != 1 {
+			t.Fatalf("%s: analyzer did not REJECT the frame (exit 1 expected, got %v):\n%s", m, err, out)
+		}
+	}
 }
 
 // Paired mutation (section 1.1): the same bank run against a server that answers 200 to everything must FAIL, and

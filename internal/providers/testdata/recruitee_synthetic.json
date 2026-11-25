@@ -1,0 +1,6 @@
+{"offers":[
+{"id":900001,"slug":"data-engineer","status":"published","title":"Data Engineer","description":"<p>Pipelines.</p><img src=x onerror=alert(1)>","requirements":"<ul><li>SQL</li></ul>","location":"Amsterdam, Netherlands","city":"Amsterdam","country_code":"NL","department":"Data","remote":false,"hybrid":true,"careers_url":"https://examplecorp.recruitee.com/o/data-engineer","careers_apply_url":"https://examplecorp.recruitee.com/o/data-engineer/c/new","published_at":"2026-11-17 08:00:00 UTC"},
+{"id":900002,"status":"draft","title":"Draft role","careers_url":"https://examplecorp.recruitee.com/o/draft"},
+{"id":900003,"status":"published","title":"Bad link","careers_url":"javascript:alert(1)"},
+{"id":"x","status":"published","title":"Bad id","careers_url":"https://examplecorp.recruitee.com/o/x"}
+]}

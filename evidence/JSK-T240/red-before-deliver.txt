@@ -1,0 +1,6 @@
+# github.com/vasic-digital/job_seeker/internal/ext/deliver
+# [github.com/vasic-digital/job_seeker/internal/ext/deliver]
+vet: internal/ext/deliver/deliver_test.go:62:9: undefined: Check
+# github.com/vasic-digital/job_seeker/internal/ext/builtin
+# [github.com/vasic-digital/job_seeker/internal/ext/builtin]
+vet: internal/ext/builtin/builtin_test.go:97:14: s.Deliverability undefined (type *Set has no field or method Deliverability)

@@ -1,0 +1,17 @@
+=== RUN   TestExtractSynthetic20
+--- PASS: TestExtractSynthetic20 (0.01s)
+=== RUN   TestExtractGoldenBadTable
+--- PASS: TestExtractGoldenBadTable (0.00s)
+=== RUN   TestExtractDeterministicOrderAndCounts
+--- PASS: TestExtractDeterministicOrderAndCounts (0.00s)
+=== RUN   TestLoadDictionaryStrict
+--- PASS: TestLoadDictionaryStrict (0.00s)
+=== RUN   TestDictionaryCoversScoringSynonyms
+--- PASS: TestDictionaryCoversScoringSynonyms (0.00s)
+=== RUN   TestExtractLongestSequenceWins
+--- PASS: TestExtractLongestSequenceWins (0.00s)
+=== RUN   TestExtractFieldsDoNotSpan
+--- PASS: TestExtractFieldsDoNotSpan (0.00s)
+PASS
+coverage: 15.3% of statements
+ok  	github.com/vasic-digital/job_seeker/internal/match	0.022s	coverage: 15.3% of statements

@@ -1,0 +1,9 @@
+--- PASS: TestBackfillFromLegacyDupOf (0.08s)
+--- PASS: TestBackfillIdempotentAndResumable (0.10s)
+--- PASS: TestBackfillOrphanDupOfBecomesOwnPosition (0.14s)
+--- PASS: TestBackfillChainIsFlattenedToRoot (0.11s)
+--- PASS: TestBackfillKeepsLegacyRepresentativeEvenWhenRootExpired (0.14s)
+--- PASS: TestBackfillSignaturesDryRunApplyIdempotentAudited (0.18s)
+ok  	github.com/vasic-digital/job_seeker/internal/position	0.768s
+--- PASS: TestBackfillSignaturesCommand (0.71s)
+ok  	github.com/vasic-digital/job_seeker/internal/jsctl	0.738s

@@ -1,0 +1,6 @@
+# github.com/vasic-digital/job_seeker/internal/extwire [github.com/vasic-digital/job_seeker/internal/extwire.test]
+internal/extwire/robots_test.go:17:70: undefined: RobotsFetcher
+internal/extwire/robots_test.go:25:8: undefined: RobotsFetcher
+internal/extwire/robots_test.go:57:31: undefined: MaxRobotsBody
+FAIL	github.com/vasic-digital/job_seeker/internal/extwire [build failed]
+FAIL

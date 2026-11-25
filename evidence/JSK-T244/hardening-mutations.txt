@@ -1,0 +1,7 @@
+KILLED   guard-no-count (--- FAIL: TestShadowPanicNeverReachesScorePosting (0.03s))
+KILLED   guard-no-recover (--- FAIL: TestShadowPanicNeverReachesScorePosting (0.03s))
+KILLED   recorder-no-count (--- FAIL: TestRecorderPanicIsContainedAndCounted (0.02s))
+KILLED   recorder-no-recover (--- FAIL: TestRecorderPanicIsContainedAndCounted (0.01s))
+KILLED   equiv-no-hard-coverage (--- FAIL: TestEquivalentRequiresShadowsToSeeEveryRow (0.00s))
+KILLED   equiv-no-snap-coverage (--- FAIL: TestEquivalentRequiresShadowsToSeeEveryRow (0.00s))
+KILLED   unknown-by-rule-dropped (--- FAIL: TestRecorderReportsUnknownPerRule (0.02s))

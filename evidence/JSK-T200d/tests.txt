@@ -1,0 +1,20 @@
+--- PASS: TestResolveATSJobURL (0.00s)
+--- PASS: TestFetchATSJobGreenhouseOneGet (0.00s)
+--- PASS: TestFetchATSJobLeverAndAshby (0.01s)
+--- PASS: TestFetchATSJobRefusesWrongJobInResponse (0.00s)
+--- PASS: TestFetchATSJobRefusesPrivateResolution (0.00s)
+--- PASS: TestFetchATSJobRefusesMixedAnswer (0.00s)
+--- PASS: TestFetchATSJobPinsValidatedIPNoSecondLookup (0.00s)
+--- PASS: TestFetchATSJobRefusesRedirectToInternalHost (0.01s)
+--- PASS: TestFetchATSJobRefusesRedirectToOtherAllowedHost (0.00s)
+--- PASS: TestEgressHopToHostResolvingPrivateIsRefused (0.00s)
+ok  	github.com/vasic-digital/job_seeker/internal/providers	0.038s
+--- PASS: TestReadATSJobNonATSHostRefusedBeforeGuardAndNetwork (0.63s)
+--- PASS: TestReadATSJobGuardRefusalStopsBeforeAnyRequest (0.26s)
+--- PASS: TestReadATSJobFailsClosedWithoutGuardOrClient (0.24s)
+ok  	github.com/vasic-digital/job_seeker/internal/ingest	1.140s
+--- PASS: TestATSJobToSNotAcceptedBlocksBeforeAnyRequest (0.63s)
+--- PASS: TestATSJobRobotsDisallowBlocksTheExactPath (0.17s)
+--- PASS: TestATSJobDryRunDefaultStoresNothingThenApplyStores (0.28s)
+ok  	github.com/vasic-digital/job_seeker/internal/app	1.105s
+ok  	github.com/vasic-digital/job_seeker/internal/jsctl	0.013s [no tests to run]

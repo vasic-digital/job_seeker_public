@@ -1,0 +1,31 @@
+{
+ "lang": "ja",
+ "script": "Japanese (Han + Hiragana + Katakana, polite です/ます register)",
+ "source": "internal/i18n/messages/en.json",
+ "pipeline": "manual translation by a Claude subagent of the CLI session",
+ "providers": [
+  "claude:sonnet-5.5"
+ ],
+ "translator": "claude:sonnet-5.5",
+ "keys": 312,
+ "note": "operator decision 2026-11-24: Claude subagent translation instead of the HelixTranslate pipeline (pipeline output failed independent review). Disambiguations from scripts/i18n_hints.json applied in sense; Passkey and Token kept in English per scripts/i18n_keep_english.json. The reviewer MUST differ from the translator; review.json and verdict.json are PENDING (state machine_pending_review).",
+ "delta": [
+  {
+   "task": "JSK-T177",
+   "keys": [
+    "knockout.title",
+    "knockout.help",
+    "knockout.ack",
+    "knockout.q.work_auth_required",
+    "knockout.q.sponsorship_restriction",
+    "knockout.q.other",
+    "knockout.state.confirmed",
+    "knockout.state.unfavourable",
+    "knockout.state.missing",
+    "error.knockout_unconfirmed"
+   ],
+   "translator": "claude:sonnet-5.5",
+   "note": "HelixTranslate pipeline not runnable on this host (translate-pipeline.sh exits rc 2: HT_FLEET undeclared, no engine image, fleet hosts unresolvable); the 10 new keys were translated by the Claude translator under the 2026-11-24 operator decision recorded in this file's earlier note; the independent delta review is verdict.delta.json."
+  }
+ ]
+}

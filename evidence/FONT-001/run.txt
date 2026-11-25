@@ -1,0 +1,25 @@
+$ python3 -I scripts/build_noto_subsets.py --check   (pre-change tree, seeds taken from the shipped faces)
+FINDING noto-sans-{sc,jp,kr}-400-core: catalogue characters missing from the core face (zh 15, ja 14, ko 9) -> served only by the 800 KB rest face
+
+$ python3 -I scripts/build_noto_subsets.py --build --reproduce
+reproducible sc/jp/kr core+rest: two independent builds, identical sha256 (see web/static/design/fonts/noto/SOURCES.tsv for the committed values)
+
+$ python3 -I scripts/build_noto_subsets.py --check
+OK 10 faces match their code point data, total 2810036 bytes (budget 3600000)
+$ bash gates/verify_font_licences.sh
+OK 24 font file(s), every one with a licence record, a present OFL text and a matching sha256
+$ bash gates/verify_font_coverage.sh
+OK languages=ar,be,de,en,es,fa,fr,hi,ja,kk,ko,ru,sr,tr,zh shipped_codepoints=11325 checked_chars=125532
+
+$ python3 -I scripts/noto_official_check.py   (official upstream Noto files; every shipped code point exists in the official cmap)
+shipped_subset codepoints shipped_codepoints missing-in-official codepoints_absent_from_official
+noto-sans-arabic-400.woff2 codepoints 1136 missing-in-official 0
+noto-sans-arabic-700.woff2 codepoints 1136 missing-in-official 0
+noto-sans-devanagari-400.woff2 codepoints 215 missing-in-official 0
+noto-sans-devanagari-700.woff2 codepoints 215 missing-in-official 0
+noto-sans-jp-400-core.woff2 codepoints 1100 missing-in-official 0
+noto-sans-jp-400-rest.woff2 codepoints 2854 missing-in-official 0
+noto-sans-kr-400-core.woff2 codepoints 771 missing-in-official 0
+noto-sans-kr-400-rest.woff2 codepoints 2580 missing-in-official 0
+noto-sans-sc-400-core.woff2 codepoints 1335 missing-in-official 0
+noto-sans-sc-400-rest.woff2 codepoints 3539 missing-in-official 0

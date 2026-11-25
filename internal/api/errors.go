@@ -44,6 +44,21 @@ const (
 	CodeTemplatesStale            Code = "templates_stale"
 	CodeDuplicateCompany          Code = "duplicate_company"
 	CodeCoverStale                Code = "cover_stale"
+	CodePolicyNotEligible         Code = "policy_not_eligible"
+	CodePolicyPositionTaken       Code = "policy_position_taken"
+	CodePolicyEmployerLimit       Code = "policy_employer_limit"
+	CodeDuplicateUnacknowledged   Code = "duplicate_unacknowledged"
+	CodePolicyChanged             Code = "policy_changed"
+	CodePDFBlocked                Code = "pdf_blocked"
+	CodeManualOnly                Code = "manual_only"
+	CodeUploadRefused             Code = "upload_refused"
+	CodePostingRisk               Code = "posting_risk"
+	CodePositionBusy              Code = "position_busy" // JSK-T209: an application on the Position is live_approved
+	CodeMergeBlocked              Code = "merge_blocked" // JSK-T209: a cannot_link constraint or two apply locks forbid the merge
+	CodeComplianceBlocked         Code = "compliance_blocked"
+	CodeReportRequired            Code = "report_required"            // JSK-T187: approval without the current approval-report digest
+	CodeAreaConfirmationRequired  Code = "area_confirmation_required" // JSK-T187b: the report demands the CV area overlap be confirmed
+	CodeKnockoutUnconfirmed       Code = "knockout_unconfirmed"       // JSK-T177: a recognised knockout question is neither confirmed in the overlay nor acknowledged
 	CodeInternal                  Code = "internal"
 )
 
@@ -51,7 +66,8 @@ const (
 var AllCodes = []Code{CodeCompanyConfirmationFailed, CodeApprovalExpired, CodeDuplicateSend, CodeLanguageConfirmation, CodeLiveModeOff, CodeOverlayAbsent,
 	CodeUnauthenticated, CodeForbiddenOrigin, CodeBadHost, CodeCSRFFailed, CodeRateLimited, CodeStepUpRequired, CodeValidation, CodeNotFound,
 	CodeIllegalTransition, CodeApprovalRequired, CodeApprovalHashMismatch, CodeKillSwitchOn, CodeCapExceeded, CodeSlotMissing, CodeProviderLimit,
-	CodeEgressDenied, CodeNotSupported, CodeGateRegressed, CodeGateUndetermined, CodePostingClosed, CodeDuplicateCompany, CodeTemplatesStale, CodeCoverStale, CodeInternal}
+	CodeEgressDenied, CodeNotSupported, CodeGateRegressed, CodeGateUndetermined, CodePostingClosed, CodeDuplicateCompany, CodeTemplatesStale, CodeCoverStale, CodeManualOnly, CodeUploadRefused, CodePDFBlocked, CodePostingRisk, CodeComplianceBlocked,
+	CodePolicyNotEligible, CodePolicyPositionTaken, CodePolicyEmployerLimit, CodeDuplicateUnacknowledged, CodePolicyChanged, CodePositionBusy, CodeMergeBlocked, CodeReportRequired, CodeAreaConfirmationRequired, CodeKnockoutUnconfirmed, CodeInternal}
 
 type ctxKey int
 

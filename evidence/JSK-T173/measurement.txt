@@ -1,0 +1,6 @@
+# JSK-T173 unattended measurement, 2026-11-24 (pdfinfo/pdftotext over umbrella .cache-career, 150 CV + 150 cover PDFs; counts only, no content kept)
+cv pages: 150 x 3 pages; cover pages: 150 x 1 page (gate limits cv 3, cover 2 per _tools/career/gates.py _PAGE_LIMITS)
+note: cache PDFs predate T170 tagging; page counts only
+page-3 share of extracted characters, area=go: en 12 sr 23 ru 24 de 20 es 22 fr 17 be 20 zh 13 kk 24 hi 9 ja 24 ko 12 ar 10 tr 13 fa 10 (percent)
+all 150 CVs: page-3 share min 3 / median 15 / max 32 percent
+meaning: compressing to 2 pages needs a content cut of about the page-3 share (median 15%, worst 32%) or a layout change; this is a content/layout decision, not measured as acceptable

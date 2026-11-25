@@ -1,0 +1,18 @@
+# JSK-T121 doc part: quickstart commands re-run against the BUILT binaries (go build ./cmd/jsctl ./cmd/jobseekerd), 2026-11-24
+# Environment: throwaway data dir, private CA generated with jsctl cert gen-ca/issue for host localhost. No secret value is shown.
+$ jsctl migrate                                 -> migrate: schema version 5 (binary expects 5)           rc 0
+$ jsctl verify-audit                            -> UNVERIFIED: chain walk OK (0 entries); anchor cross-check NOT POSSIBLE (no anchor)   rc 0
+$ jsctl backup                                  -> backup: wrote jobseeker.db.snapshot-v5-... (integrity_check ok)   rc 0
+$ jsctl restore-drill                           -> restore-drill: ... integrity_ok=true schema_version=5 ... elapsed=5ms   rc 0
+$ jsctl export --out F                          -> export: wrote 623 bytes, mode 0600                        rc 0
+$ jsctl delete-all                              -> delete-all: privacy: confirmation phrase missing or wrong; nothing was deleted
+$ jsctl passkeys reset                          -> passkeys reset: refused; pass --confirm RESET-PASSKEYS   (the quickstart omitted --confirm and mentioned a tombstone the code does not write)
+$ jsctl cert gen-ca --hosts localhost / issue   -> wrote ca.crt ca.key / tls.crt tls.key (valid 90 days); cert check prints subject/issuer/not_after
+$ JOBSEEKER_ENV=production jobseekerd (only DB/session keys set)        -> config: JOBSEEKER_ALLOWED_HOSTS: missing / JOBSEEKER_ORIGINS: missing / ..._too_short   rc 1
+$ production, full env, JEV_GATE unset          -> 11 invariants OK, "invariant jev_gate_shadow ... VIOLATED", capability list printed, rc 1
+$ production, full env, JEV_GATE=shadow         -> every invariant OK, capability matrix printed (names only), server kept running (timeout rc 124)
+$ production, DATA_DIR not created beforehand   -> config: JOBSEEKER_DATA_DIR: unresolvable  (create it, mode 0700)
+$ ls gates | grep -c '^prove'                   -> 0   (the quickstart's gates/prove-*.sh do not exist; gates are gates/verify_*.sh with --prove-failure)
+$ make -n full                                  -> full: build test-all; go test ./tests/integration/ ; go test -v ./tests/full/  (a test run, not a UI journey)
+# NOT re-verified here (UNCONFIRMED until T123 gives a built, served artefact and a human or Vision pass): section 2 journey steps 1-7 (console UI),
+# passkey registration with a bootstrap token, live-mode approval, kill switch in Settings, second-authenticator flow.

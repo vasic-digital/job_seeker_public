@@ -1,0 +1,12 @@
+KILLED       draft-mailto-guard-off
+mutations: 1 killed of 1
+INVALID      draft-hours-weekend-ignored: mutant does not compile
+mutations: 0 killed of 1
+KILLED       draft-hours-end-boundary
+mutations: 1 killed of 1
+KILLED       draft-hours-offset-sign
+mutations: 1 killed of 1
+KILLED       templates-downloadname-kind-case
+mutations: 1 killed of 1
+KILLED       templates-downloadname-diacritics
+mutations: 1 killed of 1

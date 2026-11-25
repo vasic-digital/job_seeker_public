@@ -8,7 +8,7 @@ LDFLAGS  := -s -w -X $(MODULE)/internal/buildinfo.version=$(VERSION) \
             -X $(MODULE)/internal/buildinfo.commit=$(COMMIT) \
             -X $(MODULE)/internal/buildinfo.dirty=$(DIRTY)
 
-.PHONY: deps hardening mutation challenges vuln sbom soak atomicity txcheck build build-gate fmt vet test race gates test-all full live-h3
+.PHONY: idempotency evidence-normalise evidence-check deps hardening mutation challenges vuln sbom soak atomicity txcheck build build-gate fmt vet test race gates test-all full live-h3
 
 build:
 	mkdir -p bin
@@ -31,14 +31,26 @@ fmt:
 vet:
 	go vet ./...
 
+# GO_TEST_TIMEOUT: tests/e2e drives a real browser against the real server and contains a real five-minute step-up clock wait,
+# so the 10 minute go test default is too short on a loaded host. A hang is still bounded (30m), and a failure is never hidden.
+GO_TEST_TIMEOUT ?= 30m
+
 test:
-	go test ./...
+	go test -timeout $(GO_TEST_TIMEOUT) ./...
 
 # the race detector needs cgo; only the TEST run enables it, shipped binaries stay CGO_ENABLED=0
 race:
-	CGO_ENABLED=1 go test -race ./...
+	CGO_ENABLED=1 go test -race -timeout $(GO_TEST_TIMEOUT) ./...
 
 # gates: fast local enforcement (no CI/CD, section 11.4.156). Runs formatting, vet and every gates/verify_*.sh.
+# evidence-normalise: scrub home/checkout/user/host/temp paths from every evidence file in place (shared normaliser).
+evidence-normalise:
+	bash scripts/evnorm.sh -w evidence
+
+# evidence-check: reject un-normalised evidence early (also part of `make gates`).
+evidence-check:
+	bash gates/verify_evidence_normalised.sh
+
 gates: fmt vet
 	go test ./gates/...
 	bash gates/run_all.sh
@@ -63,6 +75,7 @@ live:
 # against the real jobseekerd. Each gate has a --prove-failure arm.
 hardening:
 	bash gates/hardening_coverage.sh
+	bash gates/hardening_fuzz.sh
 	bash gates/hardening_race.sh
 	bash gates/hardening_bench.sh
 	bash gates/hardening_mutation.sh
@@ -97,6 +110,9 @@ sbom:
 # JSK-T115 concurrency and atomicity (race detector on) and JSK-T116 static write-tx / lock-order review
 atomicity:
 	CGO_ENABLED=1 go test -race -count=1 ./tests/atomicity
+# JSK-T253 idempotency under retry (11.4.253, G23): every mutating operation replayed twice against the real stack, store digests compared
+idempotency:
+	CGO_ENABLED=0 go test -count=1 -v ./tests/idempotency
 txcheck:
 	go test -count=1 -v ./gates/txcheck
 

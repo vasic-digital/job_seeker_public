@@ -1,0 +1,20 @@
+VQA-settings-en-light	must-pass	false	dir=ltr	Settings,Apply policy
+VQA-intake-en-light	must-pass	false	dir=ltr	Add posting,Store posting
+VQA-merges-en-light	must-pass	true	dir=ltr	No pairs
+VQA-position-en-light	must-pass	false	dir=ltr	Listings from
+VQA-settings-en-dark	must-pass	false	dir=ltr	Settings,Apply policy
+VQA-intake-en-dark	must-pass	false	dir=ltr	Add posting,Store posting
+VQA-merges-en-dark	must-pass	true	dir=ltr	No pairs
+VQA-position-en-dark	must-pass	false	dir=ltr	Listings from
+VQA-settings-ru-light	must-pass	false	dir=ltr	Настройки,Политика подачи
+VQA-intake-ru-light	must-pass	false	dir=ltr	Добавить вакансию,Сохранить объявление
+VQA-merges-ru-light	must-pass	false	dir=ltr	Ожидающих решения
+VQA-position-ru-light	must-pass	false	dir=ltr	Предложения от
+VQA-settings-ru-dark	must-pass	false	dir=ltr	Настройки,Политика подачи
+VQA-intake-ru-dark	must-pass	false	dir=ltr	Добавить вакансию,Сохранить объявление
+VQA-merges-ru-dark	must-pass	false	dir=ltr	Ожидающих решения
+VQA-position-ru-dark	must-pass	false	dir=ltr	Предложения от
+VQA-MUT-en-frame-vs-ru-facts	mutation-must-be-flagged	true		Настройки,Политика подачи
+VQA-MUT-ru-frame-vs-en-facts	mutation-must-be-flagged	true		Settings,Apply policy
+SHIPPED	en,ru
+NOT-SHIPPED (no frame possible; BLOCKED on the translation stream)	sr,be,de,es,fr,zh,ja,ko,ar,fa,hi,tr,kk

@@ -1,0 +1,22 @@
+{
+  "image": "<repo>/evidence/JSK-T217/frames/intake-ru-dark.png",
+  "prompt": "This is a screenshot of a web page. List the page title or main heading, the navigation links, and any buttons, form fields or table headings you can read. Quote the visible text exactly.",
+  "endpoint": "http://127.0.0.1:11500/v1/chat/completions",
+  "model_requested": "qwen2.5vl:3b",
+  "model_served": "qwen2.5vl:3b",
+  "expected_facts": [
+    "Добавить вакансию",
+    "Сохранить объявление"
+  ],
+  "response": "Page Title: \"Добавить вакансию вручную\"\n\nNavigation Links:\n- Входящие\n- Очередь на проверку\n- Заявки на трудоустройство\n- Добавить вакансию\n- Настройки\n- Журнал аудита\n\nButtons:\n- Переключатель\n- Выйти\n\nForm Fields:\n- Ссылка на вакансию (https)\n- Название должности\n- Работодатель (необязательно)\n- Текст объявления о вакансии (необязательно)",
+  "matched_facts": 1,
+  "expected_count": 2,
+  "hallucinated": false,
+  "pass": false,
+  "expect_fail": false,
+  "case_result": false,
+  "latency_ms": 3446,
+  "http_status": 200,
+  "prompt_tokens": 1533,
+  "completion_tokens": 134
+}

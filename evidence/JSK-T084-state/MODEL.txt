@@ -1,0 +1,2 @@
+vision model: qwen2.5vl:3b (local, loopback only)
+helixqa: helixqa v0.2.0

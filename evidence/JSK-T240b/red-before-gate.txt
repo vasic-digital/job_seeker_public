@@ -1,0 +1,20 @@
+# RED (before implementation), 2026-11-24T16:28:15Z, worktree job_seeker-wt-t240 at origin/main 8a7072a
+$ go test ./internal/ext/deliver/ -run TestEmptyCIDRAfterSlashIsInvalid
+--- FAIL: TestEmptyCIDRAfterSlashIsInvalid (0.00s)
+    deliver_test.go:377: "v=spf1 ip4:192.0.2.1/ -all": got yes [], want No mail_spf_invalid
+    deliver_test.go:377: "v=spf1 ip6:2001:db8::1/ -all": got yes [], want No mail_spf_invalid
+    deliver_test.go:377: "v=spf1 a/ -all": got yes [], want No mail_spf_invalid
+    deliver_test.go:377: "v=spf1 mx/ -all": got yes [], want No mail_spf_invalid
+    deliver_test.go:377: "v=spf1 a:mail.example.net/ -all": got yes [], want No mail_spf_invalid
+FAIL
+FAIL	github.com/vasic-digital/job_seeker/internal/ext/deliver	0.007s
+FAIL
+$ go test ./internal/ext/channel/mailgate/
+# github.com/vasic-digital/job_seeker/internal/ext/channel/mailgate [github.com/vasic-digital/job_seeker/internal/ext/channel/mailgate.test]
+internal/ext/channel/mailgate/mailgate_test.go:64:11: undefined: Event
+internal/ext/channel/mailgate/mailgate_test.go:78:59: undefined: Event
+internal/ext/channel/mailgate/mailgate_test.go:88:49: undefined: Event
+internal/ext/channel/mailgate/mailgate_test.go:98:39: undefined: Gate
+internal/ext/channel/mailgate/mailgate_test.go:99:9: undefined: Gate
+internal/ext/channel/mailgate/mailgate_test.go:111:5: undefined: KeyAllowMailto
+internal/ext/channel/mailgate/mailgate_test.go:112:22: undefined: KeyAllowMailto

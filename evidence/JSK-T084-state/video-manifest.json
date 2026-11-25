@@ -1,0 +1,14 @@
+{
+  "videos": [
+    {
+      "file": "web-2026-11-25T01-23-53-555Z.webm",
+      "bytes": 2013507,
+      "sha256": "59b75e8f833fba2377f9f21142f5faa8b853a4c7e3d272db4bc0250ca8b83136",
+      "frames": "415",
+      "width": 1280,
+      "height": 626,
+      "duration_s": "213.040000",
+      "stored_under": "storage-policy drive, not committed"
+    }
+  ]
+}

@@ -1,0 +1,2 @@
+        FAIL draft card holds still :: 8 positions 17.3,224.3|19.2,227.2|19.8,228.0|20.0,228.3|20.0,228.4|16.8,223.5|16.2,222.7|16.0,222.4
+        CLICK FAIL page.click: Timeout 10000ms exceeded.

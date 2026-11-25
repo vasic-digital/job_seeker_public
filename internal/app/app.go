@@ -7,7 +7,6 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"github.com/vasic-digital/job_seeker/internal/ext/builtin"
 	"io"
 	"log/slog"
 	"net"
@@ -159,10 +158,23 @@ func Run(ctx context.Context, o Options) int {
 
 	jobsCtx, stopJobs := context.WithCancel(ctx)
 	defer stopJobs()
-	pl, err := BuildPipeline(cfg, db, kr, o.Lookup, o.Err)
+	kn, err := BuildKernel(cfg, db, o.Err)
+	if err != nil {
+		return fail(o.Err, "extensions: registration failed") // a duplicate or incomplete plugin registration aborts start-up (FR-095)
+	}
+	pl, err := BuildPipeline(cfg, db, kr, kn.Guard, o.Lookup, o.Err)
 	if err != nil {
 		return fail(o.Err, "fetch: %s", err.Error())
 	}
+	flushed := make(chan struct{})
+	go func() { kn.Pipeline.Run(jobsCtx, 2*time.Second); close(flushed) }() // bounded sink -> audit log; flushes once more on exit
+	defer func() {
+		stopJobs()
+		select {
+		case <-flushed:
+		case <-time.After(5 * time.Second):
+		}
+	}()
 	StartJobs(jobsCtx, db, cfg, slog.New(slog.NewTextHandler(o.Err, nil)), FetchJobs(pl)...)
 
 	production := cfg.Env == config.EnvProduction
@@ -197,14 +209,11 @@ func Run(ctx context.Context, o Options) int {
 	now := time.Now
 	ar := &api.AuthRoutes{Svc: svc, Tokens: auth.NewTokens(db, now), Build: buildinfo.Get(), Events: api.AuthCounter(reg),
 		Login: ratelimit.NewBackoff(ratelimit.Config{Free: 4, Base: 2 * time.Second, Max: 5 * time.Minute}, now)}
-	con, err := buildConsole(cfg, db, kr, o.Err)
+	con, err := buildConsole(cfg, db, kr, kn, o.Err)
 	if err != nil {
 		return fail(o.Err, "console: %s", err.Error())
 	}
-	xs, err := builtin.New() // a duplicate or incomplete plugin registration aborts start-up (FR-095)
-	if err != nil {
-		return fail(o.Err, "extensions: registration failed")
-	}
+	xs := kn.Set
 	if cfg.RulesDir != "" {
 		if err := xs.LoadATS(cfg.RulesDir); err != nil { // per-ATS profiles are data (FR-099); an invalid one aborts start-up
 			return fail(o.Err, "extensions: ats profiles invalid")

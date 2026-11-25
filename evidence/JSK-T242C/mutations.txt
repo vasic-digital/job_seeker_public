@@ -1,0 +1,10 @@
+KILLED       t242c-hours-close-off-by-one mutations: 1 genuinely killed of 1 
+KILLED       t242c-hours-saturday-open mutations: 1 genuinely killed of 1 
+KILLED       t242c-hours-advisory-says-no mutations: 1 genuinely killed of 1 
+KILLED       t242c-hours-guess-on-bad-hint mutations: 1 genuinely killed of 1 
+KILLED       t242c-hours-multi-offset-guessed mutations: 1 genuinely killed of 1 
+KILLED       t242c-draft-hours-undeterminable-warns mutations: 1 genuinely killed of 1 
+KILLED       t242c-langtrusted-boundary mutations: 1 genuinely killed of 1 
+KILLED       t242c-langtrusted-und-trusted mutations: 1 genuinely killed of 1 
+KILLED       t242c-draft-lang-untrusted-detected mutations: 1 genuinely killed of 1 
+KILLED       t242c-elig-lang-untrusted-decides mutations: 1 genuinely killed of 1 

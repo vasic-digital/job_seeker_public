@@ -1,0 +1,6 @@
+{"offset":0,"limit":100,"totalFound":4,"content":[
+{"id":"743999900000001","name":"Platform Engineer","uuid":"00000000-0000-4000-8000-000000000001","refNumber":"REF-1","company":{"identifier":"Examplecorp","name":"Examplecorp (synthetic)"},"releasedDate":"2026-11-18T09:30:00.000Z","location":{"city":"Lisbon","region":"Lisboa","country":"pt","remote":false,"hybrid":true,"fullLocation":"Lisbon, Portugal"},"department":{"label":"Engineering"},"typeOfEmployment":{"label":"Full-time"},"ref":"https://api.smartrecruiters.com/v1/companies/Examplecorp/postings/743999900000001"},
+{"id":"743999900000002","name":"Remote Support Engineer","company":{"identifier":"Examplecorp"},"releasedDate":"2026-11-19T10:00:00.000Z","location":{"country":"de","remote":true,"fullLocation":"Germany"},"department":{"label":"Support"}},
+{"id":"bad id!","name":"Bad id"},
+{"id":"743999900000004","name":""}
+]}

@@ -1,0 +1,21 @@
+MUTATION s/strings.Contains(t, tok)/false/
+FAIL	github.com/vasic-digital/job_seeker/internal/ext/eligibility [build failed]
+FAIL
+MUTATION s/if p.IsDuplicate {/if false {/
+--- FAIL: TestDuplicateConformance (0.00s)
+--- FAIL: TestLegacySetParityOnGrid (0.00s)
+FAIL
+FAIL	github.com/vasic-digital/job_seeker/internal/ext/eligibility	3.097s
+MUTATION s/if p.ClassifierExclusion != "" {/if false {/
+--- FAIL: TestClassifierExclusionConformance (0.00s)
+--- FAIL: TestLegacySetParityOnGrid (0.01s)
+FAIL
+FAIL	github.com/vasic-digital/job_seeker/internal/ext/eligibility	2.560s
+CONTROL (restored)
+ok  	github.com/vasic-digital/job_seeker/internal/ext/eligibility	(cached)
+MUTATION junior never matches (replaces the build-failed row above)
+--- FAIL: TestJuniorOrInternConformance (0.01s)
+--- FAIL: TestLegacySetParityOnGrid (0.01s)
+FAIL
+FAIL	github.com/vasic-digital/job_seeker/internal/ext/eligibility	1.582s
+ok  	github.com/vasic-digital/job_seeker/internal/ext/eligibility	(cached)

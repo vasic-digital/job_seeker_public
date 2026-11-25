@@ -1,0 +1,158 @@
+version: "1.0"
+name: "job_seeker authenticated console state-changing flows"
+description: "Draft prepare, reject with reason, dry-run approve, queue mapping and dismiss, driven by taps and typed text against the signed-in console. Every vision-gated step passes only when a local vision model reads the exact after-action frame; the resulting rows are read back from the encrypted database and the audit chain by the harness (readback.json), never from the model. Coordinates are for the 1920x937 frame; the data is staged by tests/e2e/helixqa_stage_test.go (applications 1 and 2 prepared, 3 pending). Always dry-run: no application is sent."
+metadata: {author: vasic-digital, app: job_seeker}
+test_cases:
+  - id: JSK-STATE-001
+    name: "Prepare the pending draft (draft flow)"
+    category: functional
+    priority: high
+    platforms: [web]
+    steps:
+      - name: "Open Applications"
+        action: "tap: 424,36"
+      - name: "Open the pending application"
+        action: "tap: 150,247"
+        expected: "Draft review page of an application whose draft is not yet prepared"
+        vision_verify: true
+        recognize: ["pending_draft","Foxtrot Ltd"]
+        recognize_contains: true
+        forbid: ["Traceback", "panic"]
+      - name: "Prepare template draft"
+        action: "tap: 193,593"
+        expected: "Draft review page whose state is awaiting_human_approval and that lists template files"
+        vision_verify: true
+        recognize: ["awaiting_human_approval","Foxtrot Ltd"]
+        recognize_contains: true
+        forbid: ["Traceback", "panic"]
+    tags: [authenticated, state-changing]
+    estimated_duration: "60s"
+    expected_result: "Prepare the pending draft (draft flow)"
+  - id: JSK-STATE-002
+    name: "Reject a prepared draft with a reason"
+    category: functional
+    priority: high
+    platforms: [web]
+    steps:
+      - name: "Open Applications"
+        action: "tap: 424,36"
+      - name: "Open the Borealis application"
+        action: "tap: 150,301"
+        expected: "Draft review page with an approval report"
+        vision_verify: true
+        recognize: ["awaiting_human_approval","Borealis Labs"]
+        recognize_contains: true
+        forbid: ["Traceback", "panic"]
+      - name: "Scroll to the end"
+        action: "keypress: End"
+      - name: "Focus the reason box"
+        action: "tap: 961,748"
+      - name: "Type the reason"
+        action: "text: QA reject synthetic persona"
+        expected: "Draft review page with a Reject button and a reason box"
+        vision_verify: true
+        recognize: ["Reject"]
+        recognize_contains: true
+        forbid: ["Traceback", "panic"]
+      - name: "Press Reject"
+        action: "tap: 103,852"
+        expected: "Draft review page whose state is rejected_by_human"
+        vision_verify: true
+        recognize: ["rejected_by_human","Borealis Labs"]
+        recognize_contains: true
+        forbid: ["Traceback","panic"]
+    tags: [authenticated, state-changing]
+    estimated_duration: "60s"
+    expected_result: "Reject a prepared draft with a reason"
+  - id: JSK-STATE-003
+    name: "Approve a prepared draft in dry-run (nothing is sent)"
+    category: functional
+    priority: high
+    platforms: [web]
+    steps:
+      - name: "Open Applications"
+        action: "tap: 424,36"
+      - name: "Open the Acme application"
+        action: "tap: 150,355"
+        expected: "Draft review page with an approval report"
+        vision_verify: true
+        recognize: ["awaiting_human_approval","Acme Robotics"]
+        recognize_contains: true
+        forbid: ["Traceback", "panic"]
+      - name: "Scroll to the end"
+        action: "keypress: End"
+      - name: "Tick the area confirmation"
+        action: "tap: 54,545"
+      - name: "Focus the company box"
+        action: "tap: 961,479"
+      - name: "Type the company name"
+        action: "text: Acme Robotics"
+        expected: "Draft review page with an Approve button and the company name typed"
+        vision_verify: true
+        recognize: ["Approve"]
+        recognize_contains: true
+        forbid: ["Traceback", "panic"]
+      - name: "Press Approve"
+        action: "tap: 491,546"
+        expected: "Draft review page headed Dry run recorded"
+        vision_verify: true
+        recognize: ["dry_run_recorded","Acme Robotics"]
+        recognize_contains: true
+        forbid: ["Traceback", "panic"]
+    tags: [authenticated, state-changing]
+    estimated_duration: "60s"
+    expected_result: "Approve a prepared draft in dry-run (nothing is sent)"
+  - id: JSK-STATE-004
+    name: "Map the review-queue posting to an area"
+    category: functional
+    priority: high
+    platforms: [web]
+    steps:
+      - name: "Open the Review queue"
+        action: "tap: 288,36"
+        expected: "Queue lists the unmapped posting"
+        vision_verify: true
+        recognize: ["Review queue", "Unclear Role", "Map to area"]
+        recognize_contains: true
+        forbid: ["Traceback", "panic"]
+      - name: "Focus the area list"
+        action: "tap: 1157,299"
+      - name: "Choose go"
+        action: "text: go"
+      - name: "Confirm the choice"
+        action: "keypress: Enter"
+      - name: "Press Map to area"
+        action: "tap: 1342,299"
+        expected: "Queue is empty after mapping"
+        vision_verify: true
+        recognize: ["Nothing needs mapping"]
+        recognize_contains: true
+        forbid: ["Unclear Role", "Traceback", "panic"]
+    tags: [authenticated, state-changing]
+    estimated_duration: "60s"
+    expected_result: "Map the review-queue posting to an area"
+  - id: JSK-STATE-005
+    name: "Dismiss a posting from the inbox"
+    category: functional
+    priority: high
+    platforms: [web]
+    steps:
+      - name: "Open the Inbox"
+        action: "tap: 180,36"
+      - name: "Open the posting"
+        action: "tap: 107,425"
+        expected: "Posting page of a Golf Inc job"
+        vision_verify: true
+        recognize: ["Golf Inc","Dismiss"]
+        recognize_contains: true
+        forbid: ["Traceback", "panic"]
+      - name: "Press Dismiss"
+        action: "tap: 610,897"
+        expected: "Inbox page whose table row for Golf Inc shows the state discarded"
+        vision_verify: true
+        recognize: ["Inbox", "Dismiss Candidate", "discarded"]
+        recognize_contains: true
+        forbid: ["Traceback", "panic"]
+    tags: [authenticated, state-changing]
+    estimated_duration: "60s"
+    expected_result: "Dismiss a posting from the inbox"

@@ -1,0 +1,10 @@
+KILLED       t164-case-guard-off
+mutations: 1 killed of 1
+KILLED       t164-shortest-first
+mutations: 1 killed of 1
+KILLED       t164-dup-variant-allowed
+mutations: 1 killed of 1
+KILLED       t164-schema-unchecked
+mutations: 1 killed of 1
+KILLED       t164-lax-yaml
+mutations: 1 killed of 1

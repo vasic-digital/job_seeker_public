@@ -22,7 +22,10 @@ import (
 	"encoding/hex"
 	"encoding/json"
 	"fmt"
+	"io"
 	"net"
+	"net/http"
+	"net/http/httptest"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -48,6 +51,48 @@ const canaryOverlay = "salary_min: 987654\nsalary_currency: EUR\nsalary_period: 
 
 func rh(n int) string { b := make([]byte, n); _, _ = rand.Read(b); return hex.EncodeToString(b) }
 
+// builtBinaries compiles jobseekerd and jsctl ONCE per package run and returns the directory holding them. Every test
+// in this package used to rebuild both binaries itself (6 x 2 builds under host load); the binaries are identical and
+// read-only, so one shared build removes that cost without weakening any assertion. A build failure fails every test
+// that needs the binaries (sync.Once memoises the error), never skips it.
+var (
+	binOnce sync.Once
+	binDir  string
+	binErr  error
+)
+
+func builtBinaries(t *testing.T, root string) string {
+	t.Helper()
+	binOnce.Do(func() {
+		d, err := os.MkdirTemp("", "jsk-e2e-bin-")
+		if err != nil {
+			binErr = err
+			return
+		}
+		binDir = d
+		for _, n := range []string{"jobseekerd", "jsctl"} {
+			c := exec.Command("go", "build", "-trimpath", "-o", filepath.Join(d, n), "./cmd/"+n)
+			c.Dir, c.Env = root, append(os.Environ(), "CGO_ENABLED=0")
+			if out, err := c.CombinedOutput(); err != nil {
+				binErr = fmt.Errorf("build %s: %v\n%s", n, err, out)
+				return
+			}
+		}
+	})
+	if binErr != nil {
+		t.Fatal(binErr)
+	}
+	return binDir
+}
+
+func TestMain(m *testing.M) {
+	code := m.Run()
+	if binDir != "" {
+		os.RemoveAll(binDir)
+	}
+	os.Exit(code)
+}
+
 func freePort(t *testing.T) int {
 	for i := 0; i < 50; i++ {
 		ln, err := net.Listen("tcp", "127.0.0.1:0")
@@ -66,11 +111,34 @@ func freePort(t *testing.T) int {
 	return 0
 }
 
+// pdf builds a one-page PDF whose text carries the label. JSK-T187b: it also carries two REAL link annotations (an
+// https portfolio link and a mailto link, each rectangle covering the text it labels) so the approval report's link
+// table is rendered from what the real poppler-based parser extracts, not from an empty set.
 func pdf(label string) []byte {
-	stream := fmt.Sprintf("BT /F1 14 Tf 20 100 Td (%s) Tj ET", label)
-	return []byte(fmt.Sprintf("%%PDF-1.4\n1 0 obj<</Type/Catalog/Pages 2 0 R>>endobj\n2 0 obj<</Type/Pages/Kids[3 0 R]/Count 1>>endobj\n"+
-		"3 0 obj<</Type/Page/Parent 2 0 R/MediaBox[0 0 300 200]/Contents 4 0 R/Resources<</Font<</F1 5 0 R>>>>>>endobj\n"+
-		"4 0 obj<</Length %d>>stream\n%s\nendstream endobj\n5 0 obj<</Type/Font/Subtype/Type1/BaseFont/Helvetica>>endobj\ntrailer<</Root 1 0 R>>\n%%%%EOF\n", len(stream), stream))
+	stream := fmt.Sprintf("BT /F1 12 Tf 20 150 Td (%s) Tj ET\nBT /F1 12 Tf 20 100 Td (Portfolio example.com/p) Tj ET\nBT /F1 12 Tf 20 70 Td (Mail a@example.com) Tj ET", label)
+	objs := []string{
+		"<</Type/Catalog/Pages 2 0 R>>",
+		"<</Type/Pages/Kids[3 0 R]/Count 1>>",
+		"<</Type/Page/Parent 2 0 R/MediaBox[0 0 300 200]/Contents 4 0 R/Resources<</Font<</F1 5 0 R>>>>/Annots[6 0 R 7 0 R]>>",
+		fmt.Sprintf("<</Length %d>>\nstream\n%s\nendstream", len(stream), stream),
+		"<</Type/Font/Subtype/Type1/BaseFont/Helvetica>>",
+		"<</Type/Annot/Subtype/Link/Rect[20 95 160 115]/Border[0 0 0]/A<</S/URI/URI(https://example.com/p)>>>>",
+		"<</Type/Annot/Subtype/Link/Rect[20 65 160 85]/Border[0 0 0]/A<</S/URI/URI(mailto:a@example.com)>>>>",
+	}
+	var out bytes.Buffer
+	out.WriteString("%PDF-1.4\n")
+	var offs []int
+	for i, o := range objs {
+		offs = append(offs, out.Len())
+		fmt.Fprintf(&out, "%d 0 obj\n%s\nendobj\n", i+1, o)
+	}
+	x := out.Len()
+	fmt.Fprintf(&out, "xref\n0 %d\n0000000000 65535 f \n", len(objs)+1)
+	for _, o := range offs {
+		fmt.Fprintf(&out, "%010d 00000 n \n", o)
+	}
+	fmt.Fprintf(&out, "trailer\n<</Size %d/Root 1 0 R>>\nstartxref\n%d\n%%%%EOF\n", len(objs)+1, x)
+	return out.Bytes()
 }
 
 func writeTemplates(t *testing.T, dir string) map[string]string {
@@ -104,6 +172,7 @@ func writeTemplates(t *testing.T, dir string) map[string]string {
 }
 
 func TestConsoleJourney(t *testing.T) {
+	t.Parallel() // own temp dir, own free ports, own server and browser; the shared binaries are read-only
 	nm := os.Getenv("E2E_NODE_MODULES")
 	if nm == "" {
 		nm = filepath.Join("..", "..", "..", "_tests", "node_modules")
@@ -112,14 +181,7 @@ func TestConsoleJourney(t *testing.T) {
 		t.Skipf("SKIP (credential/topology): Playwright not found at %s; set E2E_NODE_MODULES", nm)
 	}
 	root, _ := filepath.Abs(filepath.Join("..", ".."))
-	bin := t.TempDir()
-	for _, n := range []string{"jobseekerd", "jsctl"} {
-		c := exec.Command("go", "build", "-trimpath", "-o", filepath.Join(bin, n), "./cmd/"+n)
-		c.Dir, c.Env = root, append(os.Environ(), "CGO_ENABLED=0")
-		if out, err := c.CombinedOutput(); err != nil {
-			t.Fatalf("build %s: %v\n%s", n, err, out)
-		}
-	}
+	bin := builtBinaries(t, root)
 	dir := t.TempDir()
 	port, mport := freePort(t), freePort(t)
 	bootTok, dbKey, sessKey := rh(24), rh(24), rh(24)
@@ -132,7 +194,18 @@ func TestConsoleJourney(t *testing.T) {
 	if err := os.WriteFile(filepath.Join(overlay, "overlay.yaml"), []byte(canaryOverlay), 0o600); err != nil {
 		t.Fatal(err)
 	}
-	env := append(os.Environ(), "JOBSEEKER_ENV=test", fmt.Sprintf("JOBSEEKER_HTTPS_ADDR=127.0.0.1:%d", port), fmt.Sprintf("JOBSEEKER_METRICS_ADDR=127.0.0.1:%d", mport),
+	// JSK-T239: draft and approve are fail-closed by default. The journey judges robots.txt through the REAL robots gate
+	// against a real loopback HTTP robots.txt (JOBSEEKER_TEST_ROBOTS_URL, honoured only under JOBSEEKER_ENV=test) and
+	// accepts the provider's terms through the operator CLI, exactly as an operator would.
+	robots := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if r.URL.Path != "/robots.txt" {
+			http.NotFound(w, r)
+			return
+		}
+		io.WriteString(w, "User-agent: *\nDisallow: /private/\n")
+	}))
+	t.Cleanup(robots.Close)
+	env := append(os.Environ(), "JOBSEEKER_ENV=test", "JOBSEEKER_TEST_ROBOTS_URL="+robots.URL+"/robots.txt", fmt.Sprintf("JOBSEEKER_HTTPS_ADDR=127.0.0.1:%d", port), fmt.Sprintf("JOBSEEKER_METRICS_ADDR=127.0.0.1:%d", mport),
 		"JOBSEEKER_DATA_DIR="+filepath.Join(dir, "data"), "JOBSEEKER_CERT_DIR="+filepath.Join(dir, "certs"), "JOBSEEKER_DB_KEY="+dbKey, "JOBSEEKER_SESSION_KEY="+sessKey,
 		"JOBSEEKER_BOOTSTRAP_TOKEN="+bootTok, "JOBSEEKER_ALLOWED_HOSTS=js.lan", fmt.Sprintf("JOBSEEKER_ORIGINS=https://js.lan:%d", port),
 		"CAREER_PRIVATE_DIR="+overlay, "JOBSEEKER_EGRESS_ALLOWLIST="+allow, "JOBSEEKER_TEMPLATE_DIR="+tpl, "JOBSEEKER_RULES_DIR="+filepath.Join(root, "rules"), "JEV_GATE=shadow")
@@ -161,6 +234,11 @@ func TestConsoleJourney(t *testing.T) {
 		t.Fatalf("server did not start:\n%s", out.String())
 	}
 	info := seed(t, filepath.Join(dir, "data", "jobseeker.db"), dbKey, root, overlay)
+	acc := exec.Command(filepath.Join(bin, "jsctl"), "ext", "terms", "accept", "--provider", "remotive")
+	acc.Env = env
+	if o, err := acc.CombinedOutput(); err != nil {
+		t.Fatalf("terms accept: %v\n%s", err, o)
+	}
 	// park the overlay: the journey first proves overlay_absent, then restores it for the overlay-present refusals
 	if err := os.Rename(filepath.Join(overlay, "overlay.yaml"), filepath.Join(overlay, "overlay.yaml.parked")); err != nil {
 		t.Fatal(err)

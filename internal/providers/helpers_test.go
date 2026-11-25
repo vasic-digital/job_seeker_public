@@ -60,7 +60,7 @@ func testClient(t *testing.T, host string, h http.HandlerFunc) *egress.Client {
 	t.Cleanup(func() { _ = srv.Close(); _ = ln.Close() })
 	pool := x509.NewCertPool()
 	pool.AddCert(leaf)
-	c, err := egress.New(egress.Policy{Hosts: []string{host}}, egress.Options{
+	c, err := egress.New(egress.Policy{Hosts: []string{host, "other.example.org"}}, egress.Options{
 		Resolver: fakeRes{}, RootCAs: pool,
 		BaseDial: func(ctx context.Context, n, _ string) (net.Conn, error) {
 			cl, sv := net.Pipe()
@@ -107,7 +107,7 @@ func selfSigned(t *testing.T, host string) (tls.Certificate, *x509.Certificate) 
 	if err != nil {
 		t.Fatal(err)
 	}
-	tpl := &x509.Certificate{SerialNumber: big.NewInt(1), Subject: pkix.Name{CommonName: host}, DNSNames: []string{host},
+	tpl := &x509.Certificate{SerialNumber: big.NewInt(1), Subject: pkix.Name{CommonName: host}, DNSNames: []string{host, "other.example.org"},
 		NotBefore: time.Now().Add(-time.Hour), NotAfter: time.Now().Add(time.Hour), KeyUsage: x509.KeyUsageDigitalSignature,
 		ExtKeyUsage: []x509.ExtKeyUsage{x509.ExtKeyUsageServerAuth}, IsCA: true, BasicConstraintsValid: true}
 	der, err := x509.CreateCertificate(rand.Reader, tpl, tpl, &k.PublicKey, k)

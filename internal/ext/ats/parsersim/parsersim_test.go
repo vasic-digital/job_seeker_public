@@ -314,3 +314,26 @@ func TestStructScanXRefNameIsNotAnExemption(t *testing.T) {
 		t.Fatalf("a real xref stream is exempt: %+v", r)
 	}
 }
+
+// JSK-T238 residual: a NAME spelled exactly /endobj (preceded by "/", delimited by whitespace on both sides) inside a
+// malformed stream dictionary is not the end of the previous object; the real endobj before the header still is.
+func TestStructScanSlashEndobjNameInMalformedDictionary(t *testing.T) {
+	hostile := "<< /Subtype /Link /A << /S /Launch /F (x) >> >>"
+	var z bytes.Buffer
+	zw := zlib.NewWriter(&z)
+	_, _ = zw.Write([]byte(hostile))
+	_ = zw.Close()
+	for name, dict := range map[string]string{
+		"name between keys":   "<< /Tag /endobj /Filter /FlateDecode /Length 1 >>",
+		"name as last key":    "<< /Filter /FlateDecode /Length 1 /Tag /endobj >>",
+		"name before newline": "<< /Filter /FlateDecode /Length 1 /Tag /endobj\n>>",
+		"two names":           "<< /A /endobj /B /endobj /Filter /FlateDecode /Length 1 >>",
+	} {
+		pdf := []byte("%PDF-1.5\n1 0 obj\n<< /A 1 >>\nendobj\n2 0 obj\n" + dict + "\nstream\n")
+		pdf = append(pdf, z.Bytes()...)
+		pdf = append(pdf, []byte("\nendstream\nendobj\n")...)
+		if r := StructScan(pdf); r.Incomplete || len(r.Actions) != 1 || r.Actions[0] != "Launch" {
+			t.Errorf("%s: a /endobj name was taken for the end of an object: %+v", name, r)
+		}
+	}
+}

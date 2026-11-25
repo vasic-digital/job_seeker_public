@@ -1,0 +1,34 @@
+agent-admit: ADMITTED tag=t177mut slot=$HOME/.cache/agent-scratch/slots/slot-1 -> bounded-run -m 6G -T 600
+KILLED       t177-uncleared-confirmed-blocks
+mutations: 1 genuinely killed of 1
+agent-admit: ADMITTED tag=t177mut slot=$HOME/.cache/agent-scratch/slots/slot-1 -> bounded-run -m 6G -T 600
+KILLED       t177-uncleared-ack-ignored
+mutations: 1 genuinely killed of 1
+agent-admit: ADMITTED tag=t177mut slot=$HOME/.cache/agent-scratch/slots/slot-1 -> bounded-run -m 6G -T 600
+KILLED       t177-nil-profile-confirmed
+mutations: 1 genuinely killed of 1
+agent-admit: ADMITTED tag=t177mut slot=$HOME/.cache/agent-scratch/slots/slot-1 -> bounded-run -m 6G -T 600
+KILLED       t177-unfavourable-confirmed
+mutations: 1 genuinely killed of 1
+agent-admit: ADMITTED tag=t177mut slot=$HOME/.cache/agent-scratch/slots/slot-1 -> bounded-run -m 6G -T 600
+KILLED       t177-no-country-confirmed
+mutations: 1 genuinely killed of 1
+agent-admit: ADMITTED tag=t177mut slot=$HOME/.cache/agent-scratch/slots/slot-1 -> bounded-run -m 6G -T 600
+KILLED       t177-handler-panic-swallowed
+mutations: 1 genuinely killed of 1
+agent-admit: ADMITTED tag=t177mut slot=$HOME/.cache/agent-scratch/slots/slot-1 -> bounded-run -m 6G -T 600
+KILLED       t177-sponsor-unable-dropped
+mutations: 1 genuinely killed of 1
+<stdin>:2: DeprecationWarning: "\s" is an invalid escape sequence. Such sequences will not work in the future. 
+KILLED       t177-workauth-right-dropped
+mutations: 1 genuinely killed of 1
+agent-admit: ADMITTED tag=t177mut slot=$HOME/.cache/agent-scratch/slots/slot-1 -> bounded-run -m 6G -T 600
+KILLED       t177-draft-uncleared-passes
+mutations: 1 genuinely killed of 1
+agent-admit: ADMITTED tag=t177mut slot=$HOME/.cache/agent-scratch/slots/slot-1 -> bounded-run -m 6G -T 600
+KILLED       t177-draft-check-skipped
+mutations: 1 genuinely killed of 1
+agent-admit: ADMITTED tag=t177mut slot=$HOME/.cache/agent-scratch/slots/slot-1 -> bounded-run -m 6G -T 600
+KILLED       t177-draft-ack-not-passed
+mutations: 1 genuinely killed of 1
+KILLED       t177-draft-body-error-ignored

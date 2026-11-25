@@ -1,0 +1,4 @@
+RED: tests written against the report API; with internal/draft/coverage_report.go removed the package does not compile
+# github.com/vasic-digital/job_seeker/internal/draft
+# [github.com/vasic-digital/job_seeker/internal/draft]
+vet: internal/draft/service.go:53:12: undefined: CoverageConfig

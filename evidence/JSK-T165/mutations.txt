@@ -1,0 +1,5 @@
+KILLED       t165-unclaimable-never
+KILLED       t165-honesty-allows-all
+KILLED       t165-margin-strict
+KILLED       t165-chosen-not-best-off
+KILLED       t165-no-signal-confirms

@@ -1,0 +1,7 @@
+# SC-032 shipped catalogue, 2026-11-25
+policy matrix: ok (12 providers x 4 ats x 676 countries, each plus no-scope = 44005 scopes resolved; 4 locked gates stayed on)
+rc=0
+policy matrix: ok (12 providers x 4 ats x 676 countries, each plus no-scope = 44005 scopes resolved; 4 locked gates stayed on)
+gate rc=0
+PROVE-FAILURE OK: control rc=0 with evidence line; locked gate off by default rc=1; no locked gate rc=2; missing rules dir rc=1
+prove-failure rc=0

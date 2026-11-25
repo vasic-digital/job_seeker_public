@@ -1,0 +1,6 @@
+--- FAIL: FuzzNormalize (0.00s)
+    --- FAIL: FuzzNormalize/f3240b2cfed53b3b (0.00s)
+        fuzz_test.go:23: not idempotent (lower=true): "\xf4Ώ" -> " ώ " -> " ω "
+FAIL
+FAIL	github.com/vasic-digital/job_seeker/internal/match	0.024s
+FAIL

@@ -1,0 +1,200 @@
+{
+ "_comment": "Translator targets for i18n_schedule.py, tried in plan order (purpose-built translators first, code-specialised codestral last; pin a subset per language with i18n_schedule.py --targets). All are driven ONLY through the canonical umbrella pipeline (translate-pipeline.sh -> HelixTranslate engine, §11.4.255). 'probe' is the OpenAI-compatible base used for a 1-token quota probe after a failure (no translation is done there). Add a target only after one real engine round trip. Dead ones recorded in docs/i18n-providers.md.",
+ "targets": [
+  {
+   "id": "cohere-command-a-translate",
+   "provider": "cohere",
+   "model": "command-a-translate-08-2025",
+   "probe": "https://api.cohere.ai/compatibility/v1",
+   "key_env": "COHERE_API_KEY",
+   "chunk": 8,
+   "pause": 30,
+   "enabled": false,
+   "note": "2026-11-24: trial key hit 1000 API calls/month (HTTP 429, body says so). Kept as OPTIONAL: set enabled=true (or pin with --targets) once the month rolls over or a production key exists. Best short-UI-string quality of the survey."
+  },
+  {
+   "id": "nvidia-riva-translate",
+   "provider": "nvidia",
+   "model": "nvidia/riva-translate-4b-instruct-v2",
+   "probe": "https://integrate.api.nvidia.com/v1",
+   "key_env": "NVIDIA_API_KEY",
+   "chunk": 8,
+   "pause": 10,
+   "note": "works for es fr zh ja ko ar fa hi tr; NOT for sr/be/kk (Latin-script Serbian, Ukrainian for Belarusian/Kazakh); fa phrasing is Arabic-leaning"
+  },
+  {
+   "id": "groq-gpt-oss-120b",
+   "provider": "groq",
+   "model": "openai/gpt-oss-120b",
+   "probe": "https://api.groq.com/openai/v1",
+   "key_env": "GROQ_API_KEY",
+   "chunk": 8,
+   "pause": 30,
+   "day_keys": 240,
+   "note": "200000 tokens/day; exhausted on 2026-11-24 (reset ~1 h after the survey); not in any lang plan, last-resort only"
+  },
+  {
+   "id": "groq-gpt-oss-20b",
+   "provider": "groq",
+   "model": "openai/gpt-oss-20b",
+   "probe": "https://api.groq.com/openai/v1",
+   "key_env": "GROQ_API_KEY",
+   "chunk": 8,
+   "pause": 30,
+   "day_keys": 240,
+   "note": "ko returns no usable output through the engine; sr is Latin unless the sr_cyrl profile is used"
+  },
+  {
+   "id": "groq-qwen3.8-27b",
+   "provider": "groq",
+   "model": "qwen/qwen3.8-27b",
+   "probe": "https://api.groq.com/openai/v1",
+   "key_env": "GROQ_API_KEY",
+   "chunk": 8,
+   "pause": 20,
+   "day_keys": 240,
+   "note": "only target that produced real Serbian Cyrillic (sr_cyrl), Belarusian and Kazakh in the 2026-11-24 spot-check; input 7000 tokens/min, 1000 requests/day, 200000 tokens/day"
+  },
+  {
+   "id": "mistral-nemo",
+   "provider": "mistral",
+   "model": "open-mistral-nemo",
+   "probe": "https://api.mistral.ai/v1",
+   "key_env": "MISTRAL_API_KEY",
+   "chunk": 8,
+   "pause": 30,
+   "enabled": false,
+   "note": "free tier is 2 requests/MINUTE (x-ratelimit-limit-req-minute: 2); the engine makes 1-2 calls per line, so one language would take hours: REVIEWER only, not a translator"
+  },
+  {
+   "id": "codestral-latest",
+   "provider": "codestral",
+   "model": "codestral-latest",
+   "probe": "https://codestral.mistral.ai/v1",
+   "key_env": "CODESTRAL_API_KEY",
+   "chunk": 8,
+   "pause": 10,
+   "note": "code-specialised; spot-check OK for es fr zh ja ko ar hi sr_cyrl be kk, placeholder drift for fa/tr; fallback only"
+  }
+ ],
+ "reviewers": [
+  {
+   "provider": "cohere",
+   "model": "command-r-plus-08-2024"
+  },
+  {
+   "provider": "groq",
+   "model": "openai/gpt-oss-120b"
+  },
+  {
+   "provider": "mistral",
+   "model": "open-mistral-nemo"
+  }
+ ],
+ "_reviewers_note": "reviewer is chosen by the caller of i18n_review.sh <lang> <provider> [model]; the script refuses a provider equal to ANY translator provider in evidence/i18n/<lang>/pipeline.json. Because cohere and groq/mistral/nvidia are now translators too, pin the translator set per language (--targets) so at least one reviewer provider stays independent: cohere-translated languages are reviewed by groq (or mistral), nvidia/groq/mistral-translated languages by cohere.",
+ "lang_targets": {
+  "es": [
+   "nvidia-riva-translate",
+   "codestral-latest"
+  ],
+  "fr": [
+   "nvidia-riva-translate",
+   "codestral-latest"
+  ],
+  "zh": [
+   "nvidia-riva-translate",
+   "codestral-latest"
+  ],
+  "ja": [
+   "nvidia-riva-translate",
+   "codestral-latest"
+  ],
+  "ko": [
+   "nvidia-riva-translate",
+   "codestral-latest"
+  ],
+  "ar": [
+   "nvidia-riva-translate",
+   "codestral-latest"
+  ],
+  "hi": [
+   "nvidia-riva-translate",
+   "codestral-latest"
+  ],
+  "tr": [
+   "nvidia-riva-translate",
+   "codestral-latest"
+  ],
+  "fa": [
+   "groq-qwen3.8-27b",
+   "groq-gpt-oss-20b",
+   "codestral-latest"
+  ],
+  "sr": [
+   "groq-qwen3.8-27b",
+   "groq-gpt-oss-20b",
+   "codestral-latest"
+  ],
+  "be": [
+   "groq-qwen3.8-27b",
+   "groq-gpt-oss-20b",
+   "codestral-latest"
+  ],
+  "kk": [
+   "groq-qwen3.8-27b",
+   "groq-gpt-oss-20b",
+   "codestral-latest"
+  ]
+ },
+ "lang_reviewer": {
+  "es": {
+   "provider": "groq",
+   "model": "qwen/qwen3.8-27b"
+  },
+  "fr": {
+   "provider": "groq",
+   "model": "qwen/qwen3.8-27b"
+  },
+  "zh": {
+   "provider": "groq",
+   "model": "qwen/qwen3.8-27b"
+  },
+  "ja": {
+   "provider": "groq",
+   "model": "qwen/qwen3.8-27b"
+  },
+  "ko": {
+   "provider": "groq",
+   "model": "qwen/qwen3.8-27b"
+  },
+  "ar": {
+   "provider": "groq",
+   "model": "qwen/qwen3.8-27b"
+  },
+  "hi": {
+   "provider": "groq",
+   "model": "qwen/qwen3.8-27b"
+  },
+  "tr": {
+   "provider": "groq",
+   "model": "qwen/qwen3.8-27b"
+  },
+  "fa": {
+   "provider": "mistral",
+   "model": "open-mistral-nemo"
+  },
+  "sr": {
+   "provider": "mistral",
+   "model": "open-mistral-nemo"
+  },
+  "be": {
+   "provider": "mistral",
+   "model": "open-mistral-nemo"
+  },
+  "kk": {
+   "provider": "mistral",
+   "model": "open-mistral-nemo"
+  }
+ },
+ "_plan_note": "lang_targets = ordered translator preference per language (sticky: the first available target is used until it fails, then the next). lang_reviewer = reviewer provider (must differ from every translator provider actually used, enforced by i18n_review.sh). Targets with enabled=false are skipped unless named in --targets. day_keys = rate-aware daily key budget per target (UTC day)."
+}

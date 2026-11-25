@@ -1,0 +1,6 @@
+OK: 11 plugin package(s), 13 registered plugin(s): tests, mutation pairs, closed reason codes, ids and versions
+OK: 11 mutant(s), one per plugin package, KILLED
+
+real	0m14.873s
+user	0m31.810s
+sys	0m14.260s

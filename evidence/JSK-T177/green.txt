@@ -1,0 +1,38 @@
+== go test (match, eligibility)
+ok  	github.com/vasic-digital/job_seeker/internal/match	2.016s
+ok  	github.com/vasic-digital/job_seeker/internal/ext	0.116s
+ok  	github.com/vasic-digital/job_seeker/internal/ext/ats/parsersim	1.432s
+ok  	github.com/vasic-digital/job_seeker/internal/ext/ats/profile	0.048s
+ok  	github.com/vasic-digital/job_seeker/internal/ext/builtin	0.026s
+ok  	github.com/vasic-digital/job_seeker/internal/ext/channel	0.253s
+ok  	github.com/vasic-digital/job_seeker/internal/ext/channel/mailgate	0.447s
+ok  	github.com/vasic-digital/job_seeker/internal/ext/channel/mailto	0.025s
+ok  	github.com/vasic-digital/job_seeker/internal/ext/channel/openurl	0.026s
+ok  	github.com/vasic-digital/job_seeker/internal/ext/channel/smtpcompose	0.144s
+ok  	github.com/vasic-digital/job_seeker/internal/ext/compliance	0.056s
+ok  	github.com/vasic-digital/job_seeker/internal/ext/deliver	0.185s
+ok  	github.com/vasic-digital/job_seeker/internal/ext/eligibility	0.729s
+ok  	github.com/vasic-digital/job_seeker/internal/ext/match/keyword	0.157s
+ok  	github.com/vasic-digital/job_seeker/internal/ext/reader/jsonld	0.087s
+ok  	github.com/vasic-digital/job_seeker/internal/ext/render/pdflinks	0.478s
+ok  	github.com/vasic-digital/job_seeker/internal/ext/render/txt	0.037s
+ok  	github.com/vasic-digital/job_seeker/internal/ext/source	0.039s
+ok  	github.com/vasic-digital/job_seeker/internal/ext/track	0.179s
+ok  	github.com/vasic-digital/job_seeker/internal/ext/verdictstore	0.835s
+== cross-check against umbrella overlay.py with the patch applied (scratch copy)
+=== RUN   TestOverlayCrossCheckWithUmbrella
+--- PASS: TestOverlayCrossCheckWithUmbrella (1.62s)
+PASS
+ok  	github.com/vasic-digital/job_seeker/internal/match	1.627s
+== mutations
+KILLED       ov-workauth-cc-unchecked
+KILLED       ov-workauth-not-flagged
+KILLED       ov-languages-empty-allowed
+KILLED       ov-languages-regex-loose
+KILLED       ov-languages-not-flagged
+KILLED       ov-hasworkauth-ignores-flag
+KILLED       ov-haslanguages-ignores-flag
+KILLED       ov-profile-workauth-unconfigured
+KILLED       ov-profile-languages-unconfigured
+== prove-failure
+PROVE-FAILURE OK: a neutral mutant is reported SURVIVED and an unmatched pattern INVALID

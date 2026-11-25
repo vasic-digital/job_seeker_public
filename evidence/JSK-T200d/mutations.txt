@@ -1,0 +1,11 @@
+KILLED       atsjob-second-lookup-dials-name
+KILLED       atsjob-redirect-other-host-allowed
+KILLED       atsjob-scheme-any
+KILLED       atsjob-nonats-host-resolves
+KILLED       atsjob-guard-skipped
+KILLED       atsjob-guard-wrong-url
+KILLED       atsjob-dryrun-stores
+KILLED       atsjob-tos-ignored
+KILLED       atsjob-private-ip-allowed
+KILLED       atsjob-wrong-job-accepted
+KILLED       atsjob-robots-ignored

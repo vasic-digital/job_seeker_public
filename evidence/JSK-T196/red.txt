@@ -1,0 +1,7 @@
+RED captured before position_page.go, position.html and the routes existed (go test ./internal/console -run 'Position|Redirects'):
+    position_page_test.go:32: GET /positions/1 404
+--- FAIL: TestPositionPageEmptyAndMissingAndMerged (0.10s)
+    position_page_test.go:61: empty position: 404 {"error":{"code":"not_found","message":"error.not_found",...}}
+--- FAIL: TestPostingRedirectsToItsPositionLegacyStillRenders (0.11s)
+    position_page_test.go:81: redirect: 200 ""
+FAIL	github.com/vasic-digital/job_seeker/internal/console

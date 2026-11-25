@@ -10,6 +10,7 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/vasic-digital/job_seeker/internal/evnorm"
 	"github.com/vasic-digital/job_seeker/internal/match/gold"
 )
 
@@ -131,7 +132,7 @@ func TestSyntheticPairsFromRealCorpus(t *testing.T) {
 	}
 	t.Logf("[synthetic-pair] %d safe pairs from the real postings (stride %d of %d) all resolved; hard-perturbation outcomes (measured, not asserted): %s", total, stride, len(items), line)
 	if out := os.Getenv("JSK_EVIDENCE_DIR"); out != "" {
-		_ = os.WriteFile(filepath.Join(out, "synthetic-pairs.txt"), []byte(fmt.Sprintf("label=synthetic-pair safe_pairs=%d real_sources=%d hard=%s\n", total, len(items), line)), 0o644)
+		_ = evnorm.WriteFile(filepath.Join(out, "synthetic-pairs.txt"), []byte(fmt.Sprintf("label=synthetic-pair safe_pairs=%d real_sources=%d hard=%s\n", total, len(items), line)), 0o644)
 	}
 }
 

@@ -1,0 +1,12 @@
+{
+ "fonts": {
+  "Noto Sans Thai [SYSTEM]": 30,
+  "Noto Sans CJK SC [custom]": 912,
+  "Inter [custom]": 289,
+  "Bricolage Grotesque 96pt ExtraBold [custom]": 20,
+  "JetBrains Mono [custom]": 93
+ },
+ "systemFonts": [
+  "Noto Sans Thai [SYSTEM]"
+ ]
+}

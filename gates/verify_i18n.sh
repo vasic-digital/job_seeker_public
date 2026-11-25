@@ -34,9 +34,22 @@ import json;p='$bin/m/ru.json';d=json.load(open(p));d['score.total']='[x] only';
   mk; echo '{"ru":{"state":"reviewed"}}' > "$bin/m/_status.json"; want "M6 reviewed without verdict" 1
   mk; echo '{"ru":{"state":"reviewed"}}' > "$bin/m/_status.json"; mkdir -p "$bin/ev/ru"; echo '{"verdict":"PASS","translator":"m1","reviewer":"m1"}' > "$bin/ev/ru/verdict.json"; want "M7 reviewer == translator" 1
   mk; echo '{"ru":{"state":"reviewed"}}' > "$bin/m/_status.json"; mkdir -p "$bin/ev/ru"; echo '{"verdict":"PASS","translator":"m1","reviewer":"m2"}' > "$bin/ev/ru/verdict.json"; want "control reviewed with distinct reviewer" 0
+  mk; python3 -c "
+import json;p='$bin/m/ru.json';d=json.load(open(p));k=sorted(d)[0];d[k]=json.load(open('$bin/m/en.json'))[k];json.dump(d,open(p,'w'),ensure_ascii=False)
+json.dump({'ru':{k:'spelled identically in the target language'}},open('$bin/m/_cognates.json','w'))"; want "control cognate listed with reason" 0
+  mk; python3 -c "
+import json;p='$bin/m/ru.json';d=json.load(open(p));k=sorted(d)[0];d[k]=json.load(open('$bin/m/en.json'))[k];json.dump(d,open(p,'w'),ensure_ascii=False)
+json.dump({'ru':{k:''}},open('$bin/m/_cognates.json','w'))"; want "M10 cognate entry without reason" 1
+  mk; python3 -c "
+import json;p='$bin/m/ru.json';d=json.load(open(p));k=sorted(d)[0];d[k]=json.load(open('$bin/m/en.json'))[k];json.dump(d,open(p,'w'),ensure_ascii=False)
+json.dump({'de':{k:'only excuses de'}},open('$bin/m/_cognates.json','w'))"; want "M11 cognate for another language does not excuse ru" 1
+  mk; python3 -c "
+import json;p='$bin/m/ru.json';d=json.load(open(p));ks=sorted(d);d[ks[0]]=json.load(open('$bin/m/en.json'))[ks[0]];d[ks[1]]=json.load(open('$bin/m/en.json'))[ks[1]]
+json.dump(d,open(p,'w'),ensure_ascii=False);json.dump({'ru':{ks[0]:'reason'}},open('$bin/m/_cognates.json','w'))"; want "M12 unlisted identical string still fails beside a listed one" 1
   mk; echo '{' > "$bin/m/ru.json"; want "M8 unparseable catalogue" 1
   mk; rm "$bin/m/en.json"; want "M9 source missing" 1
   mk; "$bin/i18naudit" -dir "$bin/m" -evidence "$bin/ev" -require-all >/dev/null 2>&1; r=$?; [ "$r" = 2 ] && echo "ok   require-all with pending langs rc=2" || { echo "BAD require-all rc=$r"; fail=1; }
   [ "$fail" = 0 ] && echo "PROVE-FAILURE OK" || echo "PROVE-FAILURE BAD"; exit "$fail"
 fi
+PYTHONDONTWRITEBYTECODE=1 python3 -W ignore scripts/test_i18n_tools.py >/dev/null 2>&1 || { echo "FAIL scripts/test_i18n_tools.py"; exit 1; }
 "$bin/i18naudit" "$@"

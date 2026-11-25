@@ -104,6 +104,10 @@ type Posting struct {
 	Lang                        string
 	LangConf                    float64
 	PostedAt, ExpiresAt         time.Time
+	// IsDuplicate and ClassifierExclusion are scorer annotations, never set by an adapter: they carry the legacy
+	// gates `duplicate` and the classifier exclusion (match.Mapping.Exclusion) to the eligibility plugins (JSK-T244).
+	IsDuplicate         bool
+	ClassifierExclusion string
 }
 
 // Provider is the adapter interface. Adding a provider needs only an adapter, an allow-list entry and a
@@ -119,14 +123,23 @@ type Provider interface {
 type Attribution struct{ Name, HomeURL string }
 
 var attributions = map[string]Attribution{
-	"remotive":      {"Remotive", "https://remotive.com"},
-	"remoteok":      {"Remote OK", "https://remoteok.com"},
-	"himalayas":     {"Himalayas", "https://himalayas.app"},
-	"greenhouse":    {"Greenhouse", "https://www.greenhouse.com"},
-	"lever":         {"Lever", "https://www.lever.co"},
-	"ashby":         {"Ashby", "https://www.ashbyhq.com"},
-	"bundesagentur": {"Bundesagentur für Arbeit", "https://www.arbeitsagentur.de"},
-	"hackernews":    {"Hacker News", "https://news.ycombinator.com"},
+	"remotive":        {"Remotive", "https://remotive.com"},
+	"remoteok":        {"Remote OK", "https://remoteok.com"},
+	"himalayas":       {"Himalayas", "https://himalayas.app"},
+	"greenhouse":      {"Greenhouse", "https://www.greenhouse.com"},
+	"lever":           {"Lever", "https://www.lever.co"},
+	"ashby":           {"Ashby", "https://www.ashbyhq.com"},
+	"workable":        {"Workable", "https://www.workable.com"},
+	"smartrecruiters": {"SmartRecruiters", "https://www.smartrecruiters.com"},
+	"recruitee":       {"Recruitee", "https://recruitee.com"},
+	"personio":        {"Personio", "https://www.personio.com"},
+	"teamtailor":      {"Teamtailor", "https://www.teamtailor.com"},
+	"bundesagentur":   {"Bundesagentur für Arbeit", "https://www.arbeitsagentur.de"},
+	"hackernews":      {"Hacker News", "https://news.ycombinator.com"},
+	"arbeitnow":       {"Arbeitnow", "https://www.arbeitnow.com"},
+	"jobicy":          {"Jobicy", "https://jobicy.com"},
+	"feed":            {"Company feed", ""},
+	"jsonld":          {"Company career page", ""},
 }
 
 // AttributionFor returns the display name and home link of a provider; unknown providers fall back to the name.
@@ -144,6 +157,16 @@ const maxResponse = 8 << 20
 
 // get performs one GET through the egress client and fills the CallProof (also on failure).
 func get(ctx context.Context, c *egress.Client, raw string, hdr map[string]string) ([]byte, CallProof, error) {
+	return getWith(ctx, c, raw, hdr, false)
+}
+
+// getSameHost is get with every redirect refused unless it stays on the original host: the feed/page gates (terms date, robots.txt) are
+// evaluated for ONE host, so a redirect to another allow-listed host would read it ungated.
+func getSameHost(ctx context.Context, c *egress.Client, raw string, hdr map[string]string) ([]byte, CallProof, error) {
+	return getWith(ctx, c, raw, hdr, true)
+}
+
+func getWith(ctx context.Context, c *egress.Client, raw string, hdr map[string]string, sameHost bool) ([]byte, CallProof, error) {
 	proof := CallProof{Method: "GET", At: time.Now().UTC()}
 	u, err := url.Parse(raw)
 	if err != nil {
@@ -166,7 +189,22 @@ func get(ctx context.Context, c *egress.Client, raw string, hdr map[string]strin
 		req.Header.Set(k, v)
 	}
 	t0 := time.Now()
-	resp, err := c.HTTP().Do(req)
+	hc := c.HTTP()
+	if sameHost {
+		cp := *hc
+		prev := cp.CheckRedirect
+		cp.CheckRedirect = func(r *http.Request, via []*http.Request) error {
+			if len(via) > 0 && !strings.EqualFold(r.URL.Host, via[0].URL.Host) {
+				return errors.New("redirect to another host refused")
+			}
+			if prev != nil {
+				return prev(r, via)
+			}
+			return nil
+		}
+		hc = &cp
+	}
+	resp, err := hc.Do(req)
 	proof.LatencyMS = time.Since(t0).Milliseconds()
 	if err != nil {
 		cls := ClassNetwork
@@ -272,3 +310,24 @@ func Finalize(p Posting) Posting {
 	p.Lang, p.LangConf = DetectLang(p.Title + " " + p.Body)
 	return p
 }
+
+// apiURLs is the URL each built-in adapter actually requests (host and a representative path), the input of the
+// robots gate: RFC 9309 applies to the host and path really fetched, which for several providers is an API host that
+// is not the attribution home page. Every host here is on deploy/egress-allowlist.txt (a test enforces it).
+var apiURLs = map[string]string{
+	"remotive":        "https://remotive.com/api/remote-jobs",
+	"remoteok":        "https://remoteok.com/api",
+	"himalayas":       "https://himalayas.app/jobs/api",
+	"greenhouse":      "https://boards-api.greenhouse.io/v1/boards/",
+	"lever":           "https://api.lever.co/v0/postings/",
+	"ashby":           "https://api.ashbyhq.com/posting-api/job-board/",
+	"workable":        "https://apply.workable.com/api/v1/widget/accounts/",
+	"smartrecruiters": "https://api.smartrecruiters.com/v1/companies/",
+	"bundesagentur":   "https://rest.arbeitsagentur.de/jobboerse/jobsuche-service/pc/v4/jobs",
+	"hackernews":      "https://hn.algolia.com/api/v1/search_by_date",
+	"arbeitnow":       "https://www.arbeitnow.com/api/job-board-api",
+	"jobicy":          "https://jobicy.com/api/v2/remote-jobs",
+}
+
+// APIURLFor returns the URL a provider's requests go to; "" for an unknown provider.
+func APIURLFor(provider string) string { return apiURLs[provider] }

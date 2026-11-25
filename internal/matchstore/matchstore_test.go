@@ -13,6 +13,7 @@ import (
 	"time"
 
 	"github.com/vasic-digital/job_seeker/internal/boot"
+	"github.com/vasic-digital/job_seeker/internal/crypto"
 	"github.com/vasic-digital/job_seeker/internal/match"
 	"github.com/vasic-digital/job_seeker/internal/match/gold"
 	"github.com/vasic-digital/job_seeker/internal/store"
@@ -270,5 +271,83 @@ func TestScoreColumnsAreSealed(t *testing.T) {
 		if _, err := kr.Open("score", col, id, b); err != nil {
 			t.Fatalf("%s does not open under the keyring: %v", col, err)
 		}
+	}
+}
+
+// storeDigest canonicalises everything the match pipeline persisted for the corpus: the mapping rows, the posting state,
+// and the score rows with the three SEALED columns OPENED through the keyring (ciphertext carries a random nonce and
+// differs between runs by design, so only the decrypted plaintext can be compared).
+func storeDigest(t *testing.T, db *store.DB, kr *crypto.Keyring) string {
+	t.Helper()
+	var sb strings.Builder
+	sb.WriteString(dump(t, db, mapDump) + "\n")
+	sb.WriteString(dump(t, db, `SELECT id,state FROM posting ORDER BY id`) + "\n")
+	rows, err := db.Read().Query(`SELECT id,posting_id,score_version,total,ruleset_sha,overlay_present,scored_at,is_current,components_json,gates_json,explain_json FROM score ORDER BY id`)
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer rows.Close()
+	for rows.Next() {
+		var id, pid, ov, cur int64
+		var ver, sha, at string
+		var total float64
+		var c, g, e []byte
+		if err := rows.Scan(&id, &pid, &ver, &total, &sha, &ov, &at, &cur, &c, &g, &e); err != nil {
+			t.Fatal(err)
+		}
+		pt := map[string]string{}
+		for col, b := range map[string][]byte{"components_json": c, "gates_json": g, "explain_json": e} {
+			p, err := kr.Open("score", col, id, b)
+			if err != nil {
+				t.Fatalf("score %d %s: %v", id, col, err)
+			}
+			pt[col] = string(p)
+		}
+		fmt.Fprintln(&sb, id, pid, ver, total, sha, ov, at, cur, pt["components_json"], pt["gates_json"], pt["explain_json"])
+	}
+	h := sha256.Sum256([]byte(sb.String()))
+	return hex.EncodeToString(h[:])
+}
+
+// runPipeline maps and scores the whole real corpus into a fresh store at the given clock and returns the store digest.
+func runPipeline(t *testing.T, at time.Time) (digest string, scoreRows int) {
+	t.Helper()
+	db, items, r := realSetup(t)
+	mapAll(t, db, items, r)
+	ctx := context.Background()
+	kr, err := boot.OpenKeyring(ctx, db, []byte("matchstore-test-passphrase"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer kr.Close()
+	err = db.Write(ctx, func(tx *sql.Tx) error {
+		for i, it := range items {
+			p := it.Posting(int64(i + 1))
+			if _, err := SaveScore(ctx, tx, kr, int64(i+1), r.ScorePosting(p, r.Classify(p), nil, now), at); err != nil {
+				return err
+			}
+		}
+		return nil
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+	db.Read().QueryRow(`SELECT COUNT(*) FROM score`).Scan(&scoreRows)
+	return storeDigest(t, db, kr), scoreRows
+}
+
+// JSK-T059 (store level): three independent runs over the frozen real corpus, each in its own fresh store with its own data
+// key, persist byte-identical decrypted rows. The control arm perturbs one input (the scoring clock of run 4) and the
+// comparison must see it, otherwise the comparison would be vacuous.
+func TestStoreLevelDeterminismThreeRuns(t *testing.T) {
+	d1, n := runPipeline(t, now)
+	d2, _ := runPipeline(t, now)
+	d3, _ := runPipeline(t, now)
+	t.Logf("store digests over %d score rows: %s %s %s", n, d1, d2, d3)
+	if n == 0 || d1 != d2 || d2 != d3 {
+		t.Fatalf("store-level runs differ (score rows %d): %s %s %s", n, d1, d2, d3)
+	}
+	if d4, _ := runPipeline(t, now.Add(time.Second)); d4 == d1 {
+		t.Fatal("control: a different scoring clock produced an identical digest, the comparison is blind")
 	}
 }

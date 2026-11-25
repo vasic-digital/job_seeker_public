@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# pre-commit hook: refuses a commit that stages un-normalised evidence (developer home path, checkout path, user/host name,
+# per-run temp dir). Fix: bash scripts/evnorm.sh -w <path> && git add <path>. Skippable only with JSK_SKIP_EVIDENCE_CHECK=1.
+set -u
+[ "${JSK_SKIP_EVIDENCE_CHECK:-0}" = "1" ] && exit 0
+root="$(git rev-parse --show-toplevel)"
+list="$(git diff --cached --name-only --diff-filter=AM -z -- evidence | tr '\0' '\n')"
+[ -n "$list" ] || exit 0
+cd "$root" || exit 1
+mapfile -t arr <<<"$list"
+bash scripts/evnorm.sh -check "${arr[@]}"; rc=$?
+[ "$rc" -eq 0 ] && exit 0
+echo "pre-commit REFUSED: staged evidence is not normalised (rc $rc). Run: bash scripts/evnorm.sh -w <path> and re-add." >&2
+exit 1

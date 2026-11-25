@@ -1,0 +1,17 @@
+--- PASS: TestDecide (0.00s)
+=== RUN   TestLoaderRefusesBadProfiles
+--- PASS: TestLoaderRefusesBadProfiles (0.00s)
+=== RUN   TestLoadDirRefusesOverlapAndMissing
+--- PASS: TestLoadDirRefusesOverlapAndMissing (0.00s)
+=== RUN   TestCheckUploadCountAndBytes
+--- PASS: TestCheckUploadCountAndBytes (0.00s)
+=== RUN   TestMaxCharsBlocksOnlyOverTheLimit
+--- PASS: TestMaxCharsBlocksOnlyOverTheLimit (0.00s)
+=== RUN   TestShippedProfilesNameEveryLimitTheyRely
+--- PASS: TestShippedProfilesNameEveryLimitTheyRely (0.00s)
+=== RUN   TestPageHeadroomWarning
+--- PASS: TestPageHeadroomWarning (0.00s)
+PASS
+ok  	github.com/vasic-digital/job_seeker/internal/ext/ats/profile	0.025s
+OK: page-headroom warning suite green
+PROVE-FAILURE OK: control passes; 4 mutations all rejected

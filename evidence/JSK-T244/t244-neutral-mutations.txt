@@ -1,0 +1,24 @@
+== ext-neutral-panic-is-neutral
+KILLED       ext-neutral-panic-is-neutral
+mutations: 1 genuinely killed of 1
+== ext-neutral-reasonless-passes
+KILLED       ext-neutral-reasonless-passes
+mutations: 1 genuinely killed of 1
+== ext-neutral-unknown-overrides-no
+KILLED       ext-neutral-unknown-overrides-no
+mutations: 1 genuinely killed of 1
+== ext-elig-shadow-strict-inverted
+KILLED       ext-elig-shadow-strict-inverted
+mutations: 1 genuinely killed of 1
+== ext-elig-shadow-nodata-gate-ignored
+
+mutations: 0 genuinely killed of 1
+== ext-elig-equivalent-ignores-stricter
+KILLED       ext-elig-equivalent-ignores-stricter
+mutations: 1 genuinely killed of 1
+== match-hardgates-shadow-not-called
+KILLED       match-hardgates-shadow-not-called
+mutations: 1 genuinely killed of 1
+== ext-elig-shadow-nodata-gate-ignored (pattern indentation fixed, rerun)
+KILLED       ext-elig-shadow-nodata-gate-ignored
+mutations: 1 genuinely killed of 1

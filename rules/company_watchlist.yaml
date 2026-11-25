@@ -2,8 +2,17 @@
 # no employer is ever pre-selected. Slugs are the board token in the employer's public careers URL, e.g.
 #   Greenhouse  https://boards.greenhouse.io/<slug>/jobs/...      Lever  https://jobs.lever.co/<slug>/...
 #   Ashby       https://jobs.ashbyhq.com/<slug>/...
+# Workable/SmartRecruiters/Recruitee/Personio/Teamtailor (JSK-T212) entries also need terms_reviewed: YYYY-MM-DD, the date YOU read that employer's/vendor's terms.
 # Copy company_watchlist.example.yaml for the entry shape. Slug: letters, digits, '_' and '-' only (max 64).
 version: 1
 greenhouse: []
 lever: []
 ashby: []
+workable: []
+smartrecruiters: []
+recruitee: []
+personio: []
+teamtailor: []
+feeds: []
+pages: []
+readthrough: []

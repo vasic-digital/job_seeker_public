@@ -65,13 +65,13 @@ func run(args []string) int {
 	}
 	args = rest
 	if len(args) > 0 && (args[0] == "--help" || args[0] == "-h" || args[0] == "help") {
-		fmt.Println("usage: jsstack [--runner=NAME] probe|port|up|status|logs|down ...")
+		fmt.Println("usage: jsstack [--runner=NAME] probe|port|up|status|logs|down|drill ...")
 		fmt.Println("  --runner=NAME  force the container runner (podman|docker|nerdctl|cri-o|lxd|kubernetes|auto); also --runner NAME")
 		fmt.Println("                 and env CONTAINERS_RUNNER; flag wins. An unknown or not-installed runner is refused (exit 2).")
 		return 0
 	}
 	if len(args) == 0 {
-		fmt.Fprintln(os.Stderr, "usage: jsstack probe|port|up|status|logs|down ...")
+		fmt.Fprintln(os.Stderr, "usage: jsstack probe|port|up|status|logs|down|drill ...")
 		return exitFail
 	}
 	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Minute)
@@ -89,6 +89,8 @@ func run(args []string) int {
 		return cmdLogs(ctx, args[1:])
 	case "down":
 		return cmdDown(ctx, args[1:])
+	case "drill":
+		return cmdDrill(ctx, args[1:])
 	}
 	fmt.Fprintf(os.Stderr, "jsstack: unknown command %q\n", args[0])
 	return exitFail

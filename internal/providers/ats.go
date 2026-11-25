@@ -2,6 +2,7 @@ package providers
 
 import (
 	"fmt"
+	"net/url"
 	"regexp"
 	"strconv"
 	"strings"
@@ -9,7 +10,10 @@ import (
 
 // Tenant is one operator-selected employer board on an ATS (a "board token", Lever "site" or Ashby "board name").
 // Tenants come ONLY from the operator's watchlist (rules/company_watchlist.yaml); no adapter ships a default employer.
-type Tenant struct{ Slug, Name string }
+type Tenant struct {
+	Slug, Name    string
+	TermsReviewed string // YYYY-MM-DD the operator reviewed this employer/vendor's terms; read only by the T212 adapters (empty = never contacted)
+}
 
 // MaxTenants bounds one provider's watchlist (poll cycle length).
 const MaxTenants = 200
@@ -81,3 +85,18 @@ func workMode(s string) string {
 }
 
 var reUUID = regexp.MustCompile(`^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$`)
+
+// Requester is implemented by adapters whose request URL varies (one per watchlist tenant). RequestURLs returns the
+// exact URLs (path and query as sent) the next poll cycle will request, so the robots gate (RFC 9309) judges the real
+// path and not just the host. A tenant whose slug is invalid yields no URL: the adapter would refuse it too.
+type Requester interface{ RequestURLs() []string }
+
+func tenantURLs(ts []Tenant, f func(slug string) string) []string {
+	var out []string
+	for _, t := range ts {
+		if ValidSlug(t.Slug) {
+			out = append(out, f(url.PathEscape(t.Slug)))
+		}
+	}
+	return out
+}

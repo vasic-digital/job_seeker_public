@@ -86,3 +86,17 @@ override does; it weakens no other clause.
   containers only through the Containers dependency (§11.4.76; resolved by `scripts/resolve_deps.sh`, no nested gitlinks).
 - **PR-driven.** Work lands through a task branch, a pull request and an
   independent review; never force-push (§11.4.113).
+
+- **Merged is not delivered until pushed to EVERY upstream (§11.4.299).** After
+  a pull request merges into `main`, the merged `main` is fast-forward pushed to
+  every declared upstream of this repository (every push URL of every remote
+  plus every enabled `upstreams/*.sh` recipe) and read back per upstream with
+  `git ls-remote <upstream> refs/heads/main` before the work is reported done;
+  a partial push is a defect, a blocked push is reported BLOCKED and never
+  bypassed, and force stays forbidden (§11.4.113). A parent that consumes this
+  repository records the new pointer only after the read-back. This repository
+  declares **no** nested gitlink and therefore **no** constitution pin of its
+  own (ADR `docs/decisions/0008-no-nested-gitlinks-resolver.md`); clause (H)
+  ("the constitution submodule is always the latest upstream `main`") is
+  verified from the consuming umbrella with
+  `submodules/constitution/scripts/sync/verify_constitution_latest.sh --root .`.

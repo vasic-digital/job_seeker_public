@@ -12,22 +12,31 @@ import (
 	"github.com/vasic-digital/job_seeker/internal/store"
 )
 
-const opsUsage = `  purge-source <provider>          delete one provider's cached postings and snapshots (application-linked postings kept)
+const opsUsage = resolveUsage + `
+  purge-source <provider>          delete one provider's cached postings and snapshots (application-linked postings kept)
   prune                            run the retention pruner now (90 d postings, 14 d snapshots)
 
   passkeys reset --confirm RESET-PASSKEYS   remove every passkey and session (the bootstrap token then registers a new one)
   restore --file F --to DIR        restore a snapshot into a NEW directory (never the live data directory), verified
-` + trackUsage
+` + trackUsage + "\n" + intakeUsage + "\n" + readJobUsage + "\n" + sigBackfillUsage
 
 // ops dispatches the retention commands; handled is false for any other name.
 func ops(ctx context.Context, args []string, e Env) (rc int, handled bool) {
 	switch args[0] {
 	case "export", "import", "delete-record", "delete-all", "rotate-key", "restore-drill":
 		return privacyCmd(ctx, args[0], args[1:], e), true
+	case "resolve":
+		return resolveCmd(ctx, args[1:], e), true
 	case "passkeys":
 		return passkeysCmd(ctx, args[1:], e), true
 	case "restore":
 		return restoreCmd(ctx, args[1:], e), true
+	case "backfill-signatures":
+		return sigBackfillCmd(ctx, args[1:], e), true
+	case "intake":
+		return intakeCmd(ctx, args[1:], e, os.Stdin), true
+	case "read-job":
+		return readJobCmd(ctx, args[1:], e), true
 	case "track":
 		return trackCmd(ctx, args[1:], e, os.Stdin), true
 	case "purge-source":
@@ -39,7 +48,7 @@ func ops(ctx context.Context, args []string, e Env) (rc int, handled bool) {
 		}
 		name := fs.Arg(0)
 		return withDB(ctx, e, func(db *store.DB, c *config.Config) int {
-			r := &ingest.Runner{DB: db, SnapshotDir: app.SnapshotDir(c)}
+			r := ingest.NewMaintenance(db, app.SnapshotDir(c))
 			res, err := r.PurgeSource(ctx, name, "operator")
 			if err != nil {
 				fmt.Fprintln(e.Err, "purge-source: failed (unknown provider or store error)")
@@ -50,7 +59,7 @@ func ops(ctx context.Context, args []string, e Env) (rc int, handled bool) {
 		}), true
 	case "prune":
 		return withDB(ctx, e, func(db *store.DB, c *config.Config) int {
-			r := &ingest.Runner{DB: db, SnapshotDir: app.SnapshotDir(c)}
+			r := ingest.NewMaintenance(db, app.SnapshotDir(c))
 			res, err := r.Prune(ctx, "operator", ingest.Retention{})
 			if err != nil {
 				fmt.Fprintln(e.Err, "prune: failed")

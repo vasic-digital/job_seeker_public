@@ -1,0 +1,6 @@
+github.com/vasic-digital/job_seeker/internal/ext/knockout: no non-test Go files in <repo>/internal/ext/knockout
+FAIL	github.com/vasic-digital/job_seeker/internal/ext/knockout [build failed]
+FAIL
+# github.com/vasic-digital/job_seeker/internal/draft
+# [github.com/vasic-digital/job_seeker/internal/draft]
+vet: internal/draft/knockout_test.go:47:8: e.svc.Knockout undefined (type *Service has no field or method Knockout)

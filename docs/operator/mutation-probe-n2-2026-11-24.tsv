@@ -1,0 +1,295 @@
+id	class	first_failing_test	cov	secs	first_assertion
+fsm-posting-extra-edge	NOCOV	TestPostingTransitionsExhaustive	NOBLOCK	7.8	fsm_test.go:21: posting discarded -> shortlisted: got true want false
+fsm-application-extra-edge	NOCOV	TestApplicationTransitionsExhaustive	NOBLOCK	6.0	fsm_test.go:61: application withdrawn -> tracked: got true want false
+audit-stale-guard	RELEVANT	TestTransitionWithStaleFromIsRefusedEvenWhenTheEdgeIsLegal	Y	16.8	audit_test.go:350: err=<nil>, want ErrStale
+ratelimit-bucket-empty-allowed	RELEVANT	TestBucketBurstThenRate	Y	5.8	ratelimit_test.go:85: 4th must wait 500ms, got ok=true ra=0s
+audit-chain-prev	RELEVANT	TestVerifyStatesChainAndAnchor	Y	23.4	audit_test.go:163: chain without anchor must be UNVERIFIED with ChainOK, got TAMPERED: chain walk FAILED (3 entries); anchor cross-check FAILED; first inconsist
+limiter-daily-cap-off	RELEVANT	TestDailyCapRemotive4PerDay	Y	9.3	limiter_test.go:98: daily cap: <nil>
+egress-scheme-any	RELEVANT	TestCheckURLDecidesBeforeAnyTransport	Y	6.1	egress_test.go:241: checkURL("http://example.com/x") = <nil>, want ok=false
+store-rollback-commits	RELEVANT	TestTransitionAndAuditRollBackTogether	Y	30.2	atomicity_test.go:131: state change survived a rolled-back transaction
+crypto-aad-drops-row-id	RELEVANT	TestSealOpenRoundTripAndAAD	Y	4.8	crypto_test.go:53: blob opened under wrong AAD {tab:posting col:body_text id:43} (row/column swap attack)
+egress-port-any	RELEVANT	TestCheckURLDecidesBeforeAnyTransport	Y	6.0	egress_test.go:241: checkURL("https://example.com:8443/x") = <nil>, want ok=false
+egress-private-10-allowed	NOCOV	TestResolvedIPDenylist	NOBLOCK	9.8	egress_test.go:114: IP 10.1.2.3 must be denied
+limiter-min-interval-off	RELEVANT	TestMinIntervalRefusalCarriesNextAllowedAt	Y	23.3	limiter_test.go:74: want refusal at 2026-11-24 09:00:00 +0000 UTC, got <nil>
+crypto-version-unchecked	RELEVANT	TestEveryByteFlipIsDetected	Y	5.1	crypto_test.go:73: tamper at byte 0 not detected
+redact-jwt-not-scrubbed	RELEVANT	TestJWTAndAliasKeys	Y	4.4	redact_test.go:138: canary "CANARY-TOKEN-5e5e" leaked into log output:
+redact-email-not-scrubbed	RELEVANT	TestEmailAndPhoneMasked	Y	3.5	redact_test.go:80: canary "CANARY-MAIL-4242" leaked into log output:
+api-cross-site-allowed	RELEVANT	TestOriginAndFetchMetadata	Y	14.5	security_test.go:174: POST cross-site: 200 want 403
+api-host-allowlist-open	RELEVANT	TestSecurityChainAppliesToEveryRoute	Y	17.1	router_test.go:160: host allow-list must protect healthz too, got 200
+store-fk-pragma-off	RELEVANT	TestPositionApplyLockIsDatabaseEnforced	Y	22.2	position_schema_test.go:120: lock not released when its application is deleted
+auth-bootstrap-never-closes	RELEVANT	TestBootstrapRequiresTokenAndZeroPasskeys	Y	13.6	auth_test.go:119: begin after bootstrap: cr=true id="BOTmylQ2AS4fzyp07sCfawxx0m779clOnNeWYbM0PsE" err=<nil>
+tracker-any-state-accepted	RELEVANT	TestRecordTransitionsAuditsSealsNoteAndRejectsBadInput	Y	12.5	tracker_test.go:114: untracked-state app: audit: illegal state transition: application awaiting_human_approval -> tracked
+privacy-within-allows-root	RELEVANT	TestWithinNeverTreatsTheRootAsInsideItself	Y	40.9	delete_test.go:159: within(root, "<TMP>/TestWithinNeverTreatsTheRootAsInsideItself1152226283/001") = true, want false
+ingest-dup-threshold-zero	RELEVANT	TestCrossProviderDuplicateAtThreshold	Y	18.4	ingest_test.go:193: {RunID:2 Provider:bbb Requests:1 OK:1 Errors:0 New:4 Updated:0 Unchanged:0 Dups:2 SkipClasses:map[] Err:<nil>} <nil>
+tracker-bad-status-accepted	RELEVANT	TestRecordTransitionsAuditsSealsNoteAndRejectsBadInput	Y	10.0	tracker_test.go:109: want tracker: status not in the closed vocabulary got constraint failed: CHECK constraint failed: status IN ('sent','viewed','replied','int
+templates-hash-unchecked	RELEVANT	TestHashPinning	Y	6.7	templates_test.go:92: resolve after tamper: <nil>
+jobops-noop-claims-implemented	RELEVANT	TestNoOpEveryCallIsExplicitNotConfigured	Y	4.2	jobops_test.go:17: NoOp must report IsImplemented() == false
+jobops-mark-applied-allowed	RELEVANT	TestMarkAppliedNeverSucceeds	Y	3.2	jobops_test.go:35: MarkApplied err = <nil>, want ErrNotSupported
+llm-advisory-flag-flipped	RELEVANT	TestAcceptedInsideTop3WithEnoughConfidence	Y	10.7	tiebreak_test.go:99: got {Outcome:accepted Area:go Confidence:0.9 Advisory:false Reason:ok RequestID:req-123 ModelID:jev-test-1 Usage:[123 34 116 111 116 97 108
+certs-loose-key-mode-accepted	RELEVANT	TestCheckProblems	Y	4.8	certs_test.go:103: Load accepted a group/world-readable key
+config-secret-printable	RELEVANT	TestSecretNeverPrints	Y	5.3	config_test.go:70: secret leaked via formatting: "CANARY-9f3a1c-do-not-leakssssssssssssssssssssssssssssss"
+config-secret-marshals-plaintext	RELEVANT	TestSecretNeverSerializesAsPlaintext	Y	4.4	fmt_test.go:20: secret serialized as {"K":"CANARY-9f3a1c-do-not-leak"}
+buildinfo-unstamped-claims-stamped	RELEVANT	TestUnstampedIsHonest	Y	4.1	buildinfo_test.go:8: unstamped build must say so, got {Version: Commit: Dirty:false Stamped:true DirtyKnown:false}
+privacy-draft-confinement-off	RELEVANT	TestRemoveDraftFileRefusesHostilePathRefs	Y	31.3	hardening_test.go:238: hostile path_ref "<TMP>/TestRemoveDraftFileRefusesHostilePathRefs802151023/001/js.db" was deleted
+providers-script-content-kept	NOCOV	TestAshbyMalformedHostileAndClasses	NOBLOCK	27.6	ashby_test.go:74: injection survived "Evil" "alert(1)\n\nhi\n\nl"
+boot-secret-mode-mask	RELEVANT	TestSeededViolationsFailClosed	Y	22.1	boot_test.go:167: secret_file_modes: boot succeeded despite the violation:
+careersnap-areas-drift-ignored	RELEVANT	TestDriftDetectsChangeAndRendersStably	Y	5.6	careersnap_test.go:52: drift not detected: []
+app-anchor-path	RELEVANT	TestJobsRunForReal	Y	39.0	jobs_test.go:42: verify: UNVERIFIED: chain walk OK (3 entries); anchor cross-check NOT POSSIBLE (no anchor); anchor file unreadable
+boot-live-mode-must-be-off	RELEVANT	TestHealthyBootPassesAndPrintsEveryInvariant	Y	32.5	boot_test.go:89: healthy boot failed:
+designsync-hash-drift	RELEVANT	TestDriftModesDetected	Y	5.0	designsync_test.go:42: edited drift not detected
+i18n-missing-key-marker	RELEVANT	TestEnglishLoadsAndFallsBack	Y	3.7	i18n_test.go:26: missing key must be visible: ""
+i18n-english-fallback	RELEVANT	TestEnglishLoadsAndFallsBack	Y	3.5	i18n_test.go:23: missing language must fall back to English
+console-killoff-needs-stepup	RELEVANT	TestKillSwitchOffNeedsStepUpOnDoesNot	Y	28.5	settings_session_test.go:201: OFF without step-up must be refused and leave the switch on: 303
+console-liveon-needs-stepup	RELEVANT	TestLiveModeOnNeedsStepUpOffDoesNot	Y	24.4	settings_session_test.go:214: ON without step-up must be refused: 303 live=true
+metrics-label-closed-set	RELEVANT	TestUnknownLabelValuesCollapseToOther	Y	3.3	metrics_test.go:17: a personal value leaked into the exposition:
+metrics-path-only-metrics	RELEVANT	TestHandlerServesOnlyMetrics	Y	2.6	metrics_test.go:32: /: 200 want 404
+matchstore-human-mapping-final	RELEVANT	TestReviewQueueAndAuditedHumanMapping	Y	17.0	matchstore_test.go:199: already-mapped posting re-queued: <nil>
+server-no-0rtt	RELEVANT	TestZeroRTTDisabled	Y	7.1	server_test.go:215: 0-RTT must be disabled (replay of non-idempotent POSTs)
+matchstore-illegal-area	RELEVANT	TestReviewQueueAndAuditedHumanMapping	Y	17.2	matchstore_test.go:204: illegal area accepted: <nil>
+server-alt-svc-advertised	RELEVANT	TestTCPServesH2AndAdvertisesAltSvc	Y	7.6	server_test.go:81: Alt-Svc "" want "h3=\":46277\"; ma=86400"
+jsctl-unverified-not-a-pass	RELEVANT	TestVerifyAuditExitCodes	Y	32.8	ops_test.go:103: no anchor: rc=0 out=migrate: schema version 5 (binary expects 5)
+pipeline-killswitch-before-fetch	RELEVANT	TestKillSwitchSkipsFetchBeforeLimiter	Y	15.0	pipeline_test.go:170: err <nil>
+pipeline-score-only-mapped	RELEVANT	TestInjectClassifiesScoresAndQueues	Y	13.3	pipeline_test.go:115: expected both a mapped and a queued posting, every mapped one scored: {Seen:3 Mapped:2 Queued:1 Scored:3 Skipped:0}
+draft-gate-recheck-off	RELEVANT	TestHandoffRechecksHardGatesAndClosure	Y	77.3	guards_test.go:192: err <nil> want ErrGateRegressed
+draft-closed-posting-allowed	RELEVANT	TestHandoffRechecksHardGatesAndClosure	Y	73.5	guards_test.go:200: err <nil> want ErrPostingClosed
+match-blocked-company-gate-off	RELEVANT	TestHandoffRechecksHardGatesAndClosure	Y	77.5	guards_test.go:192: err <nil> want ErrGateRegressed
+draft-company-guard-off	RELEVANT	TestCompanyDuplicateRefusedAndAudited	Y	74.6	company_test.go:41: err audit: evidence must be ids and hashes only want ErrDuplicateCompany
+draft-company-legal-suffix-kept	RELEVANT	TestNormCompany	Y	74.5	company_test.go:16: "Acme GmbH" and "acme" must normalise equal: "acme gmbh" "acme"
+draft-company-window-ignored	RELEVANT	TestCompanyDuplicateRefusedAndAudited	Y	70.7	company_test.go:41: err <nil> want ErrDuplicateCompany
+draft-company-override-open	RELEVANT	TestCompanyDuplicateOverrideNeedsClosedReasonAndIsAudited	Y	65.4	company_test.go:59: override "because i said so": err audit: evidence must be ids and hashes only
+draft-pin-content-fallback-off	RELEVANT	TestPostingBodyChangeIsDetectedWithoutRawSHA	Y	67.6	guards_test.go:236: err <nil>
+jsk016-slug-regex	NOCOV	TestAshbyTenantsEmptyAndBadSlug	NOBLOCK	25.5	ashby_test.go:99: unvalidated slug reached the URL
+jsk016-gh-unescape	RELEVANT	TestGreenhouseTranslatesGolden	Y	15.9	greenhouse_test.go:46: body: "pBuild strongservices/strong in Go./pulligRPC/liliSQL/li/ul"
+jsk016-gh-https-only	RELEVANT	TestGreenhouseMalformedAndHostile	Y	13.6	greenhouse_test.go:117: postings=3 skipped=[{missing_field 0} {malformed 3} {missing_field 4} {missing_field 5}]
+jsk016-pick-validates-slug	RELEVANT	TestAshbyTenantsEmptyAndBadSlug	Y	16.3	ashby_test.go:99: unvalidated slug reached the URL
+ext-combine-empty-is-yes	RELEVANT	TestEvaluateFailsClosed	Y	13.1	policy_test.go:46: empty rule set must be Unknown
+ext-panic-not-fail-closed	RELEVANT	TestEvaluateFailsClosed	Y	11.5	policy_test.go:43: panic not fail-closed: {Verdict:yes Trail:[{RuleID:yes Version:1 Decision:{Verdict:yes Reasons:[]}} {RuleID:boom Version:0.0.1 Decision:{Verd
+ext-locked-gate-switchable	RELEVANT	TestCheckMatrixLockedGatesNeverOff	Y	14.2	policy_load_test.go:104: resolver must ignore the provider's attempt: policy: locked gate eligibility/remote_mode resolves off for scope provider="himalayas" at
+ext-registry-duplicate-accepted	RELEVANT	TestRegistryOrderDuplicateAndDefaults	Y	6.2	registry_test.go:24: duplicate accepted
+ext-active-gates-empty-ok	RELEVANT	TestActiveGatesRefusesEmpty	Y	7.3	kernel_extra_test.go:63: a gate port with zero active plugins must fail closed
+position-ats-enable-all	RELEVANT	TestDefaultTableIsValid	Y	137.3	ats_test.go:30: pattern 1 (greenhouse) is enabled but no real capture matches it
+position-ats-validate-captures	RELEVANT	TestValidateRefusesEnabledPatternWithoutCapture	Y	135.0	ats_test.go:52: enabling workable without a real capture was accepted
+ext-channel-direct-send-allowed	RELEVANT	TestChannelVetRejectsDirectSend	Y	6.8	registry_test.go:73: direct_send channel registered
+position-ats-apply-suffix	RELEVANT	TestRealCapturesExtract	Y	137.2	ats_test.go:18: https://jobs.lever.co/leverdemo/ad208490-4052-4f91-a57e-433f2d1e484b/apply: got {Kind: Tenant: JobID:} ok=false, want lever/leverdemo/ad208490-4
+ext-approved-hash-unchecked	RELEVANT	TestApprovedCannotBeForged	Y	5.9	registry_test.go:59: hash mismatch accepted
+ext-reason-vocab-open	RELEVANT	TestConformanceRejectsOffVocabularyCode	Y	7.6	conformance_test.go:38: a reason code outside the closed vocabulary passed conformance
+position-fsm-merged-not-terminal	NOCOV	TestPositionStatesAndEdges	NOBLOCK	2.9	fsm_test.go:121: PositionCan(merged,open)=true want false
+position-link-current-unindexed	NOCOV	TestPositionLinkSingleCurrentAndConstraintOrdering	NOBLOCK	11.0	position_schema_test.go:92: expected failure (second current link for one listing): INSERT INTO position_link(listing_id,position_id,decision,score,features_jso
+ext-combine-out-of-range-passes	RELEVANT	TestEvaluateFailsClosed	Y	11.6	policy_test.go:43: panic not fail-closed: {Verdict:yes Trail:[{RuleID:yes Version:1 Decision:{Verdict:yes Reasons:[]}} {RuleID:boom Version:0.0.1 Decision:{Verd
+position-apply-lock-not-pk	NOCOV	TestPositionApplyLockIsDatabaseEnforced	NOBLOCK	9.5	position_schema_test.go:117: expected failure (second lock for the same Position): INSERT INTO position_apply_lock(position_id,listing_id,application_id) VALUES
+position-state-vocab-drift	NOCOV	TestPositionStateVocabularyMatchesFSM	NOBLOCK	10.6	position_schema_test.go:56: position CHECK [expired open] != fsm [expired merged open]
+jsk016-lever-https-only	RELEVANT	TestLeverMalformedHostileAndClasses	Y	9.4	lever_test.go:71: <nil> postings=2 skipped=[{missing_field 0} {missing_field 1} {malformed 3} {missing_field 4}]
+jsk016-lever-uuid	RELEVANT	TestLeverMalformedHostileAndClasses	Y	10.1	lever_test.go:71: <nil> postings=2 skipped=[{missing_field 1} {bad_url 2} {malformed 3} {missing_field 4}]
+jsk016-lever-salary-sane	RELEVANT	TestLeverMalformedHostileAndClasses	Y	8.7	lever_test.go:75: absurd/unknown salary must be dropped, never guessed: {ProviderName:lever ProviderJobID:a/ad208490-4052-4f91-a57e-433f2d1e484d URL:https://job
+jsk016-ashby-salary-sane	RELEVANT	TestAshbyMalformedHostileAndClasses	Y	10.9	ashby_test.go:77: overflowed salary: {ProviderName:ashby ProviderJobID:a/7458d4e9-da2e-47bd-98cb-adfda43d42b5 URL:https://jobs.ashbyhq.com/a/y SourceURL:https:/
+jsk016-ashby-unlisted	RELEVANT	TestAshbyMalformedHostileAndClasses	Y	13.8	ashby_test.go:70: <nil> postings=2 skipped=[{missing_field 0} {missing_field 1} {bad_url 2} {malformed 4} {missing_field 5}]
+jsk016-ashby-https-only	RELEVANT	TestAshbyMalformedHostileAndClasses	Y	13.8	ashby_test.go:70: <nil> postings=2 skipped=[{missing_field 0} {missing_field 1} {unlisted 3} {malformed 4} {missing_field 5}]
+jsk016-ashby-uuid	RELEVANT	TestAshbyMalformedHostileAndClasses	Y	15.6	ashby_test.go:70: <nil> postings=2 skipped=[{missing_field 1} {bad_url 2} {unlisted 3} {malformed 4} {missing_field 5}]
+ext-policy-unknown-plugin-accepted	RELEVANT	TestLoadPolicyRejects	Y	6.5	policy_load_test.go:76: unknown plugin key: accepted
+ext-policy-locked-off-ignored	RELEVANT	TestCheckMatrixLockedGatesNeverOff	Y	6.3	policy_load_test.go:113: locked gate left off by default passed Check
+ext-policy-gate-port-empty-ok	RELEVANT	TestMissingPolicyMeansNoGateEnabled	Y	6.4	policy_load_test.go:88: a deployment without a policy must fail Check: every gate port is empty
+ext-policy-schema-unchecked	RELEVANT	TestLoadPolicyRejects	Y	7.2	policy_load_test.go:76: unknown schema: accepted
+ext-settings-bad-value-accepted	RELEVANT	TestOperatorLayerFromSettings	Y	6.2	policy_load_test.go:135: map[ext.eligibility.remote_mode.enabled:yes] accepted
+ext-verdictstore-forged-reason-accepted	RELEVANT	TestForgedReasonRefused	Y	12.9	verdictstore_test.go:74: private-looking reason ref accepted
+ext-verdictstore-stale-usable	RELEVANT	TestStalenessNeverApproves	Y	12.9	verdictstore_test.go:115: a stale Yes was usable for approval
+ext-verdictstore-ruleset-ignored	RELEVANT	TestStalenessNeverApproves	Y	12.7	verdictstore_test.go:112: ruleset change not detected
+ext-verdictstore-no-flip	RELEVANT	TestRecordFlipsIsCurrentAndKeepsHistory	Y	13.1	verdictstore_test.go:55: constraint failed: UNIQUE constraint failed: ext_verdict.subject_kind, ext_verdict.subject_id, ext_verdict.stage, ext_verdict.plugin_ki
+jsk016-hn-top-level-only	RELEVANT	TestHNHeaderShapeGuards	Y	9.7	hn_test.go:200: a well-formed header in a REPLY must be skipped, got ""
+jsk016-hn-seeker-skip	RELEVANT	TestHNHeaderShapeGuards	Y	9.7	hn_test.go:203: a seeker's post parsed as a job
+ext-verdictstore-nonyes-no-reason	RELEVANT	TestNonYesWithoutReasonRefused	Y	12.2	verdictstore_test.go:92: unknown without reason accepted
+jsk016-hn-thread-author	RELEVANT	TestHNRefusesWrongThreadAndMalformed	Y	7.8	hn_test.go:131: wrong author: <nil>
+jsk016-hn-cursor-bound	RELEVANT	TestHNCursorBoundMakesNoRequest	Y	9.5	hn_test.go:218: err=providers: schema status=200: envelope has no hits array calls=[/api/v1/search_by_date?tags=comment,story_1&hitsPerPage=100&page=5]
+jsk016-hn-https-apply	RELEVANT	TestHNHeaderShapeGuards	Y	8.0	hn_test.go:207: userinfo link accepted as apply url: "https://user:pw@evil.example/x"
+jsk016-hn-salary-bound	RELEVANT	TestHNParserMatchesLabelledGold	Y	11.1	hn_test.go:64: 90000007: class="" got {ProviderName:hackernews ProviderJobID:90000007 URL:https://news.ycombinator.com/item?id=90000007 SourceURL:https://news.y
+ext-elig-onsite-outside-passes	RELEVANT	TestRemoteModeConformance	Y	15.6	eligibility_test.go:40: onsite outside: verdict yes want no
+ext-elig-unknown-mode-yes	RELEVANT	TestRemoteModeConformance	Y	13.0	eligibility_test.go:40: empty mode is unknown: verdict yes want unknown
+ext-elig-blocked-inverted	RELEVANT	TestOtherRulesConformance	Y	16.9	eligibility_test.go:73: blocked: verdict yes want no
+ext-elig-salary-inverted	RELEVANT	TestOtherRulesConformance	Y	13.5	eligibility_test.go:79: below: verdict yes want no
+ext-elig-no-overlay-yes	RELEVANT	TestRemoteModeConformance	Y	9.6	eligibility_test.go:40: no overlay is unknown: verdict yes want unknown
+ext-elig-region-case-sensitive	RELEVANT	TestOtherRulesConformance	Y	14.3	eligibility_test.go:67: intersect: verdict no want yes
+jsk016-jsonld-block-cap	RELEVANT	TestJSONLDBoundsWork	Y	16.9	jsonld_test.go:75: 500 blocks processed
+jsk016-ba-ref-shape	RELEVANT	TestBundesagenturFailsClosed	Y	8.3	bundesagentur_test.go:94: <nil> 3 [{missing_field 2} {malformed 3} {missing_field 4}]
+jsk016-ba-https-apply	RELEVANT	TestBundesagenturFailsClosed	Y	7.4	bundesagentur_test.go:97: unsafe externeUrl accepted: ""
+ext-kw-symbols-split	RELEVANT	TestWordBoundaryTable	Y	7.2	keyword_test.go:41: "C++ and C# shop" vs "C": hits 1 want 0
+ext-kw-multiword-first-token	RELEVANT	TestWordBoundaryTable	Y	4.7	keyword_test.go:41: "Amazon Web Services experience" vs "Amazon Web Services": hits 0 want 1
+match-lang-persian-vs-arabic	RELEVANT	TestDetectsAllFifteenTemplateLanguages	Y	4.6	lang15_test.go:32: fa: got ar conf 0.90
+templates-gate-unchecked	RELEVANT	TestCheckRefusesStaleForeignOrUnstamped	Y	55.8	fresh_test.go:107: err <nil> want ErrTemplatesStale cause gate
+templates-overlay-unchecked	RELEVANT	TestCheckRefusesStaleForeignOrUnstamped	Y	61.7	fresh_test.go:107: err <nil> want ErrTemplatesStale cause overlay
+ext-jsonld-type-unchecked	RELEVANT	TestConformance	Y	5.7	jsonld_test.go:74: onsite inside html @graph: {ProviderName:jsonld ProviderJobID: URL: SourceURL: ApplyURL: Title: Company: LocationRaw: RawSHA256: SalaryPeriod
+draft-lang-threshold-loosened	NOCOV	TestMinLangConfEqualsDetectorThreshold	NOBLOCK	69.5	language_test.go:61: minLangConf 0.6 detector 0.8
+draft-lang-silent-fallback	RELEVANT	TestPrepareAsksWhenLanguageUndeterminedOverRealText	Y	76.2	lang_flow_test.go:27: expected confirm_fallback with the English proposal
+position-structured-countries-ignored	RELEVANT	TestRemoteScopeParseAndCompat	Y	137.3	normalize_test.go:145: structured countries ignored: {Mode:remote Countries:[DE RS] City: Worldwide:true}
+position-mirror-dup-of-null	RELEVANT	TestBackfillFromLegacyDupOf	Y	36.7	backfill_test.go:42: dup_of mirror changed
+position-resolver-bridge-ignores-cannot-link	RELEVANT	TestBridgeRefusedAcrossCannotLink	Y	131.1	resolver_test.go:348: resolve 3: position: a cannot_link constraint crosses the two Positions
+ext-openurl-http-accepted	RELEVANT	TestNothingWithoutApproval	Y	7.1	openurl_test.go:29: accepted "http://insecure.example/"
+privacy-delete-all-keeps-employers	RELEVANT	TestDeleteAllEmptiesPositionLayer	Y	42.3	position_test.go:150: employer still holds 2 rows after delete-all
+position-merge-busy-guard-off	RELEVANT	TestDecideMergeBlockedWhileLiveApproved	Y	138.0	candidates_test.go:110: <nil>
+ingest-purge-no-position-prune	RELEVANT	TestPruneAndPurgeSourceRemoveOrphanPositionLayer	Y	20.4	retention_test.go:180: after purge: positions=2 employers=2
+position-prune-employer-policy-ignored	RELEVANT	TestDeletePostingPrunesOrphanPositionsAndEmployers	Y	34.5	position_test.go:135: positions left: 0
+position-backfill-chain-unflattened	RELEVANT	TestBackfillFromLegacyDupOf	Y	134.2	backfill_test.go:33: {Created:3 Attached:0 Positions:3}
+draft-cover-date-unchecked	RELEVANT	TestLiveApprovalCoverChecks	Y	85.5	cover_test.go:85: err <nil> want ErrCoverStale (date_stale)
+draft-cover-company-unchecked	RELEVANT	TestLiveApprovalCoverChecks	Y	84.8	cover_test.go:85: err <nil> want ErrCoverStale (company)
+templates-slot-unknown-passes	RELEVANT	TestFillSubstitutesTypedSlotsOnly	Y	3.6	slots_test.go:22: "{{salary}}" leaked through Fill: "Hello {{salary}}"
+pipeline-bad-body-recounted	RELEVANT	TestUnreadableBodyIsReportedOnceNotEveryPass	Y	16.0	pipeline_test.go:308: second pass must not re-report or re-count it: {Seen:1 Mapped:0 Queued:0 Scored:0 Skipped:0} <nil>
+draft-cover-placeholder-unchecked	RELEVANT	TestLiveApprovalCoverChecks	Y	81.8	cover_test.go:93: evidence "{\"cause\":\"company\",\"draft_hash\":\"2605f5886a34297c7d265546f9c7cd7e631195cdc46f2923b9f22a3594cfa82e\"}" lacks "cause":"placehol
+ext-compose-subject-precedence	RELEVANT	TestChannelCreatesDraftForApprovedMailtoAndHumanSends	Y	12.1	smtpcompose_test.go:310: subject/to "Application: ignored" "jobs@example.test"
+ext-compose-attachment-name-unchecked	RELEVANT	TestBuildRefusesHeaderInjection	Y	11.4	smtpcompose_test.go:178: filename crlf: accepted
+ext-compose-error-wraps-cause	RELEVANT	TestTransportErrorsDoNotCarryURLs	Y	10.7	smtpcompose_test.go:341: error leaks "not-allowed.example.org": smtpcompose: draft request failed: Post "https://not-allowed.example.org/secret/path?token=abc":
+ext-pdflinks-error-is-yes	RELEVANT	TestDecideFailsClosed	Y	11.5	pdflinks_test.go:65: any other error must be Unknown: {Verdict:yes Reasons:[]}
+ext-parsersim-size-unbounded	RELEVANT	TestOversizeInputRefusedAndTempCleaned	Y	13.0	parsersim_test.go:76: oversize accepted
+ext-pdflinks-block-ignored	RELEVANT	TestDecideFailsClosed	Y	17.1	pdflinks_test.go:56: block finding: {Verdict:yes Reasons:[]}
+ext-parsersim-pdfinfo-url-ignored	RELEVANT	TestLinksOverEmptySpaceAreStillSeen	Y	12.3	parsersim_test.go:115: uri over nothing: URI link over empty space not reported: []
+ext-parsersim-newline-href-dropped	NOCOV	TestParseAnchorsMultiLine	NOBLOCK	10.5	parsersim_test.go:191: [{Scheme: Target: Label:Launch}]
+ext-pdflinks-actions-ignored	RELEVANT	TestDangerousActionsAndIncompleteScan	Y	7.6	pdflinks_test.go:100: hidden GoToR must block: {Verdict:yes Reasons:[]}
+ext-scan-decodeparms-ignored	RELEVANT	TestStructScanNeverSilentlySkips	Y	10.4	parsersim_test.go:226: predictor: a stream that cannot be decoded exactly must be Incomplete, got {Actions:[Launch] Incomplete:false}
+ext-scan-multi-header-region-accepted	RELEVANT	TestStructScanNeverSilentlySkips	Y	10.2	parsersim_test.go:253: two headers in one region must be Incomplete: {Actions:[] Incomplete:false}
+ext-scan-name-escapes-ignored	RELEVANT	TestStructScanNeverSilentlySkips	Y	11.1	parsersim_test.go:269: escaped action name: {Actions:[] Incomplete:false}
+match-lang-decoy-wins-as-template	RELEVANT	TestUnsupportedLanguageIsNotMistakenForATemplateLanguage	Y	6.5	lang15_test.go:56: unsupported language accepted as it (0.94)
+ext-source-foreign-fetcher-allowed	RELEVANT	TestForeignFetcherRefused	Y	12.8	legacy_test.go:86: a foreign fetcher drove a legacy provider
+draft-hash-date-dropped	RELEVANT	TestDraftHashCoversTheDraftDate	Y	98.2	cover_test.go:150: drafts of two different days share one hash
+ext-source-skip-class-dropped	RELEVANT	TestWrapIsIdenticalToTheBareProvider	Y	9.2	legacy_test.go:59: skipped map[malformed:1 missing_field:1] vs map[malformed:2 missing_field:1]
+ext-gmail-endpoint-scheme-unchecked	RELEVANT	TestEndpointMustBeHTTPS	Y	13.3	smtpcompose_test.go:364: endpoint "http://127.0.0.1:39753/gmail/v1/users/me/drafts" was accepted
+ext-scan-endobj-name-counts	RELEVANT	TestStructScanEndobjIsATokenNotASubstring	Y	18.8	parsersim_test.go:294: name containing endobj: the object was not scanned exactly: {Actions:[] Incomplete:true}
+ext-scan-xref-name-exempts	RELEVANT	TestStructScanXRefNameIsNotAnExemption	Y	15.2	parsersim_test.go:311: stray /XRef hid the action: {Actions:[] Incomplete:false}
+ext-ats-unknown-check-allowed	RELEVANT	TestLoaderRefusesBadProfiles	Y	13.6	profile_test.go:226: unknown check accepted
+ext-ats-port-in-host-allowed	RELEVANT	TestLoaderRefusesBadProfiles	Y	13.3	profile_test.go:226: host is url accepted
+ext-deliver-spf-multiple-allowed	RELEVANT	TestEachLegFailureIsNotYes	Y	13.5	deliver_test.go:164: spf two records: got no [mail_spf_weak], want no [mail_spf_invalid]
+ext-deliver-spf-weak-accepted	RELEVANT	TestEachLegFailureIsNotYes	Y	11.4	deliver_test.go:164: spf neutral all: got yes [], want no [mail_spf_weak]
+ext-deliver-dkim-missing-is-yes	RELEVANT	TestEachLegFailureIsNotYes	Y	15.9	deliver_test.go:164: dmarc quarantine ok but dkim missing: got yes [], want no [mail_dkim_missing]
+ext-track-overdue-off-by-one	RELEVANT	TestOverdue	Y	10.3	track_test.go:155: 2026-11-15 00:00:00 +0000 UTC 14
+ext-track-busy-not-skipped	RELEVANT	TestStalledHookIsNotStackedAcrossEvents	Y	10.0	track_test.go:198: calls=5 faults=map[timeout:5]
+position-policy-employer-window-ignored	RELEVANT	TestEmployerPolicyLimits	Y	135.1	policy_test.go:253: max_per_window ignored: <nil>
+ext-comp-tos-unreviewed-passes	RELEVANT	TestProviderTOS	Y	11.1	compliance_test.go:113: never reviewed: {Verdict:no Reasons:[{Code:tos_changed Refs:map[provider:remotive]}]}
+ext-comp-body-uncapped	RELEVANT	TestHostileWildcardPatternIsLinear	Y	7.6	compliance_test.go:158:
+ext-comp-path-uncapped	RELEVANT	TestVersionedRobotsUAAndBoundedWork	Y	7.3	compliance_test.go:191: an over-long path must be refused
+position-policy-lock-not-single	RELEVANT	TestSingleAutoChoosesBestRankedCapableListing	Y	152.7	policy_test.go:130: position: another application exists for this Position and was not acknowledged
+ext-comp-truncated-disallow-skipped	RELEVANT	TestVersionedRobotsUAAndBoundedWork	Y	10.7	compliance_test.go:195: a truncated Disallow must still block
+ext-track-no-timeout	RELEVANT	TestDispatcherIsolatesErrorPanicAndStall	Y	128.8	track_test.go:43: a stalled hook delayed the caller by 2.005767125s
+draft-pdf-block-ignored	RELEVANT	TestBlockFindingRefusesApproval	Y	87.7	pdfcheck_test.go:60: live=false err <nil> res {State:dry_run_recorded WouldSend:[123 34 97 112 112 108 105 99 97 116 105 111 110 95 105 100 34 58 49 44 34 97 11
+draft-pdf-verdict-not-recorded	RELEVANT	TestPrepareStoresPDFVerdict	Y	96.4	pdfcheck_test.go:43: worst verdict of the two files must be stored: []
+draft-pdf-worst-inverted	RELEVANT	TestPrepareStoresPDFVerdict	Y	96.7	pdfcheck_test.go:43: worst verdict of the two files must be stored: [{SubjectKind:application SubjectID:1 Stage:draft PluginKind:render PluginID:pdf_links Plugi
+ext-deliver-spf-version-prefix	RELEVANT	TestEachLegFailureIsNotYes	Y	10.3	deliver_test.go:164: spf version prefix: got no [mail_spf_weak], want no [mail_spf_missing]
+ext-deliver-spf-early-all-ignored	RELEVANT	TestEachLegFailureIsNotYes	Y	12.0	deliver_test.go:164: spf all before final: got no [mail_spf_invalid], want no [mail_spf_weak]
+ext-deliver-dmarc-version-prefix	RELEVANT	TestEachLegFailureIsNotYes	Y	8.1	deliver_test.go:164: dmarc version prefix: got yes [], want no [mail_dmarc_missing]
+ext-deliver-dkim-test-mode-ok	RELEVANT	TestEachLegFailureIsNotYes	Y	8.3	deliver_test.go:164: dkim test mode: got yes [], want no [mail_dkim_missing]
+ext-deliver-doh-truncated-ok	RELEVANT	TestEachLegFailureIsNotYes	Y	18.4	deliver_test.go:164: truncated answer: got no [mail_spf_weak], want unknown [mail_lookup_failed]
+ext-deliver-spf-invalid-term-ok	RELEVANT	TestEachLegFailureIsNotYes	Y	19.5	deliver_test.go:164: spf unknown mech: got yes [], want no [mail_spf_invalid]
+ext-deliver-spf-v4-min-prefix-zero	NOCOV	TestEachLegFailureIsNotYes	NOBLOCK	11.2	deliver_test.go:164: spf open ip4: got yes [], want no [mail_spf_weak]
+ext-deliver-dkim-unknown-k-ok	RELEVANT	TestNegatedSPFAndWrongKeyTypeAreNotYes	Y	11.3	deliver_test.go:365: v=DKIM1; k=foo; p=MIGfMA0GCSqGSIb3DQEBAQ...: got yes [], want no
+ext-elig-tz-offset-sign	RELEVANT	TestTimezoneConformance	Y	11.9	more_test.go:57: exactly the minimum overlap: verdict no want yes
+draft-hours-weekend-ignored	RELEVANT	TestBusinessHoursWarning	Y	90.3	handoff_hygiene_test.go:94: warnings [risk:apply_host_unrelated] want outside_business_hours=true
+ext-elig-tz-wrap-ignored	RELEVANT	TestTimezoneConformance	Y	9.4	more_test.go:57: operator window wraps midnight (22-06 vs UTC+9 = 00-08 UTC, 6h): verdict no want yes
+ext-scan-slash-endobj-name-counts	RELEVANT	TestStructScanSlashEndobjNameInMalformedDictionary	Y	10.8	parsersim_test.go:336: name between keys: a /endobj name was taken for the end of an object: {Actions:[] Incomplete:true}
+templates-downloadname-kind-case	RELEVANT	TestDownloadNameBuildsSafeASCIIName	Y	96.5	downloadname_test.go:17: got "Zoe-Angstrom_cv_Senior-Go-Engineer_20261124.pdf" ok=true
+t203-arbeitnow-remote-flag-ignored	RELEVANT	TestArbeitnowTranslatesAndAttributes	Y	11.7	arbeitnow_jobicy_test.go:34: {ProviderName:arbeitnow ProviderJobID:backend-engineer-examplecorp-gmbh-900001 URL:https://www.arbeitnow.com/jobs/companies/example
+t203-jobicy-bad-url-accepted	RELEVANT	TestJobicyTranslatesAndAttributes	Y	9.2	arbeitnow_jobicy_test.go:84: postings=3 skipped=[]
+ext-txt-verify-ignores-text	RELEVANT	TestVerifyCatchesAWrongRendering	Y	7.7	txt_test.go:99: a rendering that drops text must fail the gate
+ext-txt-trim-not-checked	RELEVANT	TestInvalidModelsAreRefusedNotRepaired	Y	8.2	txt_test.go:65: body padded: err=<nil> wrote=5
+ext-txt-control-allowed	RELEVANT	TestInvalidModelsAreRefusedNotRepaired	Y	6.3	txt_test.go:65: body NUL: err=<nil> wrote=5
+ext-txt-size-uncapped	RELEVANT	TestOversizeIsRefused	Y	6.7	txt_test.go:93: over MaxBytes must refuse
+ext-txt-empty-model-ok	RELEVANT	TestValidateRefusesEmptyModelDirectly	Y	6.3	txt_test.go:151: an empty model carries no document
+ext-txt-equal-ignores-lines	RELEVANT	TestEqualComparesBodyLines	Y	6.1	txt_test.go:159: Equal must compare line text
+draft-risk-hard-demoted	RELEVANT	TestHardFlagsAreTheMoneyAndIdentityOnes	Y	83.7	risk_test.go:74: pay_to_apply must be hard
+t209-busy-code-wrong	RELEVANT	TestMergeAndSplitRefusedWhileLiveApproved	Y	25.8	merges_test.go:102: merge 409
+t209-merge-keeps-higher-id	RELEVANT	TestDecideMergeKeepApartSkip	Y	128.2	candidates_test.go:63: the lower Position id must survive: want 1 got 2/2
+t209-candidate-not-stamped	RELEVANT	TestDecideMergeKeepApartSkip	Y	128.1	candidates_test.go:67: merge not applied, stamped, constrained and audited
+minhash-ingest-seal-dropped	RELEVANT	TestRunStoresPostingsEncryptedSanitizedWithCallRow	Y	16.6	ingest_test.go:142: no sealed signature stored: <nil>
+apply-mode-stored-invalid-shown-ok	RELEVANT	TestApplyModeInvalidStoredShownAsInvalid	Y	21.1	settings_policy_test.go:78: invalid stored mode not flagged
+favourites-unknown-provider-accepted	RELEVANT	TestFavouritesValidatedOrderedAndAudited	Y	22.1	settings_policy_test.go:87: set favourites 400
+ext-deliver-dkim-junk-key-ok	RELEVANT	TestNegatedSPFAndWrongKeyTypeAreNotYes	Y	6.8	deliver_test.go:365: v=DKIM1; k=ed25519; p=MIGfMA0GCSqGSIb3DQ...: got yes [], want no
+t208-template-warning-always	NOCOV	TestDraftPageRendersDuplicateWarningAndAck	NOBLOCK	21.4	console_test.go:102: warning rendered with no duplicates
+ext-deliver-spf-negated-mech-counts	RELEVANT	TestNegatedSPFAndWrongKeyTypeAreNotYes	Y	5.9	deliver_test.go:333: spf "v=spf1 -a -all": got yes [], want No
+minhash-shingle-size	NOCOV	TestMinHashGolden	NOBLOCK	128.6	minhash_test.go:35: golden moved: 206132201 58804662
+t213-http-link-accepted	RELEVANT	TestParseFeedRSSAndAtom	Y	7.4	feed_test.go:44: rss: <nil> 3 [{Class:missing_field Index:2}]
+ext-deliver-dkim-key-type-unchecked	RELEVANT	TestAllLegsPassIsYes	Y	12.6	deliver_test.go:82: want Yes, got no mail_dkim_missing
+t213-robots-ignored	RELEVANT	TestATSMoreGatesFailClosed	Y	12.6	atsmore_test.go:155: robots disallow: hits=1 err=<nil>
+minhash-candidate-sig-dropped	RELEVANT	TestResolverUsesSealedSignatureOnlyWithKeys	Y	130.4	minhash_test.go:120: f_body_mh missing although both signatures are sealed and a keyring is configured
+draft-upload-char-boundary-inclusive	RELEVANT	TestMaxCharsBlocksOnlyOverTheLimit	Y	8.4	profile_test.go:294: "0123456789": block=true want false
+ext-mailgate-absent-setting-not-off	RELEVANT	TestDefaultOffRefusesWithoutAnyLookup	Y	13.6	mailgate_test.go:122: absent: got unknown [mail_setting_invalid]
+ext-mailgate-unreadable-setting-ignored	RELEVANT	TestInvalidOrUnreadableSettingIsUnknownNotAllowed	Y	8.7	mailgate_test.go:144: read: got no [mail_channel_disabled]
+ext-mailgate-disable-writes-one	RELEVANT	TestDisableWritesZero	Y	9.1	mailgate_test.go:272: <nil> map[ext.channel.allow_mailto:1]
+ext-mailgate-refused-enable-audited-as-allowed	RELEVANT	TestDBRefusedEnableIsAuditedAsRefusedNotEnabled	Y	9.9	mailgate_test.go:496: [{Reason:mail_channel_enabled Actor:mail_gate Ev:{"codes":["mail_spf_weak"],"domain_hash":"a379a6f6eeaf","stage":"enable","verdict":"no"}}
+manual-userinfo	RELEVANT	TestManualPostingRefusals	Y	7.7	manual_test.go:47: {URL:https://u:p@a.example.com/1 Title:x Company: Text:} accepted (<nil>)
+manual-id-from-canonical	RELEVANT	TestManualPostingValidAndIdempotent	Y	6.8	manual_test.go:20: re-pasting the same link must be idempotent: e387b65a7d32bdbf71fbe9b9e42f0fc9 2ba0c0b1226ee5e75cbc6410d08af5f3
+draft-upload-redraft-skips-upload-verdict	RELEVANT	TestReDraftRejudgesUpload	Y	113.8	uploadprofile_test.go:227: [{SubjectKind:application SubjectID:1 Stage:draft PluginKind:ats_profile PluginID:upload PluginVersion:1.0.0 Verdict:yes Reasons:[] P
+draft-upload-approve-skips-upload-check	RELEVANT	TestOversizeAndCountRefuseApprovalDryRunAndLive	Y	116.3	uploadprofile_test.go:85: oversize live=false: err <nil> res {State:dry_run_recorded WouldSend:[123 34 97 112 112 108 105 99 97 116 105 111 110 95 105 100 34 58
+draft-upload-char-extract-error-ignored	RELEVANT	TestCharacterLimit	Y	113.9	uploadprofile_test.go:197: unreadable: [{SubjectKind:application SubjectID:1 Stage:draft PluginKind:ats_profile PluginID:upload PluginVersion:1.0.0 Verdict:yes 
+t196-source-link-any-scheme	RELEVANT	TestPositionPageMergedViewWithProvenance	Y	26.4	position_page_test.go:48: a non-https source URL must never become a link
+t196-merged-value-no-fallback	RELEVANT	TestBuildFieldsMergedValueAndProvenance	Y	24.5	position_page_test.go:112: fallback must take the first non-empty: {Key:location Merged: Values:[{Value:Paris Providers:[b] Merged:false} {Value:Rome Providers:
+t210-dryrun-writes	RELEVANT	TestResolveDryRunIsTheDefaultAndWritesNothing	Y	46.2	resolve_test.go:61: [resolve --dry-run] rc=0 out=resolve: mode=dry-run resolver_version=r1 would_merge=0 would_queue=0 would_split=0
+ext-mailgate-compose-trusts-gate-domain	RELEVANT	TestComposedChannelRefusesUnlessGateSaysYes	Y	16.2	mailgate_test.go:322: on, check Yes: err=ext: fail closed: sender deliverability is not Yes drafts=0
+ext-mailgate-compose-from-pinned-at-compose	RELEVANT	TestComposeChecksTheFromDomainNotTheGatesDomain	Y	10.7	mailgate_test.go:519: other domain: draft created for an unchecked domain: err=<nil>
+t196-representative-ignored	RELEVANT	TestBuildFieldsMergedValueAndProvenance	Y	26.1	position_page_test.go:107: representative must win: {Key:location Merged:Berlin Values:[{Value:Berlin Providers:[a] Merged:true} {Value:Berlin, DE Providers:[b]
+wire-robots-body-uncapped	RELEVANT	TestRobotsBodyCapped	Y	19.9	robots_test.go:58: len 2097152 err <nil>
+wire-robots-cache-off	RELEVANT	TestRobotsCacheTTL	Y	18.4	robots_test.go:81: hits 3, want 1 (cached)
+wire-guard-panic-unrecovered	RELEVANT	TestGuardPanickingGateIsUnknown	Y	13.1	guard_test.go:160: got unknown [{RuleID:boom Version:1 Decision:{Verdict:unknown Reasons:[]}}]
+wire-settings-default-off	RELEVANT	TestGuardPassesAfterReviewAndBlocksOnChange	Y	24.6	guard_test.go:76: reviewed + robots ok must pass: {Verdict:unknown Trail:[{RuleID:provider_tos Version:1.0.0 Decision:{Verdict:unknown Reasons:[{Code:compliance
+wire-guard-nil-passes	RELEVANT	TestGuardNoGatesIsUnknown	Y	13.7	guard_test.go:173: nil guard must be Unknown, got yes
+wire-hooks-default-on	RELEVANT	TestHooksDefaultOffNothingEmitted	Y	15.3	hooks_test.go:57: hooks are off by default: flushed 1 err <nil> rows 1
+wire-terms-review-unaudited	RELEVANT	TestExtTermsListAndAccept	Y	27.8	terms_test.go:42: accept rc=1 ext terms: extwire: provider and actor required
+t210-queued-again	RELEVANT	TestRerunQueuesReviewBandPairsOnce	Y	130.7	rerun_test.go:121: an already-queued pair is proposed again: {Version:r1 WouldMerge:[] WouldQueue:[{Keep:1 Absorb:2 A:1 B:2 Score:0.88 Reason:soft_score}] Would
+wire-draft-gate-ignored	RELEVANT	TestComplianceBlocksPrepareAndLeavesApplicationUntouched	Y	93.9	compliance_test.go:36: err <nil> code ""
+ungated-newrunner-nil-guard-ok	RELEVANT	TestNewRunnerRefusesANilGuard	Y	19.6	compliance_test.go:143: a runner without a compliance guard must not be constructible
+ungated-scanner-misses-outside-literal	NOCOV	TestScannerCatchesEachBypass	NOBLOCK	5.4	ungated_test.go:216: outside literal: want exactly 1 finding, got [] <nil>
+wire-jsctl-track-no-flush	RELEVANT	TestTrackRecordEmitsEvidenceOnlyWhenHookEnabled	Y	29.7	terms_test.go:166: enabled: rc=0 rows=0
+ungated-maintenance-can-fetch	RELEVANT	TestMaintenanceRunnerNeverFetches	Y	14.8	compliance_test.go:163: a maintenance runner must refuse to fetch: err=ingest: no keyring: body_text must never be stored in plaintext calls=1
+ungated-scanner-misses-stray-inpkg	NOCOV	TestScannerCatchesEachBypass	NOBLOCK	3.8	ungated_test.go:216: inside stray: want exactly 1 finding, got [] <nil>
+ungated-scanner-ignores-alias	NOCOV	TestScannerCatchesEachBypass	NOBLOCK	5.4	ungated_test.go:216: alias import: want exactly 1 finding, got [] <nil>
+ungated-scanner-allows-ingesttest	NOCOV	TestScannerCatchesEachBypass	NOBLOCK	5.8	ungated_test.go:216: test guard: want exactly 1 finding, got [] <nil>
+ungated-scanner-misses-draft-no-guard	NOCOV	TestProductionTreeBuildsNoUngatedRunner	NOBLOCK	8.7	ungated_test.go:176: internal/app/console.go: draft.Service value without a Compliance guard
+t207-provider-toggle-unaudited	RELEVANT	TestProviderEnableDisableAudited	Y	20.9	settings_manage_test.go:48: enabled=0 audit=0
+t216-planned-marked-implemented	NOCOV	TestPositionRoutesContractMatchesRouter	NOBLOCK	28.2	contract_routes_test.go:62: GET /positions is marked IMPLEMENTED but is not mounted
+t207-override-reason-optional	RELEVANT	TestPositionOverrideRulesAndAudit	Y	31.5	settings_manage_test.go:162: no reason: 303
+ungated-feed-url-unvalidated	RELEVANT	TestFeedRequestURLsAreTheSourceURLs	Y	12.0	ats_requests_test.go:33: https://a.example.org/jobs.xml|http://bad.example.org/x|https://b.example.org/f?x=1
+t239y-hook-allowed-outside-test	RELEVANT	TestTestRobotsHookIsConfinedToTestEnv	Y	9.0	config_test.go:238: production must refuse the hook, got <nil>
+t239y-hook-non-loopback-ok	RELEVANT	TestTestRobotsHookIsConfinedToTestEnv	Y	11.2	config_test.go:248: "http://10.0.0.1/robots.txt" must be refused, got <nil>
+t214-ttl-never-expires	RELEVANT	TestReadThroughCachesWithinTTLAndNeverServesExpired	Y	18.1	readthrough_test.go:89: expired entry must be purged: n=0 len=1
+t214-robots-judged-on-wrong-path	RELEVANT	TestReadThroughGatesFailClosed	Y	10.7	readthrough_test.go:162: robots disallow at the exact path: hits=1 err=<nil>
+t212-redirect-any-host	RELEVANT	TestATSMoreRedirectToOtherHostRefused	Y	12.3	atsmore_test.go:218: workable: cross-host redirect followed
+t239y-kernel-ignores-hook	RELEVANT	TestKernelWithLoopbackRobotsSource	Y	53.9	kernel_test.go:226: allowed path after review: no
+t239y-off-records-on	RELEVANT	TestExtEnforceApprove	Y	54.4	terms_test.go:132: off must record the explicit opt-out 0: v="1" <nil>
+t212-personio-id-unchecked	RELEVANT	TestATSMoreTranslateSyntheticFixtures	Y	9.1	atsmore_test.go:74: postings=2 skipped=[{missing_field 2}]
+t207-load-bad-favourites-ignored	RELEVANT	TestLoadSettingsDirect	Y	132.5	policy_test.go:461: unreadable favourites "not json" must be an error, not an empty list
+t164-case-guard-off	RELEVANT	TestExtractGoldenBadTable	Y	3.0	terms_test.go:61: "We go above and beyond, go to market" wrongly yielded Go
+t164-schema-unchecked	RELEVANT	TestLoadDictionaryStrict	Y	3.4	terms_test.go:105: a.yaml accepted
+sigbackfill-cmd-both-flags	RELEVANT	TestBackfillSignaturesCommand	Y	48.6	sigbackfill_test.go:44: both: rc=0
+intake-redirect-target	RELEVANT	TestIntakePostStoresListingResolvesPositionIdempotent	Y	19.7	intake_test.go:44: paste: 303 "/listings/1"
+ungated-scanner-harness-exemption-missing	NOCOV	TestProductionTreeBuildsNoUngatedRunner	NOBLOCK	4.1	ungated_test.go:176: tools/challenges/cmd/jschallenge/main.go: non-test file imports ingesttest (the permissive guard is test-only)
+intake-post-unmounted	RELEVANT	TestPositionRoutesContractMatchesRouter	Y	26.6	contract_routes_test.go:62: POST /intake is marked IMPLEMENTED but is not mounted
+t165-honesty-allows-all	RELEVANT	TestCheckEmphasisHonesty	Y	92.1	coverage_test.go:74: Terraform accepted or wrong error: <nil>
+t165-unclaimable-never	RELEVANT	TestCoverageSynthetic20	Y	104.9	coverage_test.go:40: terms 20 matched 12 missing 8 unclaimable 0
+t165-chosen-not-best-off	RELEVANT	TestAreaOverlapRunnerUpMargin	Y	91.6	coverage_test.go:106: wrong-area choice not flagged: {Chosen:android Scores:[{Area:go Terms:4} {Area:ai Terms:1} {Area:android Terms:0}] Margin:1 ConfirmRequire
+t165-no-signal-confirms	RELEVANT	TestAreaOverlapRunnerUpMargin	Y	86.7	coverage_test.go:115: {Chosen:go Scores:[{Area:ai Terms:0} {Area:android Terms:0} {Area:go Terms:0}] Margin:1 ConfirmRequired:true Reason:runner_up_within_margi
+ov-languages-empty-allowed	RELEVANT	TestOverlayWorkAuthLanguagesRejected	Y	4.8	overlay_test.go:135: lang-empty: must be rejected
+ov-workauth-not-flagged	RELEVANT	TestOverlayWorkAuthAndLanguagesAccepted	Y	6.7	overlay_test.go:96: work_auth_countries not read: &{Present:true SalaryMin:0 SalaryCurrency: SalaryPeriod: TZStart:0 TZEnd:0 tz:false AllowedOnsiteCities:[] Blo
+ov-haslanguages-ignores-flag	RELEVANT	TestOverlayAbsentKeysAreNotConfigured	Y	4.6	overlay_test.go:113: absent keys must read as not configured: &{Present:true SalaryMin:1 SalaryCurrency:EUR SalaryPeriod: TZStart:0 TZEnd:0 tz:false AllowedOnsi
+ov-profile-languages-unconfigured	RELEVANT	TestOverlayProfileAnswersWorkAuthAndLanguages	Y	10.3	more_test.go:116: Languages = [] false
+atsjob-redirect-other-host-allowed	RELEVANT	TestATSMoreRedirectToOtherHostRefused	Y	14.5	atsmore_test.go:218: workable: cross-host redirect followed
+atsjob-scheme-any	RELEVANT	TestResolveATSJobURL	Y	11.0	singlejob_test.go:111: "http://boards.greenhouse.io/acme/jobs/1" accepted: <nil>
+atsjob-wrong-job-accepted	RELEVANT	TestFetchATSJobRefusesWrongJobInResponse	Y	9.9	singlejob_test.go:160: a response for a different job id was accepted
+t187-hash-mismatch-masked	RELEVANT	TestCheckReportSeenLeavesHashMismatchToApprove	Y	80.7	approval_report_test.go:146: hash mismatch must reach Approve: draft: the approval report was not shown for this draft
+t187-last-send-sha-unchecked	RELEVANT	TestApprovalReportDiffAgainstLastSend	Y	78.2	approval_report_test.go:99: {Available:true Reason: AgainstApp:2 SentAt:2026-11-01T10:00:00Z Added:[Go gRPC Kafka PostgreSQL Kubernetes AWS Redis Docker Prometh
+atsjob-tos-ignored	RELEVANT	TestATSJobToSNotAcceptedBlocksBeforeAnyRequest	Y	20.9	atsjob_test.go:139: err=<nil> requests="GET /robots.txt GET /v1/boards/acme/jobs/4012345"
+atsjob-guard-skipped	RELEVANT	TestReadATSJobGuardRefusalStopsBeforeAnyRequest	Y	32.1	atsjob_test.go:19: network dial attempted by a read that must be refused
+app-himalayas-flag	RELEVANT	TestBuildPipelineWiring	Y	27.2	fetch_test.go:81: jobs "fetch.remotive,fetch.himalayas" want "fetch.remotive"
+draft-gates-undetermined-passes	RELEVANT	TestLiveApprovalGatesUndeterminedRefuses	Y	66.0	guards_test.go:113: err <nil> want ErrGateUndetermined
+draft-company-cooldown-ignored	RELEVANT	TestCompanyGuardWindowsAndStates	Y	67.5	company_test.go:114: err <nil>
+templates-future-epoch-trusted	RELEVANT	TestCheckRefusesStaleForeignOrUnstamped	Y	4.2	fresh_test.go:107: err <nil> want ErrTemplatesStale cause epoch_missing
+draft-company-withdrawn-blocks	RELEVANT	TestCompanyGuardWindowsAndStates	Y	66.6	company_test.go:85: withdrawn: draft: same company already has an active application or a recent rejection
+draft-gates-overlay-absent-passes	RELEVANT	TestLiveApprovalGatesUndeterminedRefuses	Y	78.6	guards_test.go:113: err <nil> want ErrGateUndetermined
+scheduler-future-last-not-due	RELEVANT	TestClockStepBackRunsOnceAndDoesNotStall	Y	11.6	scheduler_test.go:123: after the step: 1 runs, want exactly 2 (the first and one at the step)
+scheduler-ignores-interval	RELEVANT	TestDueJobsRunOnceAndPersistLastRun	Y	21.9	scheduler_test.go:33: fetch=2 prune=2
+ext-combine-unknown-not-blocking	RELEVANT	TestEvaluateFailsClosed	Y	19.9	policy_test.go:43: panic not fail-closed: {Verdict:yes Trail:[{RuleID:yes Version:1 Decision:{Verdict:yes Reasons:[]}} {RuleID:boom Version:0.0.1 Decision:{Verd
+draft-posting-pin-off	RELEVANT	TestPostingChangedAfterPrepareSupersedes	Y	91.1	guards_test.go:152: err <nil> want ErrApprovalHashMismatch
+position-invariants-no-inv3	RELEVANT	TestInvariantCheckerSeesMemberWithoutMirror	Y	290.0	resolver_test.go:534: member without dup_of mirror not detected: [] <nil>
+ext-track-panic-not-recovered	PANIC			1.9	process-level {"Time":"2026-11-25T00:20:19.113658792+01:00","Action":"output","Package":"github.com/vasic-digital/job_seeker/internal/
+position-apply-url-generic-allowed	RELEVANT	TestGenericCareersPageIsNotAnApplyIdentity	Y	308.1	resolver_test.go:545: generic careers URL merged distinct jobs: {Position:1 Decision:auto Score:0.99 Reason:apply_url Features:map[apply_url:1]}
+manual-title-required	RELEVANT	TestManualPostingRefusals	Y	7.5	manual_test.go:47: {URL:https://a.example.com/1 Title:<script>x()</script> Company: Text:} accepted (<nil>)
+manual-skip-resolve	RELEVANT	TestIngestManualStoresSealedIdempotentAndLinksByATS	Y	16.2	ingest_test.go:557: pasted ATS link and board Listing are in different Positions
+stats-reliability-window	RELEVANT	TestProviderStatsReliabilityWindow	Y	234.6	stats_test.go:107: 30-day window: {ProviderID:1 Name:provA Enabled:true ApplyKind:unknown Circuit:closed Listings:0 Calls30:4 OK30:3 Sent:0 ReplyOrBetter:0 R:0.
+sigbackfill-unreadable-fatal	RELEVANT	TestBackfillSignaturesDryRunApplyIdempotentAudited	Y	249.9	sigbackfill_test.go:40: crypto: cannot open value
+sigbackfill-audits-noop	RELEVANT	TestBackfillSignaturesDryRunApplyIdempotentAudited	Y	261.6	sigbackfill_test.go:71: no-op apply audited: 2
+ext-comp-nil-settings-pass	RELEVANT	TestSettingsMissingIsUnknownAtEveryStage	Y	12.7	compliance_test.go:75: ingest nil robots: {Verdict:yes Reasons:[]}
+ext-deliver-dmarc-missing-is-ok	RELEVANT	TestEachLegFailureIsNotYes	Y	13.7	deliver_test.go:164: dmarc missing: got yes [], want no [mail_dmarc_missing]
+ext-ats-nil-profile-is-yes	RELEVANT	TestDecide	Y	13.7	profile_test.go:189: no profile must be Unknown: {Verdict:yes Reasons:[{Code:rule_no_data Refs:map[field:profile rule:ats_profile]}]}
+ext-deliver-spf-missing-is-ok	RELEVANT	TestEachLegFailureIsNotYes	Y	16.4	deliver_test.go:164: spf missing: got yes [], want no [mail_spf_missing]

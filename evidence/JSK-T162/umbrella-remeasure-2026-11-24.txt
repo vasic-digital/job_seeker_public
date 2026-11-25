@@ -1,0 +1,21 @@
+Independent re-measurement of the umbrella claims (read-only; counts only, no contact values), 2026-11-24.
+Umbrella evidence read at github/main: docs/qa/career/career-engine-wave1-2026-11-24.md,
+career-manifest-wave2-2026-11-24.md, verify/crosscheck/size-seal-2026-11-24-rebuild.txt (c4bc5ce, on main), PR #40 merged 311ec4fb.
+No PDF was rebuilt. The shipped (rebuilt, 2026-11-24 14:35) cache is the umbrella worktree vasic-wt-rebuild/.cache-career (300 PDFs);
+the checkout .cache-career in the main umbrella tree is the OLD 2026-11-23 cache and is the RED sample.
+
+[1] pypdf walk of every /Link annotation (script: action S, URI scheme)
+OLD cache  (umbrella .cache-career/*.pdf incl. subdirs, 354 files): {'/URI:mailto': 40, '/URI:https': 160, '/URI:BAD': 628, '/GoToR': 985}
+SHIPPED rebuilt cache (300 PDFs):                                  {'/URI:mailto': 300, '/URI:https': 1200}   -> 0 GoToR, 0 scheme-less, 1500 links
+(umbrella RED figure 780 GoToR / 520 scheme-less on 300 PDFs; our old-cache superset differs only because it includes scratch subdirs, same class.)
+
+[2] structure on the 300 shipped PDFs: MarkInfo/Marked + StructTreeRoot + Metadata + DisplayDocTitle + Lang present: 300/300 (umbrella: tagged=300 xmp=300)
+
+[3] extract gates (umbrella career/extract_gates.py, text via gates._extract, per language) over the 300:
+files=300 placeholder_bad=0 heading_bad=0 running_header_bad=0
+(first attempt used poppler -raw text and flagged 20 ar/fa heading rows: that is the known -raw visual-order artefact, not the gate's text path; recorded so it is not mistaken for a defect)
+
+[4] umbrella unit tests re-run here: career.test_gates_render.LinkAnnotations 8/8 OK (golden-bad GoToR, scheme-less, label mismatch);
+career.test_extract_gates 11/11 OK (placeholder golden-bad, reserved pattern == slots.go reReserved, 15 locales x required aliases, heading/running-header golden-bad);
+career.test_keyword_match 22/22 OK.
+Not re-run: the 30-minute rebuild, vault seal (umbrella and career_private PR #2 evidence cited, not re-measured).

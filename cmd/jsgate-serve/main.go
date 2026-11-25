@@ -13,6 +13,7 @@ import (
 	"crypto/tls"
 	"flag"
 	"fmt"
+	"io"
 	"net/http"
 	"os"
 	"os/signal"
@@ -26,17 +27,27 @@ import (
 )
 
 func main() {
-	addr := flag.String("addr", ":8443", "host:port (one number for TCP and UDP)")
-	cert := flag.String("cert", "", "certificate chain PEM file")
-	key := flag.String("key", "", "private key PEM file")
-	hosts := flag.String("hosts", "localhost,127.0.0.1", "comma-separated allowed Host names")
-	mutate := flag.String("mutate", "none", "none | no-brotli (paired-mutation proof only)")
-	flag.Parse()
+	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
+	defer stop()
+	os.Exit(run(ctx, os.Args[1:], os.Stdout, os.Stderr))
+}
 
+// run serves until ctx is done: 0 clean shutdown, 1 start-up failed, 2 bad usage.
+func run(ctx context.Context, args []string, stdout, stderr io.Writer) int {
+	fl := flag.NewFlagSet("jsgate-serve", flag.ContinueOnError)
+	fl.SetOutput(stderr)
+	addr := fl.String("addr", ":8443", "host:port (one number for TCP and UDP)")
+	cert := fl.String("cert", "", "certificate chain PEM file")
+	key := fl.String("key", "", "private key PEM file")
+	hosts := fl.String("hosts", "localhost,127.0.0.1", "comma-separated allowed Host names")
+	mutate := fl.String("mutate", "none", "none | no-brotli (paired-mutation proof only)")
+	if err := fl.Parse(args); err != nil {
+		return 2
+	}
 	pair, err := tls.LoadX509KeyPair(*cert, *key)
 	if err != nil {
-		fmt.Fprintln(os.Stderr, "jsgate-serve: certificate load failed")
-		os.Exit(1)
+		fmt.Fprintln(stderr, "jsgate-serve: certificate load failed")
+		return 1
 	}
 	var h http.Handler = api.New(api.Deps{Build: buildinfo.Get(), AllowedHosts: strings.Split(*hosts, ",")})
 	if *mutate != "no-brotli" {
@@ -45,19 +56,18 @@ func main() {
 	srv, err := server.New(server.Config{Addr: *addr, TLS: &tls.Config{Certificates: []tls.Certificate{pair}},
 		Handler: h, RequireH3: true})
 	if err != nil {
-		fmt.Fprintln(os.Stderr, "jsgate-serve:", err)
-		os.Exit(1)
+		fmt.Fprintln(stderr, "jsgate-serve:", err)
+		return 1
 	}
 	if err := srv.Start(); err != nil {
-		fmt.Fprintln(os.Stderr, "jsgate-serve:", err)
-		os.Exit(1)
+		fmt.Fprintln(stderr, "jsgate-serve:", err)
+		return 1
 	}
 	tcp, udp := srv.Addrs()
-	fmt.Printf("jsgate-serve: listening tcp=%s udp=%s h3=%v mutate=%s\n", tcp, udp, srv.H3Enabled(), *mutate)
-	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
-	defer stop()
+	fmt.Fprintf(stdout, "jsgate-serve: listening tcp=%s udp=%s h3=%v mutate=%s\n", tcp, udp, srv.H3Enabled(), *mutate)
 	<-ctx.Done()
 	sc, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 	_ = srv.Shutdown(sc)
+	return 0
 }

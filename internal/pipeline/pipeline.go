@@ -43,10 +43,16 @@ type Pipeline struct {
 	Killed  func(context.Context) bool     // nil = never killed
 	Now     func() time.Time
 	Log     *slog.Logger
+	// ShadowSummary, when set, returns slog attributes describing the JSK-T244 eligibility shadow (plugin path run
+	// beside the legacy decider); it is logged after every fetch job and never influences a decision.
+	ShadowSummary func() []any
 
 	mu      sync.Mutex
 	badBody map[int64]struct{} // postings whose sealed body failed to open: reported once, then left alone
 }
+
+// maxBadBody bounds the reported-once set so a long-running process cannot grow it without limit.
+const maxBadBody = 4096
 
 // Stats counts one processing pass.
 type Stats struct{ Seen, Mapped, Queued, Scored, Skipped int }
@@ -62,7 +68,7 @@ func (p *Pipeline) isBad(id int64) bool {
 func (p *Pipeline) markBad(id int64) bool {
 	p.mu.Lock()
 	defer p.mu.Unlock()
-	if p.badBody == nil {
+	if p.badBody == nil || len(p.badBody) >= maxBadBody { // bounded: a full set is reset and each id is simply reported once more
 		p.badBody = map[int64]struct{}{}
 	}
 	if _, ok := p.badBody[id]; ok {
@@ -231,6 +237,9 @@ func (p *Pipeline) Jobs() []scheduler.Job {
 			switch {
 			case err == nil:
 				p.log().Info("fetch job", "provider", name, "new", res.Run.New, "updated", res.Run.Updated, "mapped", res.Stats.Mapped, "queued", res.Stats.Queued, "scored", res.Stats.Scored)
+				if p.ShadowSummary != nil {
+					p.log().Info("eligibility shadow", p.ShadowSummary()...)
+				}
 				return nil
 			case errors.Is(err, ErrKilled), errors.Is(err, ingest.ErrDisabled), errors.As(err, &ref):
 				p.log().Info("fetch job skipped", "provider", name, "reason", skipReason(err))

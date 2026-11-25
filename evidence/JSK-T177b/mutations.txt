@@ -1,0 +1,9 @@
+agent-admit: ADMITTED tag=t177b-mut slot=$HOME/.cache/agent-scratch/slots/slot-0 -> bounded-run -m 6G -T 3600
+KILLED       t177b-console-ack-value-wrong
+mutations: 1 genuinely killed of 1
+agent-admit: ADMITTED tag=t177b-mut slot=$HOME/.cache/agent-scratch/slots/slot-0 -> bounded-run -m 6G -T 3600
+KILLED       t177b-console-confirmed-row-gets-checkbox
+mutations: 1 genuinely killed of 1
+agent-admit: ADMITTED tag=t177b-mut slot=$HOME/.cache/agent-scratch/slots/slot-0 -> bounded-run -m 6G -T 3600
+KILLED       t177b-code-missing-from-allcodes
+mutations: 1 genuinely killed of 1

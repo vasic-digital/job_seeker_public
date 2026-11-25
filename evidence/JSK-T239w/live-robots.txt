@@ -1,0 +1,6 @@
+=== RUN   TestLiveRobotsThroughRealEgress
+    kernel_test.go:115: LIVE robots verdict for https://remotive.com/api/remote-jobs: no trail=[{RuleID:provider_tos Version:1.0.0 Decision:{Verdict:yes Reasons:[]}} {RuleID:robots Version:1.0.0 Decision:{Verdict:no Reasons:[{Code:robots_disallow Refs:map[host:remotive.com]}]}}]
+    kernel_test.go:115: LIVE robots verdict for https://remotive.com/remote-jobs/software-dev: yes trail=[{RuleID:provider_tos Version:1.0.0 Decision:{Verdict:yes Reasons:[]}} {RuleID:robots Version:1.0.0 Decision:{Verdict:yes Reasons:[]}}]
+--- PASS: TestLiveRobotsThroughRealEgress (0.60s)
+PASS
+ok  	github.com/vasic-digital/job_seeker/internal/app	0.871s

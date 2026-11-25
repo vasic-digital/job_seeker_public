@@ -1,0 +1,15 @@
+# RED before enabling: shipped rules/policy.yaml does not enable work_auth, timezone, language (2026-11-25)
+$ go test ./internal/ext/builtin/
+--- FAIL: TestShippedPolicyEnablesWorkAuthTimezoneLanguage
+    policy_enable_test.go:52: rules/policy.yaml does not enable eligibility/work_auth (active: map[blocked_company:true excluded_region:true remote_mode:true salary_floor:true])
+    policy_enable_test.go:52: rules/policy.yaml does not enable eligibility/timezone (active: map[blocked_company:true excluded_region:true remote_mode:true salary_floor:true])
+    policy_enable_test.go:52: rules/policy.yaml does not enable eligibility/language (active: map[blocked_company:true excluded_region:true remote_mode:true salary_floor:true])
+--- FAIL: TestWorkAuthEnabledDecidesFromRealOverlay
+    policy_enable_test.go:105: authorised country: {Verdict:unknown Reasons:[]}
+--- FAIL: TestTimezoneEnabledDecidesFromRealOverlay
+    policy_enable_test.go:122: same zone: {Verdict:unknown Reasons:[]}
+--- FAIL: TestLanguageEnabledDecidesFromRealOverlay
+    policy_enable_test.go:136: operator language: {Verdict:unknown Reasons:[]}
+FAIL
+FAIL	github.com/vasic-digital/job_seeker/internal/ext/builtin
+FAIL

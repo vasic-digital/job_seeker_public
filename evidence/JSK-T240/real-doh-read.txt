@@ -1,0 +1,12 @@
+GET https://dns.google/resolve?type=TXT&name=gmail.com -> status=200 host=dns.google ip=8.8.8.8 tls=dns.google sha256=27b8eb68d8c8cd404801349700eb0d1d32819bc8df4224de926eeb5b74beb72d bytes=683 err=<nil>
+GET https://dns.google/resolve?type=TXT&name=_dmarc.gmail.com -> status=200 host=dns.google ip=8.8.8.8 tls=dns.google sha256=97bd3881bb806eb068011737ffc941efc8d74c9f0471311d66d57b462df313f1 bytes=299 err=<nil>
+GET https://dns.google/resolve?type=TXT&name=google._domainkey.gmail.com -> status=200 host=dns.google ip=8.8.8.8 tls=dns.google sha256=3e324d05be13185219afa1da5e670f84135833687e65015d7017e4abe0e3405b bytes=297 err=<nil>
+verdict: no
+reason: mail_spf_redirect map[leg:spf]
+reason: mail_dmarc_weak map[leg:dmarc]
+reason: mail_dkim_missing map[leg:dkim]
+
+# Provenance: 2026-11-24, one bounded real read of public domain gmail.com (3 GETs, one per leg) through the real
+# egress client with policy hosts=[dns.google]; throwaway probe program (deleted, not committed). Records the tool's
+# verdict on what that resolver returned at that moment; it is a point-in-time reading, not a statement about gmail.com's
+# deliverability, and says nothing about the operator's own sending domain (UNCONFIRMED until the operator configures it).

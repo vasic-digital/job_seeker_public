@@ -1,0 +1,19 @@
+--- FAIL: TestManualIntakeTable (0.00s)
+    manual_test.go:97: https://srv.localdomain/1 accepted (<nil>)
+    manual_test.go:97: https://hr.intranet/1 accepted (<nil>)
+    manual_test.go:97: https://files.private/1 accepted (<nil>)
+    manual_test.go:97: https://a.test/1 accepted (<nil>)
+    manual_test.go:97: https://a.example/1 accepted (<nil>)
+    manual_test.go:97: https://abcdefghijklmnop.onion/1 accepted (<nil>)
+    manual_test.go:97: https://a.alt/1 accepted (<nil>)
+    manual_test.go:97: https://1.0.0.127.in-addr.arpa/1 accepted (<nil>)
+    manual_test.go:97: https://a.b.ip6.arpa/1 accepted (<nil>)
+    manual_test.go:97: https://a..com/1 accepted (<nil>)
+    manual_test.go:97: https://.com/1 accepted (<nil>)
+    manual_test.go:97: https://-a.example.com/1 accepted (<nil>)
+    manual_test.go:97: https://a-.example.com/1 accepted (<nil>)
+    manual_test.go:97: https://a.-b.example.com/1 accepted (<nil>)
+    manual_test.go:97: https://a.b..example.com/1 accepted (<nil>)
+FAIL
+FAIL	github.com/vasic-digital/job_seeker/internal/providers	0.007s
+FAIL

@@ -1,0 +1,1834 @@
+[
+ {
+  "file": "inbox-ar-light.png",
+  "page": "inbox",
+  "lang": "ar",
+  "scheme": "light",
+  "dir": "rtl",
+  "chars": 117,
+  "bodyDir": "rtl",
+  "fonts": {
+   "Noto Sans Arabic [custom]": 585,
+   "Inter [custom]": 174,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 22,
+   "JetBrains Mono [custom]": 134
+  },
+  "sysText": {}
+ },
+ {
+  "file": "settings-ar-light.png",
+  "page": "settings",
+  "lang": "ar",
+  "scheme": "light",
+  "dir": "rtl",
+  "chars": 127,
+  "bodyDir": "rtl",
+  "fonts": {
+   "Noto Sans Arabic [custom]": 2259,
+   "Inter [custom]": 535,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 40,
+   "JetBrains Mono [custom]": 120
+  },
+  "sysText": {}
+ },
+ {
+  "file": "intake-ar-light.png",
+  "page": "intake",
+  "lang": "ar",
+  "scheme": "light",
+  "dir": "rtl",
+  "chars": 101,
+  "bodyDir": "rtl",
+  "fonts": {
+   "Noto Sans Arabic [custom]": 604,
+   "Inter [custom]": 134,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 26,
+   "JetBrains Mono [custom]": 3
+  },
+  "sysText": {}
+ },
+ {
+  "file": "merges-ar-light.png",
+  "page": "merges",
+  "lang": "ar",
+  "scheme": "light",
+  "dir": "rtl",
+  "chars": 91,
+  "bodyDir": "rtl",
+  "fonts": {
+   "Noto Sans Arabic [custom]": 279,
+   "Inter [custom]": 18,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 34,
+   "JetBrains Mono [custom]": 1
+  },
+  "sysText": {}
+ },
+ {
+  "file": "inbox-ar-dark.png",
+  "page": "inbox",
+  "lang": "ar",
+  "scheme": "dark",
+  "dir": "rtl",
+  "chars": 117,
+  "bodyDir": "rtl",
+  "fonts": {
+   "Noto Sans Arabic [custom]": 585,
+   "Inter [custom]": 174,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 22,
+   "JetBrains Mono [custom]": 134
+  },
+  "sysText": {}
+ },
+ {
+  "file": "settings-ar-dark.png",
+  "page": "settings",
+  "lang": "ar",
+  "scheme": "dark",
+  "dir": "rtl",
+  "chars": 127,
+  "bodyDir": "rtl",
+  "fonts": {
+   "Noto Sans Arabic [custom]": 2259,
+   "Inter [custom]": 535,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 40,
+   "JetBrains Mono [custom]": 120
+  },
+  "sysText": {}
+ },
+ {
+  "file": "intake-ar-dark.png",
+  "page": "intake",
+  "lang": "ar",
+  "scheme": "dark",
+  "dir": "rtl",
+  "chars": 101,
+  "bodyDir": "rtl",
+  "fonts": {
+   "Noto Sans Arabic [custom]": 604,
+   "Inter [custom]": 134,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 26,
+   "JetBrains Mono [custom]": 3
+  },
+  "sysText": {}
+ },
+ {
+  "file": "merges-ar-dark.png",
+  "page": "merges",
+  "lang": "ar",
+  "scheme": "dark",
+  "dir": "rtl",
+  "chars": 91,
+  "bodyDir": "rtl",
+  "fonts": {
+   "Noto Sans Arabic [custom]": 279,
+   "Inter [custom]": 18,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 34,
+   "JetBrains Mono [custom]": 1
+  },
+  "sysText": {}
+ },
+ {
+  "file": "inbox-be-light.png",
+  "page": "inbox",
+  "lang": "be",
+  "scheme": "light",
+  "dir": "ltr",
+  "chars": 139,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Inter [custom]": 684,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 20,
+   "JetBrains Mono [custom]": 328
+  },
+  "sysText": {}
+ },
+ {
+  "file": "settings-be-light.png",
+  "page": "settings",
+  "lang": "be",
+  "scheme": "light",
+  "dir": "ltr",
+  "chars": 147,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Inter [custom]": 3199,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 42,
+   "JetBrains Mono [custom]": 653
+  },
+  "sysText": {}
+ },
+ {
+  "file": "intake-be-light.png",
+  "page": "intake",
+  "lang": "be",
+  "scheme": "light",
+  "dir": "ltr",
+  "chars": 111,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Inter [custom]": 870,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 24,
+   "JetBrains Mono [custom]": 34
+  },
+  "sysText": {}
+ },
+ {
+  "file": "merges-be-light.png",
+  "page": "merges",
+  "lang": "be",
+  "scheme": "light",
+  "dir": "ltr",
+  "chars": 106,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Inter [custom]": 320,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 36,
+   "JetBrains Mono [custom]": 17
+  },
+  "sysText": {}
+ },
+ {
+  "file": "inbox-be-dark.png",
+  "page": "inbox",
+  "lang": "be",
+  "scheme": "dark",
+  "dir": "ltr",
+  "chars": 139,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Inter [custom]": 684,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 20,
+   "JetBrains Mono [custom]": 328
+  },
+  "sysText": {}
+ },
+ {
+  "file": "settings-be-dark.png",
+  "page": "settings",
+  "lang": "be",
+  "scheme": "dark",
+  "dir": "ltr",
+  "chars": 155,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Inter [custom]": 3245,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 42,
+   "JetBrains Mono [custom]": 653
+  },
+  "sysText": {}
+ },
+ {
+  "file": "intake-be-dark.png",
+  "page": "intake",
+  "lang": "be",
+  "scheme": "dark",
+  "dir": "ltr",
+  "chars": 111,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Inter [custom]": 870,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 24,
+   "JetBrains Mono [custom]": 34
+  },
+  "sysText": {}
+ },
+ {
+  "file": "merges-be-dark.png",
+  "page": "merges",
+  "lang": "be",
+  "scheme": "dark",
+  "dir": "ltr",
+  "chars": 106,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Inter [custom]": 320,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 36,
+   "JetBrains Mono [custom]": 17
+  },
+  "sysText": {}
+ },
+ {
+  "file": "inbox-de-light.png",
+  "page": "inbox",
+  "lang": "de",
+  "scheme": "light",
+  "dir": "ltr",
+  "chars": 102,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Inter [custom]": 757,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 42,
+   "JetBrains Mono [custom]": 335
+  },
+  "sysText": {}
+ },
+ {
+  "file": "settings-de-light.png",
+  "page": "settings",
+  "lang": "de",
+  "scheme": "light",
+  "dir": "ltr",
+  "chars": 121,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Inter [custom]": 3370,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 334,
+   "JetBrains Mono [custom]": 675
+  },
+  "sysText": {}
+ },
+ {
+  "file": "intake-de-light.png",
+  "page": "intake",
+  "lang": "de",
+  "scheme": "light",
+  "dir": "ltr",
+  "chars": 97,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Inter [custom]": 1089,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 86,
+   "JetBrains Mono [custom]": 40
+  },
+  "sysText": {}
+ },
+ {
+  "file": "merges-de-light.png",
+  "page": "merges",
+  "lang": "de",
+  "scheme": "light",
+  "dir": "ltr",
+  "chars": 88,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Inter [custom]": 325,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 164,
+   "JetBrains Mono [custom]": 16
+  },
+  "sysText": {}
+ },
+ {
+  "file": "inbox-de-dark.png",
+  "page": "inbox",
+  "lang": "de",
+  "scheme": "dark",
+  "dir": "ltr",
+  "chars": 102,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Inter [custom]": 757,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 42,
+   "JetBrains Mono [custom]": 335
+  },
+  "sysText": {}
+ },
+ {
+  "file": "settings-de-dark.png",
+  "page": "settings",
+  "lang": "de",
+  "scheme": "dark",
+  "dir": "ltr",
+  "chars": 121,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Inter [custom]": 3370,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 334,
+   "JetBrains Mono [custom]": 675
+  },
+  "sysText": {}
+ },
+ {
+  "file": "intake-de-dark.png",
+  "page": "intake",
+  "lang": "de",
+  "scheme": "dark",
+  "dir": "ltr",
+  "chars": 97,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Inter [custom]": 1089,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 86,
+   "JetBrains Mono [custom]": 40
+  },
+  "sysText": {}
+ },
+ {
+  "file": "merges-de-dark.png",
+  "page": "merges",
+  "lang": "de",
+  "scheme": "dark",
+  "dir": "ltr",
+  "chars": 88,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Inter [custom]": 325,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 164,
+   "JetBrains Mono [custom]": 16
+  },
+  "sysText": {}
+ },
+ {
+  "file": "inbox-en-light.png",
+  "page": "inbox",
+  "lang": "en",
+  "scheme": "light",
+  "dir": "ltr",
+  "chars": 100,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Inter [custom]": 540,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 30,
+   "JetBrains Mono [custom]": 229
+  },
+  "sysText": {}
+ },
+ {
+  "file": "settings-en-light.png",
+  "page": "settings",
+  "lang": "en",
+  "scheme": "light",
+  "dir": "ltr",
+  "chars": 115,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Inter [custom]": 2340,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 242,
+   "JetBrains Mono [custom]": 382
+  },
+  "sysText": {}
+ },
+ {
+  "file": "intake-en-light.png",
+  "page": "intake",
+  "lang": "en",
+  "scheme": "light",
+  "dir": "ltr",
+  "chars": 93,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Inter [custom]": 679,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 62,
+   "JetBrains Mono [custom]": 27
+  },
+  "sysText": {}
+ },
+ {
+  "file": "merges-en-light.png",
+  "page": "merges",
+  "lang": "en",
+  "scheme": "light",
+  "dir": "ltr",
+  "chars": 85,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Inter [custom]": 187,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 148,
+   "JetBrains Mono [custom]": 14
+  },
+  "sysText": {}
+ },
+ {
+  "file": "inbox-en-dark.png",
+  "page": "inbox",
+  "lang": "en",
+  "scheme": "dark",
+  "dir": "ltr",
+  "chars": 100,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Inter [custom]": 540,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 30,
+   "JetBrains Mono [custom]": 229
+  },
+  "sysText": {}
+ },
+ {
+  "file": "settings-en-dark.png",
+  "page": "settings",
+  "lang": "en",
+  "scheme": "dark",
+  "dir": "ltr",
+  "chars": 115,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Inter [custom]": 2340,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 242,
+   "JetBrains Mono [custom]": 382
+  },
+  "sysText": {}
+ },
+ {
+  "file": "intake-en-dark.png",
+  "page": "intake",
+  "lang": "en",
+  "scheme": "dark",
+  "dir": "ltr",
+  "chars": 93,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Inter [custom]": 679,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 62,
+   "JetBrains Mono [custom]": 27
+  },
+  "sysText": {}
+ },
+ {
+  "file": "merges-en-dark.png",
+  "page": "merges",
+  "lang": "en",
+  "scheme": "dark",
+  "dir": "ltr",
+  "chars": 85,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Inter [custom]": 187,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 148,
+   "JetBrains Mono [custom]": 14
+  },
+  "sysText": {}
+ },
+ {
+  "file": "inbox-es-light.png",
+  "page": "inbox",
+  "lang": "es",
+  "scheme": "light",
+  "dir": "ltr",
+  "chars": 101,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Inter [custom]": 661,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 56,
+   "JetBrains Mono [custom]": 245
+  },
+  "sysText": {}
+ },
+ {
+  "file": "settings-es-light.png",
+  "page": "settings",
+  "lang": "es",
+  "scheme": "light",
+  "dir": "ltr",
+  "chars": 123,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Inter [custom]": 2970,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 312,
+   "JetBrains Mono [custom]": 521
+  },
+  "sysText": {}
+ },
+ {
+  "file": "intake-es-light.png",
+  "page": "intake",
+  "lang": "es",
+  "scheme": "light",
+  "dir": "ltr",
+  "chars": 95,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Inter [custom]": 795,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 78,
+   "JetBrains Mono [custom]": 34
+  },
+  "sysText": {}
+ },
+ {
+  "file": "merges-es-light.png",
+  "page": "merges",
+  "lang": "es",
+  "scheme": "light",
+  "dir": "ltr",
+  "chars": 86,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Inter [custom]": 251,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 136,
+   "JetBrains Mono [custom]": 20
+  },
+  "sysText": {}
+ },
+ {
+  "file": "inbox-es-dark.png",
+  "page": "inbox",
+  "lang": "es",
+  "scheme": "dark",
+  "dir": "ltr",
+  "chars": 101,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Inter [custom]": 661,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 56,
+   "JetBrains Mono [custom]": 245
+  },
+  "sysText": {}
+ },
+ {
+  "file": "settings-es-dark.png",
+  "page": "settings",
+  "lang": "es",
+  "scheme": "dark",
+  "dir": "ltr",
+  "chars": 123,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Inter [custom]": 2970,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 312,
+   "JetBrains Mono [custom]": 521
+  },
+  "sysText": {}
+ },
+ {
+  "file": "intake-es-dark.png",
+  "page": "intake",
+  "lang": "es",
+  "scheme": "dark",
+  "dir": "ltr",
+  "chars": 95,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Inter [custom]": 795,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 78,
+   "JetBrains Mono [custom]": 34
+  },
+  "sysText": {}
+ },
+ {
+  "file": "merges-es-dark.png",
+  "page": "merges",
+  "lang": "es",
+  "scheme": "dark",
+  "dir": "ltr",
+  "chars": 86,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Inter [custom]": 251,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 136,
+   "JetBrains Mono [custom]": 20
+  },
+  "sysText": {}
+ },
+ {
+  "file": "inbox-fa-light.png",
+  "page": "inbox",
+  "lang": "fa",
+  "scheme": "light",
+  "dir": "rtl",
+  "chars": 115,
+  "bodyDir": "rtl",
+  "fonts": {
+   "Noto Sans Arabic [custom]": 520,
+   "Inter [custom]": 195,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 22,
+   "JetBrains Mono [custom]": 135
+  },
+  "sysText": {}
+ },
+ {
+  "file": "settings-fa-light.png",
+  "page": "settings",
+  "lang": "fa",
+  "scheme": "light",
+  "dir": "rtl",
+  "chars": 133,
+  "bodyDir": "rtl",
+  "fonts": {
+   "Noto Sans Arabic [custom]": 2473,
+   "Inter [custom]": 703,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 48,
+   "JetBrains Mono [custom]": 137
+  },
+  "sysText": {}
+ },
+ {
+  "file": "intake-fa-light.png",
+  "page": "intake",
+  "lang": "fa",
+  "scheme": "light",
+  "dir": "rtl",
+  "chars": 95,
+  "bodyDir": "rtl",
+  "fonts": {
+   "Noto Sans Arabic [custom]": 621,
+   "Inter [custom]": 160,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 26,
+   "JetBrains Mono [custom]": 2
+  },
+  "sysText": {}
+ },
+ {
+  "file": "merges-fa-light.png",
+  "page": "merges",
+  "lang": "fa",
+  "scheme": "light",
+  "dir": "rtl",
+  "chars": 91,
+  "bodyDir": "rtl",
+  "fonts": {
+   "Noto Sans Arabic [custom]": 268,
+   "Inter [custom]": 20,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 38
+  },
+  "sysText": {}
+ },
+ {
+  "file": "inbox-fa-dark.png",
+  "page": "inbox",
+  "lang": "fa",
+  "scheme": "dark",
+  "dir": "rtl",
+  "chars": 115,
+  "bodyDir": "rtl",
+  "fonts": {
+   "Noto Sans Arabic [custom]": 520,
+   "Inter [custom]": 195,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 22,
+   "JetBrains Mono [custom]": 135
+  },
+  "sysText": {}
+ },
+ {
+  "file": "settings-fa-dark.png",
+  "page": "settings",
+  "lang": "fa",
+  "scheme": "dark",
+  "dir": "rtl",
+  "chars": 133,
+  "bodyDir": "rtl",
+  "fonts": {
+   "Noto Sans Arabic [custom]": 2473,
+   "Inter [custom]": 703,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 48,
+   "JetBrains Mono [custom]": 137
+  },
+  "sysText": {}
+ },
+ {
+  "file": "intake-fa-dark.png",
+  "page": "intake",
+  "lang": "fa",
+  "scheme": "dark",
+  "dir": "rtl",
+  "chars": 95,
+  "bodyDir": "rtl",
+  "fonts": {
+   "Noto Sans Arabic [custom]": 621,
+   "Inter [custom]": 160,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 26,
+   "JetBrains Mono [custom]": 2
+  },
+  "sysText": {}
+ },
+ {
+  "file": "merges-fa-dark.png",
+  "page": "merges",
+  "lang": "fa",
+  "scheme": "dark",
+  "dir": "rtl",
+  "chars": 91,
+  "bodyDir": "rtl",
+  "fonts": {
+   "Noto Sans Arabic [custom]": 268,
+   "Inter [custom]": 20,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 38
+  },
+  "sysText": {}
+ },
+ {
+  "file": "inbox-fr-light.png",
+  "page": "inbox",
+  "lang": "fr",
+  "scheme": "light",
+  "dir": "ltr",
+  "chars": 103,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Inter [custom]": 696,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 56,
+   "JetBrains Mono [custom]": 250
+  },
+  "sysText": {}
+ },
+ {
+  "file": "settings-fr-light.png",
+  "page": "settings",
+  "lang": "fr",
+  "scheme": "light",
+  "dir": "ltr",
+  "chars": 126,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Inter [custom]": 3107,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 342,
+   "JetBrains Mono [custom]": 556
+  },
+  "sysText": {}
+ },
+ {
+  "file": "intake-fr-light.png",
+  "page": "intake",
+  "lang": "fr",
+  "scheme": "light",
+  "dir": "ltr",
+  "chars": 99,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Inter [custom]": 812,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 80,
+   "JetBrains Mono [custom]": 40
+  },
+  "sysText": {}
+ },
+ {
+  "file": "merges-fr-light.png",
+  "page": "merges",
+  "lang": "fr",
+  "scheme": "light",
+  "dir": "ltr",
+  "chars": 88,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Inter [custom]": 252,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 142,
+   "JetBrains Mono [custom]": 21
+  },
+  "sysText": {}
+ },
+ {
+  "file": "inbox-fr-dark.png",
+  "page": "inbox",
+  "lang": "fr",
+  "scheme": "dark",
+  "dir": "ltr",
+  "chars": 103,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Inter [custom]": 696,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 56,
+   "JetBrains Mono [custom]": 250
+  },
+  "sysText": {}
+ },
+ {
+  "file": "settings-fr-dark.png",
+  "page": "settings",
+  "lang": "fr",
+  "scheme": "dark",
+  "dir": "ltr",
+  "chars": 126,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Inter [custom]": 3107,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 342,
+   "JetBrains Mono [custom]": 556
+  },
+  "sysText": {}
+ },
+ {
+  "file": "intake-fr-dark.png",
+  "page": "intake",
+  "lang": "fr",
+  "scheme": "dark",
+  "dir": "ltr",
+  "chars": 99,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Inter [custom]": 812,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 80,
+   "JetBrains Mono [custom]": 40
+  },
+  "sysText": {}
+ },
+ {
+  "file": "merges-fr-dark.png",
+  "page": "merges",
+  "lang": "fr",
+  "scheme": "dark",
+  "dir": "ltr",
+  "chars": 88,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Inter [custom]": 252,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 142,
+   "JetBrains Mono [custom]": 21
+  },
+  "sysText": {}
+ },
+ {
+  "file": "inbox-hi-light.png",
+  "page": "inbox",
+  "lang": "hi",
+  "scheme": "light",
+  "dir": "ltr",
+  "chars": 131,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Noto Sans Devanagari [custom]": 459,
+   "Inter [custom]": 185,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 20,
+   "JetBrains Mono [custom]": 137
+  },
+  "sysText": {}
+ },
+ {
+  "file": "settings-hi-light.png",
+  "page": "settings",
+  "lang": "hi",
+  "scheme": "light",
+  "dir": "ltr",
+  "chars": 156,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Noto Sans Devanagari [custom]": 2022,
+   "Inter [custom]": 641,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 40,
+   "JetBrains Mono [custom]": 135
+  },
+  "sysText": {}
+ },
+ {
+  "file": "intake-hi-light.png",
+  "page": "intake",
+  "lang": "hi",
+  "scheme": "light",
+  "dir": "ltr",
+  "chars": 114,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Noto Sans Devanagari [custom]": 609,
+   "Inter [custom]": 158,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 26,
+   "JetBrains Mono [custom]": 2
+  },
+  "sysText": {}
+ },
+ {
+  "file": "merges-hi-light.png",
+  "page": "merges",
+  "lang": "hi",
+  "scheme": "light",
+  "dir": "ltr",
+  "chars": 103,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Noto Sans Devanagari [custom]": 276,
+   "Inter [custom]": 20,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 44,
+   "JetBrains Mono [custom]": 1
+  },
+  "sysText": {}
+ },
+ {
+  "file": "inbox-hi-dark.png",
+  "page": "inbox",
+  "lang": "hi",
+  "scheme": "dark",
+  "dir": "ltr",
+  "chars": 131,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Noto Sans Devanagari [custom]": 459,
+   "Inter [custom]": 185,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 20,
+   "JetBrains Mono [custom]": 137
+  },
+  "sysText": {}
+ },
+ {
+  "file": "settings-hi-dark.png",
+  "page": "settings",
+  "lang": "hi",
+  "scheme": "dark",
+  "dir": "ltr",
+  "chars": 156,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Noto Sans Devanagari [custom]": 2022,
+   "Inter [custom]": 641,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 40,
+   "JetBrains Mono [custom]": 135
+  },
+  "sysText": {}
+ },
+ {
+  "file": "intake-hi-dark.png",
+  "page": "intake",
+  "lang": "hi",
+  "scheme": "dark",
+  "dir": "ltr",
+  "chars": 114,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Noto Sans Devanagari [custom]": 609,
+   "Inter [custom]": 158,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 26,
+   "JetBrains Mono [custom]": 2
+  },
+  "sysText": {}
+ },
+ {
+  "file": "merges-hi-dark.png",
+  "page": "merges",
+  "lang": "hi",
+  "scheme": "dark",
+  "dir": "ltr",
+  "chars": 103,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Noto Sans Devanagari [custom]": 276,
+   "Inter [custom]": 20,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 44,
+   "JetBrains Mono [custom]": 1
+  },
+  "sysText": {}
+ },
+ {
+  "file": "inbox-ja-light.png",
+  "page": "inbox",
+  "lang": "ja",
+  "scheme": "light",
+  "dir": "ltr",
+  "chars": 167,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Noto Sans CJK JP [custom]": 279,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 20,
+   "Inter [custom]": 120,
+   "JetBrains Mono [custom]": 130
+  },
+  "sysText": {}
+ },
+ {
+  "file": "settings-ja-light.png",
+  "page": "settings",
+  "lang": "ja",
+  "scheme": "light",
+  "dir": "ltr",
+  "chars": 295,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Noto Sans CJK JP [custom]": 1274,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 20,
+   "Inter [custom]": 299,
+   "JetBrains Mono [custom]": 92
+  },
+  "sysText": {}
+ },
+ {
+  "file": "intake-ja-light.png",
+  "page": "intake",
+  "lang": "ja",
+  "scheme": "light",
+  "dir": "ltr",
+  "chars": 167,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Noto Sans CJK JP [custom]": 344,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 20,
+   "Inter [custom]": 30
+  },
+  "sysText": {}
+ },
+ {
+  "file": "merges-ja-light.png",
+  "page": "merges",
+  "lang": "ja",
+  "scheme": "light",
+  "dir": "ltr",
+  "chars": 129,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Noto Sans CJK JP [custom]": 145,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 20
+  },
+  "sysText": {}
+ },
+ {
+  "file": "inbox-ja-dark.png",
+  "page": "inbox",
+  "lang": "ja",
+  "scheme": "dark",
+  "dir": "ltr",
+  "chars": 167,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Noto Sans CJK JP [custom]": 279,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 20,
+   "Inter [custom]": 120,
+   "JetBrains Mono [custom]": 130
+  },
+  "sysText": {}
+ },
+ {
+  "file": "settings-ja-dark.png",
+  "page": "settings",
+  "lang": "ja",
+  "scheme": "dark",
+  "dir": "ltr",
+  "chars": 295,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Noto Sans CJK JP [custom]": 1274,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 20,
+   "Inter [custom]": 299,
+   "JetBrains Mono [custom]": 92
+  },
+  "sysText": {}
+ },
+ {
+  "file": "intake-ja-dark.png",
+  "page": "intake",
+  "lang": "ja",
+  "scheme": "dark",
+  "dir": "ltr",
+  "chars": 167,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Noto Sans CJK JP [custom]": 344,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 20,
+   "Inter [custom]": 30
+  },
+  "sysText": {}
+ },
+ {
+  "file": "merges-ja-dark.png",
+  "page": "merges",
+  "lang": "ja",
+  "scheme": "dark",
+  "dir": "ltr",
+  "chars": 129,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Noto Sans CJK JP [custom]": 145,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 20
+  },
+  "sysText": {}
+ },
+ {
+  "file": "inbox-kk-light.png",
+  "page": "inbox",
+  "lang": "kk",
+  "scheme": "light",
+  "dir": "ltr",
+  "chars": 134,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Inter [custom]": 681,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 22,
+   "JetBrains Mono [custom]": 262
+  },
+  "sysText": {}
+ },
+ {
+  "file": "settings-kk-light.png",
+  "page": "settings",
+  "lang": "kk",
+  "scheme": "light",
+  "dir": "ltr",
+  "chars": 153,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Inter [custom]": 3144,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 42,
+   "JetBrains Mono [custom]": 533
+  },
+  "sysText": {}
+ },
+ {
+  "file": "intake-kk-light.png",
+  "page": "intake",
+  "lang": "kk",
+  "scheme": "light",
+  "dir": "ltr",
+  "chars": 106,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Inter [custom]": 930,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 26,
+   "JetBrains Mono [custom]": 32
+  },
+  "sysText": {}
+ },
+ {
+  "file": "merges-kk-light.png",
+  "page": "merges",
+  "lang": "kk",
+  "scheme": "light",
+  "dir": "ltr",
+  "chars": 94,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Inter [custom]": 334,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 34,
+   "JetBrains Mono [custom]": 11
+  },
+  "sysText": {}
+ },
+ {
+  "file": "inbox-kk-dark.png",
+  "page": "inbox",
+  "lang": "kk",
+  "scheme": "dark",
+  "dir": "ltr",
+  "chars": 134,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Inter [custom]": 681,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 22,
+   "JetBrains Mono [custom]": 262
+  },
+  "sysText": {}
+ },
+ {
+  "file": "settings-kk-dark.png",
+  "page": "settings",
+  "lang": "kk",
+  "scheme": "dark",
+  "dir": "ltr",
+  "chars": 153,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Inter [custom]": 3144,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 42,
+   "JetBrains Mono [custom]": 533
+  },
+  "sysText": {}
+ },
+ {
+  "file": "intake-kk-dark.png",
+  "page": "intake",
+  "lang": "kk",
+  "scheme": "dark",
+  "dir": "ltr",
+  "chars": 106,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Inter [custom]": 930,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 26,
+   "JetBrains Mono [custom]": 32
+  },
+  "sysText": {}
+ },
+ {
+  "file": "merges-kk-dark.png",
+  "page": "merges",
+  "lang": "kk",
+  "scheme": "dark",
+  "dir": "ltr",
+  "chars": 94,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Inter [custom]": 334,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 34,
+   "JetBrains Mono [custom]": 11
+  },
+  "sysText": {}
+ },
+ {
+  "file": "inbox-ko-light.png",
+  "page": "inbox",
+  "lang": "ko",
+  "scheme": "light",
+  "dir": "ltr",
+  "chars": 162,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Noto Sans CJK KR [custom]": 231,
+   "Inter [custom]": 162,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 22,
+   "JetBrains Mono [custom]": 131
+  },
+  "sysText": {}
+ },
+ {
+  "file": "settings-ko-light.png",
+  "page": "settings",
+  "lang": "ko",
+  "scheme": "light",
+  "dir": "ltr",
+  "chars": 269,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Noto Sans CJK KR [custom]": 961,
+   "Inter [custom]": 535,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 38,
+   "JetBrains Mono [custom]": 117
+  },
+  "sysText": {}
+ },
+ {
+  "file": "intake-ko-light.png",
+  "page": "intake",
+  "lang": "ko",
+  "scheme": "light",
+  "dir": "ltr",
+  "chars": 151,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Noto Sans CJK KR [custom]": 267,
+   "Inter [custom]": 108,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 24,
+   "JetBrains Mono [custom]": 1
+  },
+  "sysText": {}
+ },
+ {
+  "file": "merges-ko-light.png",
+  "page": "merges",
+  "lang": "ko",
+  "scheme": "light",
+  "dir": "ltr",
+  "chars": 121,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Noto Sans CJK KR [custom]": 133,
+   "Inter [custom]": 14,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 34
+  },
+  "sysText": {}
+ },
+ {
+  "file": "inbox-ko-dark.png",
+  "page": "inbox",
+  "lang": "ko",
+  "scheme": "dark",
+  "dir": "ltr",
+  "chars": 162,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Noto Sans CJK KR [custom]": 231,
+   "Inter [custom]": 162,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 22,
+   "JetBrains Mono [custom]": 131
+  },
+  "sysText": {}
+ },
+ {
+  "file": "settings-ko-dark.png",
+  "page": "settings",
+  "lang": "ko",
+  "scheme": "dark",
+  "dir": "ltr",
+  "chars": 269,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Noto Sans CJK KR [custom]": 961,
+   "Inter [custom]": 535,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 38,
+   "JetBrains Mono [custom]": 117
+  },
+  "sysText": {}
+ },
+ {
+  "file": "intake-ko-dark.png",
+  "page": "intake",
+  "lang": "ko",
+  "scheme": "dark",
+  "dir": "ltr",
+  "chars": 151,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Noto Sans CJK KR [custom]": 267,
+   "Inter [custom]": 108,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 24,
+   "JetBrains Mono [custom]": 1
+  },
+  "sysText": {}
+ },
+ {
+  "file": "merges-ko-dark.png",
+  "page": "merges",
+  "lang": "ko",
+  "scheme": "dark",
+  "dir": "ltr",
+  "chars": 121,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Noto Sans CJK KR [custom]": 133,
+   "Inter [custom]": 14,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 34
+  },
+  "sysText": {}
+ },
+ {
+  "file": "inbox-ru-light.png",
+  "page": "inbox",
+  "lang": "ru",
+  "scheme": "light",
+  "dir": "ltr",
+  "chars": 134,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Inter [custom]": 684,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 20,
+   "JetBrains Mono [custom]": 301
+  },
+  "sysText": {}
+ },
+ {
+  "file": "settings-ru-light.png",
+  "page": "settings",
+  "lang": "ru",
+  "scheme": "light",
+  "dir": "ltr",
+  "chars": 154,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Inter [custom]": 3328,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 38,
+   "JetBrains Mono [custom]": 690
+  },
+  "sysText": {}
+ },
+ {
+  "file": "intake-ru-light.png",
+  "page": "intake",
+  "lang": "ru",
+  "scheme": "light",
+  "dir": "ltr",
+  "chars": 110,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Inter [custom]": 971,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 24,
+   "JetBrains Mono [custom]": 49
+  },
+  "sysText": {}
+ },
+ {
+  "file": "merges-ru-light.png",
+  "page": "merges",
+  "lang": "ru",
+  "scheme": "light",
+  "dir": "ltr",
+  "chars": 103,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Inter [custom]": 359,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 32,
+   "JetBrains Mono [custom]": 18
+  },
+  "sysText": {}
+ },
+ {
+  "file": "inbox-ru-dark.png",
+  "page": "inbox",
+  "lang": "ru",
+  "scheme": "dark",
+  "dir": "ltr",
+  "chars": 134,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Inter [custom]": 684,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 20,
+   "JetBrains Mono [custom]": 301
+  },
+  "sysText": {}
+ },
+ {
+  "file": "settings-ru-dark.png",
+  "page": "settings",
+  "lang": "ru",
+  "scheme": "dark",
+  "dir": "ltr",
+  "chars": 154,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Inter [custom]": 3328,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 38,
+   "JetBrains Mono [custom]": 690
+  },
+  "sysText": {}
+ },
+ {
+  "file": "intake-ru-dark.png",
+  "page": "intake",
+  "lang": "ru",
+  "scheme": "dark",
+  "dir": "ltr",
+  "chars": 110,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Inter [custom]": 971,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 24,
+   "JetBrains Mono [custom]": 49
+  },
+  "sysText": {}
+ },
+ {
+  "file": "merges-ru-dark.png",
+  "page": "merges",
+  "lang": "ru",
+  "scheme": "dark",
+  "dir": "ltr",
+  "chars": 103,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Inter [custom]": 359,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 32,
+   "JetBrains Mono [custom]": 18
+  },
+  "sysText": {}
+ },
+ {
+  "file": "inbox-sr-light.png",
+  "page": "inbox",
+  "lang": "sr",
+  "scheme": "light",
+  "dir": "ltr",
+  "chars": 127,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Inter [custom]": 699,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 22,
+   "JetBrains Mono [custom]": 277
+  },
+  "sysText": {}
+ },
+ {
+  "file": "settings-sr-light.png",
+  "page": "settings",
+  "lang": "sr",
+  "scheme": "light",
+  "dir": "ltr",
+  "chars": 147,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Inter [custom]": 3207,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 38,
+   "JetBrains Mono [custom]": 591
+  },
+  "sysText": {}
+ },
+ {
+  "file": "intake-sr-light.png",
+  "page": "intake",
+  "lang": "sr",
+  "scheme": "light",
+  "dir": "ltr",
+  "chars": 105,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Inter [custom]": 874,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 28,
+   "JetBrains Mono [custom]": 38
+  },
+  "sysText": {}
+ },
+ {
+  "file": "merges-sr-light.png",
+  "page": "merges",
+  "lang": "sr",
+  "scheme": "light",
+  "dir": "ltr",
+  "chars": 93,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Inter [custom]": 350,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 34,
+   "JetBrains Mono [custom]": 16
+  },
+  "sysText": {}
+ },
+ {
+  "file": "inbox-sr-dark.png",
+  "page": "inbox",
+  "lang": "sr",
+  "scheme": "dark",
+  "dir": "ltr",
+  "chars": 127,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Inter [custom]": 699,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 22,
+   "JetBrains Mono [custom]": 277
+  },
+  "sysText": {}
+ },
+ {
+  "file": "settings-sr-dark.png",
+  "page": "settings",
+  "lang": "sr",
+  "scheme": "dark",
+  "dir": "ltr",
+  "chars": 147,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Inter [custom]": 3207,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 38,
+   "JetBrains Mono [custom]": 591
+  },
+  "sysText": {}
+ },
+ {
+  "file": "intake-sr-dark.png",
+  "page": "intake",
+  "lang": "sr",
+  "scheme": "dark",
+  "dir": "ltr",
+  "chars": 105,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Inter [custom]": 874,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 28,
+   "JetBrains Mono [custom]": 38
+  },
+  "sysText": {}
+ },
+ {
+  "file": "merges-sr-dark.png",
+  "page": "merges",
+  "lang": "sr",
+  "scheme": "dark",
+  "dir": "ltr",
+  "chars": 93,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Inter [custom]": 350,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 34,
+   "JetBrains Mono [custom]": 16
+  },
+  "sysText": {}
+ },
+ {
+  "file": "inbox-tr-light.png",
+  "page": "inbox",
+  "lang": "tr",
+  "scheme": "light",
+  "dir": "ltr",
+  "chars": 105,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Inter [custom]": 547,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 44,
+   "JetBrains Mono [custom]": 240
+  },
+  "sysText": {}
+ },
+ {
+  "file": "settings-tr-light.png",
+  "page": "settings",
+  "lang": "tr",
+  "scheme": "light",
+  "dir": "ltr",
+  "chars": 121,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Inter [custom]": 2599,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 266,
+   "JetBrains Mono [custom]": 495
+  },
+  "sysText": {}
+ },
+ {
+  "file": "intake-tr-light.png",
+  "page": "intake",
+  "lang": "tr",
+  "scheme": "light",
+  "dir": "ltr",
+  "chars": 97,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Inter [custom]": 770,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 48,
+   "JetBrains Mono [custom]": 33
+  },
+  "sysText": {}
+ },
+ {
+  "file": "merges-tr-light.png",
+  "page": "merges",
+  "lang": "tr",
+  "scheme": "light",
+  "dir": "ltr",
+  "chars": 89,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Inter [custom]": 188,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 122,
+   "JetBrains Mono [custom]": 21
+  },
+  "sysText": {}
+ },
+ {
+  "file": "inbox-tr-dark.png",
+  "page": "inbox",
+  "lang": "tr",
+  "scheme": "dark",
+  "dir": "ltr",
+  "chars": 105,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Inter [custom]": 547,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 44,
+   "JetBrains Mono [custom]": 240
+  },
+  "sysText": {}
+ },
+ {
+  "file": "settings-tr-dark.png",
+  "page": "settings",
+  "lang": "tr",
+  "scheme": "dark",
+  "dir": "ltr",
+  "chars": 121,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Inter [custom]": 2599,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 266,
+   "JetBrains Mono [custom]": 495
+  },
+  "sysText": {}
+ },
+ {
+  "file": "intake-tr-dark.png",
+  "page": "intake",
+  "lang": "tr",
+  "scheme": "dark",
+  "dir": "ltr",
+  "chars": 97,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Inter [custom]": 770,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 48,
+   "JetBrains Mono [custom]": 33
+  },
+  "sysText": {}
+ },
+ {
+  "file": "merges-tr-dark.png",
+  "page": "merges",
+  "lang": "tr",
+  "scheme": "dark",
+  "dir": "ltr",
+  "chars": 89,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Inter [custom]": 188,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 122,
+   "JetBrains Mono [custom]": 21
+  },
+  "sysText": {}
+ },
+ {
+  "file": "inbox-zh-light.png",
+  "page": "inbox",
+  "lang": "zh",
+  "scheme": "light",
+  "dir": "ltr",
+  "chars": 153,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Noto Sans CJK SC [custom]": 188,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 20,
+   "Inter [custom]": 120,
+   "JetBrains Mono [custom]": 130
+  },
+  "sysText": {}
+ },
+ {
+  "file": "settings-zh-light.png",
+  "page": "settings",
+  "lang": "zh",
+  "scheme": "light",
+  "dir": "ltr",
+  "chars": 295,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Noto Sans CJK SC [custom]": 912,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 20,
+   "Inter [custom]": 287,
+   "JetBrains Mono [custom]": 93
+  },
+  "sysText": {}
+ },
+ {
+  "file": "intake-zh-light.png",
+  "page": "intake",
+  "lang": "zh",
+  "scheme": "light",
+  "dir": "ltr",
+  "chars": 157,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Noto Sans CJK SC [custom]": 264,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 20,
+   "Inter [custom]": 32
+  },
+  "sysText": {}
+ },
+ {
+  "file": "merges-zh-light.png",
+  "page": "merges",
+  "lang": "zh",
+  "scheme": "light",
+  "dir": "ltr",
+  "chars": 112,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Noto Sans CJK SC [custom]": 102,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 20
+  },
+  "sysText": {}
+ },
+ {
+  "file": "inbox-zh-dark.png",
+  "page": "inbox",
+  "lang": "zh",
+  "scheme": "dark",
+  "dir": "ltr",
+  "chars": 153,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Noto Sans CJK SC [custom]": 188,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 20,
+   "Inter [custom]": 120,
+   "JetBrains Mono [custom]": 130
+  },
+  "sysText": {}
+ },
+ {
+  "file": "settings-zh-dark.png",
+  "page": "settings",
+  "lang": "zh",
+  "scheme": "dark",
+  "dir": "ltr",
+  "chars": 295,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Noto Sans CJK SC [custom]": 912,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 20,
+   "Inter [custom]": 287,
+   "JetBrains Mono [custom]": 93
+  },
+  "sysText": {}
+ },
+ {
+  "file": "intake-zh-dark.png",
+  "page": "intake",
+  "lang": "zh",
+  "scheme": "dark",
+  "dir": "ltr",
+  "chars": 157,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Noto Sans CJK SC [custom]": 264,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 20,
+   "Inter [custom]": 32
+  },
+  "sysText": {}
+ },
+ {
+  "file": "merges-zh-dark.png",
+  "page": "merges",
+  "lang": "zh",
+  "scheme": "dark",
+  "dir": "ltr",
+  "chars": 112,
+  "bodyDir": "ltr",
+  "fonts": {
+   "Noto Sans CJK SC [custom]": 102,
+   "Bricolage Grotesque 96pt ExtraBold [custom]": 20
+  },
+  "sysText": {}
+ }
+]

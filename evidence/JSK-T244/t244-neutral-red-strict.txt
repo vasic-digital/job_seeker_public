@@ -1,0 +1,18 @@
+# RED baseline: the pre-decision semantics (Unknown blocks) replayed with --strict-unknown on the same gold rows
+ruleset c9fed9822df3 gold-items=115 rows=2300 (modes=4 overlays=5 salary-facets=4; text real, structured facets synthetic)
+legacy-blocked=1158 plugin-blocked=2274 permissive=0 stricter=1116 rule-divergent=0 rule-unknown=5023 outcome-changed=0
+approve-time HardGates shadow: rows=2300 legacy-blocked=717 plugin-blocked=2267 permissive=0 stricter=1550 rule-divergent=0 rule-unknown=5023 mismatch-vs-score-gates=0
+  overlay nil             rows=460  legacy-blocked=125  plugin-blocked=460  stricter=335
+  overlay empty           rows=460  legacy-blocked=128  plugin-blocked=460  stricter=332
+  overlay present-no-data rows=460  legacy-blocked=128  plugin-blocked=460  stricter=332
+  overlay full-A          rows=460  legacy-blocked=407  plugin-blocked=454  stricter=47
+  overlay full-B          rows=460  legacy-blocked=370  plugin-blocked=440  stricter=70
+  legacy gate blocked_company          fired on 460 row(s)
+  legacy gate duplicate                fired on 327 row(s)
+  legacy gate excluded_region          fired on 306 row(s)
+  legacy gate junior_or_intern         fired on 20 row(s)
+  legacy gate non_engineering          fired on 340 row(s)
+  legacy gate onsite_outside_allowed   fired on 222 row(s)
+  legacy gate salary_below_floor       fired on 115 row(s)
+FAIL: plugin path diverges from the legacy decider (permissive or definite per-rule contradiction), or the shadow changed an outcome
+rc=1

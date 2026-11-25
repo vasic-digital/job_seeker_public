@@ -14,6 +14,7 @@ import (
 	"github.com/vasic-digital/job_seeker/internal/crypto"
 	"github.com/vasic-digital/job_seeker/internal/egress"
 	"github.com/vasic-digital/job_seeker/internal/ingest"
+	"github.com/vasic-digital/job_seeker/internal/ingest/ingesttest"
 	"github.com/vasic-digital/job_seeker/internal/limiter"
 	"github.com/vasic-digital/job_seeker/internal/match"
 	"github.com/vasic-digital/job_seeker/internal/match/gold"
@@ -74,7 +75,7 @@ func newEnv(t *testing.T, st *stub) *env {
 	now := time.Date(2026, 11, 24, 8, 0, 0, 0, time.UTC)
 	e := &env{st: st, clk: &now}
 	clock := func() time.Time { return *e.clk }
-	r := &ingest.Runner{DB: db, Keys: kr, Limiter: &limiter.Limiter{DB: db, Now: clock}, Providers: []providers.Provider{st}, Now: clock,
+	r := &ingest.Runner{Compliance: ingesttest.AllowAll{}, DB: db, Keys: kr, Limiter: &limiter.Limiter{DB: db, Now: clock}, Providers: []providers.Provider{st}, Now: clock,
 		Sleep: func(context.Context, time.Duration) error { return nil }}
 	e.p = &Pipeline{DB: db, Keys: kr, Runner: r, Rules: rules, Now: clock}
 	return e

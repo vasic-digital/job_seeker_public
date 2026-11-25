@@ -1,0 +1,6 @@
+{"name":"Examplecorp (synthetic)","description":"<p>Fictional employer on a reserved name.</p>","jobs":[
+{"title":"Backend Engineer (Go)","shortcode":"AB12CD34EF","code":"","employment_type":"Full-time","telecommuting":true,"department":"Engineering","url":"https://apply.workable.com/examplecorp/j/AB12CD34EF/","shortlink":"https://apply.workable.com/j/AB12CD34EF","application_url":"https://apply.workable.com/examplecorp/j/AB12CD34EF/apply/","published_on":"2026-11-20","created_at":"2026-11-19","country":"Germany","city":"Berlin","state":"Berlin","description":"<p>Build services in Go.</p><script>alert(1)</script>","locations":[{"country":"Germany","countryCode":"DE","city":"Berlin","region":"Berlin","hidden":false}]},
+{"title":"Insecure link","shortcode":"ZZ99ZZ99ZZ","url":"http://apply.workable.com/examplecorp/j/ZZ99ZZ99ZZ/"},
+{"title":"","shortcode":"QQ11QQ11QQ","url":"https://apply.workable.com/examplecorp/j/QQ11QQ11QQ/"},
+{"title":"Bad code","shortcode":"../x","url":"https://apply.workable.com/examplecorp/j/x/"}
+]}

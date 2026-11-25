@@ -1,0 +1,10 @@
+CONTROL-RED  draft-risk-guard-off: ./internal/draft does not pass unmodified
+CONTROL-RED  draft-risk-negation-ignored: ./internal/draft does not pass unmodified
+CONTROL-RED  draft-risk-hard-demoted: ./internal/draft does not pass unmodified
+CONTROL-RED  draft-hash-date-second-clock: ./internal/draft does not pass unmodified
+KILLED       pipeline-badbody-uncapped
+KILLED       draft-risk-guard-off
+INVALID      draft-risk-negation-ignored: mutant does not compile
+KILLED       draft-risk-hard-demoted
+KILLED       draft-hash-date-second-clock
+KILLED       draft-risk-negation-ignored

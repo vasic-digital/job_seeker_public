@@ -1,0 +1,6 @@
+INVALID      position-policy-handoff-recheck-off: mutant does not compile
+mutations: 0 killed of 1
+KILLED       position-policy-employer-window-ignored
+mutations: 1 killed of 1
+KILLED       position-policy-lock-not-single
+mutations: 1 killed of 1

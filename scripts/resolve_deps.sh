@@ -43,6 +43,18 @@ resolve_one() {
   else
     cands+=("umbrella:$root/../submodules/$name" "sibling:$root/../$dir")
     [ "$dir" != "$name" ] && cands+=("sibling:$root/../$name")
+    # A linked git worktree (git worktree add <anywhere>) is not inside the umbrella, so ../submodules and
+    # ../<dir> are wrong there. Also try the layout around the MAIN worktree of this repository.
+    local main="" common cw
+    common="$(git -C "$root" rev-parse --path-format=absolute --git-common-dir 2>/dev/null)"
+    if [ -n "$common" ]; then
+      cw="$(git --git-dir="$common" config core.worktree 2>/dev/null)"   # submodule: gitdir lives under the umbrella's .git/modules
+      if [ -n "$cw" ]; then main="$(cd "$common" && cd "$cw" 2>/dev/null && pwd)"
+      elif [ "$(basename "$common")" = ".git" ]; then main="$(dirname "$common")"; fi
+    fi
+    if [ -n "$main" ] && [ "$(cd "$main" 2>/dev/null && pwd)" != "$root" ]; then
+      cands+=("main-worktree-umbrella:$main/../submodules/$name" "main-worktree-sibling:$main/../$dir")
+    fi
   fi
   for cand in "${cands[@]}"; do
     how="${cand%%:*}"; cand="${cand#*:}"
@@ -133,6 +145,17 @@ prove() {
   mkdir -p "$t/remote"; git clone -q "$t/dep" "$t/remote/dep"; rm -rf "$t/dep" "$r/.deps"
   ( cd "$r" && JSK_CLONE_BASE="$t/remote" bash scripts/resolve_deps.sh bootstrap >/dev/null 2>&1 ); chk "bootstrap clones missing sibling at pinned SHA" 0 $?
   [ "$(git -C "$t/dep" rev-parse HEAD 2>/dev/null)" = "$b" ] && echo "  ok   bootstrapped HEAD == pin" || { echo "  BAD  bootstrapped HEAD != pin"; bad=1; }
+  # linked worktree OUTSIDE the umbrella must still resolve through the main worktree's layout
+  mkdir -p "$t/um/jr2/scripts" "$t/um/dep2"; cp "$self" "$t/um/jr2/scripts/resolve_deps.sh"
+  git -C "$t/um/jr2" init -q -b main; $g -C "$t/um/jr2" commit -q --allow-empty -m w
+  git -C "$t/um/dep2" init -q -b main; $g -C "$t/um/dep2" commit -q --allow-empty -m a
+  local d2; d2="$(git -C "$t/um/dep2" rev-parse HEAD)"
+  printf 'deps:\n  - name: dep2\n    ssh_url: git@example.invalid:o/dep2.git\n    ref: "%s"\n    dir: dep2\n' "$d2" > "$t/um/jr2/helix-deps.yaml"
+  $g -C "$t/um/jr2" add -A; $g -C "$t/um/jr2" commit -q -m m
+  git -C "$t/um/jr2" worktree add -q "$t/elsewhere" 2>/dev/null
+  ( cd "$t/elsewhere" && bash scripts/resolve_deps.sh verify >/dev/null 2>&1 ); chk "linked worktree outside umbrella resolves via main worktree" 0 $?
+  mv "$t/um/dep2" "$t/um/dep2.gone"
+  ( cd "$t/elsewhere" && bash scripts/resolve_deps.sh verify >/dev/null 2>&1 ); chk "MUTANT main-worktree layout lacks dep -> 2" 2 $?
   [ $bad -eq 0 ] && { echo "PROVE-FAILURE OK"; return 0; }; echo "PROVE-FAILURE BAD"; return 1
 }
 

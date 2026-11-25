@@ -1,0 +1,59 @@
+{
+ "verdict": "PASS",
+ "translator": "claude:sonnet-5.5",
+ "reviewer": "claude:fresh-reviewer",
+ "scores": {
+  "accuracy": 4,
+  "fluency": 5,
+  "completeness": 5,
+  "naturalness": 4,
+  "register_appropriate": 5
+ },
+ "issues": [
+  {
+   "key": "mode.dry / draft.wouldsend",
+   "problem": "'Сынақ жүгіру' is a calque of 'dry run' ('жүгіру' = physical running)",
+   "fix": "'Сынақ режимі' / 'Сынамалық іске қосу'",
+   "severity": "minor"
+  },
+  {
+   "key": "settings.ep.window / settings.ep.max",
+   "problem": "'Терезе' (window) reads as a GUI window; inconsistent with error.duplicate_company 'мерзім'",
+   "fix": "'Кезең (күн)'; 'Кезеңдегі жұмысқа өтініштердің ең көп саны'",
+   "severity": "minor"
+  },
+  {
+   "key": "report.coverage.counts",
+   "problem": "Fixed suffix '-і' after %d is wrong for numbers ending 6/9/0 (needs '-ы'): '%d-і'",
+   "fix": "Rephrase to avoid suffix on number, e.g. 'олардың саны: %d' / 'оның %d профиліңізде жоқ'",
+   "severity": "minor"
+  },
+  {
+   "key": "position.seniority",
+   "problem": "'Біліктілік деңгейі' = qualification level, not seniority",
+   "fix": "'Лауазымдық деңгей' / 'Тәжірибе деңгейі'",
+   "severity": "minor"
+  },
+  {
+   "key": "position.override",
+   "problem": "Adds unsupported 'Қолмен' (manually)",
+   "fix": "'Қайта анықтауды қолдану'",
+   "severity": "minor"
+  },
+  {
+   "key": "queue.hits",
+   "problem": "'Ереженің сәйкес келулері' awkward",
+   "fix": "'Ереже сәйкестіктері'",
+   "severity": "minor"
+  },
+  {
+   "key": "col.state / inbox.filter.state / position.state / tracking.status",
+   "problem": "State rendered as 'Жұмыс барысының мәртебесі', 'Мәртебе', 'Күйі'; state and status both 'Мәртебе'",
+   "fix": "State -> 'Күй', status -> 'Мәртебе' consistently",
+   "severity": "minor"
+  }
+ ],
+ "script_ok": true,
+ "target_script_ok": true,
+ "review_rc": 0
+}

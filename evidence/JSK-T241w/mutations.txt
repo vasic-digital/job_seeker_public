@@ -1,0 +1,6 @@
+KILLED       wire-hooks-default-on
+KILLED       wire-hooks-ignore-settings
+KILLED       wire-evidence-poison-takes-batch
+KILLED       wire-evidence-no-exit-flush
+KILLED       wire-console-tracker-no-onstatus
+KILLED       wire-jsctl-track-no-flush

@@ -1,0 +1,6 @@
+# github.com/vasic-digital/job_seeker/internal/console [github.com/vasic-digital/job_seeker/internal/console.test]
+internal/console/console_test.go:197:21: undefined: knockoutRow
+internal/console/console_test.go:198:106: unknown field Knockout in struct literal of type page
+internal/console/console_test.go:208:16: undefined: koRows
+FAIL	github.com/vasic-digital/job_seeker/internal/console [build failed]
+FAIL

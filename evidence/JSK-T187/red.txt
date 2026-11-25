@@ -1,0 +1,4 @@
+RED: tests written first against the report API (compile failure) :
+# github.com/vasic-digital/job_seeker/internal/draft
+# [github.com/vasic-digital/job_seeker/internal/draft]
+vet: internal/draft/approval_report_test.go:15:7: undefined: DiffLines

@@ -1,0 +1,12 @@
+--- FAIL: TestNegatedSPFAndWrongKeyTypeAreNotYes (0.03s)
+    deliver_test.go:332: spf "v=spf1 -a -all": got yes [], want No
+    deliver_test.go:332: spf "v=spf1 -ip4:1.2.3.4 -all": got yes [], want No
+    deliver_test.go:332: spf "v=spf1 ?mx -all": got yes [], want No
+    deliver_test.go:332: spf "v=spf1 -include:x.example.net -all": got yes [], want No
+    deliver_test.go:359: v=DKIM1; k=rsa; p=AAAAAAAAAAAAAAAAAAAAAA...: got yes [], want no
+    deliver_test.go:359: v=DKIM1; p=AAAAAAAAAAAAAAAAAAAAAAAAAAAAA...: got yes [], want no
+    deliver_test.go:359: v=DKIM1; k=ed25519; p=MIGfMA0GCSqGSIb3DQ...: got yes [], want no
+    deliver_test.go:359: v=DKIM1; k=rsa; p=11qYAYKxCrfVS/7TyWQHOg...: got yes [], want no
+FAIL
+FAIL	github.com/vasic-digital/job_seeker/internal/ext/deliver	0.040s
+FAIL

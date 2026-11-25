@@ -20,6 +20,7 @@ import (
 	"github.com/vasic-digital/job_seeker/internal/draft"
 	"github.com/vasic-digital/job_seeker/internal/egress"
 	"github.com/vasic-digital/job_seeker/internal/ingest"
+	"github.com/vasic-digital/job_seeker/internal/ingest/ingesttest"
 	"github.com/vasic-digital/job_seeker/internal/limiter"
 	"github.com/vasic-digital/job_seeker/internal/match"
 	"github.com/vasic-digital/job_seeker/internal/matchstore"
@@ -88,7 +89,7 @@ func TestIngestToDraftAwaitingApproval(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	r := &ingest.Runner{DB: db, Keys: kr, Limiter: &limiter.Limiter{DB: db}, Providers: []providers.Provider{shell{}}}
+	r := &ingest.Runner{Compliance: ingesttest.AllowAll{}, DB: db, Keys: kr, Limiter: &limiter.Limiter{DB: db}, Providers: []providers.Provider{shell{}}}
 	p := &pipeline.Pipeline{DB: db, Keys: kr, Runner: r, Rules: rules}
 	res, err := p.Inject(ctx, "remotive", providers.Batch{Postings: []providers.Posting{{ProviderName: "remotive", ProviderJobID: "9001", URL: "https://remotive.com/j/9001",
 		SourceURL: "https://remotive.com/j/9001", ApplyURL: "https://remotive.com/j/9001/apply", RawSHA256: strings.Repeat("9", 64), Title: "Senior Go Backend Engineer",
@@ -109,7 +110,7 @@ func TestIngestToDraftAwaitingApproval(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	svc := &draft.Service{DB: db, Keys: kr, Tpl: tpl, Gate: draft.NewGate(db, false), OverlayPresent: func() bool { return false }}
+	svc := &draft.Service{Compliance: ingesttest.AllowAll{}, DB: db, Keys: kr, Tpl: tpl, Gate: draft.NewGate(db, false), OverlayPresent: func() bool { return false }}
 	appID, err := svc.CreateApplication(ctx, pid, "operator")
 	if err != nil {
 		t.Fatal(err)

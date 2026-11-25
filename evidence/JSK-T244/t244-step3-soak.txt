@@ -1,0 +1,42 @@
+# soak replay of the real 2026-11-24 jsobserve evidence database (121 real postings: remoteok 106, remotive 15)
+## -min-sample 100
+ruleset c9fed9822df3 distinct-postings=121 evaluations=363 min-sample=100
+note: source=replay observe.db: real fetched postings; sealed bodies unreadable, so scoring uses title and structured fields only
+shadow_postings=363 shadow_legacy_blocked=57 shadow_plugin_blocked=57 shadow_permissive=0 shadow_stricter=0 shadow_rule_divergent=0 shadow_rule_unknown=847 shadow_panics=0 outcome_changed=0
+approve_time_hardgates evaluations=363 permissive=0 stricter=0 rule_divergent=0 panics=0
+  overlay nil              postings=121   legacy-blocked=19    plugin-blocked=19    stricter=0
+  overlay empty            postings=121   legacy-blocked=19    plugin-blocked=19    stricter=0
+  overlay present-no-data  postings=121   legacy-blocked=19    plugin-blocked=19    stricter=0
+  legacy gate junior_or_intern         fired on 3 evaluation(s)
+  legacy gate non_engineering          fired on 54 evaluation(s)
+UNEXERCISED legacy gates on this sample (parity for these is NOT shown by it): [blocked_company duplicate excluded_region onsite_outside_allowed salary_below_floor]
+VERDICT PASS: 0 permissive, 0 stricter, 0 rule-divergent over 121 postings (363 evaluations)
+rc=0
+## -min-sample 200
+ruleset c9fed9822df3 distinct-postings=121 evaluations=363 min-sample=200
+note: source=replay observe.db: real fetched postings; sealed bodies unreadable, so scoring uses title and structured fields only
+shadow_postings=363 shadow_legacy_blocked=57 shadow_plugin_blocked=57 shadow_permissive=0 shadow_stricter=0 shadow_rule_divergent=0 shadow_rule_unknown=847 shadow_panics=0 outcome_changed=0
+approve_time_hardgates evaluations=363 permissive=0 stricter=0 rule_divergent=0 panics=0
+  overlay nil              postings=121   legacy-blocked=19    plugin-blocked=19    stricter=0
+  overlay empty            postings=121   legacy-blocked=19    plugin-blocked=19    stricter=0
+  overlay present-no-data  postings=121   legacy-blocked=19    plugin-blocked=19    stricter=0
+  legacy gate junior_or_intern         fired on 3 evaluation(s)
+  legacy gate non_engineering          fired on 54 evaluation(s)
+UNEXERCISED legacy gates on this sample (parity for these is NOT shown by it): [blocked_company duplicate excluded_region onsite_outside_allowed salary_below_floor]
+VERDICT UNDETERMINED: 121 postings is below the stated minimum sample of 200
+rc=2
+## live attempt, no operator terms accepted
+jssoak: round 1 remoteok requests=0 ok=0 new=0 unchanged=0 skipped=map[] err=ingest: blocked by a compliance gate: remoteok
+ruleset c9fed9822df3 distinct-postings=0 evaluations=0 min-sample=100
+note: source=live: real adapters, persisted limiter, egress allow-list, compliance guard; bodies available
+note: provider not fetched: remoteok (requests=0 ok=0 errors=0 skipped=map[] err=ingest: blocked by a compliance gate: remoteok)
+shadow_postings=0 shadow_legacy_blocked=0 shadow_plugin_blocked=0 shadow_permissive=0 shadow_stricter=0 shadow_rule_divergent=0 shadow_rule_unknown=0 shadow_panics=0 outcome_changed=0
+approve_time_hardgates evaluations=0 permissive=0 stricter=0 rule_divergent=0 panics=0
+  overlay nil              postings=0     legacy-blocked=0     plugin-blocked=0     stricter=0
+  overlay empty            postings=0     legacy-blocked=0     plugin-blocked=0     stricter=0
+  overlay present-no-data  postings=0     legacy-blocked=0     plugin-blocked=0     stricter=0
+UNEXERCISED legacy gates on this sample (parity for these is NOT shown by it): [blocked_company duplicate excluded_region junior_or_intern non_engineering onsite_outside_allowed salary_below_floor]
+VERDICT UNDETERMINED: no postings were evaluated
+rc=2
+PROVE-FAILURE OK: control rc=0; dropped junior_or_intern rc=1; minimum above the sample rc=2
+prove-failure rc=0

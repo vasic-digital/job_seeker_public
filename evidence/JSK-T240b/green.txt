@@ -1,0 +1,13 @@
+# GREEN 2026-11-24T16:50:49Z
+ok  	github.com/vasic-digital/job_seeker/internal/ext/channel/mailgate	0.190s	coverage: 93.8% of statements
+ok  	github.com/vasic-digital/job_seeker/internal/ext/deliver	0.038s	coverage: 96.2% of statements
+ok  	github.com/vasic-digital/job_seeker/internal/ext/channel/smtpcompose	0.055s	coverage: 86.3% of statements
+ok  	github.com/vasic-digital/job_seeker/internal/audit	0.812s	coverage: 82.4% of statements
+ok  	github.com/vasic-digital/job_seeker/internal/ext	0.012s	coverage: 78.4% of statements
+
+$ gofmt -l internal cmd
+$ go vet ./...
+rc=0
+
+OK: 4 channel package(s), NewApproved callers ['internal/draft/token.go', 'internal/ext/ports.go'], no send surface, Vet wired
+OK: public-readiness scan clean (1186 tracked files, rules H E K C A)

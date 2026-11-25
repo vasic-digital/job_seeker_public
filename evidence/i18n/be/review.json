@@ -1,0 +1,80 @@
+{
+ "verdict": "PASS",
+ "reviewer": "claude:fresh-reviewer",
+ "translator": "claude:sonnet-5.5",
+ "lang": "be",
+ "scores": {
+  "accuracy": 5,
+  "fluency": 4,
+  "completeness": 5,
+  "naturalness": 4,
+  "register_appropriate": 5,
+  "terminology": 4,
+  "format": 5
+ },
+ "issues": [
+  {
+   "key": "kbd.hint",
+   "severity": "minor",
+   "problem": "Euphony (чаргаванне) error: 'у ўваходныя' - a consonant-final 'у' may not precede a word starting with ў",
+   "fix": "пераходзіць ва ўваходныя"
+  },
+  {
+   "key": "inbox.caption/intake.title/nav.intake/job.title/job.text",
+   "severity": "minor",
+   "problem": "Terminology: 'posting' rendered as both 'вакансія' (intake.*, nav.intake, queue.*) and 'аб’ява пра вакансію' (inbox.*, job.*, error.*); 'listing' is also 'аб’ява'",
+   "fix": "Optional: pick one for 'posting' (аб’ява пра вакансію) and reserve 'вакансія' for job opening/Title; not blocking, meaning is clear everywhere"
+  },
+  {
+   "key": "score.breakdown",
+   "severity": "nit",
+   "problem": "'Разбіўка' is a Russianism-flavoured calque (разбивка)",
+   "fix": "Размеркаванне ацэнкі / Склад ацэнкі"
+  },
+  {
+   "key": "settings.circuit",
+   "severity": "nit",
+   "problem": "'размыкальнік ланцуга' is a literal electrical calque for circuit breaker",
+   "fix": "acceptable; consider 'Стан аўтаматычнага выключальніка (circuit breaker)' if hint allows"
+  },
+  {
+   "key": "report.coverage.counts",
+   "severity": "nit",
+   "problem": "'нельга заяўляць' (must not be claimed) slightly stiff",
+   "fix": "'іх нельга ўказваць як свае' / 'на іх нельга спасылацца'"
+  },
+  {
+   "key": "error.bad_host",
+   "severity": "nit",
+   "problem": "'Хост сервера адхіліў запыт' adds 'сервера'/'запыт' beyond 'Host refused.'",
+   "fix": "Хост адхілены."
+  },
+  {
+   "key": "apostrophe",
+   "severity": "info",
+   "problem": "be.json uses U+2019 (33 occurrences) in аб’ява/з’яўляецца etc.",
+   "fix": "Keep U+2019: it matches the repo's own Belarusian corpus (_content_be: 418 U+2019 vs 20 ASCII). Official orthography prescribes ' (U+0027); typographically correct is U+02BC; but consistency with repo norm wins. Normalise any ASCII outliers in _content_be to U+2019 if desired."
+  }
+ ],
+ "checks": {
+  "keys_en": 312,
+  "keys_be": 312,
+  "key_set_equal": true,
+  "placeholder_order_preserved": true,
+  "ukrainian_chars_(ї є ґ)": 0,
+  "russian_leakage": "none found",
+  "hint_parentheticals_leaked": false,
+  "kept_latin": [
+   "Passkey",
+   "Job Seeker",
+   "SHA-256",
+   "Bootstrap-token",
+   "step-up",
+   "mailto",
+   "robots.txt"
+  ],
+  "cv_term": "Рэзюмэ"
+ },
+ "blocking_mistranslation": false,
+ "_standard": "11.4.236"
+}

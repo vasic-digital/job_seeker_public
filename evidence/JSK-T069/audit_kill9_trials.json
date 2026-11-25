@@ -1,0 +1,146 @@
+{
+ "kills": 20,
+ "postings": 400,
+ "trials": [
+  {
+   "Trial": 0,
+   "DelayMs": 83,
+   "Entries": 209,
+   "PostingsMoved": 70,
+   "ChainOK": true
+  },
+  {
+   "Trial": 1,
+   "DelayMs": 5,
+   "Entries": 125,
+   "PostingsMoved": 42,
+   "ChainOK": true
+  },
+  {
+   "Trial": 2,
+   "DelayMs": 33,
+   "Entries": 190,
+   "PostingsMoved": 64,
+   "ChainOK": true
+  },
+  {
+   "Trial": 3,
+   "DelayMs": 118,
+   "Entries": 323,
+   "PostingsMoved": 108,
+   "ChainOK": true
+  },
+  {
+   "Trial": 4,
+   "DelayMs": 13,
+   "Entries": 98,
+   "PostingsMoved": 33,
+   "ChainOK": true
+  },
+  {
+   "Trial": 5,
+   "DelayMs": 135,
+   "Entries": 326,
+   "PostingsMoved": 109,
+   "ChainOK": true
+  },
+  {
+   "Trial": 6,
+   "DelayMs": 60,
+   "Entries": 209,
+   "PostingsMoved": 70,
+   "ChainOK": true
+  },
+  {
+   "Trial": 7,
+   "DelayMs": 146,
+   "Entries": 410,
+   "PostingsMoved": 137,
+   "ChainOK": true
+  },
+  {
+   "Trial": 8,
+   "DelayMs": 107,
+   "Entries": 308,
+   "PostingsMoved": 103,
+   "ChainOK": true
+  },
+  {
+   "Trial": 9,
+   "DelayMs": 9,
+   "Entries": 59,
+   "PostingsMoved": 20,
+   "ChainOK": true
+  },
+  {
+   "Trial": 10,
+   "DelayMs": 49,
+   "Entries": 208,
+   "PostingsMoved": 70,
+   "ChainOK": true
+  },
+  {
+   "Trial": 11,
+   "DelayMs": 148,
+   "Entries": 415,
+   "PostingsMoved": 139,
+   "ChainOK": true
+  },
+  {
+   "Trial": 12,
+   "DelayMs": 95,
+   "Entries": 235,
+   "PostingsMoved": 79,
+   "ChainOK": true
+  },
+  {
+   "Trial": 13,
+   "DelayMs": 94,
+   "Entries": 248,
+   "PostingsMoved": 83,
+   "ChainOK": true
+  },
+  {
+   "Trial": 14,
+   "DelayMs": 26,
+   "Entries": 156,
+   "PostingsMoved": 52,
+   "ChainOK": true
+  },
+  {
+   "Trial": 15,
+   "DelayMs": 55,
+   "Entries": 208,
+   "PostingsMoved": 70,
+   "ChainOK": true
+  },
+  {
+   "Trial": 16,
+   "DelayMs": 96,
+   "Entries": 206,
+   "PostingsMoved": 69,
+   "ChainOK": true
+  },
+  {
+   "Trial": 17,
+   "DelayMs": 98,
+   "Entries": 247,
+   "PostingsMoved": 83,
+   "ChainOK": true
+  },
+  {
+   "Trial": 18,
+   "DelayMs": 63,
+   "Entries": 208,
+   "PostingsMoved": 70,
+   "ChainOK": true
+  },
+  {
+   "Trial": 19,
+   "DelayMs": 24,
+   "Entries": 207,
+   "PostingsMoved": 69,
+   "ChainOK": true
+  }
+ ]
+}

@@ -1,0 +1,12 @@
+# Provider quality rank R as DATA (docs/research/providers/05 section 3). INITIAL PROPOSALS, none claimed validated by outcomes (SC-029).
+# R = sum(w_i * c_i), each c_i in [0,1]. Changing a weight bumps ranking_version (it is part of policy_sha).
+# key	value
+ranking_version	rank-r1
+w_directness	0.35
+w_employer_origin	0.20
+w_freshness	0.15
+w_reliability	0.10
+w_completeness	0.10
+w_history	0.10
+history_min_n	10
+freshness_zero_days	14

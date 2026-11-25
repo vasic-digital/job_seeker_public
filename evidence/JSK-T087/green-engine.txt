@@ -1,0 +1,6 @@
+=== RUN   TestConcurrentApproveExactlyOneWinner
+--- PASS: TestConcurrentApproveExactlyOneWinner (1.31s)
+=== RUN   TestConcurrentApproveAndRejectExactlyOneOutcome
+--- PASS: TestConcurrentApproveAndRejectExactlyOneOutcome (1.40s)
+PASS
+ok  	github.com/vasic-digital/job_seeker/internal/draft	2.733s

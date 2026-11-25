@@ -2,6 +2,7 @@ package console
 
 import (
 	"context"
+	"github.com/vasic-digital/job_seeker/internal/ingest/ingesttest"
 	"net/http"
 	"net/http/httptest"
 	"net/url"
@@ -47,6 +48,7 @@ type rig struct {
 	gate *draft.Gate
 	clk  *clock
 	a    *testauthn.Authenticator
+	db   *store.DB
 }
 
 // newRig is the REAL stack for the settings routes: real store, real auth service with the software passkey,
@@ -84,7 +86,7 @@ func newRigCat(t *testing.T, mod func(*i18n.Catalogue) *i18n.Catalogue) *rig {
 		cat = mod(cat)
 	}
 	gate := draft.NewGate(db, false)
-	ds := &draft.Service{DB: db, Keys: kr, Tpl: templates.Empty(), Gate: gate, OverlayPresent: func() bool { return false }, Now: clk.now}
+	ds := &draft.Service{Compliance: ingesttest.AllowAll{}, DB: db, Keys: kr, Tpl: templates.Empty(), Gate: gate, OverlayPresent: func() bool { return false }, Now: clk.now}
 	con, err := New(Deps{DB: db, Keys: kr, Draft: ds, Cat: cat, Now: clk.now})
 	if err != nil {
 		t.Fatal(err)
@@ -92,7 +94,7 @@ func newRigCat(t *testing.T, mod func(*i18n.Catalogue) *i18n.Catalogue) *rig {
 	h := api.New(api.Deps{Build: buildinfo.Get(), AllowedHosts: []string{"js.lan"}, Origins: []string{rOrigin},
 		CSRFLookup: ar.CSRFLookup, Tokens: toks, SessionGuard: ar.SessionGuard(), Writes: ratelimit.NewBucket(1000, 1000, clk.now),
 		Extra: func(e *gin.Engine) { ar.Register(e); con.Register(e) }})
-	r := &rig{h: h, gate: gate, a: testauthn.New(rOrigin, "js.lan"), clk: clk}
+	r := &rig{h: h, gate: gate, a: testauthn.New(rOrigin, "js.lan"), clk: clk, db: db}
 	return r
 }
 

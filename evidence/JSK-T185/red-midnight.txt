@@ -1,0 +1,5 @@
+--- FAIL: TestDraftHashDateComesFromTheSameInstantAsCreatedAt (2.04s)
+    --- FAIL: TestDraftHashDateComesFromTheSameInstantAsCreatedAt/flip_after_reading_1 (0.20s)
+FAIL
+FAIL	github.com/vasic-digital/job_seeker/internal/draft	2.092s
+FAIL

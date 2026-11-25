@@ -413,9 +413,20 @@ func TestArrivalOrderIndependent(t *testing.T) {
 	}
 	var want string
 	r := rand.New(rand.NewSource(7))
-	for n := 0; n < 40; n++ {
+	// SC-027 states 1,000 cases. A 6-element set has 720 permutations: every one is exercised once (sorted by a
+	// seeded shuffle), then random permutations (repeats allowed) bring the total to arrivalCases.
+	all := allPerms(len(set))
+	r.Shuffle(len(all), func(i, j int) { all[i], all[j] = all[j], all[i] })
+	seen := map[string]bool{}
+	for n := 0; n < arrivalCases; n++ {
 		f := newFx(t)
-		perm := r.Perm(len(set))
+		var perm []int
+		if n < len(all) {
+			perm = all[n]
+		} else {
+			perm = r.Perm(len(set))
+		}
+		seen[fmt.Sprint(perm)] = true
 		ids := map[string]int64{}
 		for _, i := range perm {
 			ids[set[i].job] = f.add(set[i])
@@ -444,6 +455,38 @@ func TestArrivalOrderIndependent(t *testing.T) {
 			t.Fatalf("order %v gave %q, want %q", perm, got, want)
 		}
 	}
+	if len(seen) != len(all) {
+		t.Fatalf("exercised %d distinct arrival orders, want all %d", len(seen), len(all))
+	}
+}
+
+// arrivalCases is the SC-027 case count (spec.md: "property test, 1,000 cases"); a lower value fails below.
+const arrivalCases = 1000
+
+func TestArrivalCasesMeetSC027(t *testing.T) {
+	if arrivalCases < 1000 {
+		t.Fatalf("SC-027 requires 1,000 cases, have %d", arrivalCases)
+	}
+}
+
+func allPerms(n int) [][]int {
+	var out [][]int
+	var rec func(cur []int, used []bool)
+	rec = func(cur []int, used []bool) {
+		if len(cur) == n {
+			out = append(out, append([]int(nil), cur...))
+			return
+		}
+		for i := 0; i < n; i++ {
+			if !used[i] {
+				used[i] = true
+				rec(append(cur, i), used)
+				used[i] = false
+			}
+		}
+	}
+	rec(nil, make([]bool, n))
+	return out
 }
 
 func TestParamsLoadAndValidate(t *testing.T) {

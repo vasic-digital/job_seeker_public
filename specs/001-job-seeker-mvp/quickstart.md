@@ -1,6 +1,6 @@
 # Quickstart (operator) — job_seeker MVP
 
-Written before implementation as the acceptance walkthrough; commands are the intended shape and MUST be re-verified against the built artefact (anything not run is UNCONFIRMED until its task evidence exists).
+Written before implementation as the acceptance walkthrough. Re-verified against the BUILT binaries on 2026-11-24 for every command-line step (evidence/JSK-T121/quickstart-reverify.txt); the console-UI steps (section 2, passkey registration, live approval) are still UNCONFIRMED until T123 provides a built, served artefact.
 
 ## 0. Prerequisites
 
@@ -10,10 +10,15 @@ Go 1.26.x, rootless podman, a trusted certificate for the console host name (pri
 
 ```bash
 export JOBSEEKER_ENV=production            # boot guards on
-# DB key, session key, bootstrap token come from your secret store by name:
-#   JOBSEEKER_DB_KEY  JOBSEEKER_SESSION_KEY  JOBSEEKER_BOOTSTRAP_TOKEN
-jsctl migrate                              # takes a hardlinked backup first; refuses if that fails
-jobseekerd                                 # prints the capability matrix (names only); exits non-zero on a violated invariant
+# Secrets come from your secret store by name (production refuses short values: use long passphrases):
+#   JOBSEEKER_DB_KEY  JOBSEEKER_SESSION_KEY  JOBSEEKER_BOOTSTRAP_TOKEN  (JOBSEEKER_EXPORT_PASSPHRASE is optional but length-checked when set)
+# Non-secret production settings that are also required:
+#   JOBSEEKER_ALLOWED_HOSTS  JOBSEEKER_ORIGINS  JOBSEEKER_HTTPS_ADDR  JOBSEEKER_CERT_DIR  JOBSEEKER_EGRESS_ALLOWLIST
+# JOBSEEKER_DATA_DIR must already exist (mode 0700) and lie outside any git work tree; JEV_GATE must be "shadow"
+# (the boot invariant jev_gate_shadow is VIOLATED otherwise and the daemon exits 1).
+jsctl cert gen-ca --hosts <host>           # once: private name-constrained CA; then: jsctl cert issue --hosts <host>
+jsctl migrate                              # applies pending migrations (verified backup first when a database already exists)
+jobseekerd                                 # prints invariants and the capability matrix (names only); exits 1 on a violated invariant
 ```
 
 Open the console, register the first passkey with the bootstrap token (valid only while zero passkeys exist), register a SECOND authenticator immediately, and store the recovery token offline.
@@ -34,8 +39,8 @@ Kill switch in Settings or `JOBSEEKER_KILL_SWITCH=1`; `jsctl verify-audit` recom
 
 ## 4. Lost passkeys
 
-Use the second authenticator. If both are lost: on the host, set a fresh `JOBSEEKER_BOOTSTRAP_TOKEN`, run `jsctl passkeys reset` (writes a tombstone and audit entry), re-register. The host owner is the root of trust.
+Use the second authenticator. If both are lost: on the host, set a fresh `JOBSEEKER_BOOTSTRAP_TOKEN`, run `jsctl passkeys reset --confirm RESET-PASSKEYS` (removes every passkey and session in one transaction and writes one audit entry; nothing else is touched), re-register. The host owner is the root of trust.
 
 ## 5. Verification entry points
 
-`make gates` (static and live gates), `make test-all` (13 types, honest SKIPs listed), `make full` (one-command deterministic dry-run journey), `gates/prove-*.sh` (each proves its gate can fail).
+`make gates` (static and live gates), `make test-all` (13 types, honest SKIPs listed), `make full` (build, `test-all`, then the integration and full-journey Go tests in `tests/integration` and `tests/full`; a test run, not a console walkthrough), and every `gates/verify_*.sh --prove-failure` (each proves its gate can fail).

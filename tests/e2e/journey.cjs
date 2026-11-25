@@ -8,7 +8,8 @@ const E = process.env, base = E.BASE_URL, ev = E.EVIDENCE_DIR, sums = JSON.parse
 const seed = JSON.parse(E.SEED_INFO), canaries = JSON.parse(E.CANARIES);
 const axeSrc = fs.readFileSync(E.AXE_JS, 'utf8');
 const log = []; let failed = 0;
-function step(name, ok, detail) { log.push((ok ? 'PASS ' : 'FAIL ') + name + (detail ? ' :: ' + detail : '')); console.log(log[log.length - 1]); if (!ok) failed++; }
+const { gluedEmails } = require('./glue.cjs');
+function step(name, ok, detail) { if (gluedEmails(name + ' ' + (detail || '')).length) { ok = false; detail = 'CAPTURE DEFECT: e-mail glued to following text (cell separators lost) :: ' + detail; } log.push((ok ? 'PASS ' : 'FAIL ') + name + (detail ? ' :: ' + detail : '')); console.log(log[log.length - 1]); if (!ok) failed++; }
 function note(name, detail) { log.push('NOTE ' + name + (detail ? ' :: ' + detail : '')); console.log(log[log.length - 1]); }
 const args = ['--host-resolver-rules=MAP js.lan 127.0.0.1', '--ignore-certificate-errors'];
 const sleep = ms => new Promise(r => setTimeout(r, ms));
@@ -27,6 +28,22 @@ const pageFetch = (page, url, opts) => page.evaluate(async ([u, o]) => { const r
 const txt = async (page, sel) => (await page.locator(sel).first().innerText()).trim();
 const errCode = async page => { const l = page.locator('[data-error-code]').first(); return (await l.count()) ? await l.getAttribute('data-error-code') : ''; };
 
+// A hover transform on a card that holds the pointer's own hit area is a feedback loop: the card moves out from under the pointer, loses :hover,
+// moves back, regains it, forever. Playwright then never sees the card (or the button inside it) as stable. The probe parks the pointer on the card,
+// moves it to 3px below the settled card and samples the card's position: it must hold still.
+async function cardHoldsStill(pg) {
+  const card = pg.locator('section.console-card').first();
+  const c0 = await card.boundingBox();
+  await pg.mouse.move(c0.x + c0.width / 2, c0.y + c0.height / 2);
+  await pg.waitForTimeout(700);
+  const c1 = await card.boundingBox();
+  await pg.mouse.move(c1.x + c1.width / 2, c1.y + c1.height + 3);
+  const seen = new Set();
+  for (let i = 0; i < 30; i++) { const b = await card.boundingBox(); seen.add(b.x.toFixed(1) + ',' + b.y.toFixed(1)); await pg.waitForTimeout(50); }
+  await pg.mouse.move(0, 0);
+  return [...seen];
+}
+
 (async () => {
   const browser = await chromium.launch({ args });
   const ctx = await browser.newContext({ ignoreHTTPSErrors: true, viewport: { width: 1280, height: 900 } });
@@ -41,7 +58,10 @@ const errCode = async page => { const l = page.locator('[data-error-code]').firs
   page.on('response', async r => { try { const ct = r.headers()['content-type'] || ''; if (!/text|json|xml/.test(ct)) return; const b = await r.text(); bodiesChecked++;
     for (const c of canaries) if (b.includes(c)) canaryHits.push(new URL(r.url()).pathname); } catch (e) { /* redirect or aborted body */ } });
   const refusals = [];
+  // JSK-T187b: when the approval report demands the CV area overlap be confirmed, Approve is refused without the tick
+  async function ackArea(pg) { const c = pg.locator('[data-testid=area-confirm]'); if ((await c.count()) && !(await c.isChecked())) await c.check(); }
   async function refuse(clickSel, want, wantStatus, label, stateSel) {
+    if (clickSel === '[data-testid=approve]') await ackArea(page);
     const [resp] = await Promise.all([page.waitForResponse(r => r.request().method() === 'POST' && /\/(approve|handoff-complete)$/.test(new URL(r.url()).pathname), { timeout: 15000 }), page.click(clickSel)]);
     const code = await errCode(page);
     refusals.push({ code, http_status: resp.status(), endpoint: new URL(resp.url()).pathname.replace(/\/\d+\//, '/{id}/'), label });
@@ -143,10 +163,26 @@ const errCode = async page => { const l = page.locator('[data-error-code]').firs
   step('PDF viewer serves ranges from the tmpfs-staged copy (206, 10 bytes)', rg.status === 206 && rg.text.length === 10 && rg.headers['cache-control'] === 'no-store', String(rg.status));
   await axeBoth(page, 'draft');
 
+  // JSK-T187 (FR-108): the approval report is on the page for this exact draft, Approve is enabled only with it, and a post without its digest is refused
+  const repSel = '[data-testid=approval-report]';
+  step('the approval report is rendered on the approval page (T187)', (await page.locator(repSel).count()) === 1);
+  step('report shows the company and the draft date', (await txt(page, '[data-testid=report-company]')) === 'Acme Robotics' && /^\d{4}-\d{2}-\d{2}$/.test(await txt(page, '[data-testid=report-date]')), await txt(page, '[data-testid=report-date]'));
+  step('report shows the link table state, the text diff state and the coverage counts', (await page.locator('[data-testid=report-links],[data-testid=report-links-none]').count()) === 1 && (await page.locator('[data-testid=report-diff],[data-testid=report-diff-unavailable]').count()) === 1 && /posting terms are in the CV/.test(await txt(page, '[data-testid=report-coverage]')), await txt(page, '[data-testid=report-coverage]'));
+  step('Approve is enabled while the report is rendered', !(await page.locator('[data-testid=approve]').isDisabled()));
+  await page.locator(repSel).screenshot({ path: path.join(ev, 'approval-report.png') });
+  const noRep = await pageFetch(page, appURL.replace(/draft$/, 'approve'), { method: 'POST', headers: { 'X-CSRF-Token': await page.$eval('input[name=_csrf]', el => el.value), 'Content-Type': 'application/x-www-form-urlencoded' }, body: 'company=Acme+Robotics' });
+  step('HTTP 409 report_required at POST /applications/{id}/approve without the report digest (T187)', noRep.status === 409 && noRep.text.includes('report_required'), String(noRep.status));
+
+  // JSK-T187b: the persona posting demands the area confirmation; a post that carries the current digest but no confirmation is refused
+  step('the approval form offers the area-overlap confirmation the report demands (T187b)', (await page.locator('[data-testid=report-area-confirm]').count()) === 1 && (await page.locator('[data-testid=area-confirm]').count()) === 1);
+  const noAck = await pageFetch(page, appURL.replace(/draft$/, 'approve'), { method: 'POST', headers: { 'X-CSRF-Token': await page.$eval('input[name=_csrf]', el => el.value), 'Content-Type': 'application/x-www-form-urlencoded' }, body: 'company=Acme+Robotics&report=' + encodeURIComponent(await page.$eval('input[name=report]', el => el.value)) });
+  step('HTTP 409 area_confirmation_required at POST /applications/{id}/approve with the digest but without area_confirm (T187b)', noAck.status === 409 && noAck.text.includes('area_confirmation_required'), String(noAck.status));
+  await page.locator('[data-testid=area-confirm]').check();
+  await page.screenshot({ path: path.join(ev, 'approval-area-confirm.png'), fullPage: true });
   await page.check('input[name=live][value="1"]'); await page.fill('#company', 'Acme Robotics');
   await refuse('[data-testid=approve]', 'live_mode_off', 403, 'POST /applications/{id}/approve');
   await page.check('input[name=live][value=""]');
-  await page.click('[data-testid=approve]');
+  await ackArea(page); await page.click('[data-testid=approve]');
   step('dry-run approval records dry_run_recorded', (await txt(page, '[data-testid=app-state]')) === 'dry_run_recorded');
 
   // ---- applications list + settings (kill switch, live toggle needs step-up), legal diff, retention
@@ -249,6 +285,9 @@ const errCode = async page => { const l = page.locator('[data-error-code]').firs
   const cvPath = path.join(E.TEMPLATE_DIR, 'cv-android-en.pdf'), cvOrig = fs.readFileSync(cvPath);
   fs.writeFileSync(cvPath, Buffer.concat([cvOrig, Buffer.from('\n% tampered after the draft was frozen\n')]));
   await live1('Delta Apps');
+  // JSK-T187: the report cannot be produced for a draft whose file changed, so the Approve button is disabled; the server still refuses with its own code
+  step('the approval report is unavailable for a changed draft and Approve is disabled (T187)', (await page.locator('[data-testid=approve]').isDisabled()) && (await page.locator('[data-testid=report-unavailable]').count()) === 1);
+  await page.$eval('[data-testid=approve]', el => { el.removeAttribute('disabled'); el.removeAttribute('aria-disabled'); });
   await refuse('[data-testid=approve]', 'approval_hash_mismatch', 409, 'POST /applications/{id}/approve');
   step('the hash mismatch withdrew the approval path: the draft returns to draft_prepared', (await txt(page, '[data-testid=app-state]')) === 'draft_prepared');
   fs.writeFileSync(cvPath, cvOrig);
@@ -271,6 +310,7 @@ const errCode = async page => { const l = page.locator('[data-error-code]').firs
   await page.selectOption('[data-testid=override]', 'different_team'); await page.click('[data-testid=start-application]');
   await page.waitForURL(/draft/);
   step('with a closed override reason the application starts', /applications\/\d+\/draft/.test(page.url()), page.url());
+  const dupURL = page.url();
 
   // ---- T080: keyboard-only walk, focus visibility, reduced motion, 200% zoom and reflow (runs while the step-up ages)
   await keyboardAndZoom();
@@ -287,7 +327,7 @@ const errCode = async page => { const l = page.locator('[data-error-code]').firs
 
   // ---- the full live journey: fresh step-up, live approval, handoff re-check under the kill switch, handoff, sent
   await page.goto(base + '/settings'); step('fresh step-up for the live approval', await stepUpCeremony());
-  await live1('Delta Apps'); await page.click('[data-testid=approve]');
+  await live1('Delta Apps'); await ackArea(page); await page.click('[data-testid=approve]');
   step('with every FR-026 condition satisfied the live approval is recorded (live_approved)', (await txt(page, '[data-testid=app-state]')) === 'live_approved');
   await page.goto(base + '/settings'); await page.click('[data-testid=kill-toggle]');
   await page.goto(bypassURL); await page.fill('#ref', 'SYNTH-CONFIRMATION-001');
@@ -300,6 +340,16 @@ const errCode = async page => { const l = page.locator('[data-error-code]').firs
   await page.goto(base + '/applications/' + bypassId + '/tracking');
   await page.selectOption('#tr-status', 'viewed'); await page.click('[data-testid=track-save]');
   step('a sent application is trackable (sent -> tracked)', (await txt(page, '[data-testid=timeline]')).toLowerCase().includes('viewed'), 'err=' + await errCode(page) + ' url=' + page.url());
+
+  // ---- JSK-T187b: the approval report with REAL links (the template PDFs carry an https and a mailto annotation, extracted by the
+  // real poppler parser) and a REAL prior send (the Delta Apps application recorded as sent above): both the link table and the text diff render
+  await page.goto(dupURL); await page.click('text=Prepare template draft');
+  step('the second application of the journey is awaiting approval with its report (T187b)', (await txt(page, '[data-testid=app-state]')) === 'awaiting_human_approval' && (await page.locator('[data-testid=approval-report]').count()) === 1);
+  const linkRows = await page.locator('[data-testid=report-links] tbody tr').evaluateAll(trs => trs.map(tr => [...tr.cells].map(c => c.textContent.trim()).join(' | ')));
+  step('report link table lists the real https and mailto links of both frozen files, all accepted (T187b)', linkRows.length === 4 && linkRows.filter(r => r.includes('https://example.com/p')).length === 2 && linkRows.filter(r => r.includes('mailto:a@example.com')).length === 2 && linkRows.every(r => /\| yes$/i.test(r.trim())), linkRows.map(r => r.replace(/\s+/g, ' ')).join(' | '));
+  step('report text diff is computed against the CV of the most recent send (cv-go-en vs cv-android-en) with exact counts (T187b)', (await page.locator('[data-testid=report-diff]').count()) === 1 && (await txt(page, '[data-testid=report-diff-added]')).includes('cv-go-en.pdf') && (await txt(page, '[data-testid=report-diff-removed]')).includes('cv-android-en.pdf'), (await txt(page, '[data-testid=report-diff]')).replace(/\s+/g, ' '));
+  await page.locator('[data-testid=approval-report]').screenshot({ path: path.join(ev, 'approval-report-links-diff.png') });
+  await axeBoth(page, 'draft-report-links');
 
   // ---- audit log page and export: chain order and the reason codes the journey must have produced
   await page.goto(base + '/audit'); await axeBoth(page, 'audit');
@@ -316,8 +366,10 @@ const errCode = async page => { const l = page.locator('[data-error-code]').firs
   const p2 = await njs.newPage();
   await p2.goto(base + '/postings/6');
   await p2.click('text=Shortlist and start an application'); await p2.waitForURL(/draft/);
-  await p2.click('text=Prepare template draft');
-  await p2.locator('#company').press('Enter');
+  const holds = await cardHoldsStill(p2);
+  step('draft card holds still under a pointer at its bottom edge (no :hover feedback loop)', holds.length === 1, holds.length + ' distinct position(s): ' + holds.slice(0, 4).join(' | '));
+  await p2.click('text=Prepare template draft', { timeout: 10000 });
+  await ackArea(p2); await p2.locator('#company').press('Enter');
   step('no-JavaScript: shortlist, prepare and dry-run approve complete', (await txt(p2, '[data-testid=app-state]')) === 'dry_run_recorded');
   await njs.close();
 
@@ -366,6 +418,14 @@ const errCode = async page => { const l = page.locator('[data-error-code]').firs
     await page.evaluate(() => document.activeElement && document.activeElement.blur());
     const b = await tabTo(() => document.activeElement && /Prepare template draft/.test(document.activeElement.textContent), 40); await enter();
     await page.evaluate(() => document.activeElement && document.activeElement.blur());
+    // JSK-T187b: a report that demands the area confirmation is acknowledged with the keyboard alone (Tab to the checkbox, Space)
+    let kAck = true;
+    if (await page.locator('[data-testid=area-confirm]').count()) {
+      kAck = await tabTo(() => document.activeElement && document.activeElement.getAttribute('data-testid') === 'area-confirm', 60);
+      await page.keyboard.press('Space');
+      kAck = kAck && await page.locator('[data-testid=area-confirm]').isChecked();
+    }
+    step('keyboard only: the area-overlap confirmation can be ticked with Tab and Space (T187b)', kAck);
     const c = await tabTo(() => document.activeElement && document.activeElement.getAttribute('data-testid') === 'approve', 60); await enter();
     step('keyboard only: shortlist, prepare and dry-run approve complete', a && b && c && (await txt(page, '[data-testid=app-state]')) === 'dry_run_recorded', [a, b, c].join(','));
     // 4. reduced motion: no transition or animation runs

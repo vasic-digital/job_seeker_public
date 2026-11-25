@@ -1,0 +1,21 @@
+{
+  "image": "<repo>/evidence/JSK-T217/frames/merges-en-dark.png",
+  "prompt": "This is a screenshot of a web page. List the page title or main heading, the navigation links, and any buttons, form fields or table headings you can read. Quote the visible text exactly.",
+  "endpoint": "http://127.0.0.1:11500/v1/chat/completions",
+  "model_requested": "qwen2.5vl:3b",
+  "model_served": "qwen2.5vl:3b",
+  "expected_facts": [
+    "a decision"
+  ],
+  "response": "**Page Title or Main Heading:** Possible duplicate positions\n\n**Navigation Links:**\n- Inbox\n- Review queue\n- Applications\n- Add posting\n- Settings\n\n**Buttons:**\n- Switch\n- Sign out\n\n**Form Fields or Table Headings:**\n- English\n\n**Visible Text:**\n- No pairs are waiting for a decision.",
+  "matched_facts": 1,
+  "expected_count": 1,
+  "hallucinated": false,
+  "pass": true,
+  "expect_fail": false,
+  "case_result": true,
+  "latency_ms": 1038,
+  "http_status": 200,
+  "prompt_tokens": 1533,
+  "completion_tokens": 71
+}

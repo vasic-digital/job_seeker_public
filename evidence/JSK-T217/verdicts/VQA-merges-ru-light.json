@@ -1,0 +1,21 @@
+{
+  "image": "<repo>/evidence/JSK-T217/frames/merges-ru-light.png",
+  "prompt": "This is a screenshot of a web page. List the page title or main heading, the navigation links, and any buttons, form fields or table headings you can read. Quote the visible text exactly.",
+  "endpoint": "http://127.0.0.1:11500/v1/chat/completions",
+  "model_requested": "qwen2.5vl:3b",
+  "model_served": "qwen2.5vl:3b",
+  "expected_facts": [
+    "пар нет"
+  ],
+  "response": "**Page Title or Main Heading:**\nВозможные дублирующие позиции\n\n**Navigation Links:**\n- Входящие\n- Очередь на проверку\n- Заявки на трудоустройство\n- Добавить вакансию\n- Настройки\n- Журнал аудита\n\n**Form Fields or Table Headings:**\n- Русский\n\n**Buttons:**\n- Переключатель\n- Выйти\n\n**Visible Text:**\nОжидаемых решений пар нет.",
+  "matched_facts": 1,
+  "expected_count": 1,
+  "hallucinated": false,
+  "pass": true,
+  "expect_fail": false,
+  "case_result": true,
+  "latency_ms": 1685,
+  "http_status": 200,
+  "prompt_tokens": 1533,
+  "completion_tokens": 119
+}

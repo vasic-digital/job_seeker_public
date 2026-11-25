@@ -1,0 +1,11 @@
+== good snapshot
+drill: runtime=podman image=localhost/job_seeker-gate:dev container_exit=0 wall=193ms
+restore-drill: file=jobseeker.db.snapshot-v5-20261124T205254.206785438Z.bak bytes=294912 integrity_ok=true schema_version=5 postings=0 applications=0 audit_rows=0 audit=UNVERIFIED elapsed=3ms
+ok   good snapshot rc=0
+== MUTANT corrupted snapshot
+jsstack: DRILL FAIL: runtime=podman container exit=1 wall=147ms stdout="" stderr="jsdrill: FAIL: restore drill: integrity_check failed on the restored copy"
+ok   corrupted snapshot rc=1
+== MUTANT absent image
+jsstack: COULD NOT DETERMINE: the container did not start the drill (exit 125, image localhost/jsk-no-such-image:none): Trying to pull localhost/jsk-no-such-image:none...
+ok   absent image rc=2
+RESTORE-DRILL-CONTAINER OK

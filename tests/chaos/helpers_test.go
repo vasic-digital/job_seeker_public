@@ -16,7 +16,9 @@ import (
 
 	"github.com/vasic-digital/job_seeker/internal/crypto"
 	"github.com/vasic-digital/job_seeker/internal/egress"
+	"github.com/vasic-digital/job_seeker/internal/evnorm"
 	"github.com/vasic-digital/job_seeker/internal/ingest"
+	"github.com/vasic-digital/job_seeker/internal/ingest/ingesttest"
 	"github.com/vasic-digital/job_seeker/internal/limiter"
 	"github.com/vasic-digital/job_seeker/internal/match"
 	"github.com/vasic-digital/job_seeker/internal/pipeline"
@@ -32,7 +34,7 @@ func evidence(t *testing.T, name string, v any) {
 	}
 	_ = os.MkdirAll(d, 0o755)
 	b, _ := json.MarshalIndent(v, "", " ")
-	if err := os.WriteFile(filepath.Join(d, name), b, 0o644); err != nil {
+	if err := evnorm.WriteFile(filepath.Join(d, name), b, 0o644); err != nil {
 		t.Fatal(err)
 	}
 }
@@ -92,7 +94,7 @@ func newPipeline(t testing.TB, db *store.DB, kr *crypto.Keyring, ps ...providers
 	if err != nil {
 		t.Fatal(err)
 	}
-	r := &ingest.Runner{DB: db, Keys: kr, Limiter: &limiter.Limiter{DB: db}, Providers: ps, Sleep: func(context.Context, time.Duration) error { return nil }}
+	r := &ingest.Runner{Compliance: ingesttest.AllowAll{}, DB: db, Keys: kr, Limiter: &limiter.Limiter{DB: db}, Providers: ps, Sleep: func(context.Context, time.Duration) error { return nil }}
 	return &pipeline.Pipeline{DB: db, Keys: kr, Runner: r, Rules: rules}
 }
 

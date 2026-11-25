@@ -1,0 +1,7 @@
+KILLED       t239y-absent-setting-is-off
+KILLED       t239y-nil-guard-passes
+KILLED       t239y-any-value-but-1-opts-out
+KILLED       t239y-hook-allowed-outside-test
+KILLED       t239y-hook-non-loopback-ok
+KILLED       t239y-kernel-ignores-hook
+KILLED       t239y-off-records-on

@@ -1,4 +1,6 @@
 VQA-LIVE-LOGIN	must-pass	0	live-login.png
+VQA-LIVE-AUTH-INBOX	must-pass	0	live-auth-inbox.png
+VQA-LIVE-AUTH-SETTINGS	must-pass	0	live-auth-settings.png
 VQA-CONSOLE-INBOX	must-pass	0	console-inbox.png
 VQA-CONSOLE-DRAFT	must-pass	0	console-draft.png
 VQA-CONSOLE-SETTINGS	must-pass	0	console-settings.png

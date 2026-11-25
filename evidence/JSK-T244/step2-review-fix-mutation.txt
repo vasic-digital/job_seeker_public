@@ -1,0 +1,2 @@
+KILLED       t244-decider-eligibility-yaml-readerr-ignored
+mutations: 1 genuinely killed of 1

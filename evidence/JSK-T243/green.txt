@@ -1,0 +1,2 @@
+go test ./internal/ext/... ok; verify_plugins OK; 8 ext-txt mutants KILLED (mutations.txt)
+NOTE: removing the Verify call in Render is an equivalent mutant (Validate already guarantees the round trip); the gate is pinned by TestVerifyCatchesAWrongRendering and ext-txt-verify-ignores-text

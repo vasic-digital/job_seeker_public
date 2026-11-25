@@ -1,0 +1,15 @@
+{{define "content"}}
+<p class="console-hint" id="in-hint">{{t .Lang "intake.hint"}}</p>
+<form method="post" action="/intake" class="od-card console-card" data-testid="intake-form" aria-describedby="in-hint">
+  <input type="hidden" name="_csrf" value="{{.CSRF}}">
+  <div class="od-field"><label class="od-label" for="in-url">{{t .Lang "intake.url"}}</label>
+    <input class="od-input" id="in-url" name="url" type="url" required maxlength="2048" autocomplete="off" placeholder="https://" value="{{.Intake.URL}}"></div>
+  <div class="od-field"><label class="od-label" for="in-title">{{t .Lang "intake.titlefield"}}</label>
+    <input class="od-input" id="in-title" name="title" type="text" required maxlength="300" value="{{.Intake.Title}}"></div>
+  <div class="od-field"><label class="od-label" for="in-company">{{t .Lang "intake.company"}}</label>
+    <input class="od-input" id="in-company" name="company" type="text" maxlength="200" value="{{.Intake.Company}}"></div>
+  <div class="od-field"><label class="od-label" for="in-text">{{t .Lang "intake.text"}}</label>
+    <textarea class="od-input" id="in-text" name="text" rows="12" maxlength="200000"></textarea></div>
+  <button class="od-btn od-btn--primary" type="submit" data-testid="intake-submit">{{t .Lang "intake.submit"}}</button>
+</form>
+{{end}}

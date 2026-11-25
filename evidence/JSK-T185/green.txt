@@ -1,0 +1,12 @@
+--- PASS: TestDraftHashDateComesFromTheSameInstantAsCreatedAt (1.10s)
+--- PASS: TestScamCorpusIsFlagged (0.00s)
+--- PASS: TestCleanCorpusIsNotFlagged (0.00s)
+--- PASS: TestHardFlagsAreTheMoneyAndIdentityOnes (0.00s)
+--- PASS: TestHardRiskBlocksLiveApprovalSoftDoesNot (0.17s)
+--- PASS: TestAdvisoriesListsRiskAndHours (0.08s)
+ok  	github.com/vasic-digital/job_seeker/internal/draft	1.383s
+--- PASS: TestDraftPageRendersAdvisories (0.01s)
+--- PASS: TestServePDFStagesOnTmpfsServesRangesAndCleansUp (0.00s)
+ok  	github.com/vasic-digital/job_seeker/internal/console	0.021s
+--- PASS: TestBadBodySetIsBounded (0.00s)
+ok  	github.com/vasic-digital/job_seeker/internal/pipeline	0.010s

@@ -1,0 +1,2 @@
+PROVE-FAILURE OK: real registry passes; removed row, phantom row, unregistered target and failing seed are each refused
+rc=0

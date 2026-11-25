@@ -1,0 +1,8 @@
+--- PASS: TestCoverageSynthetic20 (0.00s)
+--- PASS: TestCoverageDjangoIsNotGo (0.00s)
+--- PASS: TestCheckEmphasisHonesty (0.00s)
+--- PASS: TestAreaOverlapRunnerUpMargin (0.02s)
+--- PASS: TestHeldFromSkillsKeepsUnknownByName (0.01s)
+--- PASS: TestServiceCoverageReport (0.13s)
+PASS
+ok  	github.com/vasic-digital/job_seeker/internal/draft	0.197s

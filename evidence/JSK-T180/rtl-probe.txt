@@ -1,0 +1,16 @@
+# JSK-T180 unattended probe, 2026-11-24: WeasyPrint 67.0, synthetic Hebrew only (no operator data)
+weasyprint rc ok; pdf bytes 8231
+logical-order extract contains 'השכלה' True
+logical-order extract contains 'ניסיון תעסוקתי' True
+logical-order extract contains 'כישורים' True
+logical-order extract contains 'מפתח תוכנה בכיר עם ניסיון בפיתוח אנדרואיד ושרתים' False   (the full heading wraps across two lines in the PDF, so a single-string match fails; each wrapped half extracts intact in logical order, see the raw line below)
+fonts:
+name                                 type              encoding         emb sub uni object ID
+------------------------------------ ----------------- ---------------- --- --- --- ---------
+ETIJFD+Noto-Sans-Hebrew-Bold         CID TrueType      Identity-H       yes yes yes     18  0
+XKQQSR+DejaVu-Sans                   CID TrueType      Identity-H       yes yes yes     22  0
+CMZTHN+Noto-Sans-Hebrew              CID TrueType      Identity-H       yes yes yes     26  0
+pdftotext raw (logical order, bidi controls U+202B injected by pdftotext itself, which gates._extract_independent already drops):
+‫מפתח תוכנה בכיר עם ניסיון בפיתוח‬ ‫אנדרואיד ושרתים‬ ‫השכלה‬ ‫‪Go, Kotlin, 2010-2024‬‬  ‫ניסיון תעסוקתי‬ ‫כישורים‬  
+fc-list Hebrew: Noto Sans Hebrew
+NOT DONE (blocked on operator decision Q-ATS-7 and Hebrew content): career/catalog.py LOCALES + RTL_LOCALES, render/__init__.py HTML_LOCALES, render/fonts.py EXTRA['he'], gates.py script range 0590-05FF and _RTL_LANGS, he locale overlay content (translation via HelixTranslate), tests

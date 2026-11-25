@@ -22,10 +22,10 @@
    "stamped": false,
    "version": "unstamped"
   },
-  "at": "2026-11-24T14:08:41Z",
+  "at": "2026-11-24T22:23:27Z",
   "command": "make full (go test ./tests/full -run Full)",
-  "git_head": "4da461105deb166e95fa90928903f721d2e452dd",
+  "git_head": "2b1b4cb0332e36846e2f553927b5d8885093aa96",
   "go": "go1.26.11",
-  "worktree_dirty": false
+  "worktree_dirty": true
  }
 }

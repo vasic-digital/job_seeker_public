@@ -136,3 +136,8 @@ func nonEmpty(ss ...string) []string {
 	}
 	return out
 }
+
+// RequestURLs implements Requester: the exact URL Fetch builds for each tenant.
+func (l *Lever) RequestURLs() []string {
+	return tenantURLs(l.Tenants, func(s string) string { return l.Endpoint + "/v0/postings/" + s + "?mode=json&limit=200" })
+}

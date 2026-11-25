@@ -9,6 +9,7 @@ import (
 	"time"
 
 	"github.com/vasic-digital/job_seeker/internal/egress"
+	"github.com/vasic-digital/job_seeker/internal/evnorm"
 	"github.com/vasic-digital/job_seeker/internal/match"
 )
 
@@ -111,7 +112,7 @@ func TestLiveTiebreakAgainstHostedJev(t *testing.T) {
 	if d := os.Getenv("JSK_EVIDENCE_DIR"); d != "" {
 		_ = os.MkdirAll(d, 0o755)
 		b, _ := json.MarshalIndent(map[string]any{"task": "JSK-T106", "date": time.Now().UTC().Format(time.RFC3339), "synthetic_inputs_only": true, "gate": "shadow", "advisory": true, "results": recs}, "", " ")
-		if err := os.WriteFile(filepath.Join(d, "live_tiebreak.json"), b, 0o644); err != nil {
+		if err := evnorm.WriteFile(filepath.Join(d, "live_tiebreak.json"), b, 0o644); err != nil {
 			t.Fatal(err)
 		}
 	}

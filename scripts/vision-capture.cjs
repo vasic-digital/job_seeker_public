@@ -11,7 +11,7 @@ const { chromium } = require(path.join(nm, 'playwright'));
 const [url, out, w = '1280', h = '900', scheme = 'light'] = process.argv.slice(2);
 if (!url || !out) { console.error('usage: vision-capture.cjs <url> <out.png> [w] [h] [scheme]'); process.exit(2); }
 (async () => {
-  const b = await chromium.launch({ args: ['--ignore-certificate-errors'] });
+  const b = await chromium.launch({ args: ['--ignore-certificate-errors'], ...(process.env.JSK_CHROMIUM_EXECUTABLE ? { executablePath: process.env.JSK_CHROMIUM_EXECUTABLE } : {}) });
   const ctx = await b.newContext({ ignoreHTTPSErrors: true, viewport: { width: +w, height: +h }, colorScheme: scheme });
   const p = await ctx.newPage();
   const resp = await p.goto(url, { waitUntil: 'networkidle', timeout: 30000 });

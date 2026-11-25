@@ -1,0 +1,26 @@
+ok  	github.com/vasic-digital/job_seeker/internal/match	Ts
+ok  	github.com/vasic-digital/job_seeker/internal/ext	Ts
+ok  	github.com/vasic-digital/job_seeker/internal/ext/ats/parsersim	Ts
+ok  	github.com/vasic-digital/job_seeker/internal/ext/ats/profile	Ts
+ok  	github.com/vasic-digital/job_seeker/internal/ext/builtin	Ts
+ok  	github.com/vasic-digital/job_seeker/internal/ext/channel	Ts
+ok  	github.com/vasic-digital/job_seeker/internal/ext/channel/mailgate	Ts
+ok  	github.com/vasic-digital/job_seeker/internal/ext/channel/mailto	Ts
+ok  	github.com/vasic-digital/job_seeker/internal/ext/channel/openurl	Ts
+ok  	github.com/vasic-digital/job_seeker/internal/ext/channel/smtpcompose	Ts
+ok  	github.com/vasic-digital/job_seeker/internal/ext/compliance	Ts
+ok  	github.com/vasic-digital/job_seeker/internal/ext/deliver	Ts
+ok  	github.com/vasic-digital/job_seeker/internal/ext/eligibility	Ts
+?   	github.com/vasic-digital/job_seeker/internal/ext/exttest	[no test files]
+ok  	github.com/vasic-digital/job_seeker/internal/ext/match/keyword	Ts
+ok  	github.com/vasic-digital/job_seeker/internal/ext/reader/jsonld	Ts
+ok  	github.com/vasic-digital/job_seeker/internal/ext/render/pdflinks	Ts
+ok  	github.com/vasic-digital/job_seeker/internal/ext/render/txt	Ts
+ok  	github.com/vasic-digital/job_seeker/internal/ext/source	Ts
+ok  	github.com/vasic-digital/job_seeker/internal/ext/track	Ts
+ok  	github.com/vasic-digital/job_seeker/internal/ext/verdictstore	Ts
+ok  	github.com/vasic-digital/job_seeker/internal/audit	Ts
+ok  	github.com/vasic-digital/job_seeker/internal/store	Ts
+ok  	github.com/vasic-digital/job_seeker/internal/draft	Ts
+ok  	github.com/vasic-digital/job_seeker/internal/privacy	Ts
+ok  	github.com/vasic-digital/job_seeker/tests/atomicity	Ts

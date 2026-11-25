@@ -11,10 +11,10 @@ import (
 	"strings"
 	"unicode"
 
-	"github.com/goccy/go-yaml"
 	"github.com/vasic-digital/job_seeker/internal/ext"
 	"github.com/vasic-digital/job_seeker/internal/match"
 	"github.com/vasic-digital/job_seeker/internal/providers"
+	"github.com/vasic-digital/job_seeker/internal/yamlsafe"
 )
 
 // Feature scores the share of wanted terms present as whole token sequences.
@@ -110,7 +110,7 @@ func LoadSynonyms(path string) (map[string][]string, error) {
 		return nil, fmt.Errorf("keyword: synonyms not readable")
 	}
 	var f synFile
-	if err := yaml.UnmarshalWithOptions(b, &f, yaml.Strict()); err != nil {
+	if err := yamlsafe.UnmarshalWithOptions(b, &f, yamlsafe.Strict()); err != nil {
 		return nil, fmt.Errorf("keyword: synonyms.yaml invalid (unknown key or wrong shape)")
 	}
 	if f.Schema != "synonyms.v1" {
@@ -128,7 +128,7 @@ func wantedFromSnapshot(path string) ([]string, error) {
 	var s struct {
 		Skills []string `yaml:"skills"`
 	}
-	if err := yaml.Unmarshal(b, &s); err != nil {
+	if err := yamlsafe.Unmarshal(b, &s); err != nil {
 		return nil, fmt.Errorf("keyword: career_snapshot.yaml invalid")
 	}
 	out := append([]string(nil), s.Skills...)

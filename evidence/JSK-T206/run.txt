@@ -1,0 +1,21 @@
+=== RUN   TestBypassAttemptsPolicy
+=== RUN   TestBypassAttemptsPolicy/B1_ineligible_Listing_approved_(G9a)
+=== RUN   TestBypassAttemptsPolicy/B2_second_Listing_approved_while_the_lock_is_held_(G9b)
+=== RUN   TestBypassAttemptsPolicy/B3_employer_cap_exceeded_(G9c)
+=== RUN   TestBypassAttemptsPolicy/B4_duplicate_without_acknowledgement_(G9d)
+=== RUN   TestBypassAttemptsPolicy/B5_policy_changed_between_approve_and_handoff
+=== RUN   TestBypassAttemptsPolicy/B6_override_changed_while_a_live_approval_exists
+--- PASS: TestBypassAttemptsPolicy (0.52s)
+    --- PASS: TestBypassAttemptsPolicy/B1_ineligible_Listing_approved_(G9a) (0.10s)
+    --- PASS: TestBypassAttemptsPolicy/B2_second_Listing_approved_while_the_lock_is_held_(G9b) (0.09s)
+    --- PASS: TestBypassAttemptsPolicy/B3_employer_cap_exceeded_(G9c) (0.09s)
+    --- PASS: TestBypassAttemptsPolicy/B4_duplicate_without_acknowledgement_(G9d) (0.08s)
+    --- PASS: TestBypassAttemptsPolicy/B5_policy_changed_between_approve_and_handoff (0.08s)
+    --- PASS: TestBypassAttemptsPolicy/B6_override_changed_while_a_live_approval_exists (0.08s)
+PASS
+ok  	github.com/vasic-digital/job_seeker/internal/draft	0.540s
+=== RUN   TestConcurrentApprovalsExactlyOneWins
+--- PASS: TestConcurrentApprovalsExactlyOneWins (4.20s)
+PASS
+ok  	github.com/vasic-digital/job_seeker/internal/position	5.235s
+ok  	github.com/vasic-digital/job_seeker/gates/txcheck	0.086s

@@ -1,0 +1,13 @@
+# G-07 method on fresh WeasyPrint PDFs: first 4 words of each source <li>/<p>; 'forward' = the 4 words appear in order in the extractor output, 'reversed' = they appear in the reverse order
+cv-ai-engineering-ar       pdftotext-raw     items= 60 forward=  1 reversed=  6
+cv-ai-engineering-ar       pdftotext-layout  items= 60 forward=  8 reversed=  0
+cv-ai-engineering-ar       mupdf             items= 60 forward= 10 reversed=  0
+cv-ai-engineering-ar       pypdf             items= 60 forward=  3 reversed=  1
+cv-ai-engineering-fa       pdftotext-raw     items= 60 forward=  2 reversed=  5
+cv-ai-engineering-fa       pdftotext-layout  items= 60 forward=  6 reversed=  0
+cv-ai-engineering-fa       mupdf             items= 60 forward=  5 reversed=  0
+cv-ai-engineering-fa       pypdf             items= 60 forward=  4 reversed=  0
+cover-ai-engineering-ar    pdftotext-raw     items= 10 forward=  0 reversed=  1
+cover-ai-engineering-ar    pdftotext-layout  items= 10 forward=  1 reversed=  0
+cover-ai-engineering-ar    mupdf             items= 10 forward=  3 reversed=  0
+cover-ai-engineering-ar    pypdf             items= 10 forward=  4 reversed=  0

@@ -1,0 +1,4 @@
+# github.com/vasic-digital/job_seeker/internal/ingest [github.com/vasic-digital/job_seeker/internal/ingest.test]
+internal/ingest/compliance_test.go:34:4: r.Compliance undefined (type *Runner has no field or method Compliance)
+internal/ingest/compliance_test.go:36:21: undefined: ErrComplianceBlocked
+internal/ingest/compliance_test.go:62:4: r.Compliance undefined (type *Runner has no field or method Compliance)

@@ -8,6 +8,7 @@ import (
 	"testing"
 	"time"
 
+	"github.com/vasic-digital/job_seeker/internal/evnorm"
 	"github.com/vasic-digital/job_seeker/internal/testauthn"
 )
 
@@ -46,7 +47,7 @@ func (l *ledger) flush(t *testing.T, file string) {
 	}
 	_ = os.MkdirAll(dir, 0o755)
 	body := strings.Join(l.lines, "\n") + fmt.Sprintf("\nTOTAL %d cases, %d failed\n", l.n, l.fails)
-	if err := os.WriteFile(filepath.Join(dir, file), []byte(body), 0o644); err != nil {
+	if err := evnorm.WriteFile(filepath.Join(dir, file), []byte(body), 0o644); err != nil {
 		t.Fatal(err)
 	}
 }
@@ -323,7 +324,7 @@ func TestProbeCorpus(t *testing.T) {
 	}
 	t.Logf("corpus: %d cases, %d failed", lg.n, lg.fails)
 	if dir := os.Getenv("JSK_EVIDENCE_DIR"); dir != "" {
-		_ = os.WriteFile(filepath.Join(dir, "server-output.txt"), []byte(redactTokens(s.Output(), s.Secrets)), 0o644)
+		_ = evnorm.WriteFile(filepath.Join(dir, "server-output.txt"), []byte(redactTokens(s.Output(), s.Secrets)), 0o644)
 	}
 }
 
@@ -387,6 +388,6 @@ func TestLoginBurstThrottle(t *testing.T) {
 		t.Fatalf("real login refused after the delay: %d", f.Status)
 	}
 	if dir := os.Getenv("JSK_EVIDENCE_DIR"); dir != "" {
-		_ = os.WriteFile(filepath.Join(dir, "login-burst.txt"), []byte(strings.Join(lg.lines, "\n")+"\n"), 0o644)
+		_ = evnorm.WriteFile(filepath.Join(dir, "login-burst.txt"), []byte(strings.Join(lg.lines, "\n")+"\n"), 0o644)
 	}
 }

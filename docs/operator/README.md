@@ -14,6 +14,9 @@ A private, single-operator job-search assistant. See the root README for scope.
 ## Human in the loop
 Dry-run is the default at every layer. A real handoff needs explicit per-application operator approval; no scheduler, token or CLI path can approve or send.
 
+## Git hooks
+See [git-hooks.md](git-hooks.md): `bash scripts/install-hooks.sh` installs the commit-msg, pre-commit and pre-push wrappers.
+
 ## Running the gates
 `make gates`, `make test-all`, `make full` (see the root README).
 

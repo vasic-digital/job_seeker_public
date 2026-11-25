@@ -1,0 +1,1 @@
+ok  	github.com/vasic-digital/job_seeker/internal/ext/ats/profile	0.098s

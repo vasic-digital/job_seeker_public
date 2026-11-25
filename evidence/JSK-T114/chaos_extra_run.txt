@@ -1,14 +1,26 @@
+=== RUN   TestAuditTamperTrials20
+    audit_trials_test.go:206: 20 trials TAMPERED (walk 11, anchor-only 9); controls clean 20/20; undetected without anchor: map[delete-and-recompute-forward:3 edit-and-recompute-forward:3 tail-truncation:3]
+--- PASS: TestAuditTamperTrials20 (18.48s)
+=== RUN   TestAuditKill9MidTransition20
+    audit_trials_test.go:273: 20 SIGKILLs, all recovered consistent: [{Trial:0 DelayMs:76 Entries:185 PostingsMoved:62 ChainOK:true} {Trial:1 DelayMs:27 Entries:50 PostingsMoved:17 ChainOK:true} {Trial:2 DelayMs:150 Entries:185 PostingsMoved:62 ChainOK:true} {Trial:3 DelayMs:6 Entries:22 PostingsMoved:8 ChainOK:true} {Trial:4 DelayMs:52 Entries:131 PostingsMoved:44 ChainOK:true} {Trial:5 DelayMs:149 Entries:137 PostingsMoved:46 ChainOK:true} {Trial:6 DelayMs:96 Entries:149 PostingsMoved:50 ChainOK:true} {Trial:7 DelayMs:87 Entries:167 PostingsMoved:56 ChainOK:true} {Trial:8 DelayMs:138 Entries:81 PostingsMoved:27 ChainOK:true} {Trial:9 DelayMs:111 Entries:224 PostingsMoved:75 ChainOK:true} {Trial:10 DelayMs:35 Entries:122 PostingsMoved:41 ChainOK:true} {Trial:11 DelayMs:20 Entries:22 PostingsMoved:8 ChainOK:true} {Trial:12 DelayMs:120 Entries:208 PostingsMoved:70 ChainOK:true} {Trial:13 DelayMs:55 Entries:125 PostingsMoved:42 ChainOK:true} {Trial:14 DelayMs:51 Entries:109 PostingsMoved:37 ChainOK:true} {Trial:15 DelayMs:150 Entries:96 PostingsMoved:32 ChainOK:true} {Trial:16 DelayMs:33 Entries:46 PostingsMoved:16 ChainOK:true} {Trial:17 DelayMs:79 Entries:169 PostingsMoved:57 ChainOK:true} {Trial:18 DelayMs:42 Entries:96 PostingsMoved:32 ChainOK:true} {Trial:19 DelayMs:118 Entries:168 PostingsMoved:56 ChainOK:true}]
+--- PASS: TestAuditKill9MidTransition20 (12.31s)
+=== RUN   TestConsistencyCheckHasTeeth
+--- PASS: TestConsistencyCheckHasTeeth (0.18s)
 === RUN   TestDiskFullViaKernelFileSizeLimit
-    disk_lock_clock_test.go:81: disk-full: 35 commits then "disk I/O error (778)"; integrity ok; chain ok
---- PASS: TestDiskFullViaKernelFileSizeLimit (0.13s)
+    disk_lock_clock_test.go:81: disk-full: 30 commits then "disk I/O error (778)"; integrity ok; chain ok
+--- PASS: TestDiskFullViaKernelFileSizeLimit (0.40s)
 === RUN   TestLockContentionAcrossProcesses
---- PASS: TestLockContentionAcrossProcesses (9.39s)
+--- PASS: TestLockContentionAcrossProcesses (10.39s)
 === RUN   TestClockSkewLimiterAndScheduler
---- PASS: TestClockSkewLimiterAndScheduler (0.04s)
+--- PASS: TestClockSkewLimiterAndScheduler (0.19s)
 === RUN   TestTenThousandIngestion
-    ingest10k_test.go:106: 10k: 11.5s (866/s) audit entries 16668 TAMPER-FREE VmHWM 80264 kB
---- PASS: TestTenThousandIngestion (12.09s)
+    ingest10k_test.go:106: 10k: 42.8s (233/s) audit entries 16668 TAMPER-FREE VmHWM 89620 kB
+--- PASS: TestTenThousandIngestion (44.49s)
 === RUN   TestNetworkFaults
---- PASS: TestNetworkFaults (0.79s)
+2026/11/24 23:25:03 INFO fetch job skipped provider=remotive reason=min_interval
+2026/11/24 23:25:03 INFO fetch job skipped provider=remotive reason=min_interval
+2026/11/24 23:25:04 INFO fetch job skipped provider=remotive reason=min_interval
+2026/11/24 23:25:04 INFO fetch job skipped provider=remotive reason=min_interval
+--- PASS: TestNetworkFaults (1.23s)
 PASS
-ok  	github.com/vasic-digital/job_seeker/tests/chaos	22.454s
+ok  	github.com/vasic-digital/job_seeker/tests/chaos	87.767s

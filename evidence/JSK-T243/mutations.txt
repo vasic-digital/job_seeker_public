@@ -1,0 +1,8 @@
+KILLED       ext-txt-encode-drops-separator
+KILLED       ext-txt-verify-ignores-text
+KILLED       ext-txt-trim-not-checked
+KILLED       ext-txt-control-allowed
+KILLED       ext-txt-size-uncapped
+KILLED       ext-txt-nil-resolver-renders
+KILLED       ext-txt-empty-model-ok
+KILLED       ext-txt-equal-ignores-lines

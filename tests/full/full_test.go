@@ -28,7 +28,9 @@ import (
 	"github.com/vasic-digital/job_seeker/internal/buildinfo"
 	"github.com/vasic-digital/job_seeker/internal/crypto"
 	"github.com/vasic-digital/job_seeker/internal/egress"
+	"github.com/vasic-digital/job_seeker/internal/evnorm"
 	"github.com/vasic-digital/job_seeker/internal/ingest"
+	"github.com/vasic-digital/job_seeker/internal/ingest/ingesttest"
 	"github.com/vasic-digital/job_seeker/internal/limiter"
 	"github.com/vasic-digital/job_seeker/internal/match"
 	"github.com/vasic-digital/job_seeker/internal/match/gold"
@@ -46,7 +48,7 @@ func record(t *testing.T) {
 	}
 	_ = os.MkdirAll(d, 0o755)
 	b, _ := json.MarshalIndent(register, "", " ")
-	_ = os.WriteFile(filepath.Join(d, "full_register.json"), b, 0o644)
+	_ = evnorm.WriteFile(filepath.Join(d, "full_register.json"), b, 0o644)
 }
 
 func open(t *testing.T) (*store.DB, *crypto.Keyring) {
@@ -121,7 +123,7 @@ func TestFullLiveDiscovery(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	r := &ingest.Runner{DB: db, Keys: kr, Client: cl, Limiter: &limiter.Limiter{DB: db}, Providers: []providers.Provider{providers.NewRemoteOK()}}
+	r := &ingest.Runner{Compliance: ingesttest.AllowAll{}, DB: db, Keys: kr, Client: cl, Limiter: &limiter.Limiter{DB: db}, Providers: []providers.Provider{providers.NewRemoteOK()}}
 	p := &pipeline.Pipeline{DB: db, Keys: kr, Runner: r, Rules: rules}
 	res, err := p.RunProvider(context.Background(), "remoteok", ingest.TriggerManual)
 	var ref *limiter.RefusedError
@@ -226,7 +228,7 @@ func TestFullDeterministicDownstream(t *testing.T) {
 	var stats pipeline.Stats
 	for run := 0; run < 3; run++ {
 		db, kr := open(t)
-		r := &ingest.Runner{DB: db, Keys: kr, Limiter: &limiter.Limiter{DB: db}, Providers: []providers.Provider{providers.NewRemoteOK()}, Now: func() time.Time { return fixed }}
+		r := &ingest.Runner{Compliance: ingesttest.AllowAll{}, DB: db, Keys: kr, Limiter: &limiter.Limiter{DB: db}, Providers: []providers.Provider{providers.NewRemoteOK()}, Now: func() time.Time { return fixed }}
 		p := &pipeline.Pipeline{DB: db, Keys: kr, Runner: r, Rules: rules, Now: func() time.Time { return fixed }}
 		res, err := p.Inject(context.Background(), "remoteok", providers.Batch{Postings: ps})
 		if err != nil {

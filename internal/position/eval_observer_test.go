@@ -11,6 +11,7 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/vasic-digital/job_seeker/internal/evnorm"
 	"github.com/vasic-digital/job_seeker/internal/store"
 )
 
@@ -105,7 +106,7 @@ func TestObserverCopyEvaluation(t *testing.T) {
 	sort.Strings(report)
 	out := fmt.Sprintf("observer_postings=%d positions=%d auto_merges=%d queued=%d resolver_version=%s\n%s\n", len(ids), len(groups), auto, queued, DefaultParams().Version, strings.Join(report, "\n"))
 	if dst := os.Getenv("JSK_EVIDENCE_DIR"); dst != "" {
-		_ = os.WriteFile(filepath.Join(dst, "resolver-observer-copy.txt"), []byte(out), 0o644)
+		_ = evnorm.WriteFile(filepath.Join(dst, "resolver-observer-copy.txt"), []byte(out), 0o644)
 	}
 	t.Log("\n" + out)
 }

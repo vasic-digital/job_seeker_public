@@ -1,0 +1,1 @@
+OK: manual-intake refusal table green (library and jsctl intake, nothing stored on refusal)

@@ -1,0 +1,7 @@
+KILLED       apply-mode-stored-invalid-shown-ok
+KILLED       apply-mode-unknown-accepted
+KILLED       apply-mode-stored-ignored
+KILLED       favourites-duplicate-accepted
+KILLED       favourites-unknown-provider-accepted
+PROVE-FAILURE OK: a neutral mutant is reported SURVIVED and an unmatched pattern INVALID
+note: a sixth candidate (position/policy.go loadSettings validity check -> false) SURVIVED ; the cause was not investigated (a downstream check may make it redundant); the row was dropped, not weakened

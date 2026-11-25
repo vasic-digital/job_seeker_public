@@ -1,0 +1,17 @@
+--- FAIL: TestEachLegFailureIsNotYes (0.00s)
+    deliver_test.go:135: spf all before final: got yes [], want no [mail_spf_weak]
+    deliver_test.go:135: spf bare all before final: got yes [], want no [mail_spf_weak]
+    deliver_test.go:135: spf open ip4: got yes [], want no [mail_spf_weak]
+    deliver_test.go:135: spf version prefix: got yes [], want no [mail_spf_missing]
+    deliver_test.go:135: dmarc version prefix: got yes [], want no [mail_dmarc_missing]
+    deliver_test.go:135: dmarc pct zero: got yes [], want no [mail_dmarc_weak]
+    deliver_test.go:135: dmarc pct partial: got yes [], want no [mail_dmarc_weak]
+    deliver_test.go:135: dmarc pct junk: got yes [], want no [mail_dmarc_invalid]
+    deliver_test.go:135: dkim without version tag: got yes [], want no [mail_dkim_missing]
+    deliver_test.go:135: dkim test mode: got yes [], want no [mail_dkim_missing]
+    deliver_test.go:135: empty json body: got no [mail_spf_missing], want unknown [mail_lookup_failed]
+    deliver_test.go:135: null json body: got no [mail_spf_missing], want unknown [mail_lookup_failed]
+    deliver_test.go:135: truncated answer: got yes [], want unknown [mail_lookup_failed]
+FAIL
+FAIL	github.com/vasic-digital/job_seeker/internal/ext/deliver	0.020s
+FAIL

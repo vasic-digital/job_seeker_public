@@ -19,13 +19,32 @@ OUT="${OUT:-$ROOT/evidence/JSK-T084}"
 WORK="${VISION_QA_WORK:-/mnt/DATA1TB/claude-work/tmp/vision-qa}"
 PORT="${VISION_OLLAMA_PORT:-11500}"
 export HELIX_VISION_ENDPOINT="${HELIX_VISION_ENDPOINT:-http://127.0.0.1:$PORT/v1/chat/completions}"
+# The endpoint receives every frame, so its HOST must be this machine. The URL is PARSED (a prefix glob accepts
+# http://127.0.0.1:1@evil.example/, whose real host is evil.example); user info is refused. Checked before any
+# tool check or network call. Needs python3 only here, and python3 is already required below.
+command -v python3 >/dev/null 2>&1 || { echo "cannot determine: python3 missing" >&2; exit 2; }
+python3 - "$HELIX_VISION_ENDPOINT" <<'PY' || { echo "refusing: endpoint must be local (no frame leaves the host): host is not loopback, or the URL carries user info" >&2; exit 2; }
+import ipaddress, sys
+from urllib.parse import urlsplit
+try:
+    u = urlsplit(sys.argv[1].strip()); h = u.hostname; u.port
+except ValueError:
+    sys.exit(1)
+if u.scheme != "http" or not h or u.username is not None or u.password is not None:
+    sys.exit(1)
+if h.lower() == "localhost":
+    sys.exit(0)
+try:
+    sys.exit(0 if ipaddress.ip_address(h).is_loopback else 1)
+except ValueError:
+    sys.exit(1)
+PY
 export HELIX_VISION_MODEL="${HELIX_VISION_MODEL:-${VISION_MODEL:-qwen2.5vl:3b}}"
 VV="${JSK_VERIFY_VISION_BIN:-}"
 need() { command -v "$1" >/dev/null 2>&1 || { echo "cannot determine: $1 missing" >&2; exit 2; }; }
 need go; need node; need python3; need curl
 [ -n "$VV" ] && [ -x "$VV" ] || { echo "cannot determine: set JSK_VERIFY_VISION_BIN (helixqa-verify-vision)" >&2; exit 2; }
 [ -n "${JSK_PLAYWRIGHT_NODE_MODULES:-}" ] || { echo "cannot determine: set JSK_PLAYWRIGHT_NODE_MODULES" >&2; exit 2; }
-case "$HELIX_VISION_ENDPOINT" in http://127.0.0.1:*|http://localhost:*) ;; *) echo "refusing: endpoint must be local (no frame leaves the host): $HELIX_VISION_ENDPOINT" >&2; exit 2;; esac
 curl -fsS --max-time 3 "http://127.0.0.1:$PORT/api/version" >/dev/null || { echo "cannot determine: local vision server down (scripts/vision-ollama.sh start)" >&2; exit 2; }
 mkdir -p "$OUT/frames" "$OUT/verdicts" "$WORK/bin"; : >"$OUT/summary.tsv"
 PIDS=()
@@ -63,6 +82,11 @@ node "$HERE/vision-capture.cjs" "https://localhost:$HP/login" "$OUT/frames/live-
 LOGIN_EXP="Sign in,passkey"
 run_case VQA-LIVE-LOGIN "$OUT/frames/live-login.png" "$LOGIN_EXP" "" "$P_DESC"
 
+# ---- authenticated live leg: real passkey ceremony (virtual authenticator) against the SAME daemon, then real frames
+BOOTSTRAP_TOKEN="$JOBSEEKER_BOOTSTRAP_TOKEN" node "$HERE/vision-login-capture.cjs" "https://localhost:$HP" "$OUT/frames" >"$OUT/frames/live-auth.capture.json" || { echo "passkey sign-in capture failed" >&2; exit 2; }
+run_case VQA-LIVE-AUTH-INBOX "$OUT/frames/live-auth-inbox.png" "Inbox,Settings" "" "$P_DESC"
+run_case VQA-LIVE-AUTH-SETTINGS "$OUT/frames/live-auth-settings.png" "Settings" "" "$P_DESC"
+
 # ---- console leg: frames from the real authenticated journey
 for n in inbox draft settings; do cp "$ROOT/evidence/JSK-T083/zoom200-$n.png" "$OUT/frames/console-$n.png"; done
 run_case VQA-CONSOLE-INBOX "$OUT/frames/console-inbox.png" "Inbox,Review queue,Applications,Settings" "" "$P_DESC"
@@ -71,11 +95,15 @@ run_case VQA-CONSOLE-SETTINGS "$OUT/frames/console-settings.png" "Settings" "" "
 
 # ---- paired mutation: a server answering 200 to everything, same expectations as the login frame
 for m in ok error; do
-  MPORT="$(free_port)"; python3 "$HERE/vision-mutant-server.py" "$MPORT" "$m" & PIDS+=($!); sleep 1
+  MPORT="$(free_port)"; python3 "$HERE/vision-mutant-server.py" "$MPORT" "$m" & PIDS+=($!)
+  # readiness poll (no fixed sleep): the mutant must ACCEPT a connection before it is screenshotted
+  up=""; for _ in $(seq 1 50); do curl -fsS --max-time 1 "http://127.0.0.1:$MPORT/login" >/dev/null 2>&1 && { up=1; break; }; sleep 0.1; done
+  [ -n "$up" ] || { echo "mutant-$m server did not become ready" >&2; exit 2; }
   node "$HERE/vision-capture.cjs" "http://127.0.0.1:$MPORT/login" "$OUT/frames/mutant-$m.png" >"$OUT/frames/mutant-$m.capture.json" || exit 2
   run_case "VQA-MUTANT-$m" "$OUT/frames/mutant-$m.png" "$LOGIN_EXP" "" "$P_DESC" expect-fail
 done
 # keep the evidence free of host-specific absolute paths
 find "$OUT" -type f \( -name '*.json' -o -name '*.log' \) -exec sed -i "s#$OUT#evidence/JSK-T084#g" {} +
+bash "$ROOT/scripts/evnorm.sh" -w "$OUT" || exit 2   # shared evidence normaliser (home, checkout, user, host, temp dirs)
 (cd "$OUT" && find . -type f ! -name SHA256SUMS | sort | xargs sha256sum >SHA256SUMS)
 echo "summary:"; cat "$OUT/summary.tsv"; exit $rc
